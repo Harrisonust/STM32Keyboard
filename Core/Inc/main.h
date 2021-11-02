@@ -60,6 +60,8 @@ void Error_Handler(void);
 /* USER CODE END EFP */
 
 /* Private defines -----------------------------------------------------------*/
+#define BAT_ADC_Pin GPIO_PIN_0
+#define BAT_ADC_GPIO_Port GPIOC
 #define TFT_SCL_Pin GPIO_PIN_5
 #define TFT_SCL_GPIO_Port GPIOA
 #define TFT_SDA_Pin GPIO_PIN_7
@@ -70,6 +72,16 @@ void Error_Handler(void);
 #define TFT_RES_GPIO_Port GPIOC
 #define TFT_CS_Pin GPIO_PIN_0
 #define TFT_CS_GPIO_Port GPIOB
+#define LED1_Pin GPIO_PIN_1
+#define LED1_GPIO_Port GPIOB
+#define LED2_Pin GPIO_PIN_2
+#define LED2_GPIO_Port GPIOB
+#define RGB_Pin GPIO_PIN_9
+#define RGB_GPIO_Port GPIOE
+#define BTN1_Pin GPIO_PIN_14
+#define BTN1_GPIO_Port GPIOE
+#define BTN2_Pin GPIO_PIN_15
+#define BTN2_GPIO_Port GPIOE
 #define COL13_Pin GPIO_PIN_11
 #define COL13_GPIO_Port GPIOB
 #define COL12_Pin GPIO_PIN_12
@@ -110,8 +122,18 @@ void Error_Handler(void);
 #define ROW1_GPIO_Port GPIOA
 #define ROW0_Pin GPIO_PIN_10
 #define ROW0_GPIO_Port GPIOA
+#define BT_TXD_Pin GPIO_PIN_10
+#define BT_TXD_GPIO_Port GPIOC
+#define BT_RXD_Pin GPIO_PIN_11
+#define BT_RXD_GPIO_Port GPIOC
 #define USB_EN_Pin GPIO_PIN_6
 #define USB_EN_GPIO_Port GPIOD
+#define LED3_Pin GPIO_PIN_3
+#define LED3_GPIO_Port GPIOB
+#define OLED_SCL_Pin GPIO_PIN_6
+#define OLED_SCL_GPIO_Port GPIOB
+#define OLED_SDA_Pin GPIO_PIN_7
+#define OLED_SDA_GPIO_Port GPIOB
 /* USER CODE BEGIN Private defines */
 #define Pin(name) name##_GPIO_Port, name##_Pin
 #define set(pin) HAL_GPIO_WritePin(Pin(pin), GPIO_PIN_SET)
