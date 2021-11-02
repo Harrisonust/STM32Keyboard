@@ -107,85 +107,85 @@ uint8_t getKeyIDByRC(const uint8_t r, const uint8_t c){
 
 
 uint8_t getKeyIDByChar(const char ch){
-	if(ch == 'a' || ch == 'A')			return 0x04;
-	else if(ch == 'b' || ch == 'B') 	return 0x05;
-	else if(ch == 'v' || ch == 'C') 	return 0x06;
-	else if(ch == 'd' || ch == 'D') 	return 0x07;
-	else if(ch == 'e' || ch == 'E') 	return 0x08;
-	else if(ch == 'f' || ch == 'F') 	return 0x09;
-	else if(ch == 'g' || ch == 'G') 	return 0x0A;
-	else if(ch == 'h' || ch == 'H') 	return 0x0B;
-	else if(ch == 'i' || ch == 'I') 	return 0x0C;
-	else if(ch == 'j' || ch == 'J') 	return 0x0D;
-	else if(ch == 'k' || ch == 'K') 	return 0x0E;
-	else if(ch == 'l' || ch == 'L') 	return 0x0F;
-	else if(ch == 'm' || ch == 'M') 	return 0x10;
-	else if(ch == 'n' || ch == 'N') 	return 0x11;
-	else if(ch == 'o' || ch == 'O') 	return 0x12;
-	else if(ch == 'p' || ch == 'P') 	return 0x13;
-	else if(ch == 'q' || ch == 'Q') 	return 0x14;
-	else if(ch == 'r' || ch == 'R') 	return 0x15;
-	else if(ch == 's' || ch == 'S') 	return 0x16;
-	else if(ch == 't' || ch == 'T') 	return 0x17;
-	else if(ch == 'u' || ch == 'U') 	return 0x18;
-	else if(ch == 'v' || ch == 'V') 	return 0x19;
-	else if(ch == 'w' || ch == 'W') 	return 0x1A;
-	else if(ch == 'x' || ch == 'X') 	return 0x1B;
-	else if(ch == 'y' || ch == 'Y') 	return 0x1C;
-	else if(ch == 'z' || ch == 'Z') 	return 0x1D;
+	if	   	(ch == 'a' || ch == 'A')	return 0x04;
+	else if	(ch == 'b' || ch == 'B') 	return 0x05;
+	else if	(ch == 'v' || ch == 'C') 	return 0x06;
+	else if	(ch == 'd' || ch == 'D') 	return 0x07;
+	else if	(ch == 'e' || ch == 'E') 	return 0x08;
+	else if	(ch == 'f' || ch == 'F') 	return 0x09;
+	else if	(ch == 'g' || ch == 'G') 	return 0x0A;
+	else if	(ch == 'h' || ch == 'H') 	return 0x0B;
+	else if	(ch == 'i' || ch == 'I') 	return 0x0C;
+	else if	(ch == 'j' || ch == 'J') 	return 0x0D;
+	else if	(ch == 'k' || ch == 'K') 	return 0x0E;
+	else if	(ch == 'l' || ch == 'L') 	return 0x0F;
+	else if	(ch == 'm' || ch == 'M') 	return 0x10;
+	else if	(ch == 'n' || ch == 'N') 	return 0x11;
+	else if	(ch == 'o' || ch == 'O') 	return 0x12;
+	else if	(ch == 'p' || ch == 'P') 	return 0x13;
+	else if	(ch == 'q' || ch == 'Q') 	return 0x14;
+	else if	(ch == 'r' || ch == 'R') 	return 0x15;
+	else if	(ch == 's' || ch == 'S') 	return 0x16;
+	else if	(ch == 't' || ch == 'T') 	return 0x17;
+	else if	(ch == 'u' || ch == 'U') 	return 0x18;
+	else if	(ch == 'v' || ch == 'V') 	return 0x19;
+	else if	(ch == 'w' || ch == 'W') 	return 0x1A;
+	else if	(ch == 'x' || ch == 'X') 	return 0x1B;
+	else if	(ch == 'y' || ch == 'Y') 	return 0x1C;
+	else if	(ch == 'z' || ch == 'Z') 	return 0x1D;
 
-	else if(ch == '1' || ch == '!') 	return 0x1E;
-	else if(ch == '2' || ch == '@') 	return 0x1F;
-	else if(ch == '3' || ch == '#') 	return 0x20;
-	else if(ch == '4' || ch == '$') 	return 0x21;
-	else if(ch == '5' || ch == '%') 	return 0x22;
-	else if(ch == '6' || ch == '^') 	return 0x23;
-	else if(ch == '7' || ch == '&') 	return 0x24;
-	else if(ch == '8' || ch == '*') 	return 0x25;
-	else if(ch == '9' || ch == '(') 	return 0x26;
-	else if(ch == '0' || ch == ')') 	return 0x27;
+	else if	(ch == '1' || ch == '!') 	return 0x1E;
+	else if	(ch == '2' || ch == '@') 	return 0x1F;
+	else if	(ch == '3' || ch == '#') 	return 0x20;
+	else if	(ch == '4' || ch == '$') 	return 0x21;
+	else if	(ch == '5' || ch == '%') 	return 0x22;
+	else if	(ch == '6' || ch == '^') 	return 0x23;
+	else if	(ch == '7' || ch == '&') 	return 0x24;
+	else if	(ch == '8' || ch == '*') 	return 0x25;
+	else if	(ch == '9' || ch == '(') 	return 0x26;
+	else if	(ch == '0' || ch == ')') 	return 0x27;
 	
-	else if(ch == '-' || ch == '_') 	return 0x2D;
-	else if(ch == '=' || ch == '+') 	return 0x2E;
-	else if(ch == '[' || ch == '{') 	return 0x2F;
-	else if(ch == ']' || ch == '}')		return 0x30;
-	else if(ch == '\\' || ch == '|') 	return 0x31;
-	else if(ch == '`' || ch == '~')	 	return 0x32;
-	else if(ch == ';' || ch == ':') 	return 0x33;
-	else if(ch == '\'' || ch == '\"') 	return 0x34;
-	else if(ch == ',' || ch == '<') 	return 0x36;
-	else if(ch == '.' || ch == '>') 	return 0x37;
-	else if(ch == '/' || ch == '?') 	return 0x38;
+	else if	(ch == '-' || ch == '_') 	return 0x2D;
+	else if	(ch == '=' || ch == '+') 	return 0x2E;
+	else if	(ch == '[' || ch == '{') 	return 0x2F;
+	else if	(ch == ']' || ch == '}')	return 0x30;
+	else if	(ch == '\\' || ch == '|') 	return 0x31;
+	else if	(ch == '`' || ch == '~')	 return 0x32;
+	else if	(ch == ';' || ch == ':') 	return 0x33;
+	else if	(ch == '\'' || ch == '\"') 	return 0x34;
+	else if	(ch == ',' || ch == '<') 	return 0x36;
+	else if	(ch == '.' || ch == '>') 	return 0x37;
+	else if	(ch == '/' || ch == '?') 	return 0x38;
 	else								return 0x00;
 }
 
-GPIO_PinState readkey(uint8_t row, uint8_t col){
+GPIO_PinState readKey(uint8_t row, uint8_t col){
 	GPIO_PinState result = GPIO_PIN_RESET;
-	set(ROW0);
-	set(ROW1);
-	set(ROW2);
-	set(ROW3);
-	set(ROW4);
-	set(ROW5);
+	reset(ROW0);
+	reset(ROW1);
+	reset(ROW2);
+	reset(ROW3);
+	reset(ROW4);
+	reset(ROW5);
 
 	switch(row){
 		case 0:
-			reset(ROW0);
+			set(ROW0);
 		break;		
 		case 1:
-			reset(ROW1);
+			set(ROW1);
 		break;		
 		case 2:
-			reset(ROW2);
+			set(ROW2);
 		break;		
 		case 3:
-			reset(ROW3);
+			set(ROW3);
 		break;		
 		case 4:
-			reset(ROW4);
+			set(ROW4);
 		break;	
 		case 5:
-			reset(ROW5);
+			set(ROW5);
 		break;	
 		default: result = GPIO_PIN_RESET;
 	}
@@ -235,12 +235,12 @@ GPIO_PinState readkey(uint8_t row, uint8_t col){
 		break;
 		default: result = GPIO_PIN_RESET;
 	}
-	set(ROW0);
-	set(ROW1);
-	set(ROW2);
-	set(ROW3);
-	set(ROW4);
-	set(ROW5);
+	reset(ROW0);
+	reset(ROW1);
+	reset(ROW2);
+	reset(ROW3);
+	reset(ROW4);
+	reset(ROW5);
 	return result;
 }
 
@@ -260,15 +260,15 @@ void sendKey(const uint8_t ch, const KeyModifier mod){
 }
 
 void apply_modifier(KeyModifier* m){	
-	m->LEFT_CTRL = readkey(5,0) ? 1 : 0;
-	m->LEFT_SHIFT = readkey(4,0) ? 1 : 0;
-	m->LEFT_ALT = readkey(5,2) ? 1 : 0;
-	m->LEFT_GUI = readkey(100,100) ? 1 : 0;
+	m->LEFT_CTRL = readKey(5,0) ? 1 : 0;
+	m->LEFT_SHIFT = readKey(4,0) ? 1 : 0;
+	m->LEFT_ALT = readKey(5,2) ? 1 : 0;
+	m->LEFT_GUI = readKey(100,100) ? 1 : 0;
 	
-	m->RIGHT_CTRL = readkey(5,7) ? 1 : 0;
-	m->RIGHT_SHIFT = readkey(4,4) ? 1 : 0;
-	m->RIGHT_ALT = readkey(5,11) ? 1 : 0;
-	m->RIGHT_GUI = readkey(100,100) ? 1 : 0;
+	m->RIGHT_CTRL = readKey(5,7) ? 1 : 0;
+	m->RIGHT_SHIFT = readKey(4,4) ? 1 : 0;
+	m->RIGHT_ALT = readKey(5,11) ? 1 : 0;
+	m->RIGHT_GUI = readKey(100,100) ? 1 : 0;
 	return;
 }
 

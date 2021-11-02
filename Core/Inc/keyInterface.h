@@ -39,7 +39,7 @@ void keyThread(void);
 
 void keyInterfaceInit(void);
 
-GPIO_PinState readkey(uint8_t row, uint8_t col);
+GPIO_PinState readKey(uint8_t row, uint8_t col);
 
 void sendKey(const uint8_t ch, const KeyModifier mod);
 
