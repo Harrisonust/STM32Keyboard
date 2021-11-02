@@ -12,9 +12,6 @@ void keyInterfaceInit(void){
 	keyboardStct.hid.KEYCODE4 = 0x00;
 	keyboardStct.hid.KEYCODE5 = 0x00;
 	keyboardStct.hid.KEYCODE6 = 0x00;
-	keyboardStct.keyboardEnablePort = USB_EN_GPIO_Port;
-	keyboardStct.keyboardEnablePin = USB_EN_Pin;
-	HAL_GPIO_WritePin(keyboardStct.keyboardEnablePort, keyboardStct.keyboardEnablePin, GPIO_PIN_RESET);
 }
 
 uint8_t getKeyIDByRC(const uint8_t r, const uint8_t c){
