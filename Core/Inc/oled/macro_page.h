@@ -9,6 +9,7 @@
 #define INC_OLED_MACRO_PAGE_H_
 
 #define MAX_MACRO 2
+#define MAX_MACRO_TEMPLATE 64 //must be in 2^n
 #define START_ADDR 0x0807F800
 
 #include "page_template.h"

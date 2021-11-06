@@ -26,9 +26,9 @@ Node *macro_iter = NULL;
 Macro combination[MAX_MACRO];
 
 void macro_init(){
-	uint32_t data[2]={0};
+	uint32_t data[MAX_MACRO_TEMPLATE/4]={0};
 	for(int i = 0; i < MAX_MACRO; i++){
-		Flash_Read_Data(START_ADDR + 8*i, &data, 2);
+		Flash_Read_Data(START_ADDR + MAX_MACRO_TEMPLATE*i, &data, MAX_MACRO_TEMPLATE/4);
 		if(data[0] != 0XFFFFFFFF){
 
 			uint8_t internal_i = 0;
@@ -169,14 +169,14 @@ void macro_onclick(char *input, int charNum){
 				}
 				{
 					//insert flash handling
-					char template[8] = {0}; //hard cap
-					volatile uint32_t final_data[2] = {0};
+					char template[MAX_MACRO_TEMPLATE] = {0}; //hard cap
+					volatile uint32_t final_data[MAX_MACRO_TEMPLATE/4] = {0};
 					//insert keybind
 					template[0] = combination[current_macro].keybind;
 					int index = 0;
 					Node *temp = macro_head;
 					while(temp != NULL){
-						if(index >= 7) break;
+						if(index >= (MAX_MACRO_TEMPLATE - 1)) break;
 						template[1 + index] = temp->data;
 						temp = temp->next;
 						index++;
@@ -184,7 +184,7 @@ void macro_onclick(char *input, int charNum){
 					template[1 + index] = '/';
 					Str_To_uint32(template, final_data);
 					HAL_Delay(1000);
-					Flash_Write_Data(START_ADDR + (8 * current_macro), final_data, 2);
+					Flash_Write_Data(START_ADDR + (MAX_MACRO_TEMPLATE * current_macro), final_data, MAX_MACRO_TEMPLATE/4);
 					//
 				}
 			} //save macro
@@ -214,5 +214,3 @@ void macro_onclick(char *input, int charNum){
 	}
 	macro_update();
 }
-
-
