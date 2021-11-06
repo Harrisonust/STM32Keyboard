@@ -552,8 +552,19 @@ void StartDebugTask(void const * argument)
   /* Infinite loop */
   for(;;)
   {
-	HAL_GPIO_TogglePin(LED1_GPIO_Port, LED1_Pin);
-    osDelay(100);
+	if(readKey(1,1))
+		HAL_GPIO_WritePin(LED1_GPIO_Port, LED1_Pin, 1);
+	else
+		HAL_GPIO_WritePin(LED1_GPIO_Port, LED1_Pin, 0);
+	if(readKey(2,1))
+		HAL_GPIO_WritePin(LED2_GPIO_Port, LED2_Pin, 1);
+	else
+		HAL_GPIO_WritePin(LED2_GPIO_Port, LED2_Pin, 0);
+	if(readKey(3,1))
+		HAL_GPIO_WritePin(LED3_GPIO_Port, LED3_Pin, 1);
+	else
+		HAL_GPIO_WritePin(LED3_GPIO_Port, LED3_Pin, 0);
+    osDelay(1);
   }
   /* USER CODE END 5 */
 }
@@ -571,7 +582,7 @@ void StartDebugTask02(void const * argument)
   /* Infinite loop */
   for(;;)
   {
-	HAL_GPIO_TogglePin(LED2_GPIO_Port, LED2_Pin);
+//	HAL_GPIO_TogglePin(LED2_GPIO_Port, LED2_Pin);
     osDelay(210);
   }
   /* USER CODE END StartDebugTask02 */
