@@ -214,3 +214,12 @@ void macro_onclick(char *input, int charNum){
 	}
 	macro_update();
 }
+
+Node* get_macro(char value){
+	for(int i = 0; i < MAX_MACRO; i++){
+		if(combination[i] == value){
+			return combination[i]->macro;
+		}
+	}
+	return NULL;
+}

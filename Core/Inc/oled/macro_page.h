@@ -28,5 +28,6 @@ extern
 void macro_update();
 void macro_onclick(char *input, int charNum);
 void macro_page_update();
+Node* get_macro(char value);
 
 #endif /* INC_OLED_MACRO_PAGE_H_ */
