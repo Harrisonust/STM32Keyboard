@@ -84,7 +84,7 @@ void WS2812_BreathTask(WS2812* ws);
 void WS2812_StaticTask(WS2812* ws);
 
 // an infinite loop
-void WS2812_LED_Task(void* par);
+void WS2812_LED_Task(void const* par);
 
 #endif /* INC_WS2812_H_ */
 
