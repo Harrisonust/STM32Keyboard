@@ -116,6 +116,9 @@ int main(void)
   MX_I2C1_Init();
   MX_UART4_Init();
   /* USER CODE BEGIN 2 */
+  HAL_ADCEx_Calibration_Start(hadc)
+  HAL_ADC_Start(&hadc1);
+
   keyInterfaceInit();
   oled_ui_init();
 

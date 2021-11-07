@@ -18,8 +18,6 @@ void status_update(){
 	ssd1306_WriteString(temp, Font_7x10, White);
 
 	//Handle Battery
-	HAL_ADC_Start(&hadc1);
-	HAL_ADC_PollForConversion(&hadc1, 1000);
 	uint32_t battery_value = HAL_ADC_GetValue(&hadc1);
 
 	sprintf(temp, "Battery : %u %%", battery_value);
