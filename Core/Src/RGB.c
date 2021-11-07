@@ -86,7 +86,7 @@ void WS2812_LoopTask(WS2812* ws){
 
 		WS2812_LED_SetRGB(ws, led_index, defaultColorList[color_index]);
 		WS2812_sendData(ws);
-		//		osDelay(80); this line should be added once the rtos is done
+		osDelay(80);
 	}
 }
 
@@ -113,7 +113,7 @@ void WS2812_BreathTask(WS2812* ws){
 
 		WS2812_sendData(ws);
 		led_index += step;
-		//osDelay(60); this line should be added once the rtos is done
+		osDelay(60);
 	}
 }
 
@@ -123,11 +123,11 @@ void WS2812_StaticTask(WS2812* ws){
 		WS2812_LED_SetRGB(ws, i, defaultColorList[i]);
 	for(;;){
 		WS2812_sendData(ws);
-//		osDelay(1); this line should be added once the rtos is done
+		osDelay(10);
 	}
 }
 
-void WS2812_LED_Task(void* par){
+void WS2812_LED_Task(void const * par){
 	WS2812_InitStruct ws2812_initStruct = {.LED_num = 10, .tim = &htim1, . channel = TIM_CHANNEL_1};
 	WS2812_init(&ws2812, &ws2812_initStruct);
 	WS2812Mode mode = LOOPMODE;

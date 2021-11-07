@@ -26,7 +26,7 @@
 /* Private includes ----------------------------------------------------------*/
 /* USER CODE BEGIN Includes */
 #include "keyInterface.h"
-
+#include "RGB.h"
 /* USER CODE END Includes */
 
 /* Private typedef -----------------------------------------------------------*/
@@ -52,11 +52,13 @@ I2C_HandleTypeDef hi2c1;
 SPI_HandleTypeDef hspi1;
 
 TIM_HandleTypeDef htim1;
+DMA_HandleTypeDef hdma_tim1_ch1;
 
 UART_HandleTypeDef huart4;
 
 osThreadId debugTaskHandle;
 osThreadId debugTask02Handle;
+osThreadId RGBTaskHandle;
 /* USER CODE BEGIN PV */
 
 /* USER CODE END PV */
@@ -68,9 +70,11 @@ static void MX_ADC1_Init(void);
 static void MX_SPI1_Init(void);
 static void MX_TIM1_Init(void);
 static void MX_I2C1_Init(void);
+static void MX_DMA_Init(void);
 static void MX_UART4_Init(void);
 void StartDebugTask(void const * argument);
 void StartDebugTask02(void const * argument);
+void StartRGBTask(void const * argument);
 
 /* USER CODE BEGIN PFP */
 
@@ -78,7 +82,7 @@ void StartDebugTask02(void const * argument);
 
 /* Private user code ---------------------------------------------------------*/
 /* USER CODE BEGIN 0 */
-
+extern WS2812 ws2812;
 /* USER CODE END 0 */
 
 /**
@@ -113,9 +117,12 @@ int main(void)
   MX_SPI1_Init();
   MX_TIM1_Init();
   MX_I2C1_Init();
+  MX_DMA_Init();
   MX_UART4_Init();
   /* USER CODE BEGIN 2 */
   keyInterfaceInit();
+//  oled_ui_init();
+
   /* USER CODE END 2 */
 
   /* USER CODE BEGIN RTOS_MUTEX */
@@ -140,8 +147,12 @@ int main(void)
   debugTaskHandle = osThreadCreate(osThread(debugTask), NULL);
 
   /* definition and creation of debugTask02 */
-  osThreadDef(debugTask02, StartDebugTask02, osPriorityIdle, 0, 128);
+  osThreadDef(debugTask02, StartDebugTask02, osPriorityNormal, 0, 128);
   debugTask02Handle = osThreadCreate(osThread(debugTask02), NULL);
+
+  /* definition and creation of RGBTask */
+  osThreadDef(RGBTask, StartRGBTask, osPriorityNormal, 0, 128);
+  RGBTaskHandle = osThreadCreate(osThread(RGBTask), NULL);
 
   /* USER CODE BEGIN RTOS_THREADS */
   /* add threads, ... */
@@ -284,7 +295,7 @@ static void MX_I2C1_Init(void)
 
   /* USER CODE END I2C1_Init 1 */
   hi2c1.Instance = I2C1;
-  hi2c1.Init.ClockSpeed = 100000;
+  hi2c1.Init.ClockSpeed = 400000;
   hi2c1.Init.DutyCycle = I2C_DUTYCYCLE_2;
   hi2c1.Init.OwnAddress1 = 0;
   hi2c1.Init.AddressingMode = I2C_ADDRESSINGMODE_7BIT;
@@ -361,9 +372,9 @@ static void MX_TIM1_Init(void)
 
   /* USER CODE END TIM1_Init 1 */
   htim1.Instance = TIM1;
-  htim1.Init.Prescaler = 0;
+  htim1.Init.Prescaler = 16;
   htim1.Init.CounterMode = TIM_COUNTERMODE_UP;
-  htim1.Init.Period = 0;
+  htim1.Init.Period = 13;
   htim1.Init.ClockDivision = TIM_CLOCKDIVISION_DIV1;
   htim1.Init.RepetitionCounter = 0;
   htim1.Init.AutoReloadPreload = TIM_AUTORELOAD_PRELOAD_DISABLE;
@@ -387,13 +398,18 @@ static void MX_TIM1_Init(void)
     Error_Handler();
   }
   sConfigOC.OCMode = TIM_OCMODE_PWM1;
-  sConfigOC.Pulse = 0;
+  sConfigOC.Pulse = 11;
   sConfigOC.OCPolarity = TIM_OCPOLARITY_HIGH;
   sConfigOC.OCNPolarity = TIM_OCNPOLARITY_HIGH;
   sConfigOC.OCFastMode = TIM_OCFAST_DISABLE;
   sConfigOC.OCIdleState = TIM_OCIDLESTATE_RESET;
   sConfigOC.OCNIdleState = TIM_OCNIDLESTATE_RESET;
   if (HAL_TIM_PWM_ConfigChannel(&htim1, &sConfigOC, TIM_CHANNEL_1) != HAL_OK)
+  {
+    Error_Handler();
+  }
+  sConfigOC.Pulse = 0;
+  if (HAL_TIM_PWM_ConfigChannel(&htim1, &sConfigOC, TIM_CHANNEL_2) != HAL_OK)
   {
     Error_Handler();
   }
@@ -445,6 +461,21 @@ static void MX_UART4_Init(void)
   /* USER CODE BEGIN UART4_Init 2 */
 
   /* USER CODE END UART4_Init 2 */
+
+}
+
+/**
+  * Enable DMA controller clock
+  */
+static void MX_DMA_Init(void)
+{
+  /* DMA controller clock enable */
+  __HAL_RCC_DMA1_CLK_ENABLE();
+
+  /* DMA interrupt init */
+  /* DMA1_Channel2_IRQn interrupt configuration */
+  HAL_NVIC_SetPriority(DMA1_Channel2_IRQn, 5, 0);
+  HAL_NVIC_EnableIRQ(DMA1_Channel2_IRQn);
 
 }
 
@@ -564,6 +595,10 @@ void StartDebugTask(void const * argument)
 		HAL_GPIO_WritePin(LED3_GPIO_Port, LED3_Pin, 1);
 	else
 		HAL_GPIO_WritePin(LED3_GPIO_Port, LED3_Pin, 0);
+	KeyModifier m={0};
+
+	if(readKey(0,0)) sendKey('a', m);
+//	HAL_GPIO_TogglePin(LED1_GPIO_Port, LED1_Pin);
     osDelay(1);
   }
   /* USER CODE END 5 */
@@ -580,12 +615,43 @@ void StartDebugTask02(void const * argument)
 {
   /* USER CODE BEGIN StartDebugTask02 */
   /* Infinite loop */
+//  oled_ui_init();
   for(;;)
   {
-//	HAL_GPIO_TogglePin(LED2_GPIO_Port, LED2_Pin);
-    osDelay(210);
+
+	HAL_GPIO_TogglePin(LED2_GPIO_Port, LED2_Pin);
+    osDelay(100);
   }
   /* USER CODE END StartDebugTask02 */
+}
+
+/* USER CODE BEGIN Header_StartRGBTask */
+/**
+* @brief Function implementing the RGBTask thread.
+* @param argument: Not used
+* @retval None
+*/
+/* USER CODE END Header_StartRGBTask */
+void StartRGBTask(void const * argument)
+{
+  /* USER CODE BEGIN StartRGBTask */
+  /* Infinite loop */
+	WS2812_InitStruct ws2812_initStruct = {.LED_num = 10, .tim = &htim1, . channel = TIM_CHANNEL_1};
+	WS2812_init(&ws2812, &ws2812_initStruct);
+	WS2812Mode mode = LOOPMODE;
+//
+//	if(mode == LOOPMODE)
+		WS2812_LoopTask(&ws2812);
+//	if(mode == BREATHMODE)
+//		WS2812_BreathTask(&ws2812);
+//	if(mode == STATICMODE)
+//		WS2812_StaticTask(&ws2812);
+
+//	WS2812_Deinit(&ws2812);
+	for(;;){
+		osDelay(1);
+	}
+  /* USER CODE END StartRGBTask */
 }
 
 /**
