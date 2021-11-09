@@ -64,10 +64,6 @@ void Error_Handler(void);
 #define BAT_ADC_GPIO_Port GPIOC
 #define VOL_ADC_Pin GPIO_PIN_1
 #define VOL_ADC_GPIO_Port GPIOA
-#define TFT_SCL_Pin GPIO_PIN_5
-#define TFT_SCL_GPIO_Port GPIOA
-#define TFT_SDA_Pin GPIO_PIN_7
-#define TFT_SDA_GPIO_Port GPIOA
 #define TFT_DC_Pin GPIO_PIN_4
 #define TFT_DC_GPIO_Port GPIOC
 #define TFT_RES_Pin GPIO_PIN_5
@@ -78,8 +74,6 @@ void Error_Handler(void);
 #define LED1_GPIO_Port GPIOB
 #define LED2_Pin GPIO_PIN_2
 #define LED2_GPIO_Port GPIOB
-#define RGB_Pin GPIO_PIN_9
-#define RGB_GPIO_Port GPIOE
 #define BTN1_Pin GPIO_PIN_14
 #define BTN1_GPIO_Port GPIOE
 #define BTN2_Pin GPIO_PIN_15
@@ -130,10 +124,6 @@ void Error_Handler(void);
 #define BT_RXD_GPIO_Port GPIOC
 #define LED3_Pin GPIO_PIN_3
 #define LED3_GPIO_Port GPIOB
-#define OLED_SCL_Pin GPIO_PIN_6
-#define OLED_SCL_GPIO_Port GPIOB
-#define OLED_SDA_Pin GPIO_PIN_7
-#define OLED_SDA_GPIO_Port GPIOB
 /* USER CODE BEGIN Private defines */
 #define Pin(name) name##_GPIO_Port, name##_Pin
 #define set(pin) HAL_GPIO_WritePin(Pin(pin), GPIO_PIN_SET)

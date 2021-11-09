@@ -6,7 +6,7 @@
  */
 #include "RGB.h"
 #include "stdio.h"
-uint8_t datasentflag = 0;
+uint8_t volatile datasentflag = 0;
 WS2812 ws2812;
 RGB defaultColorList[] = {WS2812_WHITE, WS2812_BLUE, WS2812_RED, WS2812_GREEN, WS2812_YELLOW, WS2812_CYAN, WS2812_PURPLE, WS2812_ORANGE, WS2812_PINK, WS2812_BROWN};
 extern TIM_HandleTypeDef htim1;
@@ -43,10 +43,10 @@ void WS2812_LED_ClearRGB(WS2812* ws, const uint32_t LED_index){
 	WS2812_LED_SetRGB(ws, LED_index, color);
 }
 
-void HAL_TIM_PWM_PulseFinishedCallback(TIM_HandleTypeDef *htim){
-	HAL_TIM_PWM_Stop_DMA(ws2812.tim, ws2812.channel);
-	datasentflag = 1;
-}
+// void HAL_TIM_PWM_PulseFinishedCallback(TIM_HandleTypeDef *htim){
+// 	HAL_TIM_PWM_Stop_DMA(&htim1, TIM_CHANNEL_1);
+// 	datasentflag = 1;
+// }
 
 void WS2812_sendData(WS2812* ws){
 	uint32_t index = 0;
@@ -63,7 +63,7 @@ void WS2812_sendData(WS2812* ws){
 	for (uint8_t i = 0; i < RESET_TIMEOUT; index++, i++)
 		ws->pwmData[index] = 0;
 
-	HAL_TIM_PWM_Start_DMA(ws->tim, ws->channel, (uint32_t *)ws->pwmData, index);
+	HAL_TIM_PWM_Start_DMA(&htim1, TIM_CHANNEL_1, (uint32_t *)ws->pwmData, index);
 	while (!datasentflag){};
 	datasentflag = 0;
 }
@@ -128,7 +128,7 @@ void WS2812_StaticTask(WS2812* ws){
 }
 
 void WS2812_LED_Task(void const * par){
-	WS2812_InitStruct ws2812_initStruct = {.LED_num = 10, .tim = &htim1, . channel = TIM_CHANNEL_1};
+	WS2812_InitStruct ws2812_initStruct = {.LED_num = 3, .tim = &htim1, . channel = TIM_CHANNEL_1};
 	WS2812_init(&ws2812, &ws2812_initStruct);
 	WS2812Mode mode = LOOPMODE;
 

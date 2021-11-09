@@ -12,7 +12,7 @@
 #include <stdlib.h>
 
 #define RESET_TIMEOUT 50
-#define MAX_LED 10
+#define MAX_LED 3
 
 typedef struct {
 	uint32_t LED_num;
@@ -58,8 +58,8 @@ typedef enum{
 #define WS2812_NONE		{.R = 0, 	.G = 0, 	.B = 0}
 
 
-#define WS2812_ONECODE 	109
-#define WS2812_ZEROCODE 61
+#define WS2812_ONECODE 	45
+#define WS2812_ZEROCODE 28
 
 // specify timer and timer channel here
 void WS2812_init(WS2812* instance, WS2812_InitStruct* stuc);
@@ -82,6 +82,7 @@ void WS2812_LED_ClearRGB(WS2812* ws, const uint32_t LED_index);
 void WS2812_LoopTask(WS2812* ws);
 void WS2812_BreathTask(WS2812* ws);
 void WS2812_StaticTask(WS2812* ws);
+void WS2812_sendData(WS2812* ws);
 
 // an infinite loop
 void WS2812_LED_Task(void const* par);
