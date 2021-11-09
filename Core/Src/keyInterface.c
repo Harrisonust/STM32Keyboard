@@ -269,15 +269,28 @@ void apply_modifier(KeyModifier* m){
 	return;
 }
 
-void keyThread(void){
-	KeyModifier m={0};
+bool config_mode(){
 
-	for(uint8_t r = 0; r < ROW_NUM; r++)
-		for(uint8_t c = 0; c < COL_NUM; c++)
-			if(1){
-				//apply_modifier(&m);
-				sendKey(getKeyIDByRC(r, c), m);
-			}
+}
+
+void keyThread(void){
+	static uint32_t config_mode = 0;
+	KeyModifier m={0};
+	if(readKey(0,0))
+		(config_mode++)%2;
+
+
+	if(config_mode){
+
+	}else{
+		for(uint8_t r = 0; r < ROW_NUM; r++)
+			for(uint8_t c = 0; c < COL_NUM; c++)
+				if(1){
+					//apply_modifier(&m);
+					sendKey(getKeyIDByRC(r, c), m);
+				}
+	}
+
 	HAL_Delay(100);
 	return;
 }
