@@ -141,7 +141,7 @@ int main(void)
 
   /* Create the thread(s) */
   /* definition and creation of debugTask */
-  osThreadDef(debugTask, StartDebugTask, osPriorityNormal, 0, 128);
+  osThreadDef(debugTask, StartDebugTask, osPriorityNormal, 0, 256);
   debugTaskHandle = osThreadCreate(osThread(debugTask), NULL);
 
   /* definition and creation of debugTask02 */
