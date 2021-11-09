@@ -15,18 +15,34 @@ PAGE led = {
 
 int current_led = 0;
 int current_selection = 0;
+uint8_t led_init_value = 0;
+
+void led_init(){
+	uint32_t data[MAX_LED];
+	//get the data value
+	Flash_Read_Data (LED_START_ADDR, &data, MAX_LED);
+
+	for(int i = 0; i < MAX_LED; i++){
+		if(data[i] == 0xFFFFFFFF) continue;
+		for(int j = 0; j < SELECTION; j++){
+			ws2812.LED_Data[i][j] = (uint8_t)(data[i] >> (8 * j));
+		}
+	}
+}
 
 void led_update(){
+	if(!led_init_value) led_init();
 	char temp[20] = " ";
 
 	sprintf(temp, "LED : %d", current_led + 1);
+	ssd1306_SetCursor(80, 20);
 	ssd1306_WriteString(temp, Font_6x8, White);
 
 	for(int i = 0; i < 4; i++){
 		sprintf(temp,
-				i == current_selection ? "%s	<-- %d" :"%s	    %d",
+				(i + 1) == current_selection ? "%s:%u <-- " :"%s:%u ",
 				color[i], ws2812.LED_Data[current_led][i]);
-		ssd1306_SetCursor(0, 20 + 15* (i));
+		ssd1306_SetCursor(0, 20 + 10* (i));
 		ssd1306_WriteString(temp, Font_6x8, White);
 	}
 }
@@ -43,6 +59,14 @@ void led_onclick(char *combination, int charNum){
 		case 129:
 			//left
 			if(current_selection == 0){
+				//save the led data here
+				{
+					uint32_t temp = 0;
+					for(int i = 3; i >= 0; i--){
+						temp = (temp<<8) | ws2812.LED_Data[current_led][i];
+					}
+					Flash_Write_Data(LED_START_ADDR + (4 * current_led), &temp, 1);
+				}
 				current_led = (current_led + 1) % (MAX_LED);
 				current_selection = 0;
 			}
@@ -53,6 +77,13 @@ void led_onclick(char *combination, int charNum){
 		case 130:
 			//right
 			if(current_selection == 0){
+				{
+					uint32_t temp = 0;
+					for(int i = 3; i >= 0; i--){
+						temp = (temp>>8) | (ws2812.LED_Data[current_led][i]);
+					}
+					Flash_Write_Data(LED_START_ADDR + (4 * current_led), &temp, 1);
+				}
 				current_led = (current_led - 1) % (MAX_LED);
 				current_selection = 0;
 			}
@@ -65,10 +96,12 @@ void led_onclick(char *combination, int charNum){
 			current_selection = (current_selection - 1) % (SELECTION + 1);
 			break;
 		case 132:
+			//down fix bug
 			current_selection = (current_selection + 1) % (SELECTION + 1);
+			break;
 
 	}
-	led_page_update();
+	led_update();
 }
 
 void led_page_update(){

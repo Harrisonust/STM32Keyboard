@@ -12,7 +12,7 @@
 
 static uint32_t GetPage(uint32_t Address)
 {
-  for (int indx=0; indx<128; indx++)
+  for (int indx=0; indx<256; indx++)
   {
 	  if((Address < (0x08000000 + (FLASH_PAGE_SIZE *(indx+1))) ) && (Address >= (0x08000000 + FLASH_PAGE_SIZE*indx)))
 	  {

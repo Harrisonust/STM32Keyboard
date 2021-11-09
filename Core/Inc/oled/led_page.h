@@ -10,9 +10,12 @@
 
 #include "page_template.h"
 #include "RGB.h"
+#include "flash.h"
 
 #define min(a,b) (a > b) ? b : a
 #define max(a,b) (a > b) ? a : b
+
+#define LED_START_ADDR 0x0807D800
 
 #define SELECTION 4
 
