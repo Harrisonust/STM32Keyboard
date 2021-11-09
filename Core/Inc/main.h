@@ -64,10 +64,6 @@ void Error_Handler(void);
 #define BAT_ADC_GPIO_Port GPIOC
 #define VOL_ADC_Pin GPIO_PIN_1
 #define VOL_ADC_GPIO_Port GPIOA
-#define TFT_SCL_Pin GPIO_PIN_5
-#define TFT_SCL_GPIO_Port GPIOA
-#define TFT_SDA_Pin GPIO_PIN_7
-#define TFT_SDA_GPIO_Port GPIOA
 #define TFT_DC_Pin GPIO_PIN_4
 #define TFT_DC_GPIO_Port GPIOC
 #define TFT_RES_Pin GPIO_PIN_5

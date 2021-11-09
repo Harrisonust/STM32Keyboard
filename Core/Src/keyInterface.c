@@ -269,15 +269,15 @@ void apply_modifier(KeyModifier* m){
 	return;
 }
 
-bool config_mode(){
-
+uint8_t config_mode(){
+	return 0;
 }
 
 void keyThread(void){
 	static uint32_t config_mode = 0;
 	KeyModifier m={0};
-	if(readKey(0,0))
-		(config_mode++)%2;
+//	if(readKey(0,0))
+//		(config_mode++)%2;
 
 
 	if(config_mode){

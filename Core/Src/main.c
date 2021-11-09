@@ -49,8 +49,6 @@ ADC_HandleTypeDef hadc1;
 
 I2C_HandleTypeDef hi2c1;
 
-SPI_HandleTypeDef hspi1;
-
 TIM_HandleTypeDef htim1;
 DMA_HandleTypeDef hdma_tim1_ch1;
 
@@ -67,7 +65,6 @@ osThreadId RGBTaskHandle;
 void SystemClock_Config(void);
 static void MX_GPIO_Init(void);
 static void MX_ADC1_Init(void);
-static void MX_SPI1_Init(void);
 static void MX_TIM1_Init(void);
 static void MX_I2C1_Init(void);
 static void MX_DMA_Init(void);
@@ -114,14 +111,15 @@ int main(void)
   /* Initialize all configured peripherals */
   MX_GPIO_Init();
   MX_ADC1_Init();
-  MX_SPI1_Init();
   MX_TIM1_Init();
   MX_I2C1_Init();
   MX_DMA_Init();
   MX_UART4_Init();
   /* USER CODE BEGIN 2 */
-  keyInterfaceInit();
-//  oled_ui_init();
+  HAL_ADCEx_Calibration_Start(&hadc1);
+  HAL_ADC_Start(&hadc1);
+
+  oled_ui_init();
 
   /* USER CODE END 2 */
 
@@ -147,11 +145,11 @@ int main(void)
   debugTaskHandle = osThreadCreate(osThread(debugTask), NULL);
 
   /* definition and creation of debugTask02 */
-  osThreadDef(debugTask02, StartDebugTask02, osPriorityNormal, 0, 128);
+  osThreadDef(debugTask02, StartDebugTask02, osPriorityIdle, 0, 128);
   debugTask02Handle = osThreadCreate(osThread(debugTask02), NULL);
 
   /* definition and creation of RGBTask */
-  osThreadDef(RGBTask, StartRGBTask, osPriorityNormal, 0, 128);
+  osThreadDef(RGBTask, StartRGBTask, osPriorityIdle, 0, 128);
   RGBTaskHandle = osThreadCreate(osThread(RGBTask), NULL);
 
   /* USER CODE BEGIN RTOS_THREADS */
@@ -314,44 +312,6 @@ static void MX_I2C1_Init(void)
 }
 
 /**
-  * @brief SPI1 Initialization Function
-  * @param None
-  * @retval None
-  */
-static void MX_SPI1_Init(void)
-{
-
-  /* USER CODE BEGIN SPI1_Init 0 */
-
-  /* USER CODE END SPI1_Init 0 */
-
-  /* USER CODE BEGIN SPI1_Init 1 */
-
-  /* USER CODE END SPI1_Init 1 */
-  /* SPI1 parameter configuration*/
-  hspi1.Instance = SPI1;
-  hspi1.Init.Mode = SPI_MODE_MASTER;
-  hspi1.Init.Direction = SPI_DIRECTION_1LINE;
-  hspi1.Init.DataSize = SPI_DATASIZE_8BIT;
-  hspi1.Init.CLKPolarity = SPI_POLARITY_LOW;
-  hspi1.Init.CLKPhase = SPI_PHASE_1EDGE;
-  hspi1.Init.NSS = SPI_NSS_SOFT;
-  hspi1.Init.BaudRatePrescaler = SPI_BAUDRATEPRESCALER_4;
-  hspi1.Init.FirstBit = SPI_FIRSTBIT_MSB;
-  hspi1.Init.TIMode = SPI_TIMODE_DISABLE;
-  hspi1.Init.CRCCalculation = SPI_CRCCALCULATION_DISABLE;
-  hspi1.Init.CRCPolynomial = 10;
-  if (HAL_SPI_Init(&hspi1) != HAL_OK)
-  {
-    Error_Handler();
-  }
-  /* USER CODE BEGIN SPI1_Init 2 */
-
-  /* USER CODE END SPI1_Init 2 */
-
-}
-
-/**
   * @brief TIM1 Initialization Function
   * @param None
   * @retval None
@@ -505,6 +465,12 @@ static void MX_GPIO_Init(void)
   /*Configure GPIO pin Output Level */
   HAL_GPIO_WritePin(GPIOA, ROW2_Pin|ROW1_Pin|ROW0_Pin, GPIO_PIN_RESET);
 
+  /*Configure GPIO pins : PA5 PA7 */
+  GPIO_InitStruct.Pin = GPIO_PIN_5|GPIO_PIN_7;
+  GPIO_InitStruct.Mode = GPIO_MODE_INPUT;
+  GPIO_InitStruct.Pull = GPIO_PULLDOWN;
+  HAL_GPIO_Init(GPIOA, &GPIO_InitStruct);
+
   /*Configure GPIO pins : TFT_DC_Pin TFT_RES_Pin */
   GPIO_InitStruct.Pin = TFT_DC_Pin|TFT_RES_Pin;
   GPIO_InitStruct.Mode = GPIO_MODE_OUTPUT_PP;
@@ -530,7 +496,7 @@ static void MX_GPIO_Init(void)
   GPIO_InitStruct.Pin = COL13_Pin|COL12_Pin|COL11_Pin|COL10_Pin
                           |COL9_Pin;
   GPIO_InitStruct.Mode = GPIO_MODE_INPUT;
-  GPIO_InitStruct.Pull = GPIO_NOPULL;
+  GPIO_InitStruct.Pull = GPIO_PULLDOWN;
   HAL_GPIO_Init(GPIOB, &GPIO_InitStruct);
 
   /*Configure GPIO pins : COL8_Pin COL7_Pin COL6_Pin COL5_Pin
@@ -538,13 +504,13 @@ static void MX_GPIO_Init(void)
   GPIO_InitStruct.Pin = COL8_Pin|COL7_Pin|COL6_Pin|COL5_Pin
                           |COL4_Pin|COL3_Pin|COL2_Pin|COL1_Pin;
   GPIO_InitStruct.Mode = GPIO_MODE_INPUT;
-  GPIO_InitStruct.Pull = GPIO_NOPULL;
+  GPIO_InitStruct.Pull = GPIO_PULLDOWN;
   HAL_GPIO_Init(GPIOD, &GPIO_InitStruct);
 
   /*Configure GPIO pin : COL0_Pin */
   GPIO_InitStruct.Pin = COL0_Pin;
   GPIO_InitStruct.Mode = GPIO_MODE_INPUT;
-  GPIO_InitStruct.Pull = GPIO_NOPULL;
+  GPIO_InitStruct.Pull = GPIO_PULLDOWN;
   HAL_GPIO_Init(COL0_GPIO_Port, &GPIO_InitStruct);
 
   /*Configure GPIO pins : ROW5_Pin ROW4_Pin ROW3_Pin */
@@ -583,11 +549,51 @@ void StartDebugTask(void const * argument)
   /* Infinite loop */
   for(;;)
   {
-	KeyModifier m={0};
 
-	if(readKey(0,0)) sendKey('a', m);
-//	HAL_GPIO_TogglePin(LED1_GPIO_Port, LED1_Pin);
-    osDelay(1);
+//	if(readKey(0,0)) HAL_GPIO_WritePin(LED1_GPIO_Port, LED1_Pin, 1);
+//	else HAL_GPIO_WritePin(LED1_GPIO_Port, LED1_Pin, 0);
+//	if(readKey(1,0)) HAL_GPIO_WritePin(LED2_GPIO_Port, LED2_Pin, 1);
+//	else HAL_GPIO_WritePin(LED2_GPIO_Port, LED2_Pin, 0);
+//	if(readKey(2,0)) HAL_GPIO_WritePin(LED3_GPIO_Port, LED3_Pin, 1);
+//	else HAL_GPIO_WritePin(LED3_GPIO_Port, LED3_Pin, 0);
+	static uint8_t config_mode = 0;
+	KeyModifier m= {0};
+	if(readKey(0,0)){
+		config_mode++;
+		config_mode	%= 2;
+		osDelay(300);
+	}
+
+	if(config_mode){
+		char temp = 0;
+		HAL_GPIO_WritePin(LED1_GPIO_Port, LED1_Pin, 1);
+		if(readKey(1,1)) {  // next page
+			oled_next_page();
+			osDelay(300);
+		}
+		uint8_t udlr = 1;
+		if(readKey(3,1)) temp = 129; //left
+		else if(readKey(3,2)) temp = 132; //down
+		else if(readKey(3,3)) temp = 130; //right
+		else if(readKey(2,2)) temp = 131; //up
+		else udlr = 0;
+		if(udlr)
+			oled_on_click_page(&temp, 1);
+
+
+	}else{
+		HAL_GPIO_WritePin(LED1_GPIO_Port, LED1_Pin, 0);
+		for(uint8_t r = 0; r < ROW_NUM; r++){
+			for(uint8_t c = 0; c < COL_NUM; c++){
+				if(readKey(r,c)){
+//					apply_modifier(&m);
+					sendKey(getKeyIDByRC(r, c), m);
+				}
+			}
+		}
+	}
+
+	osDelay(1);
   }
   /* USER CODE END 5 */
 }
@@ -629,7 +635,7 @@ void StartRGBTask(void const * argument)
 	WS2812Mode mode = LOOPMODE;
 //
 //	if(mode == LOOPMODE)
-		WS2812_LoopTask(&ws2812);
+//	WS2812_LoopTask(&ws2812);
 //	if(mode == BREATHMODE)
 //		WS2812_BreathTask(&ws2812);
 //	if(mode == STATICMODE)

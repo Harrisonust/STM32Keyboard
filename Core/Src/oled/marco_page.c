@@ -26,9 +26,9 @@ Node *macro_iter = NULL;
 Macro combination[MAX_MACRO];
 
 void macro_init(){
-	uint32_t data[2]={0};
+	uint32_t data[MAX_MACRO_TEMPLATE/4]={0};
 	for(int i = 0; i < MAX_MACRO; i++){
-		Flash_Read_Data(START_ADDR + 8*i, &data, 2);
+		Flash_Read_Data(START_ADDR + MAX_MACRO_TEMPLATE*i, &data, MAX_MACRO_TEMPLATE/4);
 		if(data[0] != 0XFFFFFFFF){
 
 			uint8_t internal_i = 0;
@@ -129,24 +129,29 @@ void macro_onclick(char *input, int charNum){
 	if(charNum > 1) return;
 
 	//deal with the possible combination
+	//Ascii didnt lie between 128 - 255
+	//Left arrow 129
+	//right arrow 130
+	//Up arrow 131
+	//Down arrow 132
 	switch(current_macro_page){
 		case MAIN:
 			//deal with macro display
 			//for now deal enter
-			if(input[0] == 't'){
+			if(input[0] == 13){
 				current_macro_page = KEY;
 				keybind = ' ';
 			}
-			else if(input[0] == '#'){
+			else if(input[0] == 129){
 				current_macro = (current_macro + 1) % MAX_MACRO;
 			}
-			else if(input[0] == '$'){
+			else if(input[0] == 130){
 				current_macro = (current_macro - 1) % MAX_MACRO;
 			}
 			break;
 		case KEY:
 			//handle with inputing the data
-			if(input[0] == 't'){
+			if(input[0] == 13){
 				current_macro_page = COMBINATION;
 				macro_head = NULL;
 				macro_iter = NULL;
@@ -157,7 +162,7 @@ void macro_onclick(char *input, int charNum){
 			break;
 		case COMBINATION:
 			//handle with inputting the macro
-			if(input[0] == 't'){
+			if(input[0] == 13){
 				current_macro_page = MAIN;
 				{
 					if(combination[current_macro].macro != NULL){
@@ -169,14 +174,14 @@ void macro_onclick(char *input, int charNum){
 				}
 				{
 					//insert flash handling
-					char template[8] = {0}; //hard cap
-					volatile uint32_t final_data[2] = {0};
+					char template[MAX_MACRO_TEMPLATE] = {0}; //hard cap
+					uint32_t final_data[MAX_MACRO_TEMPLATE/4] = {0};
 					//insert keybind
 					template[0] = combination[current_macro].keybind;
 					int index = 0;
 					Node *temp = macro_head;
 					while(temp != NULL){
-						if(index >= 7) break;
+						if(index >= (MAX_MACRO_TEMPLATE - 1)) break;
 						template[1 + index] = temp->data;
 						temp = temp->next;
 						index++;
@@ -184,11 +189,11 @@ void macro_onclick(char *input, int charNum){
 					template[1 + index] = '/';
 					Str_To_uint32(template, final_data);
 					HAL_Delay(1000);
-					Flash_Write_Data(START_ADDR + (8 * current_macro), final_data, 2);
+					Flash_Write_Data(START_ADDR + (MAX_MACRO_TEMPLATE * current_macro), final_data, MAX_MACRO_TEMPLATE/4);
 					//
 				}
 			} //save macro
-			else if(input[0] == '-'){// backspace
+			else if(input[0] == 127){// backspace
 				if(macro_iter != NULL){
 					Node *temp = macro_iter->prev;
 					delete_node(macro_iter);
@@ -215,4 +220,11 @@ void macro_onclick(char *input, int charNum){
 	macro_update();
 }
 
-
+Node* get_macro(char value){
+	for(int i = 0; i < MAX_MACRO; i++){
+		if(combination[i].keybind == value){
+			return combination[i].macro;
+		}
+	}
+	return NULL;
+}
