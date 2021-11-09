@@ -563,25 +563,24 @@ void StartDebugTask(void const * argument)
 		config_mode	%= 2;
 	}
 
-	if(1){
-		char temp = 0;
+	if(config_mode){
+		char key = 0;
 		HAL_GPIO_WritePin(LED1_GPIO_Port, LED1_Pin, 1);
-		if(readKey(1,1)) {oled_next_page(); HAL_Delay(50);}// next page
-
 		uint8_t udlr = 1;
-		if(readKey(3,1)) temp = 129; //left
-		else if(readKey(3,2)) temp = 132; //down
-		else if(readKey(3,3)) temp = 130; //right
-		else if(readKey(2,2)) temp = 131; //up
-		else if(readKey(0,1)) temp = 'a';
-		else if(readKey(0,2)) temp = 'b';
-		else if(readKey(0,3)) temp = 'c';
-		else if(readKey(1,3)) temp = 13; // enter = 13
-		else if(readKey(1,2)) temp = 127;//backsapce 127
+
+		if(readKey(1,1)) oled_next_page();		// next page
+		if(readKey(3,1)) 	  key = 129; // left
+		else if(readKey(3,2)) key = 132; // down
+		else if(readKey(3,3)) key = 130; // right
+		else if(readKey(2,2)) key = 131; // up
+		else if(readKey(0,1)) key = 'a';
+		else if(readKey(0,2)) key = 'b';
+		else if(readKey(0,3)) key = 'c';
+		else if(readKey(1,3)) key = 13;  // enter = 13
+		else if(readKey(1,2)) key = 127; // backsapce 127
 		else udlr = 0;
 
-		if(udlr) oled_on_click_page(&temp, 1);
-
+		if(udlr) oled_on_click_page(&key, 1);
 
 	}else{
 		HAL_GPIO_WritePin(LED1_GPIO_Port, LED1_Pin, 0);
