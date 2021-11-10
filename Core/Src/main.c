@@ -27,6 +27,8 @@
 /* USER CODE BEGIN Includes */
 #include "keyInterface.h"
 #include "RGB.h"
+#include "volume.h"
+#include "oled_manager.h"
 /* USER CODE END Includes */
 
 /* Private typedef -----------------------------------------------------------*/
@@ -50,6 +52,7 @@ ADC_HandleTypeDef hadc1;
 I2C_HandleTypeDef hi2c1;
 
 TIM_HandleTypeDef htim1;
+TIM_HandleTypeDef htim4;
 DMA_HandleTypeDef hdma_tim1_ch1;
 
 UART_HandleTypeDef huart4;
@@ -69,6 +72,7 @@ static void MX_TIM1_Init(void);
 static void MX_I2C1_Init(void);
 static void MX_DMA_Init(void);
 static void MX_UART4_Init(void);
+static void MX_TIM4_Init(void);
 void StartUSBTask(void const * argument);
 void StartDebugTask02(void const * argument);
 void StartRGBTask(void const * argument);
@@ -110,17 +114,17 @@ int main(void)
 
   /* Initialize all configured peripherals */
   MX_GPIO_Init();
-//  MX_ADC1_Init();
-//  MX_TIM1_Init();
-//  MX_I2C1_Init();
-//  MX_DMA_Init();
-//  MX_UART4_Init();
+  MX_ADC1_Init();
+  MX_TIM1_Init();
+  MX_I2C1_Init();
+  MX_DMA_Init();
+  MX_UART4_Init();
+  MX_TIM4_Init();
   /* USER CODE BEGIN 2 */
 //  HAL_ADCEx_Calibration_Start(&hadc1);
 //  HAL_ADC_Start(&hadc1);
-  MX_USB_DEVICE_Init();
 
-//  oled_ui_init();
+  oled_ui_init();
 
   /* USER CODE END 2 */
 
@@ -150,8 +154,8 @@ int main(void)
   debugTask02Handle = osThreadCreate(osThread(debugTask02), NULL);
 
   /* definition and creation of RGBTask */
-//  osThreadDef(RGBTask, StartRGBTask, osPriorityIdle, 0, 128);
-//  RGBTaskHandle = osThreadCreate(osThread(RGBTask), NULL);
+  osThreadDef(RGBTask, StartRGBTask, osPriorityIdle, 0, 128);
+  RGBTaskHandle = osThreadCreate(osThread(RGBTask), NULL);
 
   /* USER CODE BEGIN RTOS_THREADS */
   /* add threads, ... */
@@ -265,7 +269,7 @@ static void MX_ADC1_Init(void)
   }
   /** Configure Regular Channel
   */
-  sConfig.Channel = ADC_CHANNEL_1;
+  sConfig.Channel = ADC_CHANNEL_10;
   sConfig.Rank = ADC_REGULAR_RANK_1;
   sConfig.SamplingTime = ADC_SAMPLETIME_1CYCLE_5;
   if (HAL_ADC_ConfigChannel(&hadc1, &sConfig) != HAL_OK)
@@ -393,6 +397,55 @@ static void MX_TIM1_Init(void)
 }
 
 /**
+  * @brief TIM4 Initialization Function
+  * @param None
+  * @retval None
+  */
+static void MX_TIM4_Init(void)
+{
+
+  /* USER CODE BEGIN TIM4_Init 0 */
+
+  /* USER CODE END TIM4_Init 0 */
+
+  TIM_Encoder_InitTypeDef sConfig = {0};
+  TIM_MasterConfigTypeDef sMasterConfig = {0};
+
+  /* USER CODE BEGIN TIM4_Init 1 */
+
+  /* USER CODE END TIM4_Init 1 */
+  htim4.Instance = TIM4;
+  htim4.Init.Prescaler = 0;
+  htim4.Init.CounterMode = TIM_COUNTERMODE_UP;
+  htim4.Init.Period = 65535;
+  htim4.Init.ClockDivision = TIM_CLOCKDIVISION_DIV1;
+  htim4.Init.AutoReloadPreload = TIM_AUTORELOAD_PRELOAD_DISABLE;
+  sConfig.EncoderMode = TIM_ENCODERMODE_TI12;
+  sConfig.IC1Polarity = TIM_ICPOLARITY_FALLING;
+  sConfig.IC1Selection = TIM_ICSELECTION_DIRECTTI;
+  sConfig.IC1Prescaler = TIM_ICPSC_DIV1;
+  sConfig.IC1Filter = 0;
+  sConfig.IC2Polarity = TIM_ICPOLARITY_RISING;
+  sConfig.IC2Selection = TIM_ICSELECTION_DIRECTTI;
+  sConfig.IC2Prescaler = TIM_ICPSC_DIV1;
+  sConfig.IC2Filter = 0;
+  if (HAL_TIM_Encoder_Init(&htim4, &sConfig) != HAL_OK)
+  {
+    Error_Handler();
+  }
+  sMasterConfig.MasterOutputTrigger = TIM_TRGO_RESET;
+  sMasterConfig.MasterSlaveMode = TIM_MASTERSLAVEMODE_DISABLE;
+  if (HAL_TIMEx_MasterConfigSynchronization(&htim4, &sMasterConfig) != HAL_OK)
+  {
+    Error_Handler();
+  }
+  /* USER CODE BEGIN TIM4_Init 2 */
+
+  /* USER CODE END TIM4_Init 2 */
+
+}
+
+/**
   * @brief UART4 Initialization Function
   * @param None
   * @retval None
@@ -461,7 +514,7 @@ static void MX_GPIO_Init(void)
                           |ROW3_Pin, GPIO_PIN_RESET);
 
   /*Configure GPIO pin Output Level */
-  HAL_GPIO_WritePin(GPIOB, TFT_CS_Pin|LED1_Pin|LED2_Pin|LED3_Pin, GPIO_PIN_RESET);
+  HAL_GPIO_WritePin(GPIOB, TFT_CS_Pin|LED1_Pin|GPIO_PIN_2|LED3_Pin, GPIO_PIN_RESET);
 
   /*Configure GPIO pin Output Level */
   HAL_GPIO_WritePin(GPIOA, ROW2_Pin|ROW1_Pin|ROW0_Pin, GPIO_PIN_RESET);
@@ -482,8 +535,8 @@ static void MX_GPIO_Init(void)
   GPIO_InitStruct.Speed = GPIO_SPEED_FREQ_LOW;
   HAL_GPIO_Init(GPIOC, &GPIO_InitStruct);
 
-  /*Configure GPIO pins : TFT_CS_Pin LED1_Pin LED2_Pin LED3_Pin */
-  GPIO_InitStruct.Pin = TFT_CS_Pin|LED1_Pin|LED2_Pin|LED3_Pin;
+  /*Configure GPIO pins : TFT_CS_Pin LED1_Pin PB2 LED3_Pin */
+  GPIO_InitStruct.Pin = TFT_CS_Pin|LED1_Pin|GPIO_PIN_2|LED3_Pin;
   GPIO_InitStruct.Mode = GPIO_MODE_OUTPUT_PP;
   GPIO_InitStruct.Pull = GPIO_NOPULL;
   GPIO_InitStruct.Speed = GPIO_SPEED_FREQ_LOW;
@@ -504,12 +557,18 @@ static void MX_GPIO_Init(void)
   HAL_GPIO_Init(GPIOB, &GPIO_InitStruct);
 
   /*Configure GPIO pins : COL8_Pin COL7_Pin COL6_Pin COL5_Pin
-                           COL4_Pin COL3_Pin COL2_Pin COL1_Pin */
+                           COL4_Pin COL2_Pin COL1_Pin */
   GPIO_InitStruct.Pin = COL8_Pin|COL7_Pin|COL6_Pin|COL5_Pin
-                          |COL4_Pin|COL3_Pin|COL2_Pin|COL1_Pin;
+                          |COL4_Pin|COL2_Pin|COL1_Pin;
   GPIO_InitStruct.Mode = GPIO_MODE_INPUT;
   GPIO_InitStruct.Pull = GPIO_PULLDOWN;
   HAL_GPIO_Init(GPIOD, &GPIO_InitStruct);
+
+  /*Configure GPIO pin : COL3_Pin */
+  GPIO_InitStruct.Pin = COL3_Pin;
+  GPIO_InitStruct.Mode = GPIO_MODE_INPUT;
+  GPIO_InitStruct.Pull = GPIO_NOPULL;
+  HAL_GPIO_Init(COL3_GPIO_Port, &GPIO_InitStruct);
 
   /*Configure GPIO pin : COL0_Pin */
   GPIO_InitStruct.Pin = COL0_Pin;
@@ -554,13 +613,18 @@ static void MX_GPIO_Init(void)
 void StartUSBTask(void const * argument)
 {
   /* init code for USB_DEVICE */
+  MX_USB_DEVICE_Init();
+  HAL_TIM_Encoder_Start_IT(&htim4, TIM_CHANNEL_ALL);
 
   /* USER CODE BEGIN 5 */
   /* Infinite loop */
-	HAL_GPIO_WritePin(USB_EN_GPIO_Port, USB_EN_Pin, 0);
+  HAL_GPIO_WritePin(USB_EN_GPIO_Port, USB_EN_Pin, 0);
+
   for(;;)
   {
-
+    int32_t vol = getVolume();
+	if((vol)%2)
+		HAL_GPIO_TogglePin(LED1_GPIO_Port, LED1_Pin);
 //	if(readKey(0,0)) HAL_GPIO_WritePin(LED1_GPIO_Port, LED1_Pin, 1);
 //	else HAL_GPIO_WritePin(LED1_GPIO_Port, LED1_Pin, 0);
 //	if(readKey(1,0)) HAL_GPIO_WritePin(LED2_GPIO_Port, LED2_Pin, 1);
@@ -615,17 +679,16 @@ void StartUSBTask(void const * argument)
 * @param argument: Not used
 * @retval None
 */
+
 /* USER CODE END Header_StartDebugTask02 */
 void StartDebugTask02(void const * argument)
 {
   /* USER CODE BEGIN StartDebugTask02 */
   /* Infinite loop */
-//  oled_ui_init();
   for(;;)
   {
-
 	HAL_GPIO_TogglePin(LED1_GPIO_Port, LED1_Pin);
-    osDelay(100);
+    osDelay(50);
   }
   /* USER CODE END StartDebugTask02 */
 }

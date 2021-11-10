@@ -6,6 +6,7 @@
  */
 #include "RGB.h"
 #include "stdio.h"
+#include "cmsis_os.h"
 uint8_t datasentflag = 0;
 WS2812 ws2812;
 RGB defaultColorList[] = {WS2812_WHITE, WS2812_BLUE, WS2812_RED, WS2812_GREEN, WS2812_YELLOW, WS2812_CYAN, WS2812_PURPLE, WS2812_ORANGE, WS2812_PINK, WS2812_BROWN};
