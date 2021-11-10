@@ -124,6 +124,8 @@ void Error_Handler(void);
 #define BT_TXD_GPIO_Port GPIOC
 #define BT_RXD_Pin GPIO_PIN_11
 #define BT_RXD_GPIO_Port GPIOC
+#define USB_EN_Pin GPIO_PIN_6
+#define USB_EN_GPIO_Port GPIOD
 #define LED3_Pin GPIO_PIN_3
 #define LED3_GPIO_Port GPIOB
 #define OLED_SCL_Pin GPIO_PIN_6
