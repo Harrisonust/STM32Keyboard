@@ -54,7 +54,7 @@ DMA_HandleTypeDef hdma_tim1_ch1;
 
 UART_HandleTypeDef huart4;
 
-osThreadId debugTaskHandle;
+osThreadId USBTaskHandle;
 osThreadId debugTask02Handle;
 osThreadId RGBTaskHandle;
 /* USER CODE BEGIN PV */
@@ -69,7 +69,7 @@ static void MX_TIM1_Init(void);
 static void MX_I2C1_Init(void);
 static void MX_DMA_Init(void);
 static void MX_UART4_Init(void);
-void StartDebugTask(void const * argument);
+void StartUSBTask(void const * argument);
 void StartDebugTask02(void const * argument);
 void StartRGBTask(void const * argument);
 
@@ -110,17 +110,17 @@ int main(void)
 
   /* Initialize all configured peripherals */
   MX_GPIO_Init();
-  MX_ADC1_Init();
-  MX_TIM1_Init();
-  MX_I2C1_Init();
-  MX_DMA_Init();
-  MX_UART4_Init();
+//  MX_ADC1_Init();
+//  MX_TIM1_Init();
+//  MX_I2C1_Init();
+//  MX_DMA_Init();
+//  MX_UART4_Init();
   /* USER CODE BEGIN 2 */
-  HAL_ADCEx_Calibration_Start(&hadc1);
-  HAL_ADC_Start(&hadc1);
+//  HAL_ADCEx_Calibration_Start(&hadc1);
+//  HAL_ADC_Start(&hadc1);
   MX_USB_DEVICE_Init();
 
-  oled_ui_init();
+//  oled_ui_init();
 
   /* USER CODE END 2 */
 
@@ -141,17 +141,17 @@ int main(void)
   /* USER CODE END RTOS_QUEUES */
 
   /* Create the thread(s) */
-  /* definition and creation of debugTask */
-  osThreadDef(debugTask, StartDebugTask, osPriorityNormal, 0, 128);
-  debugTaskHandle = osThreadCreate(osThread(debugTask), NULL);
+  /* definition and creation of USBTask */
+  osThreadDef(USBTask, StartUSBTask, osPriorityNormal, 0, 128);
+  USBTaskHandle = osThreadCreate(osThread(USBTask), NULL);
 
   /* definition and creation of debugTask02 */
   osThreadDef(debugTask02, StartDebugTask02, osPriorityIdle, 0, 128);
   debugTask02Handle = osThreadCreate(osThread(debugTask02), NULL);
 
   /* definition and creation of RGBTask */
-  osThreadDef(RGBTask, StartRGBTask, osPriorityIdle, 0, 128);
-  RGBTaskHandle = osThreadCreate(osThread(RGBTask), NULL);
+//  osThreadDef(RGBTask, StartRGBTask, osPriorityIdle, 0, 128);
+//  RGBTaskHandle = osThreadCreate(osThread(RGBTask), NULL);
 
   /* USER CODE BEGIN RTOS_THREADS */
   /* add threads, ... */
@@ -466,6 +466,9 @@ static void MX_GPIO_Init(void)
   /*Configure GPIO pin Output Level */
   HAL_GPIO_WritePin(GPIOA, ROW2_Pin|ROW1_Pin|ROW0_Pin, GPIO_PIN_RESET);
 
+  /*Configure GPIO pin Output Level */
+  HAL_GPIO_WritePin(USB_EN_GPIO_Port, USB_EN_Pin, GPIO_PIN_RESET);
+
   /*Configure GPIO pins : PA5 PA7 */
   GPIO_InitStruct.Pin = GPIO_PIN_5|GPIO_PIN_7;
   GPIO_InitStruct.Mode = GPIO_MODE_INPUT;
@@ -528,26 +531,33 @@ static void MX_GPIO_Init(void)
   GPIO_InitStruct.Speed = GPIO_SPEED_FREQ_HIGH;
   HAL_GPIO_Init(GPIOA, &GPIO_InitStruct);
 
+  /*Configure GPIO pin : USB_EN_Pin */
+  GPIO_InitStruct.Pin = USB_EN_Pin;
+  GPIO_InitStruct.Mode = GPIO_MODE_OUTPUT_PP;
+  GPIO_InitStruct.Pull = GPIO_NOPULL;
+  GPIO_InitStruct.Speed = GPIO_SPEED_FREQ_LOW;
+  HAL_GPIO_Init(USB_EN_GPIO_Port, &GPIO_InitStruct);
+
 }
 
 /* USER CODE BEGIN 4 */
 
 /* USER CODE END 4 */
 
-/* USER CODE BEGIN Header_StartDebugTask */
+/* USER CODE BEGIN Header_StartUSBTask */
 /**
-  * @brief  Function implementing the debugTask thread.
+  * @brief  Function implementing the USBTask thread.
   * @param  argument: Not used
   * @retval None
   */
-/* USER CODE END Header_StartDebugTask */
-void StartDebugTask(void const * argument)
+/* USER CODE END Header_StartUSBTask */
+void StartUSBTask(void const * argument)
 {
   /* init code for USB_DEVICE */
-  MX_USB_DEVICE_Init();
 
   /* USER CODE BEGIN 5 */
   /* Infinite loop */
+	HAL_GPIO_WritePin(USB_EN_GPIO_Port, USB_EN_Pin, 0);
   for(;;)
   {
 
@@ -566,7 +576,6 @@ void StartDebugTask(void const * argument)
 
 	if(config_mode){
 		char key = 0;
-		HAL_GPIO_WritePin(LED1_GPIO_Port, LED1_Pin, 1);
 		uint8_t udlr = 1;
 
 		if(readKey(1,1)) oled_next_page();		// next page
@@ -595,7 +604,7 @@ void StartDebugTask(void const * argument)
 		}
 	}
 
-	osDelay(1);
+	osDelay(1000);
   }
   /* USER CODE END 5 */
 }
@@ -615,7 +624,7 @@ void StartDebugTask02(void const * argument)
   for(;;)
   {
 
-	HAL_GPIO_TogglePin(LED2_GPIO_Port, LED2_Pin);
+	HAL_GPIO_TogglePin(LED1_GPIO_Port, LED1_Pin);
     osDelay(100);
   }
   /* USER CODE END StartDebugTask02 */
