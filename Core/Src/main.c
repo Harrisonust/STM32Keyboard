@@ -118,6 +118,7 @@ int main(void)
   /* USER CODE BEGIN 2 */
   HAL_ADCEx_Calibration_Start(&hadc1);
   HAL_ADC_Start(&hadc1);
+  MX_USB_DEVICE_Init();
 
   oled_ui_init();
 
