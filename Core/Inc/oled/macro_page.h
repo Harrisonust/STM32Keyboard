@@ -9,6 +9,7 @@
 #define INC_OLED_MACRO_PAGE_H_
 
 #define MAX_MACRO 2
+#define MAX_MACRO_TEMPLATE 64 //must be in 2^n
 #define START_ADDR 0x0807F800
 
 #include "page_template.h"
@@ -27,5 +28,6 @@ extern
 void macro_update();
 void macro_onclick(char *input, int charNum);
 void macro_page_update();
+Node* get_macro(char value);
 
 #endif /* INC_OLED_MACRO_PAGE_H_ */

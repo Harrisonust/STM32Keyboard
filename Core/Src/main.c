@@ -26,7 +26,9 @@
 /* Private includes ----------------------------------------------------------*/
 /* USER CODE BEGIN Includes */
 #include "keyInterface.h"
-//#include "RGB.h"
+#include "RGB.h"
+#include "volume.h"
+#include "oled_manager.h"
 /* USER CODE END Includes */
 
 /* Private typedef -----------------------------------------------------------*/
@@ -50,12 +52,12 @@ ADC_HandleTypeDef hadc1;
 I2C_HandleTypeDef hi2c1;
 
 TIM_HandleTypeDef htim1;
-TIM_HandleTypeDef htim3;
+TIM_HandleTypeDef htim4;
 DMA_HandleTypeDef hdma_tim1_ch1;
 
 UART_HandleTypeDef huart4;
 
-osThreadId debugTaskHandle;
+osThreadId USBTaskHandle;
 osThreadId debugTask02Handle;
 osThreadId RGBTaskHandle;
 /* USER CODE BEGIN PV */
@@ -68,10 +70,8 @@ static void MX_GPIO_Init(void);
 static void MX_ADC1_Init(void);
 static void MX_TIM1_Init(void);
 static void MX_UART4_Init(void);
-static void MX_DMA_Init(void);
-static void MX_TIM3_Init(void);
-static void MX_I2C1_Init(void);
-void StartDebugTask(void const * argument);
+static void MX_TIM4_Init(void);
+void StartUSBTask(void const * argument);
 void StartDebugTask02(void const * argument);
 void StartRGBTask(void const * argument);
 
@@ -114,12 +114,12 @@ int main(void)
   MX_ADC1_Init();
   MX_TIM1_Init();
   MX_UART4_Init();
-  MX_DMA_Init();
-  MX_TIM3_Init();
-  MX_I2C1_Init();
+  MX_TIM4_Init();
   /* USER CODE BEGIN 2 */
-  keyInterfaceInit();
-//  oled_ui_init();
+//  HAL_ADCEx_Calibration_Start(&hadc1);
+//  HAL_ADC_Start(&hadc1);
+
+  oled_ui_init();
 
   /* USER CODE END 2 */
 
@@ -140,9 +140,9 @@ int main(void)
   /* USER CODE END RTOS_QUEUES */
 
   /* Create the thread(s) */
-  /* definition and creation of debugTask */
-  osThreadDef(debugTask, StartDebugTask, osPriorityNormal, 0, 128);
-  debugTaskHandle = osThreadCreate(osThread(debugTask), NULL);
+  /* definition and creation of USBTask */
+  osThreadDef(USBTask, StartUSBTask, osPriorityNormal, 0, 128);
+  USBTaskHandle = osThreadCreate(osThread(USBTask), NULL);
 
   /* definition and creation of debugTask02 */
   osThreadDef(debugTask02, StartDebugTask02, osPriorityIdle, 0, 128);
@@ -264,7 +264,7 @@ static void MX_ADC1_Init(void)
   }
   /** Configure Regular Channel
   */
-  sConfig.Channel = ADC_CHANNEL_1;
+  sConfig.Channel = ADC_CHANNEL_10;
   sConfig.Rank = ADC_REGULAR_RANK_1;
   sConfig.SamplingTime = ADC_SAMPLETIME_1CYCLE_5;
   if (HAL_ADC_ConfigChannel(&hadc1, &sConfig) != HAL_OK)
@@ -387,47 +387,51 @@ static void MX_TIM1_Init(void)
 }
 
 /**
-  * @brief TIM3 Initialization Function
+  * @brief TIM4 Initialization Function
   * @param None
   * @retval None
   */
-static void MX_TIM3_Init(void)
+static void MX_TIM4_Init(void)
 {
 
-  /* USER CODE BEGIN TIM3_Init 0 */
+  /* USER CODE BEGIN TIM4_Init 0 */
 
-  /* USER CODE END TIM3_Init 0 */
+  /* USER CODE END TIM4_Init 0 */
 
-  TIM_ClockConfigTypeDef sClockSourceConfig = {0};
+  TIM_Encoder_InitTypeDef sConfig = {0};
   TIM_MasterConfigTypeDef sMasterConfig = {0};
 
-  /* USER CODE BEGIN TIM3_Init 1 */
+  /* USER CODE BEGIN TIM4_Init 1 */
 
-  /* USER CODE END TIM3_Init 1 */
-  htim3.Instance = TIM3;
-  htim3.Init.Prescaler = 16;
-  htim3.Init.CounterMode = TIM_COUNTERMODE_UP;
-  htim3.Init.Period = 13;
-  htim3.Init.ClockDivision = TIM_CLOCKDIVISION_DIV1;
-  htim3.Init.AutoReloadPreload = TIM_AUTORELOAD_PRELOAD_DISABLE;
-  if (HAL_TIM_Base_Init(&htim3) != HAL_OK)
-  {
-    Error_Handler();
-  }
-  sClockSourceConfig.ClockSource = TIM_CLOCKSOURCE_INTERNAL;
-  if (HAL_TIM_ConfigClockSource(&htim3, &sClockSourceConfig) != HAL_OK)
+  /* USER CODE END TIM4_Init 1 */
+  htim4.Instance = TIM4;
+  htim4.Init.Prescaler = 0;
+  htim4.Init.CounterMode = TIM_COUNTERMODE_UP;
+  htim4.Init.Period = 65535;
+  htim4.Init.ClockDivision = TIM_CLOCKDIVISION_DIV1;
+  htim4.Init.AutoReloadPreload = TIM_AUTORELOAD_PRELOAD_DISABLE;
+  sConfig.EncoderMode = TIM_ENCODERMODE_TI12;
+  sConfig.IC1Polarity = TIM_ICPOLARITY_FALLING;
+  sConfig.IC1Selection = TIM_ICSELECTION_DIRECTTI;
+  sConfig.IC1Prescaler = TIM_ICPSC_DIV1;
+  sConfig.IC1Filter = 0;
+  sConfig.IC2Polarity = TIM_ICPOLARITY_RISING;
+  sConfig.IC2Selection = TIM_ICSELECTION_DIRECTTI;
+  sConfig.IC2Prescaler = TIM_ICPSC_DIV1;
+  sConfig.IC2Filter = 0;
+  if (HAL_TIM_Encoder_Init(&htim4, &sConfig) != HAL_OK)
   {
     Error_Handler();
   }
   sMasterConfig.MasterOutputTrigger = TIM_TRGO_RESET;
   sMasterConfig.MasterSlaveMode = TIM_MASTERSLAVEMODE_DISABLE;
-  if (HAL_TIMEx_MasterConfigSynchronization(&htim3, &sMasterConfig) != HAL_OK)
+  if (HAL_TIMEx_MasterConfigSynchronization(&htim4, &sMasterConfig) != HAL_OK)
   {
     Error_Handler();
   }
-  /* USER CODE BEGIN TIM3_Init 2 */
+  /* USER CODE BEGIN TIM4_Init 2 */
 
-  /* USER CODE END TIM3_Init 2 */
+  /* USER CODE END TIM4_Init 2 */
 
 }
 
@@ -500,13 +504,19 @@ static void MX_GPIO_Init(void)
                           |ROW3_Pin, GPIO_PIN_RESET);
 
   /*Configure GPIO pin Output Level */
-  HAL_GPIO_WritePin(GPIOB, TFT_CS_Pin|LED1_Pin|LED2_Pin|LED3_Pin, GPIO_PIN_RESET);
+  HAL_GPIO_WritePin(GPIOB, TFT_CS_Pin|LED1_Pin|GPIO_PIN_2|LED3_Pin, GPIO_PIN_RESET);
 
   /*Configure GPIO pin Output Level */
   HAL_GPIO_WritePin(GPIOA, ROW2_Pin|ROW1_Pin|ROW0_Pin, GPIO_PIN_RESET);
 
   /*Configure GPIO pin Output Level */
-  HAL_GPIO_WritePin(GPIOD, GPIO_PIN_6, GPIO_PIN_SET);
+  HAL_GPIO_WritePin(USB_EN_GPIO_Port, USB_EN_Pin, GPIO_PIN_RESET);
+
+  /*Configure GPIO pins : PA5 PA7 */
+  GPIO_InitStruct.Pin = GPIO_PIN_5|GPIO_PIN_7;
+  GPIO_InitStruct.Mode = GPIO_MODE_INPUT;
+  GPIO_InitStruct.Pull = GPIO_PULLDOWN;
+  HAL_GPIO_Init(GPIOA, &GPIO_InitStruct);
 
   /*Configure GPIO pins : TFT_DC_Pin TFT_RES_Pin */
   GPIO_InitStruct.Pin = TFT_DC_Pin|TFT_RES_Pin;
@@ -515,8 +525,8 @@ static void MX_GPIO_Init(void)
   GPIO_InitStruct.Speed = GPIO_SPEED_FREQ_LOW;
   HAL_GPIO_Init(GPIOC, &GPIO_InitStruct);
 
-  /*Configure GPIO pins : TFT_CS_Pin LED1_Pin LED2_Pin LED3_Pin */
-  GPIO_InitStruct.Pin = TFT_CS_Pin|LED1_Pin|LED2_Pin|LED3_Pin;
+  /*Configure GPIO pins : TFT_CS_Pin LED1_Pin PB2 LED3_Pin */
+  GPIO_InitStruct.Pin = TFT_CS_Pin|LED1_Pin|GPIO_PIN_2|LED3_Pin;
   GPIO_InitStruct.Mode = GPIO_MODE_OUTPUT_PP;
   GPIO_InitStruct.Pull = GPIO_NOPULL;
   GPIO_InitStruct.Speed = GPIO_SPEED_FREQ_LOW;
@@ -533,21 +543,27 @@ static void MX_GPIO_Init(void)
   GPIO_InitStruct.Pin = COL13_Pin|COL12_Pin|COL11_Pin|COL10_Pin
                           |COL9_Pin;
   GPIO_InitStruct.Mode = GPIO_MODE_INPUT;
-  GPIO_InitStruct.Pull = GPIO_NOPULL;
+  GPIO_InitStruct.Pull = GPIO_PULLDOWN;
   HAL_GPIO_Init(GPIOB, &GPIO_InitStruct);
 
   /*Configure GPIO pins : COL8_Pin COL7_Pin COL6_Pin COL5_Pin
-                           COL4_Pin COL3_Pin COL2_Pin COL1_Pin */
+                           COL4_Pin COL2_Pin COL1_Pin */
   GPIO_InitStruct.Pin = COL8_Pin|COL7_Pin|COL6_Pin|COL5_Pin
-                          |COL4_Pin|COL3_Pin|COL2_Pin|COL1_Pin;
+                          |COL4_Pin|COL2_Pin|COL1_Pin;
+  GPIO_InitStruct.Mode = GPIO_MODE_INPUT;
+  GPIO_InitStruct.Pull = GPIO_PULLDOWN;
+  HAL_GPIO_Init(GPIOD, &GPIO_InitStruct);
+
+  /*Configure GPIO pin : COL3_Pin */
+  GPIO_InitStruct.Pin = COL3_Pin;
   GPIO_InitStruct.Mode = GPIO_MODE_INPUT;
   GPIO_InitStruct.Pull = GPIO_NOPULL;
-  HAL_GPIO_Init(GPIOD, &GPIO_InitStruct);
+  HAL_GPIO_Init(COL3_GPIO_Port, &GPIO_InitStruct);
 
   /*Configure GPIO pin : COL0_Pin */
   GPIO_InitStruct.Pin = COL0_Pin;
   GPIO_InitStruct.Mode = GPIO_MODE_INPUT;
-  GPIO_InitStruct.Pull = GPIO_NOPULL;
+  GPIO_InitStruct.Pull = GPIO_PULLDOWN;
   HAL_GPIO_Init(COL0_GPIO_Port, &GPIO_InitStruct);
 
   /*Configure GPIO pins : ROW5_Pin ROW4_Pin ROW3_Pin */
@@ -571,12 +587,12 @@ static void MX_GPIO_Init(void)
   GPIO_InitStruct.Speed = GPIO_SPEED_FREQ_HIGH;
   HAL_GPIO_Init(GPIOA, &GPIO_InitStruct);
 
-  /*Configure GPIO pin : PD6 */
-  GPIO_InitStruct.Pin = GPIO_PIN_6;
+  /*Configure GPIO pin : USB_EN_Pin */
+  GPIO_InitStruct.Pin = USB_EN_Pin;
   GPIO_InitStruct.Mode = GPIO_MODE_OUTPUT_PP;
   GPIO_InitStruct.Pull = GPIO_NOPULL;
   GPIO_InitStruct.Speed = GPIO_SPEED_FREQ_LOW;
-  HAL_GPIO_Init(GPIOD, &GPIO_InitStruct);
+  HAL_GPIO_Init(USB_EN_GPIO_Port, &GPIO_InitStruct);
 
 }
 
@@ -586,42 +602,72 @@ static void MX_GPIO_Init(void)
 
 /* USER CODE END 4 */
 
-/* USER CODE BEGIN Header_StartDebugTask */
+/* USER CODE BEGIN Header_StartUSBTask */
 /**
-  * @brief  Function implementing the debugTask thread.
+  * @brief  Function implementing the USBTask thread.
   * @param  argument: Not used
   * @retval None
   */
-/* USER CODE END Header_StartDebugTask */
-void StartDebugTask(void const * argument)
+/* USER CODE END Header_StartUSBTask */
+void StartUSBTask(void const * argument)
 {
   /* init code for USB_DEVICE */
   MX_USB_DEVICE_Init();
+  HAL_TIM_Encoder_Start_IT(&htim4, TIM_CHANNEL_ALL);
 
   /* USER CODE BEGIN 5 */
   /* Infinite loop */
-  HAL_GPIO_WritePin(GPIOD, GPIO_PIN_6, 0);
+  HAL_GPIO_WritePin(USB_EN_GPIO_Port, USB_EN_Pin, 0);
+
   for(;;)
   {
-//	if(readKey(1,1))
-//		HAL_GPIO_WritePin(LED1_GPIO_Port, LED1_Pin, 1);
-//	else
-//		HAL_GPIO_WritePin(LED1_GPIO_Port, LED1_Pin, 0);
-//	if(readKey(2,1))
-//		HAL_GPIO_WritePin(LED2_GPIO_Port, LED2_Pin, 1);
-//	else
-//		HAL_GPIO_WritePin(LED2_GPIO_Port, LED2_Pin, 0);
-//	if(readKey(3,1))
-//		HAL_GPIO_WritePin(LED3_GPIO_Port, LED3_Pin, 1);
-//	else
-//		HAL_GPIO_WritePin(LED3_GPIO_Port, LED3_Pin, 0);
-	HAL_GPIO_TogglePin(LED1_GPIO_Port, LED1_Pin);
+    int32_t vol = getVolume();
+	if((vol)%2)
+		HAL_GPIO_TogglePin(LED1_GPIO_Port, LED1_Pin);
+//	if(readKey(0,0)) HAL_GPIO_WritePin(LED1_GPIO_Port, LED1_Pin, 1);
+//	else HAL_GPIO_WritePin(LED1_GPIO_Port, LED1_Pin, 0);
+//	if(readKey(1,0)) HAL_GPIO_WritePin(LED2_GPIO_Port, LED2_Pin, 1);
+//	else HAL_GPIO_WritePin(LED2_GPIO_Port, LED2_Pin, 0);
+//	if(readKey(2,0)) HAL_GPIO_WritePin(LED3_GPIO_Port, LED3_Pin, 1);
+//	else HAL_GPIO_WritePin(LED3_GPIO_Port, LED3_Pin, 0);
+	static uint8_t config_mode = 0;
+	KeyModifier m= {0};
+	if(readKey(0,0)){
+		config_mode++;
+		config_mode	%= 2;
+	}
 
-	KeyModifier m={0};
-//
-	sendKey('a', m);
-//	HAL_GPIO_TogglePin(LED1_GPIO_Port, LED1_Pin);
-    osDelay(100);
+	if(config_mode){
+		char key = 0;
+		uint8_t udlr = 1;
+
+		if(readKey(1,1)) oled_next_page();		// next page
+		if(readKey(3,1)) 	  key = 129; // left
+		else if(readKey(3,2)) key = 132; // down
+		else if(readKey(3,3)) key = 130; // right
+		else if(readKey(2,2)) key = 131; // up
+		else if(readKey(0,1)) key = 'a';
+		else if(readKey(0,2)) key = 'b';
+		else if(readKey(0,3)) key = 'c';
+		else if(readKey(1,3)) key = 13;  // enter = 13
+		else if(readKey(1,2)) key = 127; // backsapce 127
+		else udlr = 0;
+
+		if(udlr) oled_on_click_page(&key, 1);
+
+	}else{
+		HAL_GPIO_WritePin(LED1_GPIO_Port, LED1_Pin, 0);
+		for(uint8_t r = 0; r < ROW_NUM; r++){
+			for(uint8_t c = 0; c < COL_NUM; c++){
+				if(readKey(r,c)){
+//					apply_modifier(&m);
+					sendKey(getKeyIDByRC(r, c), m);
+				}
+			}
+		}
+	}
+
+	osDelay(1000);
   }
   /* USER CODE END 5 */
 }
@@ -632,16 +678,16 @@ void StartDebugTask(void const * argument)
 * @param argument: Not used
 * @retval None
 */
+
 /* USER CODE END Header_StartDebugTask02 */
 void StartDebugTask02(void const * argument)
 {
   /* USER CODE BEGIN StartDebugTask02 */
   /* Infinite loop */
-//  oled_ui_init();
   for(;;)
   {
-
-    osDelay(1000);
+	HAL_GPIO_TogglePin(LED1_GPIO_Port, LED1_Pin);
+    osDelay(50);
   }
   /* USER CODE END StartDebugTask02 */
 }
@@ -657,12 +703,18 @@ void StartRGBTask(void const * argument)
 {
   /* USER CODE BEGIN StartRGBTask */
   /* Infinite loop */
-	static uint16_t pwmData[10] = {0,10,20,30,40,50,60,70,80,90};
+	WS2812_InitStruct ws2812_initStruct = {.LED_num = 10, .tim = &htim1, . channel = TIM_CHANNEL_1};
+	WS2812_init(&ws2812, &ws2812_initStruct);
+	WS2812Mode mode = LOOPMODE;
+//
+//	if(mode == LOOPMODE)
+//	WS2812_LoopTask(&ws2812);
+//	if(mode == BREATHMODE)
+//		WS2812_BreathTask(&ws2812);
+//	if(mode == STATICMODE)
+//		WS2812_StaticTask(&ws2812);
 
-	HAL_TIM_Base_Start(&htim1);
-	HAL_TIM_PWM_Start(&htim1, TIM_CHANNEL_1);
-	__HAL_TIM_SET_COMPARE(&htim1, TIM_CHANNEL_1, 40);
-
+//	WS2812_Deinit(&ws2812);
 	for(;;){
 //		HAL_TIM_PWM_Start_DMA(&htim1, TIM_CHANNEL_1, (void*)pwmData, 20);
 		static int i=0;

@@ -12,7 +12,7 @@ extern PAGE led;
 extern PAGE macro;
 
 int currentPage = 0;
-PAGE *page_array[2] = {&macro, &status};
+PAGE *page_array[3] = {&led, &status, &macro};
 
 void oled_ui_init(){
 	ssd1306_Init();
