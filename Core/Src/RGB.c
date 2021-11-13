@@ -44,10 +44,10 @@ void WS2812_LED_ClearRGB(WS2812* ws, const uint32_t LED_index){
 	WS2812_LED_SetRGB(ws, LED_index, color);
 }
 
-// void HAL_TIM_PWM_PulseFinishedCallback(TIM_HandleTypeDef *htim){
-// 	HAL_TIM_PWM_Stop_DMA(&htim1, TIM_CHANNEL_1);
-// 	datasentflag = 1;
-// }
+ void HAL_TIM_PWM_PulseFinishedCallback(TIM_HandleTypeDef *htim){
+ 	HAL_TIM_PWM_Stop_DMA(&htim1, TIM_CHANNEL_1);
+ 	datasentflag = 1;
+ }
 
 void WS2812_sendData(WS2812* ws){
 	uint32_t index = 0;
@@ -64,7 +64,7 @@ void WS2812_sendData(WS2812* ws){
 	for (uint8_t i = 0; i < RESET_TIMEOUT; index++, i++)
 		ws->pwmData[index] = 0;
 
-	HAL_TIM_PWM_Start_DMA(&htim1, TIM_CHANNEL_1, (uint32_t *)ws->pwmData, index);
+	HAL_TIM_PWM_Start_DMA(&htim1, TIM_CHANNEL_1, ws->pwmData, index);
 	while (!datasentflag){};
 	datasentflag = 0;
 }
@@ -119,13 +119,7 @@ void WS2812_BreathTask(WS2812* ws){
 }
 
 void WS2812_StaticTask(WS2812* ws){
-	WS2812_LED_SetBrightness(ws, 20);
-	for(uint8_t i = 0; i < sizeof(defaultColorList)/sizeof(RGB); i++)
-		WS2812_LED_SetRGB(ws, i, defaultColorList[i]);
-	for(;;){
-		WS2812_sendData(ws);
-		osDelay(10);
-	}
+
 }
 
 void WS2812_LED_Task(void const * par){

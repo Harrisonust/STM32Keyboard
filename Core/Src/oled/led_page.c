@@ -7,6 +7,7 @@
 #include "../../Inc/oled/led_page.h"
 #include "math.h"
 
+extern WS2812 ws2812;
 
 PAGE led = {
 		.title = "LED",

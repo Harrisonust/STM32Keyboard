@@ -19,7 +19,6 @@
 
 #define SELECTION 4
 
-extern WS2812 ws2812;
 
 char *color[20] = {
 		"bright",

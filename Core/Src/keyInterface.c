@@ -162,8 +162,8 @@ GPIO_PinState readKey(uint8_t row, uint8_t col){
 	reset(ROW1);
 	reset(ROW2);
 	reset(ROW3);
-	reset(ROW4);
-	reset(ROW5);
+//	reset(ROW4);
+//	reset(ROW5);
 
 	switch(row){
 		case 0:
@@ -178,12 +178,12 @@ GPIO_PinState readKey(uint8_t row, uint8_t col){
 		case 3:
 			set(ROW3);
 		break;		
-		case 4:
-			set(ROW4);
-		break;	
-		case 5:
-			set(ROW5);
-		break;	
+//		case 4:
+//			set(ROW4);
+//		break;
+//		case 5:
+//			set(ROW5);
+//		break;
 		default: result = GPIO_PIN_RESET;
 	}
 	
@@ -200,44 +200,44 @@ GPIO_PinState readKey(uint8_t row, uint8_t col){
 		case 3: 
 			result = read(COL3);
 		break;
-		case 4: 
-			result = read(COL4);
-		break;
-		case 5: 
-			result = read(COL5);
-		break;
-		case 6: 
-			result = read(COL6);
-		break;
-		case 7: 
-			result = read(COL7);
-		break;
-		case 8: 
-			result = read(COL8);
-		break;
-		case 9: 
-			result = read(COL9);
-		break;
-		case 10: 
-			result = read(COL10);
-		break;
-		case 11: 
-			result = read(COL11);
-		break;
-		case 12: 
-			result = read(COL12);
-		break;
-		case 13: 
-			result = read(COL13);
-		break;
+//		case 4:
+//			result = read(COL4);
+//		break;
+//		case 5:
+//			result = read(COL5);
+//		break;
+//		case 6:
+//			result = read(COL6);
+//		break;
+//		case 7:
+//			result = read(COL7);
+//		break;
+//		case 8:
+//			result = read(COL8);
+//		break;
+//		case 9:
+//			result = read(COL9);
+//		break;
+//		case 10:
+//			result = read(COL10);
+//		break;
+//		case 11:
+//			result = read(COL11);
+//		break;
+//		case 12:
+//			result = read(COL12);
+//		break;
+//		case 13:
+//			result = read(COL13);
+//		break;
 		default: result = GPIO_PIN_RESET;
 	}
 	reset(ROW0);
 	reset(ROW1);
 	reset(ROW2);
 	reset(ROW3);
-	reset(ROW4);
-	reset(ROW5);
+//	reset(ROW4);
+//	reset(ROW5);
 	return result;
 }
 

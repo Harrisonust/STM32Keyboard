@@ -18,7 +18,7 @@ typedef struct {
 	uint32_t LED_num;
 	TIM_HandleTypeDef* tim;
 	uint32_t channel;
-	uint16_t pwmData[(24*MAX_LED)+RESET_TIMEOUT];
+	uint32_t pwmData[(24*MAX_LED)+RESET_TIMEOUT];
 	uint8_t LED_Data[MAX_LED][4]; // make it dynamic later
 	uint8_t brightness;  // smaller means lighter
 }WS2812;
@@ -58,8 +58,8 @@ typedef enum{
 #define WS2812_NONE		{.R = 0, 	.G = 0, 	.B = 0}
 
 
-#define WS2812_ONECODE 	45
-#define WS2812_ZEROCODE 28
+#define WS2812_ONECODE 	32
+#define WS2812_ZEROCODE 16
 
 // specify timer and timer channel here
 void WS2812_init(WS2812* instance, WS2812_InitStruct* stuc);

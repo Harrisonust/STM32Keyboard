@@ -56,6 +56,7 @@ TIM_HandleTypeDef htim2;
 DMA_HandleTypeDef hdma_tim1_ch1;
 
 UART_HandleTypeDef huart4;
+UART_HandleTypeDef huart1;
 
 osThreadId USBTaskHandle;
 osThreadId debugTask02Handle;
@@ -73,6 +74,7 @@ static void MX_I2C1_Init(void);
 static void MX_DMA_Init(void);
 static void MX_UART4_Init(void);
 static void MX_TIM2_Init(void);
+static void MX_USART1_UART_Init(void);
 void StartUSBTask(void const * argument);
 void StartDebugTask02(void const * argument);
 void StartRGBTask(void const * argument);
@@ -114,11 +116,12 @@ int main(void)
   /* Initialize all configured peripherals */
   MX_GPIO_Init();
   MX_ADC1_Init();
+  MX_DMA_Init();
   MX_TIM1_Init();
   MX_I2C1_Init();
-  MX_DMA_Init();
   MX_UART4_Init();
   MX_TIM2_Init();
+  MX_USART1_UART_Init();
   /* USER CODE BEGIN 2 */
   HAL_ADCEx_Calibration_Start(&hadc1);
   HAL_ADC_Start(&hadc1);
@@ -323,9 +326,9 @@ static void MX_TIM1_Init(void)
 
   /* USER CODE END TIM1_Init 1 */
   htim1.Instance = TIM1;
-  htim1.Init.Prescaler = 16;
+  htim1.Init.Prescaler = 2-1;
   htim1.Init.CounterMode = TIM_COUNTERMODE_UP;
-  htim1.Init.Period = 13;
+  htim1.Init.Period = 50-1;
   htim1.Init.ClockDivision = TIM_CLOCKDIVISION_DIV1;
   htim1.Init.RepetitionCounter = 0;
   htim1.Init.AutoReloadPreload = TIM_AUTORELOAD_PRELOAD_DISABLE;
@@ -349,7 +352,7 @@ static void MX_TIM1_Init(void)
     Error_Handler();
   }
   sConfigOC.OCMode = TIM_OCMODE_PWM1;
-  sConfigOC.Pulse = 11;
+  sConfigOC.Pulse = 0;
   sConfigOC.OCPolarity = TIM_OCPOLARITY_HIGH;
   sConfigOC.OCNPolarity = TIM_OCNPOLARITY_HIGH;
   sConfigOC.OCFastMode = TIM_OCFAST_DISABLE;
@@ -460,6 +463,39 @@ static void MX_UART4_Init(void)
 }
 
 /**
+  * @brief USART1 Initialization Function
+  * @param None
+  * @retval None
+  */
+static void MX_USART1_UART_Init(void)
+{
+
+  /* USER CODE BEGIN USART1_Init 0 */
+
+  /* USER CODE END USART1_Init 0 */
+
+  /* USER CODE BEGIN USART1_Init 1 */
+
+  /* USER CODE END USART1_Init 1 */
+  huart1.Instance = USART1;
+  huart1.Init.BaudRate = 115200;
+  huart1.Init.WordLength = UART_WORDLENGTH_8B;
+  huart1.Init.StopBits = UART_STOPBITS_1;
+  huart1.Init.Parity = UART_PARITY_NONE;
+  huart1.Init.Mode = UART_MODE_TX_RX;
+  huart1.Init.HwFlowCtl = UART_HWCONTROL_NONE;
+  huart1.Init.OverSampling = UART_OVERSAMPLING_16;
+  if (HAL_UART_Init(&huart1) != HAL_OK)
+  {
+    Error_Handler();
+  }
+  /* USER CODE BEGIN USART1_Init 2 */
+
+  /* USER CODE END USART1_Init 2 */
+
+}
+
+/**
   * Enable DMA controller clock
   */
 static void MX_DMA_Init(void)
@@ -491,17 +527,13 @@ static void MX_GPIO_Init(void)
   __HAL_RCC_GPIOD_CLK_ENABLE();
 
   /*Configure GPIO pin Output Level */
-  HAL_GPIO_WritePin(GPIOC, TFT_DC_Pin|TFT_RES_Pin|ROW5_Pin|ROW4_Pin
-                          |ROW3_Pin, GPIO_PIN_RESET);
+  HAL_GPIO_WritePin(GPIOB, LED1_Pin|LED2_Pin|LED3_Pin, GPIO_PIN_RESET);
 
   /*Configure GPIO pin Output Level */
-  HAL_GPIO_WritePin(GPIOB, TFT_CS_Pin|LED1_Pin|GPIO_PIN_2|LED3_Pin, GPIO_PIN_RESET);
+  HAL_GPIO_WritePin(GPIOD, COL3_Pin|COL2_Pin|COL1_Pin|USB_EN_Pin, GPIO_PIN_RESET);
 
   /*Configure GPIO pin Output Level */
-  HAL_GPIO_WritePin(GPIOA, ROW2_Pin|ROW1_Pin|ROW0_Pin, GPIO_PIN_RESET);
-
-  /*Configure GPIO pin Output Level */
-  HAL_GPIO_WritePin(USB_EN_GPIO_Port, USB_EN_Pin, GPIO_PIN_RESET);
+  HAL_GPIO_WritePin(COL0_GPIO_Port, COL0_Pin, GPIO_PIN_RESET);
 
   /*Configure GPIO pins : PA5 PA7 */
   GPIO_InitStruct.Pin = GPIO_PIN_5|GPIO_PIN_7;
@@ -509,15 +541,8 @@ static void MX_GPIO_Init(void)
   GPIO_InitStruct.Pull = GPIO_PULLDOWN;
   HAL_GPIO_Init(GPIOA, &GPIO_InitStruct);
 
-  /*Configure GPIO pins : TFT_DC_Pin TFT_RES_Pin */
-  GPIO_InitStruct.Pin = TFT_DC_Pin|TFT_RES_Pin;
-  GPIO_InitStruct.Mode = GPIO_MODE_OUTPUT_PP;
-  GPIO_InitStruct.Pull = GPIO_NOPULL;
-  GPIO_InitStruct.Speed = GPIO_SPEED_FREQ_LOW;
-  HAL_GPIO_Init(GPIOC, &GPIO_InitStruct);
-
-  /*Configure GPIO pins : TFT_CS_Pin LED1_Pin PB2 LED3_Pin */
-  GPIO_InitStruct.Pin = TFT_CS_Pin|LED1_Pin|GPIO_PIN_2|LED3_Pin;
+  /*Configure GPIO pins : LED1_Pin LED2_Pin LED3_Pin */
+  GPIO_InitStruct.Pin = LED1_Pin|LED2_Pin|LED3_Pin;
   GPIO_InitStruct.Mode = GPIO_MODE_OUTPUT_PP;
   GPIO_InitStruct.Pull = GPIO_NOPULL;
   GPIO_InitStruct.Speed = GPIO_SPEED_FREQ_LOW;
@@ -529,61 +554,25 @@ static void MX_GPIO_Init(void)
   GPIO_InitStruct.Pull = GPIO_PULLDOWN;
   HAL_GPIO_Init(GPIOE, &GPIO_InitStruct);
 
-  /*Configure GPIO pins : COL13_Pin COL12_Pin COL11_Pin COL10_Pin
-                           COL9_Pin */
-  GPIO_InitStruct.Pin = COL13_Pin|COL12_Pin|COL11_Pin|COL10_Pin
-                          |COL9_Pin;
-  GPIO_InitStruct.Mode = GPIO_MODE_INPUT;
-  GPIO_InitStruct.Pull = GPIO_PULLDOWN;
-  HAL_GPIO_Init(GPIOB, &GPIO_InitStruct);
-
-  /*Configure GPIO pins : COL8_Pin COL7_Pin COL6_Pin COL5_Pin
-                           COL4_Pin COL2_Pin COL1_Pin */
-  GPIO_InitStruct.Pin = COL8_Pin|COL7_Pin|COL6_Pin|COL5_Pin
-                          |COL4_Pin|COL2_Pin|COL1_Pin;
-  GPIO_InitStruct.Mode = GPIO_MODE_INPUT;
-  GPIO_InitStruct.Pull = GPIO_PULLDOWN;
-  HAL_GPIO_Init(GPIOD, &GPIO_InitStruct);
-
-  /*Configure GPIO pin : COL3_Pin */
-  GPIO_InitStruct.Pin = COL3_Pin;
-  GPIO_InitStruct.Mode = GPIO_MODE_INPUT;
+  /*Configure GPIO pins : COL3_Pin COL2_Pin COL1_Pin USB_EN_Pin */
+  GPIO_InitStruct.Pin = COL3_Pin|COL2_Pin|COL1_Pin|USB_EN_Pin;
+  GPIO_InitStruct.Mode = GPIO_MODE_OUTPUT_PP;
   GPIO_InitStruct.Pull = GPIO_NOPULL;
-  HAL_GPIO_Init(COL3_GPIO_Port, &GPIO_InitStruct);
+  GPIO_InitStruct.Speed = GPIO_SPEED_FREQ_LOW;
+  HAL_GPIO_Init(GPIOD, &GPIO_InitStruct);
 
   /*Configure GPIO pin : COL0_Pin */
   GPIO_InitStruct.Pin = COL0_Pin;
-  GPIO_InitStruct.Mode = GPIO_MODE_INPUT;
-  GPIO_InitStruct.Pull = GPIO_PULLDOWN;
+  GPIO_InitStruct.Mode = GPIO_MODE_OUTPUT_PP;
+  GPIO_InitStruct.Pull = GPIO_NOPULL;
+  GPIO_InitStruct.Speed = GPIO_SPEED_FREQ_LOW;
   HAL_GPIO_Init(COL0_GPIO_Port, &GPIO_InitStruct);
 
-  /*Configure GPIO pins : ROW5_Pin ROW4_Pin ROW3_Pin */
-  GPIO_InitStruct.Pin = ROW5_Pin|ROW4_Pin|ROW3_Pin;
-  GPIO_InitStruct.Mode = GPIO_MODE_OUTPUT_PP;
-  GPIO_InitStruct.Pull = GPIO_NOPULL;
-  GPIO_InitStruct.Speed = GPIO_SPEED_FREQ_HIGH;
-  HAL_GPIO_Init(GPIOC, &GPIO_InitStruct);
-
-  /*Configure GPIO pin : ROW2_Pin */
-  GPIO_InitStruct.Pin = ROW2_Pin;
-  GPIO_InitStruct.Mode = GPIO_MODE_OUTPUT_PP;
-  GPIO_InitStruct.Pull = GPIO_NOPULL;
-  GPIO_InitStruct.Speed = GPIO_SPEED_FREQ_LOW;
-  HAL_GPIO_Init(ROW2_GPIO_Port, &GPIO_InitStruct);
-
-  /*Configure GPIO pins : ROW1_Pin ROW0_Pin */
-  GPIO_InitStruct.Pin = ROW1_Pin|ROW0_Pin;
-  GPIO_InitStruct.Mode = GPIO_MODE_OUTPUT_PP;
-  GPIO_InitStruct.Pull = GPIO_NOPULL;
-  GPIO_InitStruct.Speed = GPIO_SPEED_FREQ_HIGH;
-  HAL_GPIO_Init(GPIOA, &GPIO_InitStruct);
-
-  /*Configure GPIO pin : USB_EN_Pin */
-  GPIO_InitStruct.Pin = USB_EN_Pin;
-  GPIO_InitStruct.Mode = GPIO_MODE_OUTPUT_PP;
-  GPIO_InitStruct.Pull = GPIO_NOPULL;
-  GPIO_InitStruct.Speed = GPIO_SPEED_FREQ_LOW;
-  HAL_GPIO_Init(USB_EN_GPIO_Port, &GPIO_InitStruct);
+  /*Configure GPIO pins : ROW0_Pin ROW1_Pin ROW2_Pin ROW3_Pin */
+  GPIO_InitStruct.Pin = ROW0_Pin|ROW1_Pin|ROW2_Pin|ROW3_Pin;
+  GPIO_InitStruct.Mode = GPIO_MODE_IT_RISING;
+  GPIO_InitStruct.Pull = GPIO_PULLDOWN;
+  HAL_GPIO_Init(GPIOD, &GPIO_InitStruct);
 
 }
 
@@ -618,12 +607,15 @@ void StartUSBTask(void const * argument)
 	if(readKey(0,0)){
 		config_mode++;
 		config_mode	%= 2;
-	}
+		HAL_GPIO_WritePin(LED1_GPIO_Port, LED1_Pin, 1);
+	}else
+		HAL_GPIO_WritePin(LED1_GPIO_Port, LED1_Pin, 0);
+
 
 	if(config_mode){
 		char key = 0;
 		uint8_t udlr = 1;
-		HAL_GPIO_WritePin(LED1_GPIO_Port, LED1_Pin, 1);
+//		HAL_GPIO_WritePin(LED1_GPIO_Port, LED1_Pin, 1);
 
 		if(readKey(1,1)) oled_next_page();		// next page
 		if(readKey(3,1)) 	  key = 129; // left
@@ -640,9 +632,8 @@ void StartUSBTask(void const * argument)
 		if(udlr) oled_on_click_page(&key, 1);
 
 	}else{
-		HAL_GPIO_WritePin(LED1_GPIO_Port, LED1_Pin, 0);
+//		HAL_GPIO_WritePin(LED1_GPIO_Port, LED1_Pin, 0);
 
-		HAL_GPIO_WritePin(LED1_GPIO_Port, LED1_Pin, 0);
 		for(uint8_t r = 0; r < ROW_NUM; r++){
 			for(uint8_t c = 0; c < COL_NUM; c++){
 				if(readKey(r,c)){
@@ -652,8 +643,10 @@ void StartUSBTask(void const * argument)
 			}
 		}
 	}
+	oled_update_page();
+	HAL_GPIO_TogglePin(LED2_GPIO_Port, LED2_Pin);
 
-	osDelay(10);
+	osDelay(109);
   }
   /* USER CODE END 5 */
 }
@@ -692,11 +685,20 @@ void StartRGBTask(void const * argument)
 	WS2812_InitStruct ws2812_initStruct = {.LED_num = 3, .tim = &htim1, . channel = TIM_CHANNEL_1};
 	WS2812_init(&ws2812, &ws2812_initStruct);
 	WS2812Mode mode = LOOPMODE;
+//#define NUM 10
+//	uint32_t data[NUM] = {0,10,20,30,40,50,60,70,80,90};
 
+	WS2812_LED_SetBrightness(&ws2812, 10);
+//	RGB c = rgb(0b01010101,0b01010101,0b01010101);
+//	WS2812_LED_SetRGB(&ws2812, 0, c);
+//	WS2812_LED_SetRGB(&ws2812, 1, c);
+//	WS2812_LED_SetRGB(&ws2812, 2, c);
+	RGB defaultColorList[] = {WS2812_BLUE, WS2812_RED, WS2812_GREEN};
+	for(int i = 0; i < 3; i++)
+		WS2812_LED_SetRGB(&ws2812, i , defaultColorList[i]);
 	for(;;){
-
-//		HAL_GPIO_TogglePin(LED3_GPIO_Port, LED3_Pin);
-		osDelay(50);
+		WS2812_sendData(&ws2812);
+		osDelay(10);
 	}
 
   /* USER CODE END StartRGBTask */
