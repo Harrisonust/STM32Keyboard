@@ -643,7 +643,7 @@ void StartUSBTask(void const * argument)
 			}
 		}
 	}
-	oled_update_page();
+//	oled_update_page();
 	HAL_GPIO_TogglePin(LED2_GPIO_Port, LED2_Pin);
 
 	osDelay(109);
@@ -685,21 +685,8 @@ void StartRGBTask(void const * argument)
 	WS2812_InitStruct ws2812_initStruct = {.LED_num = 3, .tim = &htim1, . channel = TIM_CHANNEL_1};
 	WS2812_init(&ws2812, &ws2812_initStruct);
 	WS2812Mode mode = LOOPMODE;
-//#define NUM 10
-//	uint32_t data[NUM] = {0,10,20,30,40,50,60,70,80,90};
 
-	WS2812_LED_SetBrightness(&ws2812, 10);
-//	RGB c = rgb(0b01010101,0b01010101,0b01010101);
-//	WS2812_LED_SetRGB(&ws2812, 0, c);
-//	WS2812_LED_SetRGB(&ws2812, 1, c);
-//	WS2812_LED_SetRGB(&ws2812, 2, c);
-	RGB defaultColorList[] = {WS2812_BLUE, WS2812_RED, WS2812_GREEN};
-	for(int i = 0; i < 3; i++)
-		WS2812_LED_SetRGB(&ws2812, i , defaultColorList[i]);
-	for(;;){
-		WS2812_sendData(&ws2812);
-		osDelay(10);
-	}
+	WS2812_LoopTask(&ws2812);
 
   /* USER CODE END StartRGBTask */
 }
