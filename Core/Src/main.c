@@ -570,9 +570,22 @@ static void MX_GPIO_Init(void)
 
   /*Configure GPIO pins : ROW0_Pin ROW1_Pin ROW2_Pin ROW3_Pin */
   GPIO_InitStruct.Pin = ROW0_Pin|ROW1_Pin|ROW2_Pin|ROW3_Pin;
-  GPIO_InitStruct.Mode = GPIO_MODE_INPUT;
+  GPIO_InitStruct.Mode = GPIO_MODE_IT_RISING;
   GPIO_InitStruct.Pull = GPIO_PULLDOWN;
   HAL_GPIO_Init(GPIOD, &GPIO_InitStruct);
+
+  /* EXTI interrupt init*/
+  HAL_NVIC_SetPriority(EXTI0_IRQn, 5, 0);
+  HAL_NVIC_EnableIRQ(EXTI0_IRQn);
+
+  HAL_NVIC_SetPriority(EXTI1_IRQn, 5, 0);
+  HAL_NVIC_EnableIRQ(EXTI1_IRQn);
+
+  HAL_NVIC_SetPriority(EXTI2_IRQn, 5, 0);
+  HAL_NVIC_EnableIRQ(EXTI2_IRQn);
+
+  HAL_NVIC_SetPriority(EXTI3_IRQn, 5, 0);
+  HAL_NVIC_EnableIRQ(EXTI3_IRQn);
 
 }
 
@@ -598,57 +611,7 @@ void StartUSBTask(void const * argument)
   /* Infinite loop */
   HAL_GPIO_WritePin(USB_EN_GPIO_Port, USB_EN_Pin, 0);
 
-  for(;;)
-  {
-
-
-    int32_t vol = getVolume();
-
-    static uint8_t config_mode = 0;
-	KeyModifier m= {0};
-	if(readKey(0,0)){
-		config_mode++;
-		config_mode	%= 2;
-		HAL_GPIO_WritePin(LED1_GPIO_Port, LED1_Pin, 1);
-	}else{
-		HAL_GPIO_WritePin(LED1_GPIO_Port, LED1_Pin, 0);
-	}
-
-	if(config_mode){
-		char key = 0;
-		uint8_t udlr = 1;
-
-		if(readKey(1,1)) oled_next_page();		// next page
-		if(readKey(3,1)) 	  key = 129; // left
-		else if(readKey(3,2)) key = 132; // down
-		else if(readKey(3,3)) key = 130; // right
-		else if(readKey(2,2)) key = 131; // up
-		else if(readKey(0,1)) key = 'a';
-		else if(readKey(0,2)) key = 'b';
-		else if(readKey(0,3)) key = 'c';
-		else if(readKey(1,3)) key = 13;  // enter = 13
-		else if(readKey(1,2)) key = 127; // backsapce 127
-		else udlr = 0;
-
-		if(udlr) oled_on_click_page(&key, 1);
-
-	}else{
-//		HAL_GPIO_WritePin(LED1_GPIO_Port, LED1_Pin, 0);
-
-		for(uint8_t r = 0; r < ROW_NUM; r++){
-			for(uint8_t c = 0; c < COL_NUM; c++){
-				if(readKey(r,c)){
-//					apply_modifier(&m);
-					sendKey(getKeyIDByRC(r, c), m);
-				}
-			}
-		}
-	}
-
-////	oled_update_page();
-
-	osDelay(10);
-  }
+  keyThread();
   /* USER CODE END 5 */
 }
 

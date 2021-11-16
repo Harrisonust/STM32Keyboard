@@ -2,9 +2,15 @@
 #define KEYINTERFACE_H
 #include "main.h"
 
-#define ROW_NUM 6
-#define COL_NUM 14
+#define KEYBOARD_LAYOUT_16 
 
+#if defined(KEYBOARD_LAYOUT_84)
+	#define ROW_NUM 6
+	#define COL_NUM 14
+#elif defined(KEYBOARD_LAYOUT_16)
+	#define ROW_NUM 4
+	#define COL_NUM 4
+#endif
 
 typedef struct{
 	uint8_t MODIFIER;

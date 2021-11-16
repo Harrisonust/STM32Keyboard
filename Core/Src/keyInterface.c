@@ -1,6 +1,11 @@
-#include "keyInterface.h"
+#include "cmsis_os.h"
 #include "usbd_hid.h"
 #include "usb_device.h"
+#include "main.h"
+
+#include "keyInterface.h"
+#include "volume.h"
+#include "oled_manager.h"
 
 extern USBD_HandleTypeDef hUsbDeviceFS;
 keyboardStruct keyboardStct;
@@ -24,7 +29,7 @@ uint8_t getKeyIDByChar(const char ch);
 
 uint8_t getKeyIDByRC(const uint8_t r, const uint8_t c){
 
-	if(KEYBOARDLAYOUT == KEY84){
+	#if defined(KEYBOARD_LAYOUT_84)
 		if	   (r == 0 && c == 0)	return 0x29;	//esc
 		else if(r == 0 && c == 1) 	return 0x3A;	//F1
 		else if(r == 0 && c == 2) 	return 0x3B;	//F2
@@ -39,58 +44,58 @@ uint8_t getKeyIDByRC(const uint8_t r, const uint8_t c){
 		else if(r == 0 && c == 11) 	return 0x44;	//F11
 		else if(r == 0 && c == 12) 	return 0x45;	//F12
 		else if(r == 0 && c == 13) 	return 0x46;	//PrtScn
-		else if(r == 1 && c == 0) 	return 0x38;	//splash
-		else if(r == 1 && c == 1) 	return 0x1E;	//1
-		else if(r == 1 && c == 2) 	return 0x1F;	//2
-		else if(r == 1 && c == 3) 	return 0x20;	//3
-		else if(r == 1 && c == 4)	return 0x21;	//4
-		else if(r == 1 && c == 5) 	return 0x22;	//5
-		else if(r == 1 && c == 6) 	return 0x23;	//6
-		else if(r == 1 && c == 7) 	return 0x24;	//7
-		else if(r == 1 && c == 8) 	return 0x25;	//8
-		else if(r == 1 && c == 9) 	return 0x26;	//9
-		else if(r == 1 && c == 10) 	return 0x27;	//0
-		else if(r == 1 && c == 11) 	return 0x2D;	//-
-		else if(r == 1 && c == 12) 	return 0x2E;	//=
+		else if(r == 1 && c == 0) 	return getKeyIDByChar('/');	//splash
+		else if(r == 1 && c == 1) 	return getKeyIDByChar('1');	//1
+		else if(r == 1 && c == 2) 	return getKeyIDByChar('2');	//2
+		else if(r == 1 && c == 3) 	return getKeyIDByChar('3');	//3
+		else if(r == 1 && c == 4)	return getKeyIDByChar('4');	//4
+		else if(r == 1 && c == 5) 	return getKeyIDByChar('5');	//5
+		else if(r == 1 && c == 6) 	return getKeyIDByChar('6');	//6
+		else if(r == 1 && c == 7) 	return getKeyIDByChar('7');	//7
+		else if(r == 1 && c == 8) 	return getKeyIDByChar('8');	//8
+		else if(r == 1 && c == 9) 	return getKeyIDByChar('9');	//9
+		else if(r == 1 && c == 10) 	return getKeyIDByChar('0');	//0
+		else if(r == 1 && c == 11) 	return getKeyIDByChar('-');	//-
+		else if(r == 1 && c == 12) 	return getKeyIDByChar('=');	//=
 		else if(r == 1 && c == 13) 	return 0x2A;	//backspace
 		else if(r == 2 && c == 0) 	return 0x2B;	//tab
-		else if(r == 2 && c == 1) 	return 0x14;	//q
-		else if(r == 2 && c == 2) 	return 0x1A;	//w
-		else if(r == 2 && c == 3) 	return 0x08;	//e
-		else if(r == 2 && c == 4) 	return 0x15;	//r
-		else if(r == 2 && c == 5) 	return 0x17;	//t
-		else if(r == 2 && c == 6) 	return 0x1C;	//y
-		else if(r == 2 && c == 7) 	return 0x18;	//u
-		else if(r == 2 && c == 8) 	return 0x0C;	//i
-		else if(r == 2 && c == 9) 	return 0x12;	//o
-		else if(r == 2 && c == 10) 	return 0x13;	//p
-		else if(r == 2 && c == 11) 	return 0x2F;	//[
-		else if(r == 2 && c == 12) 	return 0x30;	//]
-		else if(r == 2 && c == 13) 	return 0x31;	//back slash
+		else if(r == 2 && c == 1) 	return getKeyIDByChar('q');	//q
+		else if(r == 2 && c == 2) 	return getKeyIDByChar('w');	//w
+		else if(r == 2 && c == 3) 	return getKeyIDByChar('e');	//e
+		else if(r == 2 && c == 4) 	return getKeyIDByChar('r');	//r
+		else if(r == 2 && c == 5) 	return getKeyIDByChar('t');	//t
+		else if(r == 2 && c == 6) 	return getKeyIDByChar('y');	//y
+		else if(r == 2 && c == 7) 	return getKeyIDByChar('u');	//u
+		else if(r == 2 && c == 8) 	return getKeyIDByChar('i');	//i
+		else if(r == 2 && c == 9) 	return getKeyIDByChar('o');	//o
+		else if(r == 2 && c == 10) 	return getKeyIDByChar('p');	//p
+		else if(r == 2 && c == 11) 	return getKeyIDByChar('[');	//[
+		else if(r == 2 && c == 12) 	return getKeyIDByChar(']');	//]
+		else if(r == 2 && c == 13) 	return getKeyIDByChar('\\');	//back slash
 		else if(r == 3 && c == 0) 	return 0x39;	//Caplock
-		else if(r == 3 && c == 1) 	return 0x04;	//a
-		else if(r == 3 && c == 2) 	return 0x16;	//s
-		else if(r == 3 && c == 3) 	return 0x07;	//d
-		else if(r == 3 && c == 4) 	return 0x09;	//f
-		else if(r == 3 && c == 5) 	return 0x0A;	//g
-		else if(r == 3 && c == 6) 	return 0x0B;	//h
-		else if(r == 3 && c == 7) 	return 0x0D;	//j
-		else if(r == 3 && c == 8) 	return 0x0E;	//k
-		else if(r == 3 && c == 9) 	return 0x0C;	//l
-		else if(r == 3 && c == 10) 	return 0x33;	//;
-		else if(r == 3 && c == 11) 	return 0x34;	//'
+		else if(r == 3 && c == 1) 	return getKeyIDByChar('a');	//a
+		else if(r == 3 && c == 2) 	return getKeyIDByChar('s');	//s
+		else if(r == 3 && c == 3) 	return getKeyIDByChar('d');	//d
+		else if(r == 3 && c == 4) 	return getKeyIDByChar('f');	//f
+		else if(r == 3 && c == 5) 	return getKeyIDByChar('g');	//g
+		else if(r == 3 && c == 6) 	return getKeyIDByChar('h');	//h
+		else if(r == 3 && c == 7) 	return getKeyIDByChar('j');	//j
+		else if(r == 3 && c == 8) 	return getKeyIDByChar('k');	//k
+		else if(r == 3 && c == 9) 	return getKeyIDByChar('l');	//l
+		else if(r == 3 && c == 10) 	return getKeyIDByChar(';');	//;
+		else if(r == 3 && c == 11) 	return getKeyIDByChar('\'');	//'
 		else if(r == 3 && c == 12) 	return 0x28;	//enter
 		else if(r == 3 && c == 13) 	return 0x4C;	//del
 		else if(r == 4 && c == 0) 	return 0x00;	//leftshift
-		else if(r == 4 && c == 1) 	return 0x1D;	//z
-		else if(r == 4 && c == 2) 	return 0x1B;	//x
-		else if(r == 4 && c == 3) 	return 0x06;	//c
-		else if(r == 4 && c == 4) 	return 0x19;	//v
-		else if(r == 4 && c == 5) 	return 0x05;	//b
-		else if(r == 4 && c == 6) 	return 0x11;	//n
-		else if(r == 4 && c == 7) 	return 0x10;	//m
-		else if(r == 4 && c == 8) 	return 0x36;	//,
-		else if(r == 4 && c == 9) 	return 0x37;	//.
+		else if(r == 4 && c == 1) 	return getKeyIDByChar('z');	//z
+		else if(r == 4 && c == 2) 	return getKeyIDByChar('x');	//x
+		else if(r == 4 && c == 3) 	return getKeyIDByChar('c');	//c
+		else if(r == 4 && c == 4) 	return getKeyIDByChar('v');	//v
+		else if(r == 4 && c == 5) 	return getKeyIDByChar('b');	//b
+		else if(r == 4 && c == 6) 	return getKeyIDByChar('n');	//n
+		else if(r == 4 && c == 7) 	return getKeyIDByChar('m');	//m
+		else if(r == 4 && c == 8) 	return getKeyIDByChar(',');	//,
+		else if(r == 4 && c == 9) 	return getKeyIDByChar('.');	//.
 		else if(r == 4 && c == 10) 	return 0x38;	///
 		else if(r == 4 && c == 11) 	return 0x00;	//right shift
 		else if(r == 4 && c == 12) 	return 0x4D;	//end
@@ -110,24 +115,26 @@ uint8_t getKeyIDByRC(const uint8_t r, const uint8_t c){
 		else if(r == 5 && c == 12) 	return 0x4E;	//pgdown
 		else if(r == 5 && c == 13) 	return 0x4B;	//pgup
 		else						return 0x00;
-	}else if(KEYBOARDLAYOUT == KEY16){
+	#elif defined(KEYBOARD_LAYOUT_16)
 		if(r == 0 && c == 0) return getKeyIDByChar('a');
-		if(r == 0 && c == 1) return getKeyIDByChar('b');
-		if(r == 0 && c == 2) return getKeyIDByChar('c');
-		if(r == 0 && c == 3) return getKeyIDByChar('d');
-		if(r == 1 && c == 0) return getKeyIDByChar('e');
-		if(r == 1 && c == 1) return getKeyIDByChar('f');
-		if(r == 1 && c == 2) return getKeyIDByChar('g');
-		if(r == 1 && c == 3) return getKeyIDByChar('h');
-		if(r == 2 && c == 0) return getKeyIDByChar('i');
-		if(r == 2 && c == 1) return getKeyIDByChar('j');
-		if(r == 2 && c == 2) return getKeyIDByChar('k');
-		if(r == 2 && c == 3) return getKeyIDByChar('l');
-		if(r == 3 && c == 0) return getKeyIDByChar('m');
-		if(r == 3 && c == 1) return getKeyIDByChar('n');
-		if(r == 3 && c == 2) return getKeyIDByChar('o');
-		if(r == 3 && c == 3) return getKeyIDByChar('p');
-	}
+		else if(r == 0 && c == 1) return getKeyIDByChar('b');
+		else if(r == 0 && c == 2) return getKeyIDByChar('c');
+		else if(r == 0 && c == 3) return getKeyIDByChar('d');
+		else if(r == 1 && c == 0) return getKeyIDByChar('e');
+		else if(r == 1 && c == 1) return getKeyIDByChar('f');
+		else if(r == 1 && c == 2) return getKeyIDByChar('g');
+		else if(r == 1 && c == 3) return getKeyIDByChar('h');
+		else if(r == 2 && c == 0) return getKeyIDByChar('i');
+		else if(r == 2 && c == 1) return getKeyIDByChar('j');
+		else if(r == 2 && c == 2) return getKeyIDByChar('k');
+		else if(r == 2 && c == 3) return getKeyIDByChar('l');
+		else if(r == 3 && c == 0) return getKeyIDByChar('m');
+		else if(r == 3 && c == 1) return getKeyIDByChar('n');
+		else if(r == 3 && c == 2) return getKeyIDByChar('o');
+		else if(r == 3 && c == 3) return getKeyIDByChar('p');
+		else						return 0x00;
+	#endif
+	return 0x00;
 }
 
 
@@ -175,7 +182,7 @@ uint8_t getKeyIDByChar(const char ch){
 	else if	(ch == '[' || ch == '{') 	return 0x2F;
 	else if	(ch == ']' || ch == '}')	return 0x30;
 	else if	(ch == '\\' || ch == '|') 	return 0x31;
-	else if	(ch == '`' || ch == '~')	 return 0x32;
+	else if	(ch == '`' || ch == '~')	return 0x32;
 	else if	(ch == ';' || ch == ':') 	return 0x33;
 	else if	(ch == '\'' || ch == '\"') 	return 0x34;
 	else if	(ch == ',' || ch == '<') 	return 0x36;
@@ -184,6 +191,15 @@ uint8_t getKeyIDByChar(const char ch){
 	else								return 0x00;
 }
 
+uint8_t key_interrupt = 0;
+void HAL_GPIO_EXTI_Callback(uint16_t GPIO_Pin){
+	if (GPIO_Pin == GPIO_PIN_0 || GPIO_Pin == GPIO_PIN_1 || GPIO_Pin == GPIO_PIN_2 || GPIO_Pin == GPIO_PIN_3){
+		key_interrupt = 1;
+	}
+}
+
+uint8_t curr_edge_flag[4] = {0};
+uint8_t prev_edge_flag[4] = {0};
 GPIO_PinState readKey(uint8_t row, uint8_t col){
 	GPIO_PinState result = GPIO_PIN_RESET;
 	reset(COL0);
@@ -218,15 +234,19 @@ GPIO_PinState readKey(uint8_t row, uint8_t col){
 	switch(col){
 		case 0: 
 			result = read(ROW0);
+			if(result) curr_edge_flag[0] = 1;
 		break;
 		case 1: 
 			result = read(ROW1);
+			if(result) curr_edge_flag[1] = 1;
 		break;
 		case 2: 
 			result = read(ROW2);
+			if(result) curr_edge_flag[2] = 1;
 		break;
 		case 3: 
 			result = read(ROW3);
+			if(result) curr_edge_flag[3] = 1;
 		break;
 //		case 4:
 //			result = read(COL4);
@@ -285,40 +305,61 @@ void sendKey(const uint8_t ch, const KeyModifier mod){
 }
 
 void apply_modifier(KeyModifier* m){	
-	m->LEFT_CTRL = readKey(5,0) ? 1 : 0;
-	m->LEFT_SHIFT = readKey(4,0) ? 1 : 0;
-	m->LEFT_ALT = readKey(5,2) ? 1 : 0;
-	m->LEFT_GUI = readKey(100,100) ? 1 : 0;
+	m->LEFT_CTRL = 		readKey(5,0) ? 1 : 0;
+	m->LEFT_SHIFT = 	readKey(4,0) ? 1 : 0;
+	m->LEFT_ALT = 		readKey(5,2) ? 1 : 0;
+	m->LEFT_GUI = 		readKey(100,100) ? 1 : 0;
 	
-	m->RIGHT_CTRL = readKey(5,7) ? 1 : 0;
-	m->RIGHT_SHIFT = readKey(4,4) ? 1 : 0;
-	m->RIGHT_ALT = readKey(5,11) ? 1 : 0;
-	m->RIGHT_GUI = readKey(100,100) ? 1 : 0;
+	m->RIGHT_CTRL = 	readKey(5,7) ? 1 : 0;
+	m->RIGHT_SHIFT = 	readKey(4,4) ? 1 : 0;
+	m->RIGHT_ALT = 		readKey(5,11) ? 1 : 0;
+	m->RIGHT_GUI = 		readKey(100,100) ? 1 : 0;
 	return;
-}
-
-uint8_t config_mode(){
-	return 0;
 }
 
 void keyThread(void){
-	static uint32_t config_mode = 0;
-	KeyModifier m={0};
-//	if(readKey(0,0))
-//		(config_mode++)%2;
+	static uint8_t config_mode = 0;
+	int32_t vol = 0;
+	KeyModifier m = {0};
+	keyInterfaceInit();
 
+	for(;;){
+		vol = getVolume();
+		UNUSED(vol);
+		if(readKey(0,0)){
+			config_mode++;
+			config_mode	%= 2;
+			HAL_GPIO_WritePin(LED1_GPIO_Port, LED1_Pin, 1);
+		}else{
+			HAL_GPIO_WritePin(LED1_GPIO_Port, LED1_Pin, 0);
+		}
 
-	if(config_mode){
-
-	}else{
-		for(uint8_t r = 0; r < ROW_NUM; r++)
-			for(uint8_t c = 0; c < COL_NUM; c++)
-				if(1){
-					//apply_modifier(&m);
-					sendKey(getKeyIDByRC(r, c), m);
+		if(config_mode){
+			char key = 0;
+			uint8_t udlr = 1;
+			if(readKey(1,1)) 		oled_next_page();		// next page
+			if(readKey(3,1)) 	  	key = 129; 				// left
+			else if(readKey(3,2)) 	key = 132; 				// down
+			else if(readKey(3,3)) 	key = 130; 				// right
+			else if(readKey(2,2)) 	key = 131; 				// up
+			else if(readKey(0,1)) 	key = 'a';
+			else if(readKey(0,2)) 	key = 'b';
+			else if(readKey(0,3)) 	key = 'c';
+			else if(readKey(1,3)) 	key = 13;  				// enter = 13
+			else if(readKey(1,2)) 	key = 127; 				// backsapce 127
+			else udlr = 0;
+			if(udlr) oled_on_click_page(&key, 1);
+		}else{
+			for(uint8_t r = 0; r < ROW_NUM; r++){
+				for(uint8_t c = 0; c < COL_NUM; c++){
+					if(readKey(r,c)){
+//						apply_modifier(&m);
+						sendKey(getKeyIDByRC(r, c), m);
+					}
 				}
+			}
+		}
+		//	oled_update_page();
+		osDelay(10);
 	}
-
-	HAL_Delay(100);
-	return;
 }

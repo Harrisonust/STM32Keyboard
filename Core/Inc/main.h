@@ -94,12 +94,16 @@ void Error_Handler(void);
 #define BT_RXD_GPIO_Port GPIOC
 #define ROW0_Pin GPIO_PIN_0
 #define ROW0_GPIO_Port GPIOD
+#define ROW0_EXTI_IRQn EXTI0_IRQn
 #define ROW1_Pin GPIO_PIN_1
 #define ROW1_GPIO_Port GPIOD
+#define ROW1_EXTI_IRQn EXTI1_IRQn
 #define ROW2_Pin GPIO_PIN_2
 #define ROW2_GPIO_Port GPIOD
+#define ROW2_EXTI_IRQn EXTI2_IRQn
 #define ROW3_Pin GPIO_PIN_3
 #define ROW3_GPIO_Port GPIOD
+#define ROW3_EXTI_IRQn EXTI3_IRQn
 #define USB_EN_Pin GPIO_PIN_6
 #define USB_EN_GPIO_Port GPIOD
 #define LED3_Pin GPIO_PIN_3
