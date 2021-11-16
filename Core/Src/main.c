@@ -125,7 +125,7 @@ int main(void)
   /* USER CODE BEGIN 2 */
   HAL_ADCEx_Calibration_Start(&hadc1);
   HAL_ADC_Start(&hadc1);
-  oled_ui_init();
+//  oled_ui_init();
 
   /* USER CODE END 2 */
 
@@ -570,7 +570,7 @@ static void MX_GPIO_Init(void)
 
   /*Configure GPIO pins : ROW0_Pin ROW1_Pin ROW2_Pin ROW3_Pin */
   GPIO_InitStruct.Pin = ROW0_Pin|ROW1_Pin|ROW2_Pin|ROW3_Pin;
-  GPIO_InitStruct.Mode = GPIO_MODE_IT_RISING;
+  GPIO_InitStruct.Mode = GPIO_MODE_INPUT;
   GPIO_InitStruct.Pull = GPIO_PULLDOWN;
   HAL_GPIO_Init(GPIOD, &GPIO_InitStruct);
 
@@ -600,6 +600,8 @@ void StartUSBTask(void const * argument)
 
   for(;;)
   {
+
+
     int32_t vol = getVolume();
 
     static uint8_t config_mode = 0;
@@ -608,14 +610,13 @@ void StartUSBTask(void const * argument)
 		config_mode++;
 		config_mode	%= 2;
 		HAL_GPIO_WritePin(LED1_GPIO_Port, LED1_Pin, 1);
-	}else
+	}else{
 		HAL_GPIO_WritePin(LED1_GPIO_Port, LED1_Pin, 0);
-
+	}
 
 	if(config_mode){
 		char key = 0;
 		uint8_t udlr = 1;
-//		HAL_GPIO_WritePin(LED1_GPIO_Port, LED1_Pin, 1);
 
 		if(readKey(1,1)) oled_next_page();		// next page
 		if(readKey(3,1)) 	  key = 129; // left
@@ -643,10 +644,10 @@ void StartUSBTask(void const * argument)
 			}
 		}
 	}
-//	oled_update_page();
-	HAL_GPIO_TogglePin(LED2_GPIO_Port, LED2_Pin);
 
-	osDelay(109);
+////	oled_update_page();
+
+	osDelay(10);
   }
   /* USER CODE END 5 */
 }
@@ -682,7 +683,7 @@ void StartRGBTask(void const * argument)
 {
   /* USER CODE BEGIN StartRGBTask */
   /* Infinite loop */
-	WS2812_InitStruct ws2812_initStruct = {.LED_num = 3, .tim = &htim1, . channel = TIM_CHANNEL_1};
+	WS2812_InitStruct ws2812_initStruct = {.LED_num = 16, .tim = &htim1, . channel = TIM_CHANNEL_1};
 	WS2812_init(&ws2812, &ws2812_initStruct);
 	WS2812Mode mode = LOOPMODE;
 

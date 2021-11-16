@@ -87,7 +87,7 @@ void WS2812_LoopTask(WS2812* ws){
 
 		WS2812_LED_SetRGB(ws, led_index, defaultColorList[color_index]);
 		WS2812_sendData(ws);
-		osDelay(80);
+		osDelay(40);
 	}
 }
 

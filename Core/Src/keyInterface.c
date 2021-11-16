@@ -13,93 +13,121 @@ void keyInterfaceInit(void){
 	keyboardStct.hid.KEYCODE5 = 0x00;
 	keyboardStct.hid.KEYCODE6 = 0x00;
 }
+#define KEYBOARDLAYOUT KEY16
+
+typedef enum{
+	KEY16,
+	KEY84
+}KeyboardLayout;
+
+uint8_t getKeyIDByChar(const char ch);
 
 uint8_t getKeyIDByRC(const uint8_t r, const uint8_t c){
-	if	   (r == 0 && c == 0)	return 0x29;	//esc
-	else if(r == 0 && c == 1) 	return 0x3A;	//F1	
-	else if(r == 0 && c == 2) 	return 0x3B;	//F2
-	else if(r == 0 && c == 3) 	return 0x3C;	//F3
-	else if(r == 0 && c == 4) 	return 0x3D;	//F4
-	else if(r == 0 && c == 5) 	return 0x3E;	//F5
-	else if(r == 0 && c == 6) 	return 0x3F;	//F6
-	else if(r == 0 && c == 7) 	return 0x40;	//F7
-	else if(r == 0 && c == 8) 	return 0x41;	//F8
-	else if(r == 0 && c == 9) 	return 0x42;	//F9
-	else if(r == 0 && c == 10) 	return 0x43;	//F10
-	else if(r == 0 && c == 11) 	return 0x44;	//F11
-	else if(r == 0 && c == 12) 	return 0x45;	//F12
-	else if(r == 0 && c == 13) 	return 0x46;	//PrtScn
-	else if(r == 1 && c == 0) 	return 0x38;	//splash
-	else if(r == 1 && c == 1) 	return 0x1E;	//1
-	else if(r == 1 && c == 2) 	return 0x1F;	//2
-	else if(r == 1 && c == 3) 	return 0x20;	//3
-	else if(r == 1 && c == 4)	return 0x21;	//4
-	else if(r == 1 && c == 5) 	return 0x22;	//5
-	else if(r == 1 && c == 6) 	return 0x23;	//6
-	else if(r == 1 && c == 7) 	return 0x24;	//7
-	else if(r == 1 && c == 8) 	return 0x25;	//8
-	else if(r == 1 && c == 9) 	return 0x26;	//9
-	else if(r == 1 && c == 10) 	return 0x27;	//0
-	else if(r == 1 && c == 11) 	return 0x2D;	//-
-	else if(r == 1 && c == 12) 	return 0x2E;	//=
-	else if(r == 1 && c == 13) 	return 0x2A;	//backspace
-	else if(r == 2 && c == 0) 	return 0x2B;	//tab
-	else if(r == 2 && c == 1) 	return 0x14;	//q
-	else if(r == 2 && c == 2) 	return 0x1A;	//w
-	else if(r == 2 && c == 3) 	return 0x08;	//e
-	else if(r == 2 && c == 4) 	return 0x15;	//r
-	else if(r == 2 && c == 5) 	return 0x17;	//t
-	else if(r == 2 && c == 6) 	return 0x1C;	//y
-	else if(r == 2 && c == 7) 	return 0x18;	//u
-	else if(r == 2 && c == 8) 	return 0x0C;	//i
-	else if(r == 2 && c == 9) 	return 0x12;	//o
-	else if(r == 2 && c == 10) 	return 0x13;	//p
-	else if(r == 2 && c == 11) 	return 0x2F;	//[
-	else if(r == 2 && c == 12) 	return 0x30;	//]
-	else if(r == 2 && c == 13) 	return 0x31;	//back slash
-	else if(r == 3 && c == 0) 	return 0x39;	//Caplock
-	else if(r == 3 && c == 1) 	return 0x04;	//a
-	else if(r == 3 && c == 2) 	return 0x16;	//s
-	else if(r == 3 && c == 3) 	return 0x07;	//d
-	else if(r == 3 && c == 4) 	return 0x09;	//f
-	else if(r == 3 && c == 5) 	return 0x0A;	//g
-	else if(r == 3 && c == 6) 	return 0x0B;	//h
-	else if(r == 3 && c == 7) 	return 0x0D;	//j
-	else if(r == 3 && c == 8) 	return 0x0E;	//k
-	else if(r == 3 && c == 9) 	return 0x0C;	//l
-	else if(r == 3 && c == 10) 	return 0x33;	//;
-	else if(r == 3 && c == 11) 	return 0x34;	//'
-	else if(r == 3 && c == 12) 	return 0x28;	//enter
-	else if(r == 3 && c == 13) 	return 0x4C;	//del
-	else if(r == 4 && c == 0) 	return 0x00;	//leftshift
-	else if(r == 4 && c == 1) 	return 0x1D;	//z
-	else if(r == 4 && c == 2) 	return 0x1B;	//x
-	else if(r == 4 && c == 3) 	return 0x06;	//c
-	else if(r == 4 && c == 4) 	return 0x19;	//v
-	else if(r == 4 && c == 5) 	return 0x05;	//b
-	else if(r == 4 && c == 6) 	return 0x11;	//n
-	else if(r == 4 && c == 7) 	return 0x10;	//m
-	else if(r == 4 && c == 8) 	return 0x36;	//,
-	else if(r == 4 && c == 9) 	return 0x37;	//.
-	else if(r == 4 && c == 10) 	return 0x38;	///
-	else if(r == 4 && c == 11) 	return 0x00;	//right shift
-	else if(r == 4 && c == 12) 	return 0x4D;	//end
-	else if(r == 4 && c == 13) 	return 0x4A;	//home
-	else if(r == 5 && c == 0) 	return 0x00;	//left ctrl
-	else if(r == 5 && c == 1) 	return 0xE3;	//left os
-	else if(r == 5 && c == 2) 	return 0xE2;	//left alt
-	else if(r == 5 && c == 3) 	return 0x2C;	//space
-	else if(r == 5 && c == 4) 	return 0xE6;	//right alt
-	else if(r == 5 && c == 5) 	return 0xE7;	//right os
-	else if(r == 5 && c == 6) 	return 0x00;	//fn
-	else if(r == 5 && c == 7) 	return 0x00;	//right ctrl
-	else if(r == 5 && c == 8) 	return 0x50;	//left
-	else if(r == 5 && c == 9) 	return 0x51;	//down
-	else if(r == 5 && c == 10) 	return 0x52;	//up
-	else if(r == 5 && c == 11) 	return 0x4F;	//right
-	else if(r == 5 && c == 12) 	return 0x4E;	//pgdown
-	else if(r == 5 && c == 13) 	return 0x4B;	//pgup
-	else						return 0x00;
+
+	if(KEYBOARDLAYOUT == KEY84){
+		if	   (r == 0 && c == 0)	return 0x29;	//esc
+		else if(r == 0 && c == 1) 	return 0x3A;	//F1
+		else if(r == 0 && c == 2) 	return 0x3B;	//F2
+		else if(r == 0 && c == 3) 	return 0x3C;	//F3
+		else if(r == 0 && c == 4) 	return 0x3D;	//F4
+		else if(r == 0 && c == 5) 	return 0x3E;	//F5
+		else if(r == 0 && c == 6) 	return 0x3F;	//F6
+		else if(r == 0 && c == 7) 	return 0x40;	//F7
+		else if(r == 0 && c == 8) 	return 0x41;	//F8
+		else if(r == 0 && c == 9) 	return 0x42;	//F9
+		else if(r == 0 && c == 10) 	return 0x43;	//F10
+		else if(r == 0 && c == 11) 	return 0x44;	//F11
+		else if(r == 0 && c == 12) 	return 0x45;	//F12
+		else if(r == 0 && c == 13) 	return 0x46;	//PrtScn
+		else if(r == 1 && c == 0) 	return 0x38;	//splash
+		else if(r == 1 && c == 1) 	return 0x1E;	//1
+		else if(r == 1 && c == 2) 	return 0x1F;	//2
+		else if(r == 1 && c == 3) 	return 0x20;	//3
+		else if(r == 1 && c == 4)	return 0x21;	//4
+		else if(r == 1 && c == 5) 	return 0x22;	//5
+		else if(r == 1 && c == 6) 	return 0x23;	//6
+		else if(r == 1 && c == 7) 	return 0x24;	//7
+		else if(r == 1 && c == 8) 	return 0x25;	//8
+		else if(r == 1 && c == 9) 	return 0x26;	//9
+		else if(r == 1 && c == 10) 	return 0x27;	//0
+		else if(r == 1 && c == 11) 	return 0x2D;	//-
+		else if(r == 1 && c == 12) 	return 0x2E;	//=
+		else if(r == 1 && c == 13) 	return 0x2A;	//backspace
+		else if(r == 2 && c == 0) 	return 0x2B;	//tab
+		else if(r == 2 && c == 1) 	return 0x14;	//q
+		else if(r == 2 && c == 2) 	return 0x1A;	//w
+		else if(r == 2 && c == 3) 	return 0x08;	//e
+		else if(r == 2 && c == 4) 	return 0x15;	//r
+		else if(r == 2 && c == 5) 	return 0x17;	//t
+		else if(r == 2 && c == 6) 	return 0x1C;	//y
+		else if(r == 2 && c == 7) 	return 0x18;	//u
+		else if(r == 2 && c == 8) 	return 0x0C;	//i
+		else if(r == 2 && c == 9) 	return 0x12;	//o
+		else if(r == 2 && c == 10) 	return 0x13;	//p
+		else if(r == 2 && c == 11) 	return 0x2F;	//[
+		else if(r == 2 && c == 12) 	return 0x30;	//]
+		else if(r == 2 && c == 13) 	return 0x31;	//back slash
+		else if(r == 3 && c == 0) 	return 0x39;	//Caplock
+		else if(r == 3 && c == 1) 	return 0x04;	//a
+		else if(r == 3 && c == 2) 	return 0x16;	//s
+		else if(r == 3 && c == 3) 	return 0x07;	//d
+		else if(r == 3 && c == 4) 	return 0x09;	//f
+		else if(r == 3 && c == 5) 	return 0x0A;	//g
+		else if(r == 3 && c == 6) 	return 0x0B;	//h
+		else if(r == 3 && c == 7) 	return 0x0D;	//j
+		else if(r == 3 && c == 8) 	return 0x0E;	//k
+		else if(r == 3 && c == 9) 	return 0x0C;	//l
+		else if(r == 3 && c == 10) 	return 0x33;	//;
+		else if(r == 3 && c == 11) 	return 0x34;	//'
+		else if(r == 3 && c == 12) 	return 0x28;	//enter
+		else if(r == 3 && c == 13) 	return 0x4C;	//del
+		else if(r == 4 && c == 0) 	return 0x00;	//leftshift
+		else if(r == 4 && c == 1) 	return 0x1D;	//z
+		else if(r == 4 && c == 2) 	return 0x1B;	//x
+		else if(r == 4 && c == 3) 	return 0x06;	//c
+		else if(r == 4 && c == 4) 	return 0x19;	//v
+		else if(r == 4 && c == 5) 	return 0x05;	//b
+		else if(r == 4 && c == 6) 	return 0x11;	//n
+		else if(r == 4 && c == 7) 	return 0x10;	//m
+		else if(r == 4 && c == 8) 	return 0x36;	//,
+		else if(r == 4 && c == 9) 	return 0x37;	//.
+		else if(r == 4 && c == 10) 	return 0x38;	///
+		else if(r == 4 && c == 11) 	return 0x00;	//right shift
+		else if(r == 4 && c == 12) 	return 0x4D;	//end
+		else if(r == 4 && c == 13) 	return 0x4A;	//home
+		else if(r == 5 && c == 0) 	return 0x00;	//left ctrl
+		else if(r == 5 && c == 1) 	return 0xE3;	//left os
+		else if(r == 5 && c == 2) 	return 0xE2;	//left alt
+		else if(r == 5 && c == 3) 	return 0x2C;	//space
+		else if(r == 5 && c == 4) 	return 0xE6;	//right alt
+		else if(r == 5 && c == 5) 	return 0xE7;	//right os
+		else if(r == 5 && c == 6) 	return 0x00;	//fn
+		else if(r == 5 && c == 7) 	return 0x00;	//right ctrl
+		else if(r == 5 && c == 8) 	return 0x50;	//left
+		else if(r == 5 && c == 9) 	return 0x51;	//down
+		else if(r == 5 && c == 10) 	return 0x52;	//up
+		else if(r == 5 && c == 11) 	return 0x4F;	//right
+		else if(r == 5 && c == 12) 	return 0x4E;	//pgdown
+		else if(r == 5 && c == 13) 	return 0x4B;	//pgup
+		else						return 0x00;
+	}else if(KEYBOARDLAYOUT == KEY16){
+		if(r == 0 && c == 0) return getKeyIDByChar('a');
+		if(r == 0 && c == 1) return getKeyIDByChar('b');
+		if(r == 0 && c == 2) return getKeyIDByChar('c');
+		if(r == 0 && c == 3) return getKeyIDByChar('d');
+		if(r == 1 && c == 0) return getKeyIDByChar('e');
+		if(r == 1 && c == 1) return getKeyIDByChar('f');
+		if(r == 1 && c == 2) return getKeyIDByChar('g');
+		if(r == 1 && c == 3) return getKeyIDByChar('h');
+		if(r == 2 && c == 0) return getKeyIDByChar('i');
+		if(r == 2 && c == 1) return getKeyIDByChar('j');
+		if(r == 2 && c == 2) return getKeyIDByChar('k');
+		if(r == 2 && c == 3) return getKeyIDByChar('l');
+		if(r == 3 && c == 0) return getKeyIDByChar('m');
+		if(r == 3 && c == 1) return getKeyIDByChar('n');
+		if(r == 3 && c == 2) return getKeyIDByChar('o');
+		if(r == 3 && c == 3) return getKeyIDByChar('p');
+	}
 }
 
 
@@ -158,25 +186,25 @@ uint8_t getKeyIDByChar(const char ch){
 
 GPIO_PinState readKey(uint8_t row, uint8_t col){
 	GPIO_PinState result = GPIO_PIN_RESET;
-	reset(ROW0);
-	reset(ROW1);
-	reset(ROW2);
-	reset(ROW3);
+	reset(COL0);
+	reset(COL1);
+	reset(COL2);
+	reset(COL3);
 //	reset(ROW4);
 //	reset(ROW5);
 
 	switch(row){
 		case 0:
-			set(ROW0);
+			set(COL0);
 		break;		
 		case 1:
-			set(ROW1);
+			set(COL1);
 		break;		
 		case 2:
-			set(ROW2);
+			set(COL2);
 		break;		
 		case 3:
-			set(ROW3);
+			set(COL3);
 		break;		
 //		case 4:
 //			set(ROW4);
@@ -189,16 +217,16 @@ GPIO_PinState readKey(uint8_t row, uint8_t col){
 	
 	switch(col){
 		case 0: 
-			result = read(COL0);
+			result = read(ROW0);
 		break;
 		case 1: 
-			result = read(COL1);
+			result = read(ROW1);
 		break;
 		case 2: 
-			result = read(COL2);
+			result = read(ROW2);
 		break;
 		case 3: 
-			result = read(COL3);
+			result = read(ROW3);
 		break;
 //		case 4:
 //			result = read(COL4);
@@ -232,10 +260,10 @@ GPIO_PinState readKey(uint8_t row, uint8_t col){
 //		break;
 		default: result = GPIO_PIN_RESET;
 	}
-	reset(ROW0);
-	reset(ROW1);
-	reset(ROW2);
-	reset(ROW3);
+	reset(COL0);
+	reset(COL1);
+	reset(COL2);
+	reset(COL3);
 //	reset(ROW4);
 //	reset(ROW5);
 	return result;
