@@ -68,14 +68,14 @@ void macro_update(){
 	}
 
 	char temp[30] = "";
-	sprintf(temp, "Macro Num : %d", current_macro + 1);
+	snprintf(temp, 30, "Macro Num : %d", current_macro + 1);
 	ssd1306_SetCursor(0, 20);
 	ssd1306_WriteString(temp, Font_7x10, White);
 
 	switch(current_macro_page){
 
 	case MAIN:
-		sprintf(temp,"Keybind : %c",combination[current_macro].keybind);
+		snprintf(temp, 30,"Keybind : %c",combination[current_macro].keybind);
 		ssd1306_SetCursor(0, 30);
 		ssd1306_WriteString(temp, Font_7x10, White);
 
@@ -99,7 +99,7 @@ void macro_update(){
 		ssd1306_SetCursor(0, 30);
 		ssd1306_WriteString("Set Keybind", Font_7x10, White);
 
-		sprintf(temp,"Keybind : %c", keybind);
+		snprintf(temp, 30, "Keybind : %c", keybind);
 		ssd1306_SetCursor(0, 40);
 		ssd1306_WriteString(temp, Font_7x10, White);
 		break;

@@ -147,7 +147,7 @@ int main(void)
 
   /* Create the thread(s) */
   /* definition and creation of USBTask */
-  osThreadDef(USBTask, StartUSBTask, osPriorityNormal, 0, 128);
+  osThreadDef(USBTask, StartUSBTask, osPriorityNormal, 0, 256);
   USBTaskHandle = osThreadCreate(osThread(USBTask), NULL);
 
   /* definition and creation of debugTask02 */
@@ -155,8 +155,8 @@ int main(void)
   debugTask02Handle = osThreadCreate(osThread(debugTask02), NULL);
 
   /* definition and creation of RGBTask */
-//  osThreadDef(RGBTask, StartRGBTask, osPriorityIdle, 0, 128);
-//  RGBTaskHandle = osThreadCreate(osThread(RGBTask), NULL);
+  osThreadDef(RGBTask, StartRGBTask, osPriorityIdle, 0, 128);
+  RGBTaskHandle = osThreadCreate(osThread(RGBTask), NULL);
 
   /* USER CODE BEGIN RTOS_THREADS */
   /* add threads, ... */
@@ -173,6 +173,13 @@ int main(void)
 
   while (1)
   {
+	  MX_USB_DEVICE_Init();
+
+	  /* USER CODE BEGIN 5 */
+	  /* Infinite loop */
+	  HAL_GPIO_WritePin(USB_EN_GPIO_Port, USB_EN_Pin, 0);
+
+	  keyThread();
     /* USER CODE END WHILE */
 
     /* USER CODE BEGIN 3 */

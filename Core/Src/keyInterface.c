@@ -320,5 +320,6 @@ void keyThread(void){
 		}
 		//	oled_update_page();
 		osDelay(1);
+//		HAL_Delay(1);
 	}
 }
