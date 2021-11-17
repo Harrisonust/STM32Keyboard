@@ -116,7 +116,7 @@ uint8_t getKeyIDByRC(const uint8_t r, const uint8_t c){
 		else if(r == 5 && c == 13) 	return 0x4B;	//pgup
 		else						return 0x00;
 	#elif defined(KEYBOARD_LAYOUT_16)
-		if(r == 0 && c == 0) return getKeyIDByChar('a');
+		if	   (r == 0 && c == 0) return getKeyIDByChar('a');
 		else if(r == 0 && c == 1) return getKeyIDByChar('b');
 		else if(r == 0 && c == 2) return getKeyIDByChar('c');
 		else if(r == 0 && c == 3) return getKeyIDByChar('d');
@@ -137,11 +137,10 @@ uint8_t getKeyIDByRC(const uint8_t r, const uint8_t c){
 	return 0x00;
 }
 
-
 uint8_t getKeyIDByChar(const char ch){
 	if	   	(ch == 'a' || ch == 'A')	return 0x04;
 	else if	(ch == 'b' || ch == 'B') 	return 0x05;
-	else if	(ch == 'v' || ch == 'C') 	return 0x06;
+	else if	(ch == 'c' || ch == 'C') 	return 0x06;
 	else if	(ch == 'd' || ch == 'D') 	return 0x07;
 	else if	(ch == 'e' || ch == 'E') 	return 0x08;
 	else if	(ch == 'f' || ch == 'F') 	return 0x09;
@@ -198,95 +197,55 @@ void HAL_GPIO_EXTI_Callback(uint16_t GPIO_Pin){
 	}
 }
 
-uint8_t curr_edge_flag[4] = {0};
-uint8_t prev_edge_flag[4] = {0};
+uint8_t curr_edge_flag[4][4] = {0};
+uint8_t prev_edge_flag[4][4] = {0};
 GPIO_PinState readKey(uint8_t row, uint8_t col){
-	GPIO_PinState result = GPIO_PIN_RESET;
+	prev_edge_flag[row][col] = curr_edge_flag[row][col];
 	reset(COL0);
 	reset(COL1);
 	reset(COL2);
 	reset(COL3);
-//	reset(ROW4);
-//	reset(ROW5);
+//	reset(COL4);
+//	reset(COL5);
 
-	switch(row){
-		case 0:
-			set(COL0);
-		break;		
-		case 1:
-			set(COL1);
-		break;		
-		case 2:
-			set(COL2);
-		break;		
-		case 3:
-			set(COL3);
-		break;		
-//		case 4:
-//			set(ROW4);
-//		break;
-//		case 5:
-//			set(ROW5);
-//		break;
-		default: result = GPIO_PIN_RESET;
+	switch(col){
+		case 0:	set(COL0);	break;		
+		case 1:	set(COL1);	break;		
+		case 2:	set(COL2);	break;		
+		case 3:	set(COL3);	break;		
+//		case 4:	set(COL4);	break;
+//		case 5:	set(COL5);	break;
+		default: break;
 	}
 	
-	switch(col){
-		case 0: 
-			result = read(ROW0);
-			if(result) curr_edge_flag[0] = 1;
-		break;
-		case 1: 
-			result = read(ROW1);
-			if(result) curr_edge_flag[1] = 1;
-		break;
-		case 2: 
-			result = read(ROW2);
-			if(result) curr_edge_flag[2] = 1;
-		break;
-		case 3: 
-			result = read(ROW3);
-			if(result) curr_edge_flag[3] = 1;
-		break;
-//		case 4:
-//			result = read(COL4);
-//		break;
-//		case 5:
-//			result = read(COL5);
-//		break;
-//		case 6:
-//			result = read(COL6);
-//		break;
-//		case 7:
-//			result = read(COL7);
-//		break;
-//		case 8:
-//			result = read(COL8);
-//		break;
-//		case 9:
-//			result = read(COL9);
-//		break;
-//		case 10:
-//			result = read(COL10);
-//		break;
-//		case 11:
-//			result = read(COL11);
-//		break;
-//		case 12:
-//			result = read(COL12);
-//		break;
-//		case 13:
-//			result = read(COL13);
-//		break;
-		default: result = GPIO_PIN_RESET;
+	switch(row){
+		case 0:		curr_edge_flag[0][col] = read(ROW0);		break;
+		case 1:		curr_edge_flag[1][col] = read(ROW1);		break;
+		case 2:		curr_edge_flag[2][col] = read(ROW2);		break;
+		case 3:		curr_edge_flag[3][col] = read(ROW3);		break;
+//		case 4:		curr_edge_flag[4][col] = read(ROW4);		break;
+//		case 5:		curr_edge_flag[5][col] = read(ROW5);		break;
+//		case 6:		curr_edge_flag[6][col] = read(ROW6);		break;
+//		case 7:		curr_edge_flag[7][col] = read(ROW7);		break;
+//		case 8:		curr_edge_flag[8][col] = read(ROW8);		break;
+//		case 9:		curr_edge_flag[9][col] = read(ROW9);		break;
+//		case 10:	curr_edge_flag[10][col] = read(ROW10);	break;
+//		case 11:	curr_edge_flag[11][col] = read(ROW11);	break;
+//		case 12:	curr_edge_flag[12][col] = read(ROW12);	break;
+//		case 13:	curr_edge_flag[13][col] = read(ROW13);	break;
+		default: 										break;
 	}
+	
 	reset(COL0);
 	reset(COL1);
 	reset(COL2);
 	reset(COL3);
-//	reset(ROW4);
-//	reset(ROW5);
-	return result;
+//	reset(COL4);
+//	reset(COL5);
+
+	if(curr_edge_flag[row][col] == 1 && prev_edge_flag[row][col] == 0){
+		return GPIO_PIN_SET;
+	}else return GPIO_PIN_RESET;
 }
 
 void sendKey(const uint8_t ch, const KeyModifier mod){
@@ -360,6 +319,6 @@ void keyThread(void){
 			}
 		}
 		//	oled_update_page();
-		osDelay(10);
+		osDelay(1);
 	}
 }
