@@ -19,6 +19,8 @@ void status_update(){
 
 	//Handle Battery
 	uint32_t battery_value = HAL_ADC_GetValue(&hadc1);
+	battery_value = ((battery_value - MIN_BATT) * 100) / (MAX_BATT - MIN_BATT);
+
 
 	sprintf(temp, "Battery : %u %%", battery_value);
 	ssd1306_SetCursor(0, 40);

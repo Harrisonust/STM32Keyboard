@@ -7,7 +7,6 @@
 #include "../../Inc/oled/led_page.h"
 #include "math.h"
 
-extern WS2812 ws2812;
 
 PAGE led = {
 		.title = "LED",
@@ -31,8 +30,21 @@ void led_init(){
 	}
 }
 
+void led_flash(){
+	uint32_t temp[MAX_LED];
+	for(int i = 0; i < MAX_LED; i++){
+		for(int j = 3; j >= 0; j--){
+			temp[i] = (temp[i] << 8) | ws2812.LED_Data[i][j];
+		}
+		Flash_Write_Data(LED_START_ADDR, &temp, MAX_LED);
+	}
+}
+
 void led_update(){
-	if(!led_init_value) led_init();
+	if(!led_init_value){
+		led_init_value = 1;
+		led_init();
+	};
 	char temp[20] = " ";
 
 	sprintf(temp, "LED : %d", current_led + 1);
@@ -61,13 +73,7 @@ void led_onclick(char *combination, int charNum){
 			//left
 			if(current_selection == 0){
 				//save the led data here
-				{
-					uint32_t temp = 0;
-					for(int i = 3; i >= 0; i--){
-						temp = (temp<<8) | ws2812.LED_Data[current_led][i];
-					}
-					Flash_Write_Data(LED_START_ADDR + (4 * current_led), &temp, 1);
-				}
+				led_flash();
 				current_led = (current_led + 1) % (MAX_LED);
 				current_selection = 0;
 			}
@@ -78,14 +84,8 @@ void led_onclick(char *combination, int charNum){
 		case 130:
 			//right
 			if(current_selection == 0){
-				{
-					uint32_t temp = 0;
-					for(int i = 3; i >= 0; i--){
-						temp = (temp>>8) | (ws2812.LED_Data[current_led][i]);
-					}
-					Flash_Write_Data(LED_START_ADDR + (4 * current_led), &temp, 1);
-				}
-				current_led = (current_led - 1) % (MAX_LED);
+				led_flash();
+				current_led = (current_led - 1) < 0? MAX_LED - 1: (current_led - 1) % (MAX_LED);
 				current_selection = 0;
 			}
 			else{//if value > 1
@@ -94,7 +94,7 @@ void led_onclick(char *combination, int charNum){
 			break;
 		case 131:
 			//up
-			current_selection = (current_selection - 1) % (SELECTION + 1);
+			current_selection = max(0, (current_selection - 1) % (SELECTION + 1));
 			break;
 		case 132:
 			//down fix bug

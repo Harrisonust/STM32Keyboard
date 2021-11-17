@@ -125,7 +125,7 @@ int main(void)
   /* USER CODE BEGIN 2 */
   HAL_ADCEx_Calibration_Start(&hadc1);
   HAL_ADC_Start(&hadc1);
-//  oled_ui_init();
+  oled_ui_init();
 
   /* USER CODE END 2 */
 
@@ -155,8 +155,8 @@ int main(void)
   debugTask02Handle = osThreadCreate(osThread(debugTask02), NULL);
 
   /* definition and creation of RGBTask */
-  osThreadDef(RGBTask, StartRGBTask, osPriorityIdle, 0, 128);
-  RGBTaskHandle = osThreadCreate(osThread(RGBTask), NULL);
+//  osThreadDef(RGBTask, StartRGBTask, osPriorityIdle, 0, 128);
+//  RGBTaskHandle = osThreadCreate(osThread(RGBTask), NULL);
 
   /* USER CODE BEGIN RTOS_THREADS */
   /* add threads, ... */

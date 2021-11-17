@@ -293,7 +293,7 @@ void keyThread(void){
 			HAL_GPIO_WritePin(LED1_GPIO_Port, LED1_Pin, 0);
 		}
 
-		if(config_mode){
+		if(1){
 			char key = 0;
 			uint8_t udlr = 1;
 			if(readKey(1,1)) 		oled_next_page();		// next page

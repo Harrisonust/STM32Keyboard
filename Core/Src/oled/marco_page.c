@@ -113,7 +113,7 @@ void macro_update(){
 		}
 		else{ // baseline 40
 			int index = 0;
-			Node *temp = combination[current_macro].macro;
+			Node *temp = macro_head;
 			while(temp != NULL){
 				ssd1306_SetCursor(index * 7, 40);
 				ssd1306_WriteChar(temp->data, Font_7x10, White);
@@ -146,12 +146,12 @@ void macro_onclick(char *input, int charNum){
 				current_macro = (current_macro + 1) % MAX_MACRO;
 			}
 			else if(input[0] == 130){
-				current_macro = (current_macro - 1) % MAX_MACRO;
+				current_macro = (current_macro - 1) < 0 ? MAX_MACRO - 1: (current_macro - 1) % MAX_MACRO;
 			}
 			break;
 		case KEY:
 			//handle with inputing the data
-			if(input[0] == 13){
+			if(input[0] == 13 && keybind != ' '){
 				current_macro_page = COMBINATION;
 				macro_head = NULL;
 				macro_iter = NULL;
@@ -162,7 +162,7 @@ void macro_onclick(char *input, int charNum){
 			break;
 		case COMBINATION:
 			//handle with inputting the macro
-			if(input[0] == 13){
+			if(input[0] == 13 && macro_iter != NULL){
 				current_macro_page = MAIN;
 				{
 					if(combination[current_macro].macro != NULL){
@@ -188,7 +188,6 @@ void macro_onclick(char *input, int charNum){
 					}
 					template[1 + index] = '/';
 					Str_To_uint32(template, final_data);
-					HAL_Delay(1000);
 					Flash_Write_Data(START_ADDR + (MAX_MACRO_TEMPLATE * current_macro), final_data, MAX_MACRO_TEMPLATE/4);
 					//
 				}
