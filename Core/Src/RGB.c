@@ -131,7 +131,7 @@ void WS2812_StaticTask(WS2812* ws){
 void WS2812_LED_Task(void const * par){
 	WS2812_InitStruct ws2812_initStruct = {.LED_num = 16, .tim = &htim1, . channel = TIM_CHANNEL_1};
 	WS2812_init(&ws2812, &ws2812_initStruct);
-	WS2812Mode mode = STATICMODE;
+	WS2812Mode mode = LOOPMODE;
 
 	if(mode == LOOPMODE)
 		WS2812_LoopTask(&ws2812);

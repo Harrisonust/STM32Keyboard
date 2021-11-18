@@ -155,8 +155,8 @@ int main(void)
   debugTask02Handle = osThreadCreate(osThread(debugTask02), NULL);
 
   /* definition and creation of RGBTask */
-//  osThreadDef(RGBTask, StartRGBTask, osPriorityIdle, 0, 128);
-//  RGBTaskHandle = osThreadCreate(osThread(RGBTask), NULL);
+  osThreadDef(RGBTask, StartRGBTask, osPriorityIdle, 0, 128);
+  RGBTaskHandle = osThreadCreate(osThread(RGBTask), NULL);
 
   /* USER CODE BEGIN RTOS_THREADS */
   /* add threads, ... */
