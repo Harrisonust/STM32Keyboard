@@ -288,12 +288,10 @@ void keyThread(void){
 		if(readKey(0,0)){
 			config_mode++;
 			config_mode	%= 2;
-			HAL_GPIO_WritePin(LED1_GPIO_Port, LED1_Pin, 1);
-		}else{
-			HAL_GPIO_WritePin(LED1_GPIO_Port, LED1_Pin, 0);
 		}
 
 		if(config_mode){
+			HAL_GPIO_WritePin(LED1_GPIO_Port, LED1_Pin, 1);
 			char key = 0;
 			uint8_t udlr = 1;
 			if(readKey(1,1)) 		oled_next_page();		// next page
@@ -309,6 +307,7 @@ void keyThread(void){
 			else udlr = 0;
 			if(udlr) oled_on_click_page(&key, 1);
 		}else{
+			HAL_GPIO_WritePin(LED1_GPIO_Port, LED1_Pin, 0);
 			for(uint8_t r = 0; r < ROW_NUM; r++){
 				for(uint8_t c = 0; c < COL_NUM; c++){
 					if(readKey(r,c)){
