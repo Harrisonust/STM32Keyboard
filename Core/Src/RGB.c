@@ -13,6 +13,7 @@ uint8_t datasentflag = 0;
 WS2812 ws2812;
 RGB defaultColorList[] = {WS2812_WHITE, WS2812_BLUE, WS2812_RED, WS2812_GREEN, WS2812_YELLOW, WS2812_CYAN, WS2812_PURPLE, WS2812_ORANGE, WS2812_PINK, WS2812_BROWN};
 extern TIM_HandleTypeDef htim1;
+extern uint32_t last_keyinterrupt_tick;
 
 void WS2812_init(WS2812* ws, WS2812_InitStruct* stuc){
 	ws->tim 		= stuc->tim;
@@ -136,17 +137,80 @@ void WS2812_StaticTask(WS2812* ws){
 	}
 }
 
+void WS2812_Disable(WS2812* ws){
+	for(int i = 0; i < MAX_LED; i++){
+		WS2812_LED_ClearRGB(ws, i);
+	}
+}
+
 WS2812Mode rgb_mode = STATICMODE;
+WS2812Mode last_rgb_mode = STATICMODE;
+uint32_t brightness = 50;
+uint32_t SLEEPMODE_TIMEOUT = 10000;
+uint8_t do_once_flag = 1;
 void WS2812_LED_Task(void const * par){
 	WS2812_InitStruct ws2812_initStruct = {.LED_num = MAX_LED, .tim = &htim1, . channel = TIM_CHANNEL_1};
 	WS2812_init(&ws2812, &ws2812_initStruct);
+	uint32_t color_index = 0;
+	int32_t led_index = 0;
 
-	if(rgb_mode == LOOPMODE)
-		WS2812_LoopTask(&ws2812);
-	if(rgb_mode == BREATHMODE)
-		WS2812_BreathTask(&ws2812);
-	if(rgb_mode == STATICMODE)
-		WS2812_StaticTask(&ws2812);
+	for(;;){
 
+		if(HAL_GetTick() - last_keyinterrupt_tick > SLEEPMODE_TIMEOUT){
+//			last_rgb_mode = rgb_mode;
+			rgb_mode = WS2812DISABLE;
+		}
+
+		WS2812_LED_SetBrightness(&ws2812, brightness);
+
+		switch(rgb_mode){
+			case LOOPMODE:; 
+				static uint32_t counter = 0;
+				led_index = counter++;
+				if(led_index == ws2812.LED_num) {
+					color_index++;
+					led_index = 0;
+					counter = 0;
+				}
+				if(color_index == sizeof(defaultColorList)/sizeof(RGB))
+					color_index = 0;
+				WS2812_LED_SetRGB(&ws2812, led_index, defaultColorList[color_index]);
+			break;
+			case BREATHMODE:;
+				static int8_t step = 1;
+				if(step == 1){
+					WS2812_LED_SetRGB(&ws2812, led_index, defaultColorList[color_index]);
+					if(led_index > ws2812.LED_num-1) step = -1;
+				}
+				if(step == -1){
+					WS2812_LED_ClearRGB(&ws2812, led_index);
+					if(led_index < 0){
+						step = 1;
+						color_index++;
+						color_index %= 10;
+					}
+				}
+				led_index += step;
+			break;
+			case STATICMODE:;
+				uint32_t data[MAX_LED];
+				if(do_once_flag){
+					Flash_Read_Data (LED_START_ADDR, &data, MAX_LED);
+					do_once_flag = 0;
+					for(int i = 0; i < MAX_LED; i++){
+						if(data[i] == 0xFFFFFFFF) continue;
+						for(int j = 0; j < SELECTION; j++)
+							ws2812.LED_Data[i][j] = (uint8_t)(data[i] >> (8 * j));
+					}
+				}
+			break;
+			case WS2812DISABLE: 		
+				WS2812_Disable(&ws2812);	
+			break;	
+			default: break;
+		}
+		WS2812_sendData(&ws2812);
+		osDelay(50);
+	}
 	WS2812_Deinit(&ws2812);
 }

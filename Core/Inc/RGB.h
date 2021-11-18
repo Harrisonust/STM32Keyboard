@@ -36,6 +36,7 @@ typedef struct{
 }RGB;
 
 typedef enum{
+	WS2812DISABLE,
 	STATICMODE,
 	BREATHMODE,
 	LOOPMODE

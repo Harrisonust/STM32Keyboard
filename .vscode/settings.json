@@ -5,6 +5,7 @@
         "rgb.h": "c",
         "led_page.h": "c",
         "cmsis_os.h": "c",
-        "stdio.h": "c"
+        "stdio.h": "c",
+        "volume.h": "c"
     }
 }

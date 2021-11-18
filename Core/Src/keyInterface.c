@@ -6,6 +6,7 @@
 #include "keyInterface.h"
 #include "volume.h"
 #include "oled_manager.h"
+#include "RGB.h"
 
 extern USBD_HandleTypeDef hUsbDeviceFS;
 keyboardStruct keyboardStct;
@@ -190,10 +191,13 @@ uint8_t getKeyIDByChar(const char ch){
 	else								return 0x00;
 }
 
-uint8_t key_interrupt = 0;
+uint32_t last_keyinterrupt_tick = 0;
+extern WS2812Mode last_rgb_mode;
+extern WS2812Mode rgb_mode;
 void HAL_GPIO_EXTI_Callback(uint16_t GPIO_Pin){
 	if (GPIO_Pin == GPIO_PIN_0 || GPIO_Pin == GPIO_PIN_1 || GPIO_Pin == GPIO_PIN_2 || GPIO_Pin == GPIO_PIN_3){
-		key_interrupt = 1;
+		last_keyinterrupt_tick = HAL_GetTick();
+		rgb_mode = last_rgb_mode;
 	}
 }
 
