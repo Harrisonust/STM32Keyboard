@@ -1,3 +1,10 @@
 {
-    "C_Cpp.default.configurationProvider": "ms-vscode.cmake-tools"
+    "C_Cpp.default.configurationProvider": "ms-vscode.cmake-tools",
+    "files.associations": {
+        "keyinterface.h": "c",
+        "rgb.h": "c",
+        "led_page.h": "c",
+        "cmsis_os.h": "c",
+        "stdio.h": "c"
+    }
 }

@@ -7,6 +7,12 @@
 #include "../../Inc/oled/led_page.h"
 #include "math.h"
 
+char *oled_color[20] = {
+		"bright",
+		"red",
+		"green",
+		"blue"
+};
 
 PAGE led = {
 		.title = "LED",
@@ -54,7 +60,7 @@ void led_update(){
 	for(int i = 0; i < 4; i++){
 		snprintf(temp,30,
 				(i + 1) == current_selection ? "%s:%u <-- " :"%s:%u ",
-				color[i], ws2812.LED_Data[current_led][i]);
+				oled_color[i], ws2812.LED_Data[current_led][i]);
 		ssd1306_SetCursor(0, 20 + 10* (i));
 		ssd1306_WriteString(temp, Font_6x8, White);
 	}

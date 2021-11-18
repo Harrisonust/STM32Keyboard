@@ -12,6 +12,8 @@
 	#define COL_NUM 4
 #endif
 
+#define NUM_OF_KEYS ROW_NUM*COL_NUM
+
 typedef struct{
 	uint8_t MODIFIER;
 	uint8_t RESERVED;

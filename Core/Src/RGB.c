@@ -6,7 +6,9 @@
  */
 #include "RGB.h"
 #include "stdio.h"
+#include "keyInterface.h"
 #include "cmsis_os.h"
+#include "led_page.h"
 uint8_t datasentflag = 0;
 WS2812 ws2812;
 RGB defaultColorList[] = {WS2812_WHITE, WS2812_BLUE, WS2812_RED, WS2812_GREEN, WS2812_YELLOW, WS2812_CYAN, WS2812_PURPLE, WS2812_ORANGE, WS2812_PINK, WS2812_BROWN};
@@ -119,25 +121,31 @@ void WS2812_BreathTask(WS2812* ws){
 }
 
 void WS2812_StaticTask(WS2812* ws){
-	WS2812_LED_SetBrightness(ws, 20);
-	for(uint8_t i = 0; i < sizeof(defaultColorList)/sizeof(RGB); i++)
-		WS2812_LED_SetRGB(ws, i, defaultColorList[i]);
+	WS2812_LED_SetBrightness(ws, 30);
+	uint32_t data[MAX_LED];
+	Flash_Read_Data (LED_START_ADDR, &data, MAX_LED);	
+	for(int i = 0; i < MAX_LED; i++){
+		if(data[i] == 0xFFFFFFFF) continue;
+		for(int j = 0; j < SELECTION; j++){
+			ws->LED_Data[i][j] = (uint8_t)(data[i] >> (8 * j));
+		}
+	}
 	for(;;){
 		WS2812_sendData(ws);
 		osDelay(10);
 	}
 }
 
+WS2812Mode rgb_mode = STATICMODE;
 void WS2812_LED_Task(void const * par){
-	WS2812_InitStruct ws2812_initStruct = {.LED_num = 16, .tim = &htim1, . channel = TIM_CHANNEL_1};
+	WS2812_InitStruct ws2812_initStruct = {.LED_num = MAX_LED, .tim = &htim1, . channel = TIM_CHANNEL_1};
 	WS2812_init(&ws2812, &ws2812_initStruct);
-	WS2812Mode mode = LOOPMODE;
 
-	if(mode == LOOPMODE)
+	if(rgb_mode == LOOPMODE)
 		WS2812_LoopTask(&ws2812);
-	if(mode == BREATHMODE)
+	if(rgb_mode == BREATHMODE)
 		WS2812_BreathTask(&ws2812);
-	if(mode == STATICMODE)
+	if(rgb_mode == STATICMODE)
 		WS2812_StaticTask(&ws2812);
 
 	WS2812_Deinit(&ws2812);

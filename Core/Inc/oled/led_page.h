@@ -21,13 +21,6 @@
 
 extern WS2812 ws2812;
 
-char *color[20] = {
-		"bright",
-		"red",
-		"green",
-		"blue"
-};
-
 //uint8_t value[3] = {0};
 //// insert init value handler in here
 
