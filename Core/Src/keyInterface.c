@@ -197,10 +197,14 @@ void HAL_GPIO_EXTI_Callback(uint16_t GPIO_Pin){
 	}
 }
 
-uint8_t curr_edge_flag[4][4] = {0};
-uint8_t prev_edge_flag[4][4] = {0};
+uint8_t curr_btn_state[4][4] = {0};
+uint8_t prev_btn_state[4][4] = {0};
+uint32_t pressed_startTick[4][4] = {0};
+uint8_t flag[4][4] = {0};
 GPIO_PinState readKey(uint8_t row, uint8_t col){
-	prev_edge_flag[row][col] = curr_edge_flag[row][col];
+	
+	prev_btn_state[row][col] = curr_btn_state[row][col];
+
 	reset(COL0);
 	reset(COL1);
 	reset(COL2);
@@ -219,21 +223,21 @@ GPIO_PinState readKey(uint8_t row, uint8_t col){
 	}
 	
 	switch(row){
-		case 0:		curr_edge_flag[0][col] = read(ROW0);		break;
-		case 1:		curr_edge_flag[1][col] = read(ROW1);		break;
-		case 2:		curr_edge_flag[2][col] = read(ROW2);		break;
-		case 3:		curr_edge_flag[3][col] = read(ROW3);		break;
-//		case 4:		curr_edge_flag[4][col] = read(ROW4);		break;
-//		case 5:		curr_edge_flag[5][col] = read(ROW5);		break;
-//		case 6:		curr_edge_flag[6][col] = read(ROW6);		break;
-//		case 7:		curr_edge_flag[7][col] = read(ROW7);		break;
-//		case 8:		curr_edge_flag[8][col] = read(ROW8);		break;
-//		case 9:		curr_edge_flag[9][col] = read(ROW9);		break;
-//		case 10:	curr_edge_flag[10][col] = read(ROW10);	break;
-//		case 11:	curr_edge_flag[11][col] = read(ROW11);	break;
-//		case 12:	curr_edge_flag[12][col] = read(ROW12);	break;
-//		case 13:	curr_edge_flag[13][col] = read(ROW13);	break;
-		default: 										break;
+		case 0:		curr_btn_state[0][col] = read(ROW0);		break;
+		case 1:		curr_btn_state[1][col] = read(ROW1);		break;
+		case 2:		curr_btn_state[2][col] = read(ROW2);		break;
+		case 3:		curr_btn_state[3][col] = read(ROW3);		break;
+//		case 4:		curr_btn_state[4][col] = read(ROW4);		break;
+//		case 5:		curr_btn_state[5][col] = read(ROW5);		break;
+//		case 6:		curr_btn_state[6][col] = read(ROW6);		break;
+//		case 7:		curr_btn_state[7][col] = read(ROW7);		break;
+//		case 8:		curr_btn_state[8][col] = read(ROW8);		break;
+//		case 9:		curr_btn_state[9][col] = read(ROW9);		break;
+//		case 10:	curr_btn_state[10][col] = read(ROW10);		break;
+//		case 11:	curr_btn_state[11][col] = read(ROW11);		break;
+//		case 12:	curr_btn_state[12][col] = read(ROW12);		break;
+//		case 13:	curr_btn_state[13][col] = read(ROW13);		break;
+		default: 												break;
 	}
 	
 	reset(COL0);
@@ -243,9 +247,19 @@ GPIO_PinState readKey(uint8_t row, uint8_t col){
 //	reset(COL4);
 //	reset(COL5);
 
-	if(curr_edge_flag[row][col] == 1 && prev_edge_flag[row][col] == 0){
+#define LONG_PRESS_TIMEOUT 1000
+	
+	if(curr_btn_state[row][col] == 1 && prev_btn_state[row][col] == 0){
+		pressed_startTick[row][col] = HAL_GetTick();
+	}
+	if((curr_btn_state[row][col] == 1) && (HAL_GetTick() - pressed_startTick[row][col] > LONG_PRESS_TIMEOUT)){
 		return GPIO_PIN_SET;
-	}else return GPIO_PIN_RESET;
+	}
+
+	if(curr_btn_state[row][col] == 1 && prev_btn_state[row][col] == 0)
+		return GPIO_PIN_SET;
+	else 
+		return GPIO_PIN_RESET;
 }
 
 void sendKey(const uint8_t ch, const KeyModifier mod){
@@ -256,10 +270,10 @@ void sendKey(const uint8_t ch, const KeyModifier mod){
 	keyboardStct.hid.KEYCODE1 = ch;
 
 	USBD_HID_SendReport(&hUsbDeviceFS, (uint8_t*)&keyboardStct.hid, sizeof(keyboardStct.hid));
-	HAL_Delay(20);
+	osDelay(20);
 
 	keyboardStct.hid.MODIFIER = 0x00;
-	keyboardStct.hid.KEYCODE1 = 0x00;	
+	keyboardStct.hid.KEYCODE1 = 0x00;
 	USBD_HID_SendReport(&hUsbDeviceFS, (uint8_t*)&keyboardStct.hid, sizeof(keyboardStct.hid));
 }
 
@@ -317,7 +331,6 @@ void keyThread(void){
 				}
 			}
 		}
-		//	oled_update_page();
 		osDelay(1);
 //		HAL_Delay(1);
 	}
