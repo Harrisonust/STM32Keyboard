@@ -9,11 +9,8 @@ PAGE status = {
 
 void status_update(){
 	//Handle Bluetooth
-	char temp[30] = "";
-	{
-		//insert helper to gain current status
-	}
-	sprintf(temp, "Bluetooth : %s", "yes");
+	static char temp[30] = "";
+	snprintf(temp, 30, "Bluetooth : %s","yes");
 	ssd1306_SetCursor(0, 20);
 	ssd1306_WriteString(temp, Font_7x10, White);
 
@@ -22,7 +19,7 @@ void status_update(){
 	battery_value = ((battery_value - MIN_BATT) * 100) / (MAX_BATT - MIN_BATT);
 
 
-	sprintf(temp, "Battery : %u %%", battery_value);
+	snprintf(temp, 30, "Battery : %u %%", battery_value);
 	ssd1306_SetCursor(0, 40);
 	ssd1306_WriteString(temp, Font_7x10, White);
 }

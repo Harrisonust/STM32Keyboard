@@ -45,14 +45,14 @@ void led_update(){
 		led_init_value = 1;
 		led_init();
 	};
-	char temp[20] = " ";
+	char temp[30] = " ";
 
-	sprintf(temp, "LED : %d", current_led + 1);
+	snprintf(temp, 30, "LED : %d", current_led + 1);
 	ssd1306_SetCursor(80, 20);
 	ssd1306_WriteString(temp, Font_6x8, White);
 
 	for(int i = 0; i < 4; i++){
-		sprintf(temp,
+		snprintf(temp,30,
 				(i + 1) == current_selection ? "%s:%u <-- " :"%s:%u ",
 				color[i], ws2812.LED_Data[current_led][i]);
 		ssd1306_SetCursor(0, 20 + 10* (i));

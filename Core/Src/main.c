@@ -147,7 +147,7 @@ int main(void)
 
   /* Create the thread(s) */
   /* definition and creation of USBTask */
-  osThreadDef(USBTask, StartUSBTask, osPriorityNormal, 0, 128);
+  osThreadDef(USBTask, StartUSBTask, osPriorityNormal, 0, 256);
   USBTaskHandle = osThreadCreate(osThread(USBTask), NULL);
 
   /* definition and creation of debugTask02 */
@@ -173,6 +173,13 @@ int main(void)
 
   while (1)
   {
+	  MX_USB_DEVICE_Init();
+
+	  /* USER CODE BEGIN 5 */
+	  /* Infinite loop */
+	  HAL_GPIO_WritePin(USB_EN_GPIO_Port, USB_EN_Pin, 0);
+
+	  keyThread();
     /* USER CODE END WHILE */
 
     /* USER CODE BEGIN 3 */
