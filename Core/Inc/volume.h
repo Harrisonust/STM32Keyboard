@@ -8,6 +8,12 @@
 #ifndef INC_VOLUME_H_
 #define INC_VOLUME_H_
 #include "main.h"
+typedef enum{
+    VOLUMEUP,
+    VOLUMEDOWN,
+    VOLUMEMUTE,
+}Volume_State;
 
 int32_t getVolume();
+Volume_State getVolume2();
 #endif /* INC_VOLUME_H_ */

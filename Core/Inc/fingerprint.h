@@ -8,7 +8,7 @@
 #ifndef INC_FINGERPRINT_H_
 #define INC_FINGERPRINT_H_
 
-#include "stm32f4xx_hal.h"
+#include "stm32f1xx_hal.h"
 
 extern UART_HandleTypeDef huart4;
 #define UART_HANDLER huart4

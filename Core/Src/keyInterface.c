@@ -38,12 +38,12 @@ uint8_t getKeyIDByRC(const uint8_t r, const uint8_t c){
 		else if(r == 0 && c == 4) 	return 0x3D;	//F4
 		else if(r == 0 && c == 5) 	return 0x3E;	//F5
 		else if(r == 0 && c == 6) 	return 0x3F;	//F6
-		else if(r == 0 && c == 7) 	return 0x40;	//F7
-		else if(r == 0 && c == 8) 	return 0x41;	//F8
-		else if(r == 0 && c == 9) 	return 0x42;	//F9
-		else if(r == 0 && c == 10) 	return 0x43;	//F10
-		else if(r == 0 && c == 11) 	return 0x44;	//F11
-		else if(r == 0 && c == 12) 	return 0x45;	//F12
+		else if(r == 0 && c == 7) 	return 0x40;	//F7	//previous
+		else if(r == 0 && c == 8) 	return 0x41;	//F8	//pause
+		else if(r == 0 && c == 9) 	return 0x42;	//F9	//next
+		else if(r == 0 && c == 10) 	return 0x43;	//F10	//(un)mute
+		else if(r == 0 && c == 11) 	return 0x44;	//F11	//vloumn down
+		else if(r == 0 && c == 12) 	return 0x45;	//F12	//volumn up
 		else if(r == 0 && c == 13) 	return 0x46;	//PrtScn
 		else if(r == 1 && c == 0) 	return getKeyIDByChar('/');	//splash
 		else if(r == 1 && c == 1) 	return getKeyIDByChar('1');	//1
@@ -204,7 +204,6 @@ void HAL_GPIO_EXTI_Callback(uint16_t GPIO_Pin){
 uint8_t curr_btn_state[4][4] = {0};
 uint8_t prev_btn_state[4][4] = {0};
 uint32_t pressed_startTick[4][4] = {0};
-uint8_t flag[4][4] = {0};
 GPIO_PinState readKey(uint8_t row, uint8_t col){
 	
 	prev_btn_state[row][col] = curr_btn_state[row][col];
@@ -295,20 +294,22 @@ void apply_modifier(KeyModifier* m){
 }
 
 void keyThread(void){
-	static uint8_t config_mode = 0;
-	int32_t vol = 0;
+	static uint8_t setting_mode = 0;
+	// int32_t vol = 0;
 	KeyModifier m = {0};
 	keyInterfaceInit();
 
 	for(;;){
-		vol = getVolume();
-		UNUSED(vol);
+		// vol = getVolume();
+		if(getVolume2() == VOLUMEUP) sendKey (0x45, m);	
+		else if(getVolume2() == VOLUMEDOWN) sendKey (0x44, m);
+
 		if(readKey(0,0)){
-			config_mode++;
-			config_mode	%= 2;
+			setting_mode++;
+			setting_mode %= 2;
 		}
 
-		if(config_mode){
+		if(setting_mode){
 			HAL_GPIO_WritePin(LED1_GPIO_Port, LED1_Pin, 1);
 			char key = 0;
 			uint8_t udlr = 1;
