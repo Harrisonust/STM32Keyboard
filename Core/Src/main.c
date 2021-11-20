@@ -625,7 +625,21 @@ void StartUSBTask(void const * argument)
 * @param argument: Not used
 * @retval None
 */
+uint32_t last_keyinterrupt_tick = 0;
+extern WS2812Mode last_rgb_mode;
+extern WS2812Mode rgb_mode;
+uint8_t sleep_mode = 0;
+uint32_t SLEEPMODE_TIMEOUT = 10000;
+uint8_t ssd_do_once_flag = 1;
 
+void HAL_GPIO_EXTI_Callback(uint16_t GPIO_Pin){
+	if (GPIO_Pin == GPIO_PIN_0 || GPIO_Pin == GPIO_PIN_1 || GPIO_Pin == GPIO_PIN_2 || GPIO_Pin == GPIO_PIN_3){
+		last_keyinterrupt_tick = HAL_GetTick();
+		rgb_mode = last_rgb_mode;
+		sleep_mode = 0;
+		ssd_do_once_flag = 1;
+	}
+}
 /* USER CODE END Header_StartDebugTask02 */
 void StartDebugTask02(void const * argument)
 {
@@ -633,6 +647,18 @@ void StartDebugTask02(void const * argument)
   /* Infinite loop */
 	for(;;)
 	{
+		if(HAL_GetTick() - last_keyinterrupt_tick > SLEEPMODE_TIMEOUT){
+			sleep_mode = 1;
+		}
+
+		if(sleep_mode)
+			ssd1306_SetDisplayOn(0);
+		else{
+			if(ssd_do_once_flag){
+				ssd1306_SetDisplayOn(1);
+				ssd_do_once_flag = 0;
+			}
+		}
 		HAL_GPIO_TogglePin(LED3_GPIO_Port, LED3_Pin);
 		osDelay(50);
 	}

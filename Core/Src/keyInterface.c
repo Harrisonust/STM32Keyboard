@@ -217,15 +217,7 @@ uint8_t getKeyIDByChar(const char ch){
 	else								return 0x00;
 }
 
-uint32_t last_keyinterrupt_tick = 0;
-extern WS2812Mode last_rgb_mode;
-extern WS2812Mode rgb_mode;
-void HAL_GPIO_EXTI_Callback(uint16_t GPIO_Pin){
-	if (GPIO_Pin == GPIO_PIN_0 || GPIO_Pin == GPIO_PIN_1 || GPIO_Pin == GPIO_PIN_2 || GPIO_Pin == GPIO_PIN_3){
-		last_keyinterrupt_tick = HAL_GetTick();
-		rgb_mode = last_rgb_mode;
-	}
-}
+
 
 uint8_t curr_btn_state[4][4] = {0};
 uint8_t prev_btn_state[4][4] = {0};

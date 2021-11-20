@@ -143,21 +143,23 @@ void WS2812_Disable(WS2812* ws){
 	}
 }
 
+
+uint32_t brightness = 50;
+uint8_t do_once_flag = 1;
 WS2812Mode rgb_mode = LOOPMODE;
 WS2812Mode last_rgb_mode = LOOPMODE;
-uint32_t brightness = 50;
-uint32_t SLEEPMODE_TIMEOUT = 10000;
-uint8_t do_once_flag = 1;
+extern uint8_t sleep_mode;
+
 void WS2812_LED_Task(void const * par){
 	WS2812_InitStruct ws2812_initStruct = {.LED_num = MAX_LED, .tim = &htim1, . channel = TIM_CHANNEL_1};
 	WS2812_init(&ws2812, &ws2812_initStruct);
 	uint32_t color_index = 0;
 	int32_t led_index = 0;
+	
 
 	for(;;){
 
-		if(HAL_GetTick() - last_keyinterrupt_tick > SLEEPMODE_TIMEOUT){
-//			last_rgb_mode = rgb_mode;
+		if(sleep_mode){
 			rgb_mode = WS2812DISABLE;
 		}
 
