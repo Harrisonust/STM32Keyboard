@@ -7,6 +7,7 @@
 #include "volume.h"
 #include "oled_manager.h"
 #include "RGB.h"
+#include "stm32f1xx_hal_uart.h"
 
 extern USBD_HandleTypeDef hUsbDeviceFS;
 keyboardStruct keyboardStct;
@@ -133,6 +134,31 @@ uint8_t getKeyIDByRC(const uint8_t r, const uint8_t c){
 		else if(r == 3 && c == 1) return getKeyIDByChar('n');
 		else if(r == 3 && c == 2) return getKeyIDByChar('o');
 		else if(r == 3 && c == 3) return getKeyIDByChar('p');
+		else						return 0x00;
+	#endif
+	return 0x00;
+}
+
+uint8_t getKeyAsciiByRC(const uint8_t r, const uint8_t c){
+	#if defined(KEYBOARD_LAYOUT_84)
+		return 0x00;
+	#elif defined(KEYBOARD_LAYOUT_16)
+		if	   (r == 0 && c == 0) 	return 'a';
+		else if(r == 0 && c == 1) 	return 'b';
+		else if(r == 0 && c == 2) 	return 'c';
+		else if(r == 0 && c == 3) 	return 'd';
+		else if(r == 1 && c == 0) 	return 'e';
+		else if(r == 1 && c == 1) 	return 'f';
+		else if(r == 1 && c == 2) 	return 'g';
+		else if(r == 1 && c == 3) 	return 'h';
+		else if(r == 2 && c == 0) 	return 'i';
+		else if(r == 2 && c == 1) 	return 'j';
+		else if(r == 2 && c == 2) 	return 'k';
+		else if(r == 2 && c == 3) 	return 'l';
+		else if(r == 3 && c == 0) 	return 'm';
+		else if(r == 3 && c == 1) 	return 'n';
+		else if(r == 3 && c == 2) 	return 'o';
+		else if(r == 3 && c == 3)	return 'p';
 		else						return 0x00;
 	#endif
 	return 0x00;
@@ -293,12 +319,14 @@ void apply_modifier(KeyModifier* m){
 	return;
 }
 
+extern UART_HandleTypeDef huart4;
+
 void keyThread(void){
 	static uint8_t setting_mode = 0;
 	// int32_t vol = 0;
 	KeyModifier m = {0};
 	keyInterfaceInit();
-
+	KEYBOARD_MODE keyboard_mode = KEYBOARD_MODE_BLUETOOTH;
 	for(;;){
 		// vol = getVolume();
 		if(getVolume2() == VOLUMEUP) sendKey (0x45, m);	
@@ -326,12 +354,18 @@ void keyThread(void){
 			else udlr = 0;
 			if(udlr) oled_on_click_page(&key, 1);
 		}else{
+
 			HAL_GPIO_WritePin(LED1_GPIO_Port, LED1_Pin, 0);
 			for(uint8_t r = 0; r < ROW_NUM; r++){
 				for(uint8_t c = 0; c < COL_NUM; c++){
 					if(readKey(r,c)){
 //						apply_modifier(&m);
-						sendKey(getKeyIDByRC(r, c), m);
+						if(keyboard_mode == KEYBOARD_MODE_CABLE)
+							sendKey(getKeyIDByRC(r, c), m);
+						else if(keyboard_mode == KEYBOARD_MODE_BLUETOOTH){
+							uint8_t data[1] = {getKeyAsciiByRC(r, c)};
+							HAL_UART_Transmit(&huart4, data, 1, 2000);
+						}
 					}
 				}
 			}

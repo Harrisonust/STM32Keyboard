@@ -143,8 +143,8 @@ void WS2812_Disable(WS2812* ws){
 	}
 }
 
-WS2812Mode rgb_mode = STATICMODE;
-WS2812Mode last_rgb_mode = STATICMODE;
+WS2812Mode rgb_mode = LOOPMODE;
+WS2812Mode last_rgb_mode = LOOPMODE;
 uint32_t brightness = 50;
 uint32_t SLEEPMODE_TIMEOUT = 10000;
 uint8_t do_once_flag = 1;

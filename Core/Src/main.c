@@ -173,13 +173,10 @@ int main(void)
 
   while (1)
   {
-	  MX_USB_DEVICE_Init();
 
 	  /* USER CODE BEGIN 5 */
 	  /* Infinite loop */
-	  HAL_GPIO_WritePin(USB_EN_GPIO_Port, USB_EN_Pin, 0);
 
-	  keyThread();
     /* USER CODE END WHILE */
 
     /* USER CODE BEGIN 3 */
@@ -634,11 +631,11 @@ void StartDebugTask02(void const * argument)
 {
   /* USER CODE BEGIN StartDebugTask02 */
   /* Infinite loop */
-  for(;;)
-  {
-	HAL_GPIO_TogglePin(LED3_GPIO_Port, LED3_Pin);
-    osDelay(50);
-  }
+	for(;;)
+	{
+		HAL_GPIO_TogglePin(LED3_GPIO_Port, LED3_Pin);
+		osDelay(50);
+	}
   /* USER CODE END StartDebugTask02 */
 }
 

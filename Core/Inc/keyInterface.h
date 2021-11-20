@@ -42,6 +42,10 @@ typedef struct{
 	keyboardHID hid;
 }keyboardStruct;
 
+typedef enum{
+	KEYBOARD_MODE_CABLE,
+	KEYBOARD_MODE_BLUETOOTH
+}KEYBOARD_MODE;
 
 void keyThread(void);
 
