@@ -409,7 +409,7 @@ static void MX_TIM2_Init(void)
   htim2.Init.CounterMode = TIM_COUNTERMODE_UP;
   htim2.Init.Period = 65535;
   htim2.Init.ClockDivision = TIM_CLOCKDIVISION_DIV1;
-  htim2.Init.AutoReloadPreload = TIM_AUTORELOAD_PRELOAD_ENABLE;
+  htim2.Init.AutoReloadPreload = TIM_AUTORELOAD_PRELOAD_DISABLE;
   sConfig.EncoderMode = TIM_ENCODERMODE_TI12;
   sConfig.IC1Polarity = TIM_ICPOLARITY_FALLING;
   sConfig.IC1Selection = TIM_ICSELECTION_DIRECTTI;
@@ -639,22 +639,22 @@ void StartUSBTask(void const * argument)
 uint32_t last_keyinterrupt_tick = 0;
 extern WS2812Mode last_rgb_mode;
 extern WS2812Mode rgb_mode;
-uint8_t sleep_mode = 0;
 uint32_t SLEEPMODE_TIMEOUT = 10000;
 uint8_t ssd_do_once_flag = 1;
-extern uint8_t setting_mode;
+uint8_t sleep_mode = 0;
+extern KEYBOARD_OPERATION_MODE keyboard_operation_mode;
+extern KEYBOARD_CONNECTION_MODE keyboard_connection_mode;
 
 void HAL_GPIO_EXTI_Callback(uint16_t GPIO_Pin){
-	if (GPIO_Pin == GPIO_PIN_0 || GPIO_Pin == GPIO_PIN_1 || GPIO_Pin == GPIO_PIN_2 || GPIO_Pin == GPIO_PIN_3){
+	if (GPIO_Pin == ROW0_Pin || GPIO_Pin == ROW1_Pin || GPIO_Pin == ROW2_Pin || GPIO_Pin == ROW3_Pin){
 		last_keyinterrupt_tick = HAL_GetTick();
 		rgb_mode = last_rgb_mode;
 		sleep_mode = 0;
 		ssd_do_once_flag = 1;
 	}
-	if(GPIO_Pin == GPIO_PIN_15){
-		uint8_t result = 0;
-		if(!setting_mode){
-			result = check_fingerprint();
+	if(GPIO_Pin == FINGERPRINT_INT_Pin){
+		if(keyboard_operation_mode == KEYBOARD_OPERATION_MODE_NORMAL){
+			uint8_t result = check_fingerprint();
 			if(result == 0){
 				led_mode(0);
 			}

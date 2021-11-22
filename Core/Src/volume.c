@@ -6,12 +6,13 @@
  */
 
 #include "volume.h"
-#define ENCODER_STEP 5
+#define ENCODER_STEP 4
 
 int32_t vol_counter = 0;
 int32_t prev_vol_counter = 0;
-
+int32_t debugggg = 0;
 void HAL_TIM_IC_CaptureCallback(TIM_HandleTypeDef *htim){
+	debugggg = __HAL_TIM_GET_COUNTER(htim);
 	prev_vol_counter = vol_counter;
 	vol_counter = __HAL_TIM_GET_COUNTER(htim)/ENCODER_STEP;
 }

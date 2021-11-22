@@ -11,6 +11,7 @@
 
 extern USBD_HandleTypeDef hUsbDeviceFS;
 keyboardStruct keyboardStct;
+extern TIM_HandleTypeDef htim2;
 
 void keyInterfaceInit(void){
 	keyboardStct.hid.KEYCODE1 = 0x00;
@@ -19,6 +20,7 @@ void keyInterfaceInit(void){
 	keyboardStct.hid.KEYCODE4 = 0x00;
 	keyboardStct.hid.KEYCODE5 = 0x00;
 	keyboardStct.hid.KEYCODE6 = 0x00;
+	htim2.Instance->CNT=0xffff/2;
 }
 #define KEYBOARDLAYOUT KEY16
 
@@ -312,9 +314,8 @@ void apply_modifier(KeyModifier* m){
 }
 
 extern UART_HandleTypeDef huart4;
-uint8_t setting_mode = 0;
-KEYBOARD_MODE keyboard_mode = KEYBOARD_MODE_BLUETOOTH;
-
+KEYBOARD_CONNECTION_MODE keyboard_connection_mode = KEYBOARD_CONNECTION_MODE_CABLE;
+KEYBOARD_OPERATION_MODE keyboard_operation_mode = KEYBOARD_OPERATION_MODE_NORMAL;
 void keyThread(void){
 	KeyModifier m = {0};
 	keyInterfaceInit();
@@ -330,11 +331,11 @@ void keyThread(void){
 		}
 
 		if(readKey(0,0)){
-			setting_mode++;
-			setting_mode %= 2;
+			keyboard_operation_mode++;
+			keyboard_operation_mode %= 2;
 		}
 
-		if(setting_mode){
+		if(keyboard_operation_mode == KEYBOARD_OPERATION_MODE_CONFIG){
 			HAL_GPIO_WritePin(LED1_GPIO_Port, LED1_Pin, 1);
 			char key = 0;
 			uint8_t udlr = 1;
@@ -350,15 +351,15 @@ void keyThread(void){
 			else if(readKey(1,2)) 	key = 127; 				// backsapce 127
 			else udlr = 0;
 			if(udlr) oled_on_click_page(&key, 1);
-		}else{
+		}else if(keyboard_operation_mode == KEYBOARD_OPERATION_MODE_NORMAL){
 			HAL_GPIO_WritePin(LED1_GPIO_Port, LED1_Pin, 0);
 			for(uint8_t r = 0; r < ROW_NUM; r++){
 				for(uint8_t c = 0; c < COL_NUM; c++){
 					if(readKey(r,c)){
 //						apply_modifier(&m);
-						if(keyboard_mode == KEYBOARD_MODE_CABLE)
+						if(keyboard_connection_mode == KEYBOARD_CONNECTION_MODE_CABLE)
 							sendKey(getKeyIDByRC(r, c), m);
-						else if(keyboard_mode == KEYBOARD_MODE_BLUETOOTH){
+						else if(keyboard_connection_mode == KEYBOARD_CONNECTION_MODE_BLUETOOTH){
 							uint8_t data[1] = {getKeyAsciiByRC(r, c)};
 							HAL_UART_Transmit(&huart4, data, 1, 2000);
 						}
