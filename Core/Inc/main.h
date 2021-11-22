@@ -76,6 +76,9 @@ void Error_Handler(void);
 #define BTN1_GPIO_Port GPIOE
 #define BTN2_Pin GPIO_PIN_15
 #define BTN2_GPIO_Port GPIOE
+#define FINGERPRINT_INT_Pin GPIO_PIN_15
+#define FINGERPRINT_INT_GPIO_Port GPIOB
+#define FINGERPRINT_INT_EXTI_IRQn EXTI15_10_IRQn
 #define COL3_Pin GPIO_PIN_13
 #define COL3_GPIO_Port GPIOD
 #define COL2_Pin GPIO_PIN_14
