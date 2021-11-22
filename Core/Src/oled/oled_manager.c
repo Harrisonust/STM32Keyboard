@@ -13,7 +13,7 @@ extern PAGE macro;
 extern PAGE finger;
 
 int currentPage = 0;
-PAGE *page_array[3] = {&finger, &status, &macro};
+PAGE *page_array[] = {&led, &finger, &status, &macro};
 
 void oled_ui_init(){
 	ssd1306_Init();

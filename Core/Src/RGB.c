@@ -146,8 +146,8 @@ void WS2812_Disable(WS2812* ws){
 
 uint32_t brightness = 50;
 uint8_t do_once_flag = 1;
-WS2812Mode rgb_mode = LOOPMODE;
-WS2812Mode last_rgb_mode = LOOPMODE;
+WS2812Mode rgb_mode = STATICMODE;
+WS2812Mode last_rgb_mode = STATICMODE;
 extern uint8_t sleep_mode;
 
 void WS2812_LED_Task(void const * par){
