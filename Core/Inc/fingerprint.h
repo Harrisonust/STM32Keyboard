@@ -10,8 +10,8 @@
 
 #include "stm32f1xx_hal.h"
 
-extern UART_HandleTypeDef huart4;
-#define UART_HANDLER huart4
+extern UART_HandleTypeDef huart1;
+#define UART_HANDLER huart1
 
 #define FINGERPRINT_OK 0x00               //!< Command execution is complete
 #define FINGERPRINT_PACKETRECIEVEERR 0x01 //!< Error when receiving data package

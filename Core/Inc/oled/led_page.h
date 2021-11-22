@@ -16,10 +16,12 @@
 #define max(a,b) (a > b) ? a : b
 
 #define LED_START_ADDR 0x0807D800
+#define LED_MODE_ADDR 0x0807E800
 
 #define SELECTION 4
 
 extern WS2812 ws2812;
+extern WS2812Mode rgb_mode;
 
 //uint8_t value[3] = {0};
 //// insert init value handler in here
