@@ -22,7 +22,6 @@
 #include "main.h"
 #include "cmsis_os.h"
 #include "usb_device.h"
-#include "fingerprint.h"
 
 /* Private includes ----------------------------------------------------------*/
 /* USER CODE BEGIN Includes */
@@ -30,6 +29,7 @@
 #include "RGB.h"
 #include "volume.h"
 #include "oled_manager.h"
+#include "fingerprint.h"
 /* USER CODE END Includes */
 
 /* Private typedef -----------------------------------------------------------*/
@@ -559,6 +559,12 @@ static void MX_GPIO_Init(void)
   GPIO_InitStruct.Pull = GPIO_PULLDOWN;
   HAL_GPIO_Init(GPIOE, &GPIO_InitStruct);
 
+  /*Configure GPIO pin : FINGERPRINT_INT_Pin */
+  GPIO_InitStruct.Pin = FINGERPRINT_INT_Pin;
+  GPIO_InitStruct.Mode = GPIO_MODE_IT_RISING;
+  GPIO_InitStruct.Pull = GPIO_PULLDOWN;
+  HAL_GPIO_Init(FINGERPRINT_INT_GPIO_Port, &GPIO_InitStruct);
+
   /*Configure GPIO pins : COL3_Pin COL2_Pin COL1_Pin USB_EN_Pin */
   GPIO_InitStruct.Pin = COL3_Pin|COL2_Pin|COL1_Pin|USB_EN_Pin;
   GPIO_InitStruct.Mode = GPIO_MODE_OUTPUT_PP;
@@ -591,6 +597,9 @@ static void MX_GPIO_Init(void)
 
   HAL_NVIC_SetPriority(EXTI3_IRQn, 5, 0);
   HAL_NVIC_EnableIRQ(EXTI3_IRQn);
+
+  HAL_NVIC_SetPriority(EXTI15_10_IRQn, 5, 0);
+  HAL_NVIC_EnableIRQ(EXTI15_10_IRQn);
 
 }
 
@@ -632,6 +641,7 @@ extern WS2812Mode rgb_mode;
 uint8_t sleep_mode = 0;
 uint32_t SLEEPMODE_TIMEOUT = 10000;
 uint8_t ssd_do_once_flag = 1;
+extern uint8_t setting_mode;
 
 void HAL_GPIO_EXTI_Callback(uint16_t GPIO_Pin){
 	if (GPIO_Pin == GPIO_PIN_0 || GPIO_Pin == GPIO_PIN_1 || GPIO_Pin == GPIO_PIN_2 || GPIO_Pin == GPIO_PIN_3){
@@ -639,6 +649,15 @@ void HAL_GPIO_EXTI_Callback(uint16_t GPIO_Pin){
 		rgb_mode = last_rgb_mode;
 		sleep_mode = 0;
 		ssd_do_once_flag = 1;
+	}
+	if(GPIO_Pin == GPIO_PIN_15){
+		uint8_t result = 0;
+		if(!setting_mode){
+			result = check_fingerprint();
+			if(result == 0){
+				led_mode(0);
+			}
+		}
 	}
 }
 /* USER CODE END Header_StartDebugTask02 */
@@ -661,12 +680,7 @@ void StartDebugTask02(void const * argument)
 			}
 		}
 		HAL_GPIO_TogglePin(LED3_GPIO_Port, LED3_Pin);
-
-		uint8_t result = check_fingerprint();
-		if(result == 0){
-			led_mode(0);
-		}
-		osDelay(500);
+		osDelay(50);
 	}
   /* USER CODE END StartDebugTask02 */
 }

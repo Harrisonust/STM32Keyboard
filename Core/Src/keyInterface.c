@@ -313,6 +313,7 @@ void apply_modifier(KeyModifier* m){
 
 extern UART_HandleTypeDef huart4;
 uint8_t setting_mode = 0;
+
 void keyThread(void){
 	// int32_t vol = 0;
 	KeyModifier m = {0};
@@ -327,6 +328,7 @@ void keyThread(void){
 			setting_mode++;
 			setting_mode %= 2;
 		}
+
 
 		if(setting_mode){
 			HAL_GPIO_WritePin(LED1_GPIO_Port, LED1_Pin, 1);
