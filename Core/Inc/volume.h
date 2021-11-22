@@ -9,9 +9,9 @@
 #define INC_VOLUME_H_
 #include "main.h"
 typedef enum{
+    VOLUMENOACTION,
     VOLUMEUP,
-    VOLUMEDOWN,
-    VOLUMEMUTE,
+    VOLUMEDOWN
 }Volume_State;
 
 int32_t getVolume();

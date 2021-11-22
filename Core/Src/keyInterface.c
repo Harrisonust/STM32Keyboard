@@ -313,22 +313,26 @@ void apply_modifier(KeyModifier* m){
 
 extern UART_HandleTypeDef huart4;
 uint8_t setting_mode = 0;
+KEYBOARD_MODE keyboard_mode = KEYBOARD_MODE_BLUETOOTH;
 
 void keyThread(void){
-	// int32_t vol = 0;
 	KeyModifier m = {0};
 	keyInterfaceInit();
-	KEYBOARD_MODE keyboard_mode = KEYBOARD_MODE_BLUETOOTH;
 	for(;;){
-		// vol = getVolume();
-		if(getVolume2() == VOLUMEUP) sendKey (0x45, m);	
-		else if(getVolume2() == VOLUMEDOWN) sendKey (0x44, m);
+		Volume_State vol_state = getVolume2();
+		if(vol_state == VOLUMEDOWN) {
+			sendKey (0x80, m);//volume up
+			continue;
+		}else if(vol_state == VOLUMEUP) {
+			sendKey (0x81, m); //volume down
+			continue;
+		}else if(vol_state == VOLUMENOACTION) {
+		}
 
 		if(readKey(0,0)){
 			setting_mode++;
 			setting_mode %= 2;
 		}
-
 
 		if(setting_mode){
 			HAL_GPIO_WritePin(LED1_GPIO_Port, LED1_Pin, 1);
@@ -347,7 +351,6 @@ void keyThread(void){
 			else udlr = 0;
 			if(udlr) oled_on_click_page(&key, 1);
 		}else{
-
 			HAL_GPIO_WritePin(LED1_GPIO_Port, LED1_Pin, 0);
 			for(uint8_t r = 0; r < ROW_NUM; r++){
 				for(uint8_t c = 0; c < COL_NUM; c++){
@@ -364,6 +367,5 @@ void keyThread(void){
 			}
 		}
 		osDelay(1);
-//		HAL_Delay(1);
 	}
 }
