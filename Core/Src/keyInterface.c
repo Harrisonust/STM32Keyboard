@@ -316,11 +316,12 @@ void apply_modifier(KeyModifier* m){
 extern UART_HandleTypeDef huart4;
 KEYBOARD_CONNECTION_MODE keyboard_connection_mode = KEYBOARD_CONNECTION_MODE_CABLE;
 KEYBOARD_OPERATION_MODE keyboard_operation_mode = KEYBOARD_OPERATION_MODE_NORMAL;
+
 void keyThread(void){
 	KeyModifier m = {0};
 	keyInterfaceInit();
 	for(;;){
-		Volume_State vol_state = getVolume2();
+		Volume_State vol_state = updateVolume();
 		if(vol_state == VOLUMEDOWN) {
 			sendKey (0x80, m);//volume up
 			continue;
