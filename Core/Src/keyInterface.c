@@ -312,9 +312,8 @@ void apply_modifier(KeyModifier* m){
 }
 
 extern UART_HandleTypeDef huart4;
-
+uint8_t setting_mode = 0;
 void keyThread(void){
-	static uint8_t setting_mode = 0;
 	// int32_t vol = 0;
 	KeyModifier m = {0};
 	keyInterfaceInit();
