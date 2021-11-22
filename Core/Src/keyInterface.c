@@ -357,7 +357,6 @@ void keyThread(void){
 			for(uint8_t r = 0; r < ROW_NUM; r++){
 				for(uint8_t c = 0; c < COL_NUM; c++){
 					if(readKey(r,c)){
-//						apply_modifier(&m);
 						if(keyboard_connection_mode == KEYBOARD_CONNECTION_MODE_CABLE)
 							sendKey(getKeyIDByRC(r, c), m);
 						else if(keyboard_connection_mode == KEYBOARD_CONNECTION_MODE_BLUETOOTH){

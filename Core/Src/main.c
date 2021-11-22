@@ -59,7 +59,7 @@ DMA_HandleTypeDef hdma_tim1_ch1;
 UART_HandleTypeDef huart4;
 UART_HandleTypeDef huart1;
 
-osThreadId USBTaskHandle;
+osThreadId KeyTaskHandle;
 osThreadId debugTask02Handle;
 osThreadId RGBTaskHandle;
 /* USER CODE BEGIN PV */
@@ -148,9 +148,9 @@ int main(void)
   /* USER CODE END RTOS_QUEUES */
 
   /* Create the thread(s) */
-  /* definition and creation of USBTask */
-  osThreadDef(USBTask, StartUSBTask, osPriorityNormal, 0, 256);
-  USBTaskHandle = osThreadCreate(osThread(USBTask), NULL);
+  /* definition and creation of KeyTask */
+  osThreadDef(KeyTask, StartUSBTask, osPriorityNormal, 0, 256);
+  KeyTaskHandle = osThreadCreate(osThread(KeyTask), NULL);
 
   /* definition and creation of debugTask02 */
   osThreadDef(debugTask02, StartDebugTask02, osPriorityIdle, 0, 128);
