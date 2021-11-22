@@ -22,6 +22,7 @@
 #include "main.h"
 #include "cmsis_os.h"
 #include "usb_device.h"
+#include "fingerprint.h"
 
 /* Private includes ----------------------------------------------------------*/
 /* USER CODE BEGIN Includes */
@@ -482,7 +483,7 @@ static void MX_USART1_UART_Init(void)
 
   /* USER CODE END USART1_Init 1 */
   huart1.Instance = USART1;
-  huart1.Init.BaudRate = 115200;
+  huart1.Init.BaudRate = 57600;
   huart1.Init.WordLength = UART_WORDLENGTH_8B;
   huart1.Init.StopBits = UART_STOPBITS_1;
   huart1.Init.Parity = UART_PARITY_NONE;
@@ -660,7 +661,12 @@ void StartDebugTask02(void const * argument)
 			}
 		}
 		HAL_GPIO_TogglePin(LED3_GPIO_Port, LED3_Pin);
-		osDelay(50);
+
+		uint8_t result = check_fingerprint();
+		if(result == 0){
+			led_mode(0);
+		}
+		osDelay(500);
 	}
   /* USER CODE END StartDebugTask02 */
 }

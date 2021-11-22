@@ -7,8 +7,13 @@
 
 #include "fingerprint.h"
 
-extern F_Packet fpacket;
-extern F_Packet rpacket;
+F_Packet fpacket = {
+		.start_code = FINGERPRINT_STARTCODE,
+		.address = 0xFFFFFFFF,
+		.type = FINGERPRINT_COMMANDPACKET,
+		};
+
+F_Packet rpacket;
 
 uint16_t status_reg = 0x0; ///< The status register (set by getParameters)
 uint16_t system_id = 0x0;  ///< The system identifier (set by getParameters)
@@ -180,7 +185,7 @@ uint8_t check_fingerprint(){
 		if(rpacket.data[0]) return -3;
 
 		//2. Conv image to value image2Tz
-		uint8_t data[10]= {FINGERPRINT_IMAGE2TZ, 2};
+		uint8_t data[5]= {FINGERPRINT_IMAGE2TZ, 2};
 		setup_packet(data, 2);
 		receive();
 
@@ -202,13 +207,13 @@ uint8_t check_fingerprint(){
 			return -2;
 		}
 		else{
-			return data[3];
+			return rpacket.data[0];
 		}
 
 }
 
 void led_mode(uint8_t control){
-	if(control == 0 | control == 1){
+	if((control == 0) | (control == 1)){
 		uint8_t temp = control == 0 ? FINGERPRINT_LEDOFF : FINGERPRINT_LEDON;
 		setup_packet(&temp, 1);
 		receive();
@@ -227,7 +232,7 @@ uint16_t get_template_number(){
 void reset_database(){
 	uint8_t temp;
 	//1. GetImage
-	temp = FINGERPRINT_DELETEFAIL;
+	temp = FINGERPRINT_EMPTY;
 	setup_packet(&temp, 1);
 	send();
 }

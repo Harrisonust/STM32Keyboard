@@ -14,6 +14,13 @@ char *oled_color[20] = {
 		"blue"
 };
 
+char *led_aura[20] = {
+		"WS2812DISABLE",
+		"STATICMODE",
+		"BREATHMODE",
+		"LOOPMODE"
+};
+
 PAGE led = {
 		.title = "LED",
 		.update_page = led_update,
@@ -34,6 +41,13 @@ void led_init(){
 			ws2812.LED_Data[i][j] = (uint8_t)(data[i] >> (8 * j));
 		}
 	}
+
+	uint32_t mode = 0;
+	Flash_Read_Data(LED_MODE_ADDR, &mode, 1);
+	if(data[0] != 0xFFFFFFFF){
+		rgb_mode = mode >> 24; //check this
+	}
+
 }
 
 void led_flash(){
@@ -44,6 +58,9 @@ void led_flash(){
 		}
 		Flash_Write_Data(LED_START_ADDR, &temp, MAX_LED);
 	}
+
+	uint32_t mode = rgb_mode;
+	Flash_Write_Data(LED_MODE_ADDR, &mode, 1);
 }
 
 void led_update(){
@@ -53,16 +70,31 @@ void led_update(){
 	};
 	char temp[30] = " ";
 
-	snprintf(temp, 30, "LED : %d", current_led + 1);
-	ssd1306_SetCursor(80, 20);
-	ssd1306_WriteString(temp, Font_6x8, White);
-
-	for(int i = 0; i < 4; i++){
-		snprintf(temp,30,
-				(i + 1) == current_selection ? "%s:%u <-- " :"%s:%u ",
-				oled_color[i], ws2812.LED_Data[current_led][i]);
-		ssd1306_SetCursor(0, 20 + 10* (i));
+	if(current_led < MAX_LED){
+		snprintf(temp, 30, "LED : %d", current_led + 1);
+		ssd1306_SetCursor(80, 20);
 		ssd1306_WriteString(temp, Font_6x8, White);
+
+		for(int i = 0; i < 4; i++){
+			snprintf(temp,30,
+					(i + 1) == current_selection ? "%s:%u <-- " :"%s:%u ",
+					oled_color[i], ws2812.LED_Data[current_led][i]);
+			ssd1306_SetCursor(0, 20 + 10* (i));
+			ssd1306_WriteString(temp, Font_6x8, White);
+		}
+	}
+	else{
+		snprintf(temp, 30, "Mode : %s", led_aura[rgb_mode]);
+		ssd1306_SetCursor(80, 20);
+		ssd1306_WriteString(temp, Font_6x8, White);
+
+		for(int i = 0; i < 4; i++){
+			snprintf(temp,30,
+					(i + 1) == current_selection ? "%s <-- " :"%s ",
+					led_aura);
+			ssd1306_SetCursor(0, 20 + 10* (i));
+			ssd1306_WriteString(temp, Font_6x8, White);
+		}
 	}
 }
 
@@ -74,13 +106,18 @@ void led_onclick(char *combination, int charNum){
 	//right arrow 130
 	//Up arrow 131
 	//Down arrow 132
+	if(combination[0] == 13){//enter
+		led_flash();
+	}
+
+if(current_led < MAX_LED){
 	switch(combination[0]){
 		case 129:
 			//left
 			if(current_selection == 0){
 				//save the led data here
-				led_flash();
-				current_led = (current_led + 1) % (MAX_LED);
+//				led_flash();
+				current_led = (current_led + 1) % (MAX_LED + 1);
 				current_selection = 0;
 			}
 			else{//if value > 1
@@ -90,8 +127,8 @@ void led_onclick(char *combination, int charNum){
 		case 130:
 			//right
 			if(current_selection == 0){
-				led_flash();
-				current_led = (current_led - 1) < 0? MAX_LED - 1: (current_led - 1) % (MAX_LED);
+//				led_flash();
+				current_led = (current_led - 1) < 0? MAX_LED: (current_led - 1) % (MAX_LED + 1);
 				current_selection = 0;
 			}
 			else{//if value > 1
@@ -108,6 +145,38 @@ void led_onclick(char *combination, int charNum){
 			break;
 
 	}
+}
+else{ //enter RGB mode
+	switch(combination[0]){
+		case 129:
+			//left
+			if(current_selection == 0){
+				//save the led data here
+				current_led = (current_led + 1) % (MAX_LED + 1);
+				current_selection = 0;
+			}
+			break;
+		case 130:
+			//right
+			if(current_selection == 0){
+				current_led = (current_led - 1) < 0? MAX_LED: (current_led - 1) % (MAX_LED + 1);
+				current_selection = 0;
+			}
+			else{
+				rgb_mode = current_selection - 1; //assuming enumeration
+			}
+			break;
+		case 131:
+			//up
+			current_selection = max(0, (current_selection - 1) % (SELECTION + 1));
+			break;
+		case 132:
+			//down fix bug
+			current_selection = (current_selection + 1) % (SELECTION + 1);
+			break;
+
+	}
+}
 	led_update();
 }
 
