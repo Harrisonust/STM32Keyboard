@@ -6,11 +6,16 @@ PAGE status = {
 		.on_click= status_onclick};
 
 
+extern KEYBOARD_CONNECTION_MODE keyboard_connection_mode;
 
 void status_update(){
 	//Handle Bluetooth
 	static char temp[30] = "";
-	snprintf(temp, 30, "Bluetooth : %s","yes");
+	if(keyboard_connection_mode == KEYBOARD_CONNECTION_MODE_CABLE){
+		snprintf(temp, 30, "MODE: CABLE");
+	}else if(keyboard_connection_mode == KEYBOARD_CONNECTION_MODE_BLUETOOTH){
+		snprintf(temp, 30, "MODE: BLUETOOTH");
+	}
 	ssd1306_SetCursor(0, 20);
 	ssd1306_WriteString(temp, Font_7x10, White);
 
@@ -25,5 +30,12 @@ void status_update(){
 }
 
 void status_onclick(char *combination, int charNum){
+
+	if(combination[0] == 13){
+		if(keyboard_connection_mode == KEYBOARD_CONNECTION_MODE_CABLE)
+			keyboard_connection_mode = KEYBOARD_CONNECTION_MODE_BLUETOOTH;
+		else if(keyboard_connection_mode == KEYBOARD_CONNECTION_MODE_BLUETOOTH)
+			keyboard_connection_mode = KEYBOARD_CONNECTION_MODE_CABLE;
+	}
 	status_update();
 }

@@ -13,6 +13,8 @@
 
 #include "page_template.h"
 #include "stm32f1xx_hal.h"
+#include "keyInterface.h"
+
 
 enum connection {NONE, BLUETOOTH};
 
