@@ -39,7 +39,8 @@ typedef enum{
 	WS2812DISABLE,
 	STATICMODE,
 	BREATHMODE,
-	LOOPMODE
+	LOOPMODE, 
+	NUM_OF_MODE
 }WS2812Mode;
 
 #define rgb(r, g, b) {.R = r, .G = g, .B = b}
