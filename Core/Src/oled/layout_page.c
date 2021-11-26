@@ -12,7 +12,10 @@ int curr_layout_selection = 0;
 PAGE layout = {
 		.title = "Layout",
 		.update_page = layout_update,
-		.on_click= layout_onclick};
+		.on_click= layout_onclick,
+		.init = NULL
+
+};
 
 void layout_update(){
 	char temp[20];

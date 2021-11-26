@@ -26,6 +26,7 @@ typedef struct{
 extern
 
 void macro_update();
+void macro_init();
 void macro_onclick(char *input, int charNum);
 void macro_page_update();
 Node* get_macro(char value);

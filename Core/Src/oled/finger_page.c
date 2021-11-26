@@ -11,7 +11,8 @@ uint8_t current_page = 0;
 PAGE finger = {
 		.title = "Fingerprint",
 		.update_page = finger_update,
-		.on_click = finger_onclick
+		.on_click = finger_onclick,
+		.init = NULL
 };
 
 finger_page page_mode = DEFAULT;

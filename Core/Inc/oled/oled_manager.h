@@ -21,6 +21,7 @@ extern PAGE status;
 //PAGE *page_array[1] = {&status};
 
 void oled_ui_init();
+void oled_page_init();
 void oled_clear_title();
 void oled_clear_menu();
 void oled_update_page();

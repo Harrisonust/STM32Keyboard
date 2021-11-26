@@ -12,7 +12,10 @@ extern WS2812Mode rgb_mode;
 PAGE rgb_pattern = {
 		.title = "RGB Mode",
 		.update_page = led_mode_update,
-		.on_click= led_mode_onclick};
+		.on_click= led_mode_onclick,
+		.init = NULL
+
+};
 
 void led_mode_update(){
     static char temp[30] = "";

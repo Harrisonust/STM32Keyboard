@@ -18,6 +18,7 @@ PAGE *page_array[] = {&status, &rgb_pattern, &led, &macro, &finger};
 
 void oled_ui_init(){
 	ssd1306_Init();
+	oled_page_init();
 	//set up the line division
 	for(int i = LINE_POSITION; i < LINE_END; i++){
 		ssd1306_Line(0, i, SSD1306_WIDTH, i, White);
@@ -59,6 +60,12 @@ void oled_on_click_page(char *array, int arrayNum){
 	ssd1306_UpdateScreen();
 }
 
+void oled_page_init(){
+	for(int i = 0; i < 5; i++){
+		if(page_array[i]->init == NULL)continue;
+		(page_array[i]->init)();
+	}
+}
 
 
 

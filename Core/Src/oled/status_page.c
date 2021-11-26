@@ -3,7 +3,10 @@
 PAGE status = {
 		.title = "Status",
 		.update_page = status_update,
-		.on_click= status_onclick};
+		.on_click= status_onclick,
+		.init = NULL
+
+};
 
 
 extern KEYBOARD_CONNECTION_MODE keyboard_connection_mode;

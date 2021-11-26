@@ -14,6 +14,7 @@ typedef struct{
 	char title[30];
 	void (*update_page)();
 	void (*on_click)(char*, int);
+	void (*init)();
 
 }PAGE;
 

@@ -27,6 +27,7 @@ extern WS2812Mode rgb_mode;
 //// insert init value handler in here
 
 void led_update();
+void led_init();
 void led_onclick(char *combination, int charNum);
 void led_page_update();
 

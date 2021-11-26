@@ -24,7 +24,8 @@ char *led_aura[20] = {
 PAGE led = {
 		.title = "LED",
 		.update_page = led_update,
-		.on_click= led_onclick};
+		.on_click= led_onclick,
+		.init = led_init};
 
 int current_led = 0;
 int current_selection = 0;

@@ -11,7 +11,8 @@
 PAGE macro = {
 		.title = "Macro",
 		.update_page = macro_update,
-		.on_click = macro_onclick
+		.on_click = macro_onclick,
+		.init = macro_init
 };
 
 uint8_t init = 0;
