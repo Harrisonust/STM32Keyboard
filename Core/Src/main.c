@@ -650,7 +650,7 @@ uint8_t sendPasswordFlag = 0;
 void HAL_GPIO_EXTI_Callback(uint16_t GPIO_Pin){
 	if (GPIO_Pin == ROW0_Pin || GPIO_Pin == ROW1_Pin || GPIO_Pin == ROW2_Pin || GPIO_Pin == ROW3_Pin){
 		last_keyinterrupt_tick = HAL_GetTick();
-		rgb_mode = last_rgb_mode;
+		// rgb_mode = last_rgb_mode;
 		sleep_mode = 0;
 		ssd_do_once_flag = 1;
 	}
