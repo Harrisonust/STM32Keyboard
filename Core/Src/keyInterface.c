@@ -314,6 +314,15 @@ void apply_modifier(KeyModifier* m){
 	return;
 }
 
+void sendPassword(){
+	KeyModifier m = {0};
+	char pw[] = "helloElec3300";
+	for(uint8_t i = 0; i <strlen(pw); i++){
+		sendKey(getKeyIDByChar(pw[i]), m);
+		osDelay(10);
+	}
+}
+
 extern UART_HandleTypeDef huart4;
 KEYBOARD_CONNECTION_MODE keyboard_connection_mode = KEYBOARD_CONNECTION_MODE_CABLE;
 KEYBOARD_OPERATION_MODE keyboard_operation_mode = KEYBOARD_OPERATION_MODE_NORMAL;

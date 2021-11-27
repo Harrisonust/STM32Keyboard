@@ -62,4 +62,6 @@ uint8_t getKeyIDByRC(const uint8_t r, const uint8_t c);
 
 void sendKey(const uint8_t ch, const KeyModifier mod);
 
+void sendPassword();
+
 #endif
