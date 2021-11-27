@@ -253,7 +253,7 @@ static void MX_ADC1_Init(void)
   */
   hadc1.Instance = ADC1;
   hadc1.Init.ScanConvMode = ADC_SCAN_DISABLE;
-  hadc1.Init.ContinuousConvMode = DISABLE;
+  hadc1.Init.ContinuousConvMode = ENABLE;
   hadc1.Init.DiscontinuousConvMode = DISABLE;
   hadc1.Init.ExternalTrigConv = ADC_SOFTWARE_START;
   hadc1.Init.DataAlign = ADC_DATAALIGN_RIGHT;
@@ -644,6 +644,7 @@ uint8_t ssd_do_once_flag = 1;
 uint8_t sleep_mode = 0;
 extern KEYBOARD_OPERATION_MODE keyboard_operation_mode;
 extern KEYBOARD_CONNECTION_MODE keyboard_connection_mode;
+uint32_t oled_tick = 0;
 
 void HAL_GPIO_EXTI_Callback(uint16_t GPIO_Pin){
 	if (GPIO_Pin == ROW0_Pin || GPIO_Pin == ROW1_Pin || GPIO_Pin == ROW2_Pin || GPIO_Pin == ROW3_Pin){
@@ -679,9 +680,15 @@ void StartDebugTask02(void const * argument)
 				ssd1306_SetDisplayOn(1);
 				ssd_do_once_flag = 0;
 			}
+			if(HAL_GetTick() - oled_tick > 1000){
+				oled_update_page();
+				oled_tick = HAL_GetTick();
+			}
 		}
 		HAL_GPIO_TogglePin(LED3_GPIO_Port, LED3_Pin);
+
 		osDelay(50);
+
 	}
   /* USER CODE END StartDebugTask02 */
 }

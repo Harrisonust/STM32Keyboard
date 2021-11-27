@@ -43,9 +43,19 @@ void oled_clear_menu(){
 void oled_update_page(){
 	oled_clear_title();
 	oled_clear_menu();
+
+	ssd1306_SetCursor(0, 10);
+
+
 	ssd1306_SetCursor(0, 1);
 	ssd1306_WriteString((page_array[currentPage])->title, Font_7x10, White);
 	(page_array[currentPage]->update_page)();
+
+	ssd1306_SetCursor(0, 1);
+	static char temp[30] = "tick : %d";
+	snprintf(temp, 30, HAL_GetTick());
+	ssd1306_WriteString(temp, Font_7x10, White);
+
 	ssd1306_UpdateScreen();
 }
 

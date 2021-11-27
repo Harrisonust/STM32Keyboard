@@ -338,9 +338,10 @@ void keyThread(void){
 		}
 		if(readKey(0,1)){
 			Node* n = get_macro('x');
-			for(Node* ptr = n; ptr != NULL; ptr = ptr->next)
+			for(Node* ptr = n; ptr != NULL; ptr = ptr->next){
 				sendKey(getKeyIDByChar(ptr->data), m);
-			continue;
+				osDelay(10);
+			}
 		}
 
 		if(keyboard_operation_mode == KEYBOARD_OPERATION_MODE_CONFIG){
