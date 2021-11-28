@@ -9,8 +9,8 @@
 
 char *oled_color[20] = {
 		"bright",
-		"red",
 		"green",
+		"red",
 		"blue"
 };
 
@@ -71,32 +71,30 @@ void led_update(){
 	};
 	char temp[30] = " ";
 
-	if(current_led < MAX_LED){
-		snprintf(temp, 30, "LED : %d", current_led + 1);
-		ssd1306_SetCursor(80, 20);
-		ssd1306_WriteString(temp, Font_6x8, White);
+	snprintf(temp, 30, "LED : %d", current_led + 1);
+	ssd1306_SetCursor(80, 20);
+	ssd1306_WriteString(temp, Font_6x8, White);
 
-		for(int i = 0; i < 4; i++){
-			snprintf(temp,30,
-					(i + 1) == current_selection ? "%s:%u <-- " :"%s:%u ",
-					oled_color[i], ws2812.LED_Data[current_led][i]);
-			ssd1306_SetCursor(0, 20 + 10* (i));
-			ssd1306_WriteString(temp, Font_6x8, White);
-		}
-	}
-	else{
-		snprintf(temp, 30, "Mode : %s", led_aura[rgb_mode]);
-		ssd1306_SetCursor(80, 20);
+	for(int i = 0; i < 4; i++){
+		snprintf(temp,30,
+				(i + 1) == current_selection ? "%s:%u <-- " :"%s:%u ",
+				oled_color[i], ws2812.LED_Data[current_led][i]);
+		ssd1306_SetCursor(0, 20 + 10* (i));
 		ssd1306_WriteString(temp, Font_6x8, White);
-
-		for(int i = 0; i < 4; i++){
-			snprintf(temp,30,
-					(i + 1) == current_selection ? "%s <-- " :"%s ",
-					led_aura);
-			ssd1306_SetCursor(0, 20 + 10* (i));
-			ssd1306_WriteString(temp, Font_6x8, White);
-		}
 	}
+//	else{
+//		snprintf(temp, 30, "Mode : %s", led_aura[rgb_mode]);
+//		ssd1306_SetCursor(80, 20);
+//		ssd1306_WriteString(temp, Font_6x8, White);
+//
+//		for(int i = 0; i < 4; i++){
+//			snprintf(temp,30,
+//					(i + 1) == current_selection ? "%s <-- " :"%s ",
+//					led_aura);
+//			ssd1306_SetCursor(0, 20 + 10* (i));
+//			ssd1306_WriteString(temp, Font_6x8, White);
+//		}
+//	}
 }
 
 void led_onclick(char *combination, int charNum){
@@ -111,25 +109,24 @@ void led_onclick(char *combination, int charNum){
 		led_flash();
 	}
 
-if(current_led < MAX_LED){
 	switch(combination[0]){
-		case 129:
+		case 130:
 			//left
 			if(current_selection == 0){
 				//save the led data here
 //				led_flash();
-				current_led = (current_led + 1) % (MAX_LED + 1);
+				current_led = (current_led + 1) % (MAX_LED);
 				current_selection = 0;
 			}
 			else{//if value > 1
 				ws2812.LED_Data[current_led][current_selection - 1] = max(0, ws2812.LED_Data[current_led][current_selection - 1] - 1);
 			}
 			break;
-		case 130:
+		case 129:
 			//right
 			if(current_selection == 0){
 //				led_flash();
-				current_led = (current_led - 1) < 0? MAX_LED: (current_led - 1) % (MAX_LED + 1);
+				current_led = (current_led - 1) < 0? MAX_LED - 1: (current_led - 1) % (MAX_LED);
 				current_selection = 0;
 			}
 			else{//if value > 1
@@ -146,38 +143,37 @@ if(current_led < MAX_LED){
 			break;
 
 	}
-}
-else{ //enter RGB mode
-	switch(combination[0]){
-		case 129:
-			//left
-			if(current_selection == 0){
-				//save the led data here
-				current_led = (current_led + 1) % (MAX_LED + 1);
-				current_selection = 0;
-			}
-			break;
-		case 130:
-			//right
-			if(current_selection == 0){
-				current_led = (current_led - 1) < 0? MAX_LED: (current_led - 1) % (MAX_LED + 1);
-				current_selection = 0;
-			}
-			else{
-				rgb_mode = current_selection - 1; //assuming enumeration
-			}
-			break;
-		case 131:
-			//up
-			current_selection = max(0, (current_selection - 1) % (SELECTION + 1));
-			break;
-		case 132:
-			//down fix bug
-			current_selection = (current_selection + 1) % (SELECTION + 1);
-			break;
-
-	}
-}
+//else{ //enter RGB mode
+//	switch(combination[0]){
+//		case 129:
+//			//left
+//			if(current_selection == 0){
+//				//save the led data here
+//				current_led = (current_led + 1) % (MAX_LED + 1);
+//				current_selection = 0;
+//			}
+//			break;
+//		case 130:
+//			//right
+//			if(current_selection == 0){
+//				current_led = (current_led - 1) < 0? MAX_LED: (current_led - 1) % (MAX_LED + 1);
+//				current_selection = 0;
+//			}
+//			else{
+//				rgb_mode = current_selection - 1; //assuming enumeration
+//			}
+//			break;
+//		case 131:
+//			//up
+//			current_selection = max(0, (current_selection - 1) % (SELECTION + 1));
+//			break;
+//		case 132:
+//			//down fix bug
+//			current_selection = (current_selection + 1) % (SELECTION + 1);
+//			break;
+//
+//	}
+//}
 	led_update();
 }
 
