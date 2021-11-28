@@ -43,6 +43,8 @@ void led_mode_update(){
 void led_mode_onclick(char *combination, int charNum){
 	if(combination[0] == 13){
 		rgb_mode = (++rgb_mode) % NUM_OF_RGB_MODE;
-		led_mode_update();
+
 	}
+	led_mode_update();
+
 }
