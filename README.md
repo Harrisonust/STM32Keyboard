@@ -16,13 +16,13 @@
     * Battery(with USB charging)
 
 ## Final View
-![View](images/view.jpg)
+<img src = "images/view.jpg" width="250">
 ## PCB
 3D Front View
-![3D Front View](images/kicad-3dview-front.png)
+<img src = "images/kicad-3dview-front.png" width="250">
 3D Back View
-![3D Back View](images/kicad-3dview-back.png)
+<img src = "images/kicad-3dview-back.png" width="250">
 PCB Front View
-![PCB Front View](images/pcb-front.png)
+<img src = "images/pcb-front.png" width="250">
 PCB Back View
-![PCB Back View](images/pcb-back.png)
+<img src = "images/pcb-back.png" width="250">
