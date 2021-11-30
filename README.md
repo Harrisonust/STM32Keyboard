@@ -17,6 +17,7 @@
 
 ## Final View
 <img src = "images/view.jpg" width="250">
+
 ## PCB
 3D Front View
 <img src = "images/kicad-3dview-front.png" width="250">
