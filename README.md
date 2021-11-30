@@ -15,6 +15,8 @@
     * USB power supply
     * Battery(with USB charging)
 
+## Final View
+![View](images/view.jpg)
 ## PCB
 3D Front View
 ![3D Front View](images/kicad-3dview-front.png)
