@@ -4,7 +4,7 @@
 * 4x4 keypad
 * Programmable 4x4 RGB matrix
 * On-board OLED display
-* Volume by Rotary encoder
+* Volume control by Rotary encoder
 * Fingerprint sensor
 * Programmable Macro
 * Sleep Mode(low power mode)
