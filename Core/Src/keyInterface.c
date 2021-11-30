@@ -349,7 +349,7 @@ void keyThread(void){
 			Node* n = get_macro('x');
 			for(Node* ptr = n; ptr != NULL; ptr = ptr->next){
 				sendKey(getKeyIDByChar(ptr->data), m);
-				osDelay(10);
+				osDelay(20);
 			}
 		}
 
