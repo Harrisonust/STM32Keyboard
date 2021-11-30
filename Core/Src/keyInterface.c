@@ -319,7 +319,7 @@ void sendPassword(){
 	char pw[] = "helloElec3300";
 	for(uint8_t i = 0; i <strlen(pw); i++){
 		sendKey(getKeyIDByChar(pw[i]), m);
-		osDelay(10);
+		osDelay(20);
 	}
 }
 

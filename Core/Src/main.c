@@ -687,7 +687,7 @@ void StartDebugTask02(void const * argument)
 				ssd1306_SetDisplayOn(1);
 				ssd_do_once_flag = 0;
 			}
-			if(HAL_GetTick() - oled_tick > 1000){
+			if(HAL_GetTick() - oled_tick > 1000 && keyboard_operation_mode == KEYBOARD_OPERATION_MODE_NORMAL){
 				oled_update_page();
 				oled_tick = HAL_GetTick();
 			}
