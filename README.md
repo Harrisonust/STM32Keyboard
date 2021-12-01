@@ -1,5 +1,8 @@
 # STM32 Keyboard
 <img src="https://img.shields.io/badge/Made_with-stm32f103-blueviolet"><img src="https://img.shields.io/badge/Status-ongoing-brightgreen">
+
+HKUST Elec3300 project
+
 ## Features
 * 4x4 keypad
 * Programmable 4x4 RGB matrix
