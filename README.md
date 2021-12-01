@@ -32,4 +32,4 @@ PCB View
 <img src = "images/kicad-3dview-front.png" height="250"> <img src = "images/kicad-3dview-back.png" height="250">
 
 ## View it on Youtube
-https://www.youtube.com/watch?v=Xp9VSN2TY44&t=143
+https://www.youtube.com/watch?v=Xp9VSN2TY44
