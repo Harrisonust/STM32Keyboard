@@ -1,6 +1,5 @@
 # STM32 Keyboard
-<img src="https://img.shields.io/badge/Made_with-stm32f103-blueviolet"><img src="https://img.shields.io/badge/Status-ongoing-brightgreen">
-[![YOUTUBE](https://img.shields.io/badge/Video-Youtube-red)](https://youtu.be/Xp9VSN2TY44)
+<img src="https://img.shields.io/badge/Made_with-stm32f103-blueviolet"><img src="https://img.shields.io/badge/Status-ongoing-brightgreen">[![YOUTUBE](https://img.shields.io/badge/Video-Youtube-red)](https://youtu.be/Xp9VSN2TY44)
 
 HKUST Elec3300 project
 
