@@ -1,5 +1,6 @@
 # STM32 Keyboard
 <img src="https://img.shields.io/badge/Made_with-stm32f103-blueviolet"><img src="https://img.shields.io/badge/Status-ongoing-brightgreen">
+[![YOUTUBE](https://img.shields.io/badge/Video-Youtube-red)](https://youtu.be/Xp9VSN2TY44)
 
 HKUST Elec3300 project
 
@@ -30,3 +31,5 @@ PCB View
 
 <img src = "images/kicad-3dview-front.png" height="250"> <img src = "images/kicad-3dview-back.png" height="250">
 
+## View it on Youtube
+https://www.youtube.com/watch?v=Xp9VSN2TY44&t=143
