@@ -1,5 +1,5 @@
 # STM32 Keyboard
-<img src="https://img.shields.io/badge/Made_with-stm32f103-blueviolet"><img src="https://img.shields.io/badge/Tags-hkust_elec3300_embedded_system_keyboard-red"><img src="https://img.shields.io/badge/Status-ongoing-brightgreen">
+<img src="https://img.shields.io/badge/Made_with-stm32f103-blueviolet"><img src="https://img.shields.io/badge/Status-ongoing-brightgreen">
 ## Features
 * 4x4 keypad
 * Programmable 4x4 RGB matrix
