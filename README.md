@@ -30,5 +30,8 @@ PCB View
 
 <img src = "images/kicad-3dview-front.png" height="250"> <img src = "images/kicad-3dview-back.png" height="250">
 
-## View it on Youtube
+## Progress record and future plan
+https://github.com/Harrisonust/STM32Keyboard/projects/1
+
+## Video Demo on Youtube
 https://www.youtube.com/watch?v=Xp9VSN2TY44
