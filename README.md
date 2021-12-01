@@ -1,5 +1,5 @@
 # STM32 Keyboard
-
+<img src="https://img.shields.io/badge/Made_with-stm32f103-blueviolet"><img src="https://img.shields.io/badge/Tags-hkust_elec3300_embedded_system_keyboard-red"><img src="https://img.shields.io/badge/Status-ongoing-brightgreen">
 ## Features
 * 4x4 keypad
 * Programmable 4x4 RGB matrix
@@ -9,8 +9,8 @@
 * Programmable Macro
 * Sleep Mode(low power mode)
 * Connection:
-    * Bluetooth connection
-    * USB connection
+    * Bluetooth
+    * USB
 * Power:
     * USB power supply
     * Battery(with USB charging)
@@ -19,15 +19,8 @@
 <img src = "images/view.jpg" width="250">
 
 ## PCB
-3D Front View
+PCB View
+<img src = "images/pcb-front.png" height="250"><img src = "images/pcb-back.png" height="250">
+3D View
+<img src = "images/kicad-3dview-front.png" height="250"> <img src = "images/kicad-3dview-back.png" height="250">
 
-<img src = "images/kicad-3dview-front.png" width="250">
-3D Back View
-
-<img src = "images/kicad-3dview-back.png" width="250">
-PCB Front View
-
-<img src = "images/pcb-front.png" width="250">
-PCB Back View
-
-<img src = "images/pcb-back.png" width="250">
