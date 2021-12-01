@@ -20,7 +20,10 @@
 
 ## PCB
 PCB View
+
 <img src = "images/pcb-front.png" height="250"><img src = "images/pcb-back.png" height="250">
+
 3D View
+
 <img src = "images/kicad-3dview-front.png" height="250"> <img src = "images/kicad-3dview-back.png" height="250">
 
