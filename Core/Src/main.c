@@ -1,21 +1,4 @@
 /* USER CODE BEGIN Header */
-/**
- ******************************************************************************
- * @file           : main.c
- * @brief          : Main program body
- ******************************************************************************
- * @attention
- *
- * <h2><center>&copy; Copyright (c) 2021 STMicroelectronics.
- * All rights reserved.</center></h2>
- *
- * This software component is licensed by ST under BSD 3-Clause license,
- * the "License"; You may not use this file except in compliance with the
- * License. You may obtain a copy of the License at:
- *                        opensource.org/licenses/BSD-3-Clause
- *
- ******************************************************************************
- */
 /* USER CODE END Header */
 
 /* Includes ------------------------------------------------------------------*/
@@ -35,17 +18,14 @@
 
 /* Private typedef -----------------------------------------------------------*/
 /* USER CODE BEGIN PTD */
-
 /* USER CODE END PTD */
 
 /* Private define ------------------------------------------------------------*/
 /* USER CODE BEGIN PD */
-
 /* USER CODE END PD */
 
 /* Private macro -------------------------------------------------------------*/
 /* USER CODE BEGIN PM */
-
 /* USER CODE END PM */
 
 /* Private variables ---------------------------------------------------------*/
@@ -82,7 +62,6 @@ void StartDebugTask02(void const *argument);
 void StartRGBTask(void const *argument);
 
 /* USER CODE BEGIN PFP */
-
 /* USER CODE END PFP */
 
 /* Private user code ---------------------------------------------------------*/
@@ -95,7 +74,6 @@ void StartRGBTask(void const *argument);
  */
 int main(void) {
     /* USER CODE BEGIN 1 */
-
     /* USER CODE END 1 */
 
     /* MCU
@@ -106,14 +84,12 @@ int main(void) {
     HAL_Init();
 
     /* USER CODE BEGIN Init */
-
     /* USER CODE END Init */
 
     /* Configure the system clock */
     SystemClock_Config();
 
     /* USER CODE BEGIN SysInit */
-
     /* USER CODE END SysInit */
 
     /* Initialize all configured peripherals */
@@ -126,27 +102,18 @@ int main(void) {
     MX_TIM2_Init();
     MX_USART1_UART_Init();
     /* USER CODE BEGIN 2 */
-    HAL_ADCEx_Calibration_Start(&hadc1);
-    HAL_ADC_Start(&hadc1);
-    HAL_TIM_Encoder_Start_IT(&htim2, TIM_CHANNEL_ALL);
-    oled_ui_init();
-
     /* USER CODE END 2 */
 
     /* USER CODE BEGIN RTOS_MUTEX */
-    /* add mutexes, ... */
     /* USER CODE END RTOS_MUTEX */
 
     /* USER CODE BEGIN RTOS_SEMAPHORES */
-    /* add semaphores, ... */
     /* USER CODE END RTOS_SEMAPHORES */
 
     /* USER CODE BEGIN RTOS_TIMERS */
-    /* start timers, add new ones, ... */
     /* USER CODE END RTOS_TIMERS */
 
     /* USER CODE BEGIN RTOS_QUEUES */
-    /* add queues, ... */
     /* USER CODE END RTOS_QUEUES */
 
     /* Create the thread(s) */
@@ -163,7 +130,6 @@ int main(void) {
     RGBTaskHandle = osThreadCreate(osThread(RGBTask), NULL);
 
     /* USER CODE BEGIN RTOS_THREADS */
-    /* add threads, ... */
     /* USER CODE END RTOS_THREADS */
 
     /* Start scheduler */
@@ -173,15 +139,9 @@ int main(void) {
 
     /* Infinite loop */
     /* USER CODE BEGIN WHILE */
+    /* USER CODE END WHILE */
 
-    while (1) {
-        /* USER CODE BEGIN 5 */
-        /* Infinite loop */
-
-        /* USER CODE END WHILE */
-
-        /* USER CODE BEGIN 3 */
-    }
+    /* USER CODE BEGIN 3 */
     /* USER CODE END 3 */
 }
 
@@ -233,13 +193,11 @@ void SystemClock_Config(void) {
  */
 static void MX_ADC1_Init(void) {
     /* USER CODE BEGIN ADC1_Init 0 */
-
     /* USER CODE END ADC1_Init 0 */
 
     ADC_ChannelConfTypeDef sConfig = {0};
 
     /* USER CODE BEGIN ADC1_Init 1 */
-
     /* USER CODE END ADC1_Init 1 */
     /** Common config
      */
@@ -262,7 +220,6 @@ static void MX_ADC1_Init(void) {
         Error_Handler();
     }
     /* USER CODE BEGIN ADC1_Init 2 */
-
     /* USER CODE END ADC1_Init 2 */
 }
 
@@ -273,11 +230,9 @@ static void MX_ADC1_Init(void) {
  */
 static void MX_I2C1_Init(void) {
     /* USER CODE BEGIN I2C1_Init 0 */
-
     /* USER CODE END I2C1_Init 0 */
 
     /* USER CODE BEGIN I2C1_Init 1 */
-
     /* USER CODE END I2C1_Init 1 */
     hi2c1.Instance = I2C1;
     hi2c1.Init.ClockSpeed = 100000;
@@ -292,7 +247,6 @@ static void MX_I2C1_Init(void) {
         Error_Handler();
     }
     /* USER CODE BEGIN I2C1_Init 2 */
-
     /* USER CODE END I2C1_Init 2 */
 }
 
@@ -303,7 +257,6 @@ static void MX_I2C1_Init(void) {
  */
 static void MX_TIM1_Init(void) {
     /* USER CODE BEGIN TIM1_Init 0 */
-
     /* USER CODE END TIM1_Init 0 */
 
     TIM_ClockConfigTypeDef sClockSourceConfig = {0};
@@ -312,7 +265,6 @@ static void MX_TIM1_Init(void) {
     TIM_BreakDeadTimeConfigTypeDef sBreakDeadTimeConfig = {0};
 
     /* USER CODE BEGIN TIM1_Init 1 */
-
     /* USER CODE END TIM1_Init 1 */
     htim1.Instance = TIM1;
     htim1.Init.Prescaler = 2 - 1;
@@ -360,7 +312,6 @@ static void MX_TIM1_Init(void) {
         Error_Handler();
     }
     /* USER CODE BEGIN TIM1_Init 2 */
-
     /* USER CODE END TIM1_Init 2 */
     HAL_TIM_MspPostInit(&htim1);
 }
@@ -372,14 +323,12 @@ static void MX_TIM1_Init(void) {
  */
 static void MX_TIM2_Init(void) {
     /* USER CODE BEGIN TIM2_Init 0 */
-
     /* USER CODE END TIM2_Init 0 */
 
     TIM_Encoder_InitTypeDef sConfig = {0};
     TIM_MasterConfigTypeDef sMasterConfig = {0};
 
     /* USER CODE BEGIN TIM2_Init 1 */
-
     /* USER CODE END TIM2_Init 1 */
     htim2.Instance = TIM2;
     htim2.Init.Prescaler = 0;
@@ -406,7 +355,6 @@ static void MX_TIM2_Init(void) {
         Error_Handler();
     }
     /* USER CODE BEGIN TIM2_Init 2 */
-
     /* USER CODE END TIM2_Init 2 */
 }
 
@@ -417,11 +365,9 @@ static void MX_TIM2_Init(void) {
  */
 static void MX_UART4_Init(void) {
     /* USER CODE BEGIN UART4_Init 0 */
-
     /* USER CODE END UART4_Init 0 */
 
     /* USER CODE BEGIN UART4_Init 1 */
-
     /* USER CODE END UART4_Init 1 */
     huart4.Instance = UART4;
     huart4.Init.BaudRate = 115200;
@@ -435,7 +381,6 @@ static void MX_UART4_Init(void) {
         Error_Handler();
     }
     /* USER CODE BEGIN UART4_Init 2 */
-
     /* USER CODE END UART4_Init 2 */
 }
 
@@ -446,11 +391,9 @@ static void MX_UART4_Init(void) {
  */
 static void MX_USART1_UART_Init(void) {
     /* USER CODE BEGIN USART1_Init 0 */
-
     /* USER CODE END USART1_Init 0 */
 
     /* USER CODE BEGIN USART1_Init 1 */
-
     /* USER CODE END USART1_Init 1 */
     huart1.Instance = USART1;
     huart1.Init.BaudRate = 57600;
@@ -464,7 +407,6 @@ static void MX_USART1_UART_Init(void) {
         Error_Handler();
     }
     /* USER CODE BEGIN USART1_Init 2 */
-
     /* USER CODE END USART1_Init 2 */
 }
 
@@ -569,15 +511,9 @@ static void MX_GPIO_Init(void) {
 }
 
 /* USER CODE BEGIN 4 */
-
 /* USER CODE END 4 */
 
 /* USER CODE BEGIN Header_StartUSBTask */
-/**
- * @brief  Function implementing the USBTask thread.
- * @param  argument: Not used
- * @retval None
- */
 /* USER CODE END Header_StartUSBTask */
 void StartUSBTask(void const *argument) {
     /* init code for USB_DEVICE */
@@ -592,11 +528,6 @@ void StartUSBTask(void const *argument) {
 }
 
 /* USER CODE BEGIN Header_StartDebugTask02 */
-/**
- * @brief Function implementing the debugTask02 thread.
- * @param argument: Not used
- * @retval None
- */
 uint32_t last_keyinterrupt_tick = 0;
 extern WS2812Mode last_rgb_mode;
 extern WS2812Mode rgb_mode;
@@ -661,11 +592,6 @@ void StartDebugTask02(void const *argument) {
 }
 
 /* USER CODE BEGIN Header_StartRGBTask */
-/**
- * @brief Function implementing the RGBTask thread.
- * @param argument: Not used
- * @retval None
- */
 /* USER CODE END Header_StartRGBTask */
 void StartRGBTask(void const *argument) {
     /* USER CODE BEGIN StartRGBTask */
@@ -685,13 +611,11 @@ void StartRGBTask(void const *argument) {
  */
 void HAL_TIM_PeriodElapsedCallback(TIM_HandleTypeDef *htim) {
     /* USER CODE BEGIN Callback 0 */
-
     /* USER CODE END Callback 0 */
     if (htim->Instance == TIM6) {
         HAL_IncTick();
     }
     /* USER CODE BEGIN Callback 1 */
-
     /* USER CODE END Callback 1 */
 }
 
@@ -701,9 +625,6 @@ void HAL_TIM_PeriodElapsedCallback(TIM_HandleTypeDef *htim) {
  */
 void Error_Handler(void) {
     /* USER CODE BEGIN Error_Handler_Debug */
-    /* User can add his own implementation to report the HAL error return state
-     */
-
     /* USER CODE END Error_Handler_Debug */
 }
 
@@ -717,9 +638,6 @@ void Error_Handler(void) {
  */
 void assert_failed(uint8_t *file, uint32_t line) {
     /* USER CODE BEGIN 6 */
-    /* User can add his own implementation to report the file name and line
-       number, tex: printf("Wrong parameters value: file %s on line %d\r\n",
-       file, line) */
     /* USER CODE END 6 */
 }
 #endif /* USE_FULL_ASSERT */
