@@ -1,0 +1,339 @@
+ARM GAS  /tmp/cclgQRsY.s 			page 1
+
+
+   1              		.cpu cortex-m3
+   2              		.eabi_attribute 20, 1
+   3              		.eabi_attribute 21, 1
+   4              		.eabi_attribute 23, 3
+   5              		.eabi_attribute 24, 1
+   6              		.eabi_attribute 25, 1
+   7              		.eabi_attribute 26, 1
+   8              		.eabi_attribute 30, 1
+   9              		.eabi_attribute 34, 1
+  10              		.eabi_attribute 18, 4
+  11              		.file	"layout_page.c"
+  12              		.text
+  13              	.Ltext0:
+  14              		.cfi_sections	.debug_frame
+  15              		.section	.rodata.layout_update.str1.4,"aMS",%progbits,1
+  16              		.align	2
+  17              	.LC0:
+  18 0000 257300   		.ascii	"%s\000"
+  19 0003 00       		.align	2
+  20              	.LC1:
+  21 0004 2573203C 		.ascii	"%s <--\000"
+  21      2D2D00
+  22              		.section	.text.layout_update,"ax",%progbits
+  23              		.align	1
+  24              		.global	layout_update
+  25              		.arch armv7-m
+  26              		.syntax unified
+  27              		.thumb
+  28              		.thumb_func
+  29              		.fpu softvfp
+  31              	layout_update:
+  32              	.LFB66:
+  33              		.file 1 "Core/Src/oled/layout_page.c"
+   1:Core/Src/oled/layout_page.c **** /*
+   2:Core/Src/oled/layout_page.c ****  * layout_page.c
+   3:Core/Src/oled/layout_page.c ****  *
+   4:Core/Src/oled/layout_page.c ****  *  Created on: Nov 3, 2021
+   5:Core/Src/oled/layout_page.c ****  *      Author: Steven
+   6:Core/Src/oled/layout_page.c ****  */
+   7:Core/Src/oled/layout_page.c **** #include "layout_page.h"
+   8:Core/Src/oled/layout_page.c **** 
+   9:Core/Src/oled/layout_page.c **** int layout_selection = 5;
+  10:Core/Src/oled/layout_page.c **** int curr_layout_selection = 0;
+  11:Core/Src/oled/layout_page.c **** 
+  12:Core/Src/oled/layout_page.c **** PAGE layout = {
+  13:Core/Src/oled/layout_page.c **** 		.title = "Layout",
+  14:Core/Src/oled/layout_page.c **** 		.update_page = layout_update,
+  15:Core/Src/oled/layout_page.c **** 		.on_click= layout_onclick,
+  16:Core/Src/oled/layout_page.c **** 		.init = NULL
+  17:Core/Src/oled/layout_page.c **** 
+  18:Core/Src/oled/layout_page.c **** };
+  19:Core/Src/oled/layout_page.c **** 
+  20:Core/Src/oled/layout_page.c **** void layout_update(){
+  34              		.loc 1 20 21 view -0
+  35              		.cfi_startproc
+  36              		@ args = 0, pretend = 0, frame = 24
+  37              		@ frame_needed = 0, uses_anonymous_args = 0
+ARM GAS  /tmp/cclgQRsY.s 			page 2
+
+
+  38 0000 10B5     		push	{r4, lr}
+  39              	.LCFI0:
+  40              		.cfi_def_cfa_offset 8
+  41              		.cfi_offset 4, -8
+  42              		.cfi_offset 14, -4
+  43 0002 86B0     		sub	sp, sp, #24
+  44              	.LCFI1:
+  45              		.cfi_def_cfa_offset 32
+  21:Core/Src/oled/layout_page.c **** 	char temp[20];
+  46              		.loc 1 21 2 view .LVU1
+  22:Core/Src/oled/layout_page.c **** 		for(int i = 0; i < 3; i++){
+  47              		.loc 1 22 3 view .LVU2
+  48              	.LBB2:
+  49              		.loc 1 22 7 view .LVU3
+  50              	.LVL0:
+  51              		.loc 1 22 11 is_stmt 0 view .LVU4
+  52 0004 0024     		movs	r4, #0
+  53              		.loc 1 22 3 view .LVU5
+  54 0006 1DE0     		b	.L2
+  55              	.LVL1:
+  56              	.L8:
+  23:Core/Src/oled/layout_page.c **** 			sprintf(temp,
+  57              		.loc 1 23 4 view .LVU6
+  58 0008 1249     		ldr	r1, .L9
+  59              	.L3:
+  24:Core/Src/oled/layout_page.c **** 					i == 0 ? "%s <--" :"%s",
+  25:Core/Src/oled/layout_page.c **** 					selection[(i + layout_selection) % curr_layout_selection]);
+  60              		.loc 1 25 19 discriminator 2 view .LVU7
+  61 000a 134B     		ldr	r3, .L9+4
+  62 000c 1B68     		ldr	r3, [r3]
+  63 000e 2344     		add	r3, r3, r4
+  64              		.loc 1 25 39 discriminator 2 view .LVU8
+  65 0010 124A     		ldr	r2, .L9+8
+  66 0012 1068     		ldr	r0, [r2]
+  67 0014 93FBF0F2 		sdiv	r2, r3, r0
+  68 0018 00FB1233 		mls	r3, r0, r2, r3
+  23:Core/Src/oled/layout_page.c **** 			sprintf(temp,
+  69              		.loc 1 23 4 discriminator 2 view .LVU9
+  70 001c 104A     		ldr	r2, .L9+12
+  71 001e 52F82320 		ldr	r2, [r2, r3, lsl #2]
+  72 0022 01A8     		add	r0, sp, #4
+  73 0024 FFF7FEFF 		bl	sprintf
+  74              	.LVL2:
+  26:Core/Src/oled/layout_page.c **** 			ssd1306_SetCursor(0, 20 + 15* (i));
+  75              		.loc 1 26 4 is_stmt 1 discriminator 2 view .LVU10
+  76 0028 C4EB0411 		rsb	r1, r4, r4, lsl #4
+  77 002c 1431     		adds	r1, r1, #20
+  78 002e C9B2     		uxtb	r1, r1
+  79 0030 0020     		movs	r0, #0
+  80 0032 FFF7FEFF 		bl	ssd1306_SetCursor
+  81              	.LVL3:
+  27:Core/Src/oled/layout_page.c **** 			ssd1306_WriteString(temp, Font_7x10, White);
+  82              		.loc 1 27 4 discriminator 2 view .LVU11
+  83 0036 0B4A     		ldr	r2, .L9+16
+  84 0038 0123     		movs	r3, #1
+  85 003a 06CA     		ldm	r2, {r1, r2}
+  86 003c 01A8     		add	r0, sp, #4
+ARM GAS  /tmp/cclgQRsY.s 			page 3
+
+
+  87 003e FFF7FEFF 		bl	ssd1306_WriteString
+  88              	.LVL4:
+  22:Core/Src/oled/layout_page.c **** 			sprintf(temp,
+  89              		.loc 1 22 25 discriminator 2 view .LVU12
+  22:Core/Src/oled/layout_page.c **** 			sprintf(temp,
+  90              		.loc 1 22 26 is_stmt 0 discriminator 2 view .LVU13
+  91 0042 0134     		adds	r4, r4, #1
+  92              	.LVL5:
+  93              	.L2:
+  22:Core/Src/oled/layout_page.c **** 			sprintf(temp,
+  94              		.loc 1 22 18 is_stmt 1 discriminator 1 view .LVU14
+  22:Core/Src/oled/layout_page.c **** 			sprintf(temp,
+  95              		.loc 1 22 3 is_stmt 0 discriminator 1 view .LVU15
+  96 0044 022C     		cmp	r4, #2
+  97 0046 03DC     		bgt	.L7
+  23:Core/Src/oled/layout_page.c **** 					i == 0 ? "%s <--" :"%s",
+  98              		.loc 1 23 4 is_stmt 1 view .LVU16
+  99 0048 002C     		cmp	r4, #0
+ 100 004a DDD0     		beq	.L8
+ 101 004c 0649     		ldr	r1, .L9+20
+ 102 004e DCE7     		b	.L3
+ 103              	.L7:
+ 104              	.LBE2:
+  28:Core/Src/oled/layout_page.c **** 		}
+  29:Core/Src/oled/layout_page.c **** }
+ 105              		.loc 1 29 1 is_stmt 0 view .LVU17
+ 106 0050 06B0     		add	sp, sp, #24
+ 107              	.LCFI2:
+ 108              		.cfi_def_cfa_offset 8
+ 109              		@ sp needed
+ 110 0052 10BD     		pop	{r4, pc}
+ 111              	.LVL6:
+ 112              	.L10:
+ 113              		.loc 1 29 1 view .LVU18
+ 114              		.align	2
+ 115              	.L9:
+ 116 0054 04000000 		.word	.LC1
+ 117 0058 00000000 		.word	.LANCHOR0
+ 118 005c 00000000 		.word	.LANCHOR1
+ 119 0060 00000000 		.word	.LANCHOR2
+ 120 0064 00000000 		.word	Font_7x10
+ 121 0068 00000000 		.word	.LC0
+ 122              		.cfi_endproc
+ 123              	.LFE66:
+ 125              		.section	.text.layout_onclick,"ax",%progbits
+ 126              		.align	1
+ 127              		.global	layout_onclick
+ 128              		.syntax unified
+ 129              		.thumb
+ 130              		.thumb_func
+ 131              		.fpu softvfp
+ 133              	layout_onclick:
+ 134              	.LVL7:
+ 135              	.LFB67:
+  30:Core/Src/oled/layout_page.c **** 
+  31:Core/Src/oled/layout_page.c **** void layout_onclick(char *combination, int charNum){
+ 136              		.loc 1 31 52 is_stmt 1 view -0
+ARM GAS  /tmp/cclgQRsY.s 			page 4
+
+
+ 137              		.cfi_startproc
+ 138              		@ args = 0, pretend = 0, frame = 0
+ 139              		@ frame_needed = 0, uses_anonymous_args = 0
+ 140              		.loc 1 31 52 is_stmt 0 view .LVU20
+ 141 0000 08B5     		push	{r3, lr}
+ 142              	.LCFI3:
+ 143              		.cfi_def_cfa_offset 8
+ 144              		.cfi_offset 3, -8
+ 145              		.cfi_offset 14, -4
+  32:Core/Src/oled/layout_page.c **** 	layout_selection = (layout_selection + 1)% curr_layout_selection;
+ 146              		.loc 1 32 2 is_stmt 1 view .LVU21
+ 147              		.loc 1 32 39 is_stmt 0 view .LVU22
+ 148 0002 0649     		ldr	r1, .L13
+ 149              	.LVL8:
+ 150              		.loc 1 32 39 view .LVU23
+ 151 0004 0B68     		ldr	r3, [r1]
+ 152 0006 0133     		adds	r3, r3, #1
+ 153              		.loc 1 32 43 view .LVU24
+ 154 0008 054A     		ldr	r2, .L13+4
+ 155 000a 1068     		ldr	r0, [r2]
+ 156              	.LVL9:
+ 157              		.loc 1 32 43 view .LVU25
+ 158 000c 93FBF0F2 		sdiv	r2, r3, r0
+ 159 0010 00FB1233 		mls	r3, r0, r2, r3
+ 160              		.loc 1 32 19 view .LVU26
+ 161 0014 0B60     		str	r3, [r1]
+  33:Core/Src/oled/layout_page.c **** 	//insert function to handle it
+  34:Core/Src/oled/layout_page.c **** 	layout_update();
+ 162              		.loc 1 34 2 is_stmt 1 view .LVU27
+ 163 0016 FFF7FEFF 		bl	layout_update
+ 164              	.LVL10:
+  35:Core/Src/oled/layout_page.c **** }
+ 165              		.loc 1 35 1 is_stmt 0 view .LVU28
+ 166 001a 08BD     		pop	{r3, pc}
+ 167              	.L14:
+ 168              		.align	2
+ 169              	.L13:
+ 170 001c 00000000 		.word	.LANCHOR0
+ 171 0020 00000000 		.word	.LANCHOR1
+ 172              		.cfi_endproc
+ 173              	.LFE67:
+ 175              		.global	layout
+ 176              		.global	curr_layout_selection
+ 177              		.global	layout_selection
+ 178              		.global	selection
+ 179              		.section	.rodata.str1.4,"aMS",%progbits,1
+ 180              		.align	2
+ 181              	.LC2:
+ 182 0000 74657374 		.ascii	"test1\000"
+ 182      3100
+ 183 0006 0000     		.align	2
+ 184              	.LC3:
+ 185 0008 74657374 		.ascii	"test2\000"
+ 185      3200
+ 186 000e 0000     		.align	2
+ 187              	.LC4:
+ 188 0010 74657374 		.ascii	"test3\000"
+ARM GAS  /tmp/cclgQRsY.s 			page 5
+
+
+ 188      3300
+ 189 0016 0000     		.align	2
+ 190              	.LC5:
+ 191 0018 74657374 		.ascii	"test4\000"
+ 191      3400
+ 192 001e 0000     		.align	2
+ 193              	.LC6:
+ 194 0020 74657374 		.ascii	"test5\000"
+ 194      3500
+ 195              		.section	.bss.curr_layout_selection,"aw",%nobits
+ 196              		.align	2
+ 197              		.set	.LANCHOR1,. + 0
+ 200              	curr_layout_selection:
+ 201 0000 00000000 		.space	4
+ 202              		.section	.data.layout,"aw"
+ 203              		.align	2
+ 206              	layout:
+ 207 0000 4C61796F 		.ascii	"Layout\000"
+ 207      757400
+ 208 0007 00000000 		.space	23
+ 208      00000000 
+ 208      00000000 
+ 208      00000000 
+ 208      00000000 
+ 209 001e 0000     		.space	2
+ 210 0020 00000000 		.word	layout_update
+ 211 0024 00000000 		.word	layout_onclick
+ 212 0028 00000000 		.word	0
+ 213              		.section	.data.layout_selection,"aw"
+ 214              		.align	2
+ 215              		.set	.LANCHOR0,. + 0
+ 218              	layout_selection:
+ 219 0000 05000000 		.word	5
+ 220              		.section	.data.selection,"aw"
+ 221              		.align	2
+ 222              		.set	.LANCHOR2,. + 0
+ 225              	selection:
+ 226 0000 00000000 		.word	.LC2
+ 227 0004 08000000 		.word	.LC3
+ 228 0008 10000000 		.word	.LC4
+ 229 000c 18000000 		.word	.LC5
+ 230 0010 20000000 		.word	.LC6
+ 231 0014 00000000 		.space	60
+ 231      00000000 
+ 231      00000000 
+ 231      00000000 
+ 231      00000000 
+ 232              		.text
+ 233              	.Letext0:
+ 234              		.file 2 "/usr/lib/gcc/arm-none-eabi/9.2.1/include/stdint.h"
+ 235              		.file 3 "Drivers/CMSIS/Include/core_cm3.h"
+ 236              		.file 4 "Drivers/CMSIS/Device/ST/STM32F1xx/Include/system_stm32f1xx.h"
+ 237              		.file 5 "Drivers/CMSIS/Device/ST/STM32F1xx/Include/stm32f103xe.h"
+ 238              		.file 6 "/usr/lib/gcc/arm-none-eabi/9.2.1/include/stddef.h"
+ 239              		.file 7 "/usr/include/newlib/sys/_types.h"
+ 240              		.file 8 "/usr/include/newlib/sys/reent.h"
+ 241              		.file 9 "/usr/include/newlib/sys/lock.h"
+ARM GAS  /tmp/cclgQRsY.s 			page 6
+
+
+ 242              		.file 10 "Drivers/STM32F1xx_HAL_Driver/Inc/stm32f1xx_hal_def.h"
+ 243              		.file 11 "Drivers/STM32F1xx_HAL_Driver/Inc/stm32f1xx_hal_dma.h"
+ 244              		.file 12 "Drivers/STM32F1xx_HAL_Driver/Inc/stm32f1xx_hal_i2c.h"
+ 245              		.file 13 "Drivers/STM32F1xx_HAL_Driver/Inc/stm32f1xx_hal.h"
+ 246              		.file 14 "Core/Inc/oled/ssd1306_fonts.h"
+ 247              		.file 15 "Core/Inc/oled/ssd1306.h"
+ 248              		.file 16 "Core/Inc/oled/page_template.h"
+ 249              		.file 17 "Core/Inc/oled/layout_page.h"
+ 250              		.file 18 "/usr/include/newlib/stdio.h"
+ARM GAS  /tmp/cclgQRsY.s 			page 7
+
+
+DEFINED SYMBOLS
+                            *ABS*:0000000000000000 layout_page.c
+     /tmp/cclgQRsY.s:16     .rodata.layout_update.str1.4:0000000000000000 $d
+     /tmp/cclgQRsY.s:23     .text.layout_update:0000000000000000 $t
+     /tmp/cclgQRsY.s:31     .text.layout_update:0000000000000000 layout_update
+     /tmp/cclgQRsY.s:116    .text.layout_update:0000000000000054 $d
+     /tmp/cclgQRsY.s:126    .text.layout_onclick:0000000000000000 $t
+     /tmp/cclgQRsY.s:133    .text.layout_onclick:0000000000000000 layout_onclick
+     /tmp/cclgQRsY.s:170    .text.layout_onclick:000000000000001c $d
+     /tmp/cclgQRsY.s:206    .data.layout:0000000000000000 layout
+     /tmp/cclgQRsY.s:200    .bss.curr_layout_selection:0000000000000000 curr_layout_selection
+     /tmp/cclgQRsY.s:218    .data.layout_selection:0000000000000000 layout_selection
+     /tmp/cclgQRsY.s:225    .data.selection:0000000000000000 selection
+     /tmp/cclgQRsY.s:180    .rodata.str1.4:0000000000000000 $d
+     /tmp/cclgQRsY.s:196    .bss.curr_layout_selection:0000000000000000 $d
+     /tmp/cclgQRsY.s:203    .data.layout:0000000000000000 $d
+     /tmp/cclgQRsY.s:214    .data.layout_selection:0000000000000000 $d
+     /tmp/cclgQRsY.s:221    .data.selection:0000000000000000 $d
+
+UNDEFINED SYMBOLS
+sprintf
+ssd1306_SetCursor
+ssd1306_WriteString
+Font_7x10

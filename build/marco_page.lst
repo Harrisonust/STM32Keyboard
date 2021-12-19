@@ -1,0 +1,1593 @@
+ARM GAS  /tmp/ccDOtSUT.s 			page 1
+
+
+   1              		.cpu cortex-m3
+   2              		.eabi_attribute 20, 1
+   3              		.eabi_attribute 21, 1
+   4              		.eabi_attribute 23, 3
+   5              		.eabi_attribute 24, 1
+   6              		.eabi_attribute 25, 1
+   7              		.eabi_attribute 26, 1
+   8              		.eabi_attribute 30, 1
+   9              		.eabi_attribute 34, 1
+  10              		.eabi_attribute 18, 4
+  11              		.file	"marco_page.c"
+  12              		.text
+  13              	.Ltext0:
+  14              		.cfi_sections	.debug_frame
+  15              		.section	.text.macro_init,"ax",%progbits
+  16              		.align	1
+  17              		.global	macro_init
+  18              		.arch armv7-m
+  19              		.syntax unified
+  20              		.thumb
+  21              		.thumb_func
+  22              		.fpu softvfp
+  24              	macro_init:
+  25              	.LFB66:
+  26              		.file 1 "Core/Src/oled/marco_page.c"
+   1:Core/Src/oled/marco_page.c **** /*
+   2:Core/Src/oled/marco_page.c ****  * marco_page.c
+   3:Core/Src/oled/marco_page.c ****  *
+   4:Core/Src/oled/marco_page.c ****  *  Created on: Nov 3, 2021
+   5:Core/Src/oled/marco_page.c ****  *      Author: Steven
+   6:Core/Src/oled/marco_page.c ****  */
+   7:Core/Src/oled/marco_page.c **** #include "macro_page.h"
+   8:Core/Src/oled/marco_page.c **** #include "math.h"
+   9:Core/Src/oled/marco_page.c **** 
+  10:Core/Src/oled/marco_page.c **** 
+  11:Core/Src/oled/marco_page.c **** PAGE macro = {
+  12:Core/Src/oled/marco_page.c **** 		.title = "Macro",
+  13:Core/Src/oled/marco_page.c **** 		.update_page = macro_update,
+  14:Core/Src/oled/marco_page.c **** 		.on_click = macro_onclick,
+  15:Core/Src/oled/marco_page.c **** 		.init = macro_init
+  16:Core/Src/oled/marco_page.c **** };
+  17:Core/Src/oled/marco_page.c **** 
+  18:Core/Src/oled/marco_page.c **** uint8_t init = 0;
+  19:Core/Src/oled/marco_page.c **** MACRO_PAGE current_macro_page = MAIN;
+  20:Core/Src/oled/marco_page.c **** 
+  21:Core/Src/oled/marco_page.c **** int current_macro = 0;
+  22:Core/Src/oled/marco_page.c **** 
+  23:Core/Src/oled/marco_page.c **** char keybind = ' ';
+  24:Core/Src/oled/marco_page.c **** Node *macro_head = NULL;
+  25:Core/Src/oled/marco_page.c **** Node *macro_iter = NULL;
+  26:Core/Src/oled/marco_page.c **** 
+  27:Core/Src/oled/marco_page.c **** Macro combination[MAX_MACRO];
+  28:Core/Src/oled/marco_page.c **** 
+  29:Core/Src/oled/marco_page.c **** void macro_init(){
+  27              		.loc 1 29 18 view -0
+  28              		.cfi_startproc
+  29              		@ args = 0, pretend = 0, frame = 64
+ARM GAS  /tmp/ccDOtSUT.s 			page 2
+
+
+  30              		@ frame_needed = 0, uses_anonymous_args = 0
+  31 0000 F0B5     		push	{r4, r5, r6, r7, lr}
+  32              	.LCFI0:
+  33              		.cfi_def_cfa_offset 20
+  34              		.cfi_offset 4, -20
+  35              		.cfi_offset 5, -16
+  36              		.cfi_offset 6, -12
+  37              		.cfi_offset 7, -8
+  38              		.cfi_offset 14, -4
+  39 0002 91B0     		sub	sp, sp, #68
+  40              	.LCFI1:
+  41              		.cfi_def_cfa_offset 88
+  30:Core/Src/oled/marco_page.c **** 	uint32_t data[MAX_MACRO_TEMPLATE/4]={0};
+  42              		.loc 1 30 2 view .LVU1
+  43              		.loc 1 30 11 is_stmt 0 view .LVU2
+  44 0004 4022     		movs	r2, #64
+  45 0006 0021     		movs	r1, #0
+  46 0008 6846     		mov	r0, sp
+  47 000a FFF7FEFF 		bl	memset
+  48              	.LVL0:
+  31:Core/Src/oled/marco_page.c **** 	for(int i = 0; i < MAX_MACRO; i++){
+  49              		.loc 1 31 2 is_stmt 1 view .LVU3
+  50              	.LBB2:
+  51              		.loc 1 31 6 view .LVU4
+  52              		.loc 1 31 10 is_stmt 0 view .LVU5
+  53 000e 0027     		movs	r7, #0
+  54              		.loc 1 31 2 view .LVU6
+  55 0010 0DE0     		b	.L2
+  56              	.LVL1:
+  57              	.L9:
+  32:Core/Src/oled/marco_page.c **** 		Flash_Read_Data(START_ADDR + MAX_MACRO_TEMPLATE*i, &data, MAX_MACRO_TEMPLATE/4);
+  58              		.loc 1 32 3 is_stmt 1 view .LVU7
+  59              		.loc 1 32 30 is_stmt 0 view .LVU8
+  60 0012 07F50010 		add	r0, r7, #2097152
+  61 0016 00F5FF50 		add	r0, r0, #8160
+  62              		.loc 1 32 3 view .LVU9
+  63 001a 1022     		movs	r2, #16
+  64 001c 6946     		mov	r1, sp
+  65 001e 8001     		lsls	r0, r0, #6
+  66 0020 FFF7FEFF 		bl	Flash_Read_Data
+  67              	.LVL2:
+  33:Core/Src/oled/marco_page.c **** 		if(data[0] != 0XFFFFFFFF){
+  68              		.loc 1 33 3 is_stmt 1 view .LVU10
+  69              		.loc 1 33 10 is_stmt 0 view .LVU11
+  70 0024 009B     		ldr	r3, [sp]
+  71              		.loc 1 33 5 view .LVU12
+  72 0026 B3F1FF3F 		cmp	r3, #-1
+  73 002a 04D1     		bne	.L11
+  74              	.L3:
+  31:Core/Src/oled/marco_page.c **** 	for(int i = 0; i < MAX_MACRO; i++){
+  75              		.loc 1 31 32 is_stmt 1 discriminator 2 view .LVU13
+  31:Core/Src/oled/marco_page.c **** 	for(int i = 0; i < MAX_MACRO; i++){
+  76              		.loc 1 31 33 is_stmt 0 discriminator 2 view .LVU14
+  77 002c 0137     		adds	r7, r7, #1
+  78              	.LVL3:
+  79              	.L2:
+  31:Core/Src/oled/marco_page.c **** 	for(int i = 0; i < MAX_MACRO; i++){
+ARM GAS  /tmp/ccDOtSUT.s 			page 3
+
+
+  80              		.loc 1 31 17 is_stmt 1 discriminator 1 view .LVU15
+  31:Core/Src/oled/marco_page.c **** 	for(int i = 0; i < MAX_MACRO; i++){
+  81              		.loc 1 31 2 is_stmt 0 discriminator 1 view .LVU16
+  82 002e 002F     		cmp	r7, #0
+  83 0030 EFDD     		ble	.L9
+  84              	.LBE2:
+  34:Core/Src/oled/marco_page.c **** 
+  35:Core/Src/oled/marco_page.c **** 			uint8_t internal_i = 0;
+  36:Core/Src/oled/marco_page.c **** 			combination[i].keybind = (char)(data[0]);
+  37:Core/Src/oled/marco_page.c **** 			Node *head = NULL;
+  38:Core/Src/oled/marco_page.c **** 			Node *iter = NULL;
+  39:Core/Src/oled/marco_page.c **** 
+  40:Core/Src/oled/marco_page.c **** 			while(1){
+  41:Core/Src/oled/marco_page.c **** 				int index = (1 + internal_i)/ 4;
+  42:Core/Src/oled/marco_page.c **** 				char value = (char)(data[index] >> (8 * ((1 + internal_i )%4)) );
+  43:Core/Src/oled/marco_page.c **** 				if(value == '/') break;
+  44:Core/Src/oled/marco_page.c **** 
+  45:Core/Src/oled/marco_page.c **** 				if(head == NULL){
+  46:Core/Src/oled/marco_page.c **** 					head  = iter = create_node(value);
+  47:Core/Src/oled/marco_page.c **** 				}
+  48:Core/Src/oled/marco_page.c **** 				else{
+  49:Core/Src/oled/marco_page.c **** 					Node *new = create_node(value);
+  50:Core/Src/oled/marco_page.c **** 					//link it
+  51:Core/Src/oled/marco_page.c **** 					iter->next = new;
+  52:Core/Src/oled/marco_page.c **** 					new->prev = iter;
+  53:Core/Src/oled/marco_page.c **** 					iter = new;
+  54:Core/Src/oled/marco_page.c **** 				}
+  55:Core/Src/oled/marco_page.c **** 				internal_i++;
+  56:Core/Src/oled/marco_page.c **** 
+  57:Core/Src/oled/marco_page.c **** 			}
+  58:Core/Src/oled/marco_page.c **** 			combination[i].macro = head;
+  59:Core/Src/oled/marco_page.c **** 		}
+  60:Core/Src/oled/marco_page.c **** 	}
+  61:Core/Src/oled/marco_page.c **** 
+  62:Core/Src/oled/marco_page.c **** }
+  85              		.loc 1 62 1 view .LVU17
+  86 0032 11B0     		add	sp, sp, #68
+  87              	.LCFI2:
+  88              		.cfi_remember_state
+  89              		.cfi_def_cfa_offset 20
+  90              		@ sp needed
+  91 0034 F0BD     		pop	{r4, r5, r6, r7, pc}
+  92              	.LVL4:
+  93              	.L11:
+  94              	.LCFI3:
+  95              		.cfi_restore_state
+  96              	.LBB7:
+  97              	.LBB3:
+  35:Core/Src/oled/marco_page.c **** 			combination[i].keybind = (char)(data[0]);
+  98              		.loc 1 35 4 is_stmt 1 view .LVU18
+  36:Core/Src/oled/marco_page.c **** 			Node *head = NULL;
+  99              		.loc 1 36 4 view .LVU19
+  36:Core/Src/oled/marco_page.c **** 			Node *head = NULL;
+ 100              		.loc 1 36 27 is_stmt 0 view .LVU20
+ 101 0036 194A     		ldr	r2, .L13
+ 102 0038 02F83730 		strb	r3, [r2, r7, lsl #3]
+  37:Core/Src/oled/marco_page.c **** 			Node *iter = NULL;
+ARM GAS  /tmp/ccDOtSUT.s 			page 4
+
+
+ 103              		.loc 1 37 4 is_stmt 1 view .LVU21
+ 104              	.LVL5:
+  38:Core/Src/oled/marco_page.c **** 
+ 105              		.loc 1 38 4 view .LVU22
+  38:Core/Src/oled/marco_page.c **** 
+ 106              		.loc 1 38 10 is_stmt 0 view .LVU23
+ 107 003c 0025     		movs	r5, #0
+  37:Core/Src/oled/marco_page.c **** 			Node *iter = NULL;
+ 108              		.loc 1 37 10 view .LVU24
+ 109 003e 2E46     		mov	r6, r5
+  35:Core/Src/oled/marco_page.c **** 			combination[i].keybind = (char)(data[0]);
+ 110              		.loc 1 35 12 view .LVU25
+ 111 0040 2C46     		mov	r4, r5
+ 112 0042 1AE0     		b	.L8
+ 113              	.LVL6:
+ 114              	.L4:
+ 115              	.LBB4:
+  42:Core/Src/oled/marco_page.c **** 				if(value == '/') break;
+ 116              		.loc 1 42 5 is_stmt 1 view .LVU26
+  42:Core/Src/oled/marco_page.c **** 				if(value == '/') break;
+ 117              		.loc 1 42 29 is_stmt 0 view .LVU27
+ 118 0044 22F00302 		bic	r2, r2, #3
+ 119              	.LVL7:
+  42:Core/Src/oled/marco_page.c **** 				if(value == '/') break;
+ 120              		.loc 1 42 29 view .LVU28
+ 121 0048 10A9     		add	r1, sp, #64
+ 122 004a 0A44     		add	r2, r2, r1
+ 123 004c 52F8400C 		ldr	r0, [r2, #-64]
+  42:Core/Src/oled/marco_page.c **** 				if(value == '/') break;
+ 124              		.loc 1 42 63 view .LVU29
+ 125 0050 5A42     		rsbs	r2, r3, #0
+ 126 0052 03F00303 		and	r3, r3, #3
+ 127 0056 02F00302 		and	r2, r2, #3
+ 128 005a 58BF     		it	pl
+ 129 005c 5342     		rsbpl	r3, r2, #0
+  42:Core/Src/oled/marco_page.c **** 				if(value == '/') break;
+ 130              		.loc 1 42 43 view .LVU30
+ 131 005e DB00     		lsls	r3, r3, #3
+  42:Core/Src/oled/marco_page.c **** 				if(value == '/') break;
+ 132              		.loc 1 42 37 view .LVU31
+ 133 0060 20FA03F3 		lsr	r3, r0, r3
+  42:Core/Src/oled/marco_page.c **** 				if(value == '/') break;
+ 134              		.loc 1 42 10 view .LVU32
+ 135 0064 D8B2     		uxtb	r0, r3
+ 136              	.LVL8:
+  43:Core/Src/oled/marco_page.c **** 
+ 137              		.loc 1 43 5 is_stmt 1 view .LVU33
+  43:Core/Src/oled/marco_page.c **** 
+ 138              		.loc 1 43 7 is_stmt 0 view .LVU34
+ 139 0066 2F28     		cmp	r0, #47
+ 140 0068 12D0     		beq	.L5
+  45:Core/Src/oled/marco_page.c **** 					head  = iter = create_node(value);
+ 141              		.loc 1 45 5 is_stmt 1 view .LVU35
+  45:Core/Src/oled/marco_page.c **** 					head  = iter = create_node(value);
+ 142              		.loc 1 45 7 is_stmt 0 view .LVU36
+ 143 006a 66B1     		cbz	r6, .L12
+ 144              	.LBB5:
+ARM GAS  /tmp/ccDOtSUT.s 			page 5
+
+
+  49:Core/Src/oled/marco_page.c **** 					//link it
+ 145              		.loc 1 49 6 is_stmt 1 view .LVU37
+  49:Core/Src/oled/marco_page.c **** 					//link it
+ 146              		.loc 1 49 18 is_stmt 0 view .LVU38
+ 147 006c FFF7FEFF 		bl	create_node
+ 148              	.LVL9:
+  51:Core/Src/oled/marco_page.c **** 					new->prev = iter;
+ 149              		.loc 1 51 6 is_stmt 1 view .LVU39
+  51:Core/Src/oled/marco_page.c **** 					new->prev = iter;
+ 150              		.loc 1 51 17 is_stmt 0 view .LVU40
+ 151 0070 A860     		str	r0, [r5, #8]
+  52:Core/Src/oled/marco_page.c **** 					iter = new;
+ 152              		.loc 1 52 6 is_stmt 1 view .LVU41
+  52:Core/Src/oled/marco_page.c **** 					iter = new;
+ 153              		.loc 1 52 16 is_stmt 0 view .LVU42
+ 154 0072 4560     		str	r5, [r0, #4]
+  53:Core/Src/oled/marco_page.c **** 				}
+ 155              		.loc 1 53 6 is_stmt 1 view .LVU43
+ 156              	.LVL10:
+  53:Core/Src/oled/marco_page.c **** 				}
+ 157              		.loc 1 53 11 is_stmt 0 view .LVU44
+ 158 0074 0546     		mov	r5, r0
+ 159              	.LVL11:
+ 160              	.L7:
+  53:Core/Src/oled/marco_page.c **** 				}
+ 161              		.loc 1 53 11 view .LVU45
+ 162              	.LBE5:
+  55:Core/Src/oled/marco_page.c **** 
+ 163              		.loc 1 55 5 is_stmt 1 view .LVU46
+  55:Core/Src/oled/marco_page.c **** 
+ 164              		.loc 1 55 15 is_stmt 0 view .LVU47
+ 165 0076 0134     		adds	r4, r4, #1
+ 166              	.LVL12:
+  55:Core/Src/oled/marco_page.c **** 
+ 167              		.loc 1 55 15 view .LVU48
+ 168 0078 E4B2     		uxtb	r4, r4
+ 169              	.LVL13:
+  55:Core/Src/oled/marco_page.c **** 
+ 170              		.loc 1 55 15 view .LVU49
+ 171              	.LBE4:
+  40:Core/Src/oled/marco_page.c **** 				int index = (1 + internal_i)/ 4;
+ 172              		.loc 1 40 9 is_stmt 1 view .LVU50
+ 173              	.L8:
+  40:Core/Src/oled/marco_page.c **** 				int index = (1 + internal_i)/ 4;
+ 174              		.loc 1 40 4 view .LVU51
+ 175              	.LBB6:
+  41:Core/Src/oled/marco_page.c **** 				char value = (char)(data[index] >> (8 * ((1 + internal_i )%4)) );
+ 176              		.loc 1 41 5 view .LVU52
+  41:Core/Src/oled/marco_page.c **** 				char value = (char)(data[index] >> (8 * ((1 + internal_i )%4)) );
+ 177              		.loc 1 41 20 is_stmt 0 view .LVU53
+ 178 007a 631C     		adds	r3, r4, #1
+  41:Core/Src/oled/marco_page.c **** 				char value = (char)(data[index] >> (8 * ((1 + internal_i )%4)) );
+ 179              		.loc 1 41 9 view .LVU54
+ 180 007c 1A46     		mov	r2, r3
+ 181 007e 002B     		cmp	r3, #0
+ 182 0080 E0DA     		bge	.L4
+ 183 0082 DA1C     		adds	r2, r3, #3
+ARM GAS  /tmp/ccDOtSUT.s 			page 6
+
+
+ 184 0084 DEE7     		b	.L4
+ 185              	.LVL14:
+ 186              	.L12:
+  46:Core/Src/oled/marco_page.c **** 				}
+ 187              		.loc 1 46 6 is_stmt 1 view .LVU55
+  46:Core/Src/oled/marco_page.c **** 				}
+ 188              		.loc 1 46 21 is_stmt 0 view .LVU56
+ 189 0086 FFF7FEFF 		bl	create_node
+ 190              	.LVL15:
+  46:Core/Src/oled/marco_page.c **** 				}
+ 191              		.loc 1 46 21 view .LVU57
+ 192 008a 0646     		mov	r6, r0
+ 193              	.LVL16:
+  46:Core/Src/oled/marco_page.c **** 				}
+ 194              		.loc 1 46 21 view .LVU58
+ 195 008c 0546     		mov	r5, r0
+ 196 008e F2E7     		b	.L7
+ 197              	.LVL17:
+ 198              	.L5:
+  46:Core/Src/oled/marco_page.c **** 				}
+ 199              		.loc 1 46 21 view .LVU59
+ 200              	.LBE6:
+  58:Core/Src/oled/marco_page.c **** 		}
+ 201              		.loc 1 58 4 is_stmt 1 view .LVU60
+  58:Core/Src/oled/marco_page.c **** 		}
+ 202              		.loc 1 58 25 is_stmt 0 view .LVU61
+ 203 0090 024B     		ldr	r3, .L13
+ 204 0092 03EBC703 		add	r3, r3, r7, lsl #3
+ 205 0096 5E60     		str	r6, [r3, #4]
+ 206 0098 C8E7     		b	.L3
+ 207              	.L14:
+ 208 009a 00BF     		.align	2
+ 209              	.L13:
+ 210 009c 00000000 		.word	combination
+ 211              	.LBE3:
+ 212              	.LBE7:
+ 213              		.cfi_endproc
+ 214              	.LFE66:
+ 216              		.section	.rodata.macro_update.str1.4,"aMS",%progbits,1
+ 217              		.align	2
+ 218              	.LC0:
+ 219 0000 4D616372 		.ascii	"Macro Num : %d\000"
+ 219      6F204E75 
+ 219      6D203A20 
+ 219      256400
+ 220 000f 00       		.align	2
+ 221              	.LC1:
+ 222 0010 4B657962 		.ascii	"Keybind : %c\000"
+ 222      696E6420 
+ 222      3A202563 
+ 222      00
+ 223 001d 000000   		.align	2
+ 224              	.LC2:
+ 225 0020 4E6F7420 		.ascii	"Not Set\000"
+ 225      53657400 
+ 226              		.align	2
+ 227              	.LC3:
+ARM GAS  /tmp/ccDOtSUT.s 			page 7
+
+
+ 228 0028 53657420 		.ascii	"Set Keybind\000"
+ 228      4B657962 
+ 228      696E6400 
+ 229              		.align	2
+ 230              	.LC4:
+ 231 0034 496E7075 		.ascii	"Input Macro\000"
+ 231      74204D61 
+ 231      63726F00 
+ 232              		.section	.text.macro_update,"ax",%progbits
+ 233              		.align	1
+ 234              		.global	macro_update
+ 235              		.syntax unified
+ 236              		.thumb
+ 237              		.thumb_func
+ 238              		.fpu softvfp
+ 240              	macro_update:
+ 241              	.LFB67:
+  63:Core/Src/oled/marco_page.c **** 
+  64:Core/Src/oled/marco_page.c **** void macro_update(){
+ 242              		.loc 1 64 20 is_stmt 1 view -0
+ 243              		.cfi_startproc
+ 244              		@ args = 0, pretend = 0, frame = 32
+ 245              		@ frame_needed = 0, uses_anonymous_args = 0
+ 246 0000 30B5     		push	{r4, r5, lr}
+ 247              	.LCFI4:
+ 248              		.cfi_def_cfa_offset 12
+ 249              		.cfi_offset 4, -12
+ 250              		.cfi_offset 5, -8
+ 251              		.cfi_offset 14, -4
+ 252 0002 89B0     		sub	sp, sp, #36
+ 253              	.LCFI5:
+ 254              		.cfi_def_cfa_offset 48
+  65:Core/Src/oled/marco_page.c **** 	//update based on the current page
+  66:Core/Src/oled/marco_page.c **** 	if(!init){
+ 255              		.loc 1 66 2 view .LVU63
+ 256              		.loc 1 66 5 is_stmt 0 view .LVU64
+ 257 0004 564B     		ldr	r3, .L31
+ 258 0006 1B78     		ldrb	r3, [r3]	@ zero_extendqisi2
+ 259              		.loc 1 66 4 view .LVU65
+ 260 0008 23B3     		cbz	r3, .L27
+ 261              	.L16:
+  67:Core/Src/oled/marco_page.c **** 		init = 1;
+  68:Core/Src/oled/marco_page.c **** 		macro_init();
+  69:Core/Src/oled/marco_page.c **** 	}
+  70:Core/Src/oled/marco_page.c **** 
+  71:Core/Src/oled/marco_page.c **** 	char temp[30] = "";
+ 262              		.loc 1 71 2 is_stmt 1 view .LVU66
+ 263              		.loc 1 71 7 is_stmt 0 view .LVU67
+ 264 000a 0024     		movs	r4, #0
+ 265 000c 0094     		str	r4, [sp]
+ 266 000e 0194     		str	r4, [sp, #4]
+ 267 0010 0294     		str	r4, [sp, #8]
+ 268 0012 0394     		str	r4, [sp, #12]
+ 269 0014 0494     		str	r4, [sp, #16]
+ 270 0016 0594     		str	r4, [sp, #20]
+ 271 0018 0694     		str	r4, [sp, #24]
+ 272 001a ADF81C40 		strh	r4, [sp, #28]	@ movhi
+ARM GAS  /tmp/ccDOtSUT.s 			page 8
+
+
+  72:Core/Src/oled/marco_page.c **** 	snprintf(temp, 30, "Macro Num : %d", current_macro + 1);
+ 273              		.loc 1 72 2 is_stmt 1 view .LVU68
+ 274 001e 514B     		ldr	r3, .L31+4
+ 275 0020 1B68     		ldr	r3, [r3]
+ 276 0022 0133     		adds	r3, r3, #1
+ 277 0024 504A     		ldr	r2, .L31+8
+ 278 0026 1E21     		movs	r1, #30
+ 279 0028 6846     		mov	r0, sp
+ 280 002a FFF7FEFF 		bl	snprintf
+ 281              	.LVL18:
+  73:Core/Src/oled/marco_page.c **** 	ssd1306_SetCursor(0, 20);
+ 282              		.loc 1 73 2 view .LVU69
+ 283 002e 1421     		movs	r1, #20
+ 284 0030 2046     		mov	r0, r4
+ 285 0032 FFF7FEFF 		bl	ssd1306_SetCursor
+ 286              	.LVL19:
+  74:Core/Src/oled/marco_page.c **** 	ssd1306_WriteString(temp, Font_7x10, White);
+ 287              		.loc 1 74 2 view .LVU70
+ 288 0036 4D4A     		ldr	r2, .L31+12
+ 289 0038 0123     		movs	r3, #1
+ 290 003a 06CA     		ldm	r2, {r1, r2}
+ 291 003c 6846     		mov	r0, sp
+ 292 003e FFF7FEFF 		bl	ssd1306_WriteString
+ 293              	.LVL20:
+  75:Core/Src/oled/marco_page.c **** 
+  76:Core/Src/oled/marco_page.c **** 	switch(current_macro_page){
+ 294              		.loc 1 76 2 view .LVU71
+ 295 0042 4B4B     		ldr	r3, .L31+16
+ 296 0044 1B78     		ldrb	r3, [r3]	@ zero_extendqisi2
+ 297 0046 012B     		cmp	r3, #1
+ 298 0048 41D0     		beq	.L17
+ 299 004a 022B     		cmp	r3, #2
+ 300 004c 5CD0     		beq	.L18
+ 301 004e 3BB1     		cbz	r3, .L28
+ 302              	.L15:
+  77:Core/Src/oled/marco_page.c **** 
+  78:Core/Src/oled/marco_page.c **** 	case MAIN:
+  79:Core/Src/oled/marco_page.c **** 		snprintf(temp, 30,"Keybind : %c",combination[current_macro].keybind);
+  80:Core/Src/oled/marco_page.c **** 		ssd1306_SetCursor(0, 30);
+  81:Core/Src/oled/marco_page.c **** 		ssd1306_WriteString(temp, Font_7x10, White);
+  82:Core/Src/oled/marco_page.c **** 
+  83:Core/Src/oled/marco_page.c **** 
+  84:Core/Src/oled/marco_page.c **** 		if(combination[current_macro].macro == NULL){
+  85:Core/Src/oled/marco_page.c **** 			ssd1306_SetCursor(0, 40);
+  86:Core/Src/oled/marco_page.c **** 			ssd1306_WriteString("Not Set", Font_7x10, White);
+  87:Core/Src/oled/marco_page.c **** 		}
+  88:Core/Src/oled/marco_page.c **** 		else{ // baseline 40
+  89:Core/Src/oled/marco_page.c **** 			int index = 0;
+  90:Core/Src/oled/marco_page.c **** 			Node *temp = combination[current_macro].macro;
+  91:Core/Src/oled/marco_page.c **** 			while(temp != NULL){
+  92:Core/Src/oled/marco_page.c **** 				ssd1306_SetCursor(index * 7, 40);
+  93:Core/Src/oled/marco_page.c **** 				ssd1306_WriteChar(temp->data, Font_7x10, White);
+  94:Core/Src/oled/marco_page.c **** 				temp = temp->next;
+  95:Core/Src/oled/marco_page.c **** 				index++;
+  96:Core/Src/oled/marco_page.c **** 			}
+  97:Core/Src/oled/marco_page.c **** 		}
+  98:Core/Src/oled/marco_page.c **** 		break;
+ARM GAS  /tmp/ccDOtSUT.s 			page 9
+
+
+  99:Core/Src/oled/marco_page.c **** 	case KEY:
+ 100:Core/Src/oled/marco_page.c **** 		ssd1306_SetCursor(0, 30);
+ 101:Core/Src/oled/marco_page.c **** 		ssd1306_WriteString("Set Keybind", Font_7x10, White);
+ 102:Core/Src/oled/marco_page.c **** 
+ 103:Core/Src/oled/marco_page.c **** 		snprintf(temp, 30, "Keybind : %c", keybind);
+ 104:Core/Src/oled/marco_page.c **** 		ssd1306_SetCursor(0, 40);
+ 105:Core/Src/oled/marco_page.c **** 		ssd1306_WriteString(temp, Font_7x10, White);
+ 106:Core/Src/oled/marco_page.c **** 		break;
+ 107:Core/Src/oled/marco_page.c **** 	case COMBINATION:
+ 108:Core/Src/oled/marco_page.c **** 		ssd1306_SetCursor(0, 30);
+ 109:Core/Src/oled/marco_page.c **** 		ssd1306_WriteString("Set Keybind", Font_7x10, White);
+ 110:Core/Src/oled/marco_page.c **** 
+ 111:Core/Src/oled/marco_page.c **** 		if(macro_head == NULL){
+ 112:Core/Src/oled/marco_page.c **** 			ssd1306_SetCursor(0, 40);
+ 113:Core/Src/oled/marco_page.c **** 			ssd1306_WriteString("Input Macro", Font_7x10, White);
+ 114:Core/Src/oled/marco_page.c **** 		}
+ 115:Core/Src/oled/marco_page.c **** 		else{ // baseline 40
+ 116:Core/Src/oled/marco_page.c **** 			int index = 0;
+ 117:Core/Src/oled/marco_page.c **** 			Node *temp = macro_head;
+ 118:Core/Src/oled/marco_page.c **** 			while(temp != NULL){
+ 119:Core/Src/oled/marco_page.c **** 				ssd1306_SetCursor(index * 7, 40);
+ 120:Core/Src/oled/marco_page.c **** 				ssd1306_WriteChar(temp->data, Font_7x10, White);
+ 121:Core/Src/oled/marco_page.c **** 				temp = temp->next;
+ 122:Core/Src/oled/marco_page.c **** 				index++;
+ 123:Core/Src/oled/marco_page.c **** 			}
+ 124:Core/Src/oled/marco_page.c **** 		}
+ 125:Core/Src/oled/marco_page.c **** 		break;
+ 126:Core/Src/oled/marco_page.c **** 	}
+ 127:Core/Src/oled/marco_page.c **** }
+ 303              		.loc 1 127 1 is_stmt 0 view .LVU72
+ 304 0050 09B0     		add	sp, sp, #36
+ 305              	.LCFI6:
+ 306              		.cfi_remember_state
+ 307              		.cfi_def_cfa_offset 12
+ 308              		@ sp needed
+ 309 0052 30BD     		pop	{r4, r5, pc}
+ 310              	.L27:
+ 311              	.LCFI7:
+ 312              		.cfi_restore_state
+  67:Core/Src/oled/marco_page.c **** 		macro_init();
+ 313              		.loc 1 67 3 is_stmt 1 view .LVU73
+  67:Core/Src/oled/marco_page.c **** 		macro_init();
+ 314              		.loc 1 67 8 is_stmt 0 view .LVU74
+ 315 0054 424B     		ldr	r3, .L31
+ 316 0056 0122     		movs	r2, #1
+ 317 0058 1A70     		strb	r2, [r3]
+  68:Core/Src/oled/marco_page.c **** 	}
+ 318              		.loc 1 68 3 is_stmt 1 view .LVU75
+ 319 005a FFF7FEFF 		bl	macro_init
+ 320              	.LVL21:
+ 321 005e D4E7     		b	.L16
+ 322              	.L28:
+  79:Core/Src/oled/marco_page.c **** 		ssd1306_SetCursor(0, 30);
+ 323              		.loc 1 79 3 view .LVU76
+  79:Core/Src/oled/marco_page.c **** 		ssd1306_SetCursor(0, 30);
+ 324              		.loc 1 79 62 is_stmt 0 view .LVU77
+ 325 0060 444C     		ldr	r4, .L31+20
+ARM GAS  /tmp/ccDOtSUT.s 			page 10
+
+
+ 326 0062 404D     		ldr	r5, .L31+4
+ 327 0064 2B68     		ldr	r3, [r5]
+  79:Core/Src/oled/marco_page.c **** 		ssd1306_SetCursor(0, 30);
+ 328              		.loc 1 79 3 view .LVU78
+ 329 0066 14F83330 		ldrb	r3, [r4, r3, lsl #3]	@ zero_extendqisi2
+ 330 006a 434A     		ldr	r2, .L31+24
+ 331 006c 1E21     		movs	r1, #30
+ 332 006e 6846     		mov	r0, sp
+ 333 0070 FFF7FEFF 		bl	snprintf
+ 334              	.LVL22:
+  80:Core/Src/oled/marco_page.c **** 		ssd1306_WriteString(temp, Font_7x10, White);
+ 335              		.loc 1 80 3 is_stmt 1 view .LVU79
+ 336 0074 1E21     		movs	r1, #30
+ 337 0076 0020     		movs	r0, #0
+ 338 0078 FFF7FEFF 		bl	ssd1306_SetCursor
+ 339              	.LVL23:
+  81:Core/Src/oled/marco_page.c **** 
+ 340              		.loc 1 81 3 view .LVU80
+ 341 007c 3B4A     		ldr	r2, .L31+12
+ 342 007e 0123     		movs	r3, #1
+ 343 0080 06CA     		ldm	r2, {r1, r2}
+ 344 0082 6846     		mov	r0, sp
+ 345 0084 FFF7FEFF 		bl	ssd1306_WriteString
+ 346              	.LVL24:
+  84:Core/Src/oled/marco_page.c **** 			ssd1306_SetCursor(0, 40);
+ 347              		.loc 1 84 3 view .LVU81
+  84:Core/Src/oled/marco_page.c **** 			ssd1306_SetCursor(0, 40);
+ 348              		.loc 1 84 32 is_stmt 0 view .LVU82
+ 349 0088 2B68     		ldr	r3, [r5]
+ 350 008a 04EBC304 		add	r4, r4, r3, lsl #3
+ 351 008e 6468     		ldr	r4, [r4, #4]
+  84:Core/Src/oled/marco_page.c **** 			ssd1306_SetCursor(0, 40);
+ 352              		.loc 1 84 5 view .LVU83
+ 353 0090 0CB1     		cbz	r4, .L29
+ 354              	.LBB8:
+  89:Core/Src/oled/marco_page.c **** 			Node *temp = combination[current_macro].macro;
+ 355              		.loc 1 89 8 view .LVU84
+ 356 0092 0025     		movs	r5, #0
+ 357 0094 18E0     		b	.L20
+ 358              	.L29:
+ 359              	.LBE8:
+  85:Core/Src/oled/marco_page.c **** 			ssd1306_WriteString("Not Set", Font_7x10, White);
+ 360              		.loc 1 85 4 is_stmt 1 view .LVU85
+ 361 0096 2821     		movs	r1, #40
+ 362 0098 0020     		movs	r0, #0
+ 363 009a FFF7FEFF 		bl	ssd1306_SetCursor
+ 364              	.LVL25:
+  86:Core/Src/oled/marco_page.c **** 		}
+ 365              		.loc 1 86 4 view .LVU86
+ 366 009e 334A     		ldr	r2, .L31+12
+ 367 00a0 0123     		movs	r3, #1
+ 368 00a2 06CA     		ldm	r2, {r1, r2}
+ 369 00a4 3548     		ldr	r0, .L31+28
+ 370 00a6 FFF7FEFF 		bl	ssd1306_WriteString
+ 371              	.LVL26:
+ 372 00aa D1E7     		b	.L15
+ 373              	.LVL27:
+ARM GAS  /tmp/ccDOtSUT.s 			page 11
+
+
+ 374              	.L21:
+ 375              	.LBB9:
+  92:Core/Src/oled/marco_page.c **** 				ssd1306_WriteChar(temp->data, Font_7x10, White);
+ 376              		.loc 1 92 5 view .LVU87
+ 377 00ac C5EBC500 		rsb	r0, r5, r5, lsl #3
+ 378 00b0 2821     		movs	r1, #40
+ 379 00b2 C0B2     		uxtb	r0, r0
+ 380 00b4 FFF7FEFF 		bl	ssd1306_SetCursor
+ 381              	.LVL28:
+  93:Core/Src/oled/marco_page.c **** 				temp = temp->next;
+ 382              		.loc 1 93 5 view .LVU88
+ 383 00b8 2C4A     		ldr	r2, .L31+12
+ 384 00ba 0123     		movs	r3, #1
+ 385 00bc 06CA     		ldm	r2, {r1, r2}
+ 386 00be 2078     		ldrb	r0, [r4]	@ zero_extendqisi2
+ 387 00c0 FFF7FEFF 		bl	ssd1306_WriteChar
+ 388              	.LVL29:
+  94:Core/Src/oled/marco_page.c **** 				index++;
+ 389              		.loc 1 94 5 view .LVU89
+  94:Core/Src/oled/marco_page.c **** 				index++;
+ 390              		.loc 1 94 10 is_stmt 0 view .LVU90
+ 391 00c4 A468     		ldr	r4, [r4, #8]
+ 392              	.LVL30:
+  95:Core/Src/oled/marco_page.c **** 			}
+ 393              		.loc 1 95 5 is_stmt 1 view .LVU91
+  95:Core/Src/oled/marco_page.c **** 			}
+ 394              		.loc 1 95 10 is_stmt 0 view .LVU92
+ 395 00c6 0135     		adds	r5, r5, #1
+ 396              	.LVL31:
+ 397              	.L20:
+  91:Core/Src/oled/marco_page.c **** 				ssd1306_SetCursor(index * 7, 40);
+ 398              		.loc 1 91 9 is_stmt 1 view .LVU93
+ 399 00c8 002C     		cmp	r4, #0
+ 400 00ca EFD1     		bne	.L21
+ 401 00cc C0E7     		b	.L15
+ 402              	.LVL32:
+ 403              	.L17:
+  91:Core/Src/oled/marco_page.c **** 				ssd1306_SetCursor(index * 7, 40);
+ 404              		.loc 1 91 9 is_stmt 0 view .LVU94
+ 405              	.LBE9:
+ 100:Core/Src/oled/marco_page.c **** 		ssd1306_WriteString("Set Keybind", Font_7x10, White);
+ 406              		.loc 1 100 3 is_stmt 1 view .LVU95
+ 407 00ce 1E21     		movs	r1, #30
+ 408 00d0 0020     		movs	r0, #0
+ 409 00d2 FFF7FEFF 		bl	ssd1306_SetCursor
+ 410              	.LVL33:
+ 101:Core/Src/oled/marco_page.c **** 
+ 411              		.loc 1 101 3 view .LVU96
+ 412 00d6 254C     		ldr	r4, .L31+12
+ 413 00d8 0123     		movs	r3, #1
+ 414 00da 94E80600 		ldm	r4, {r1, r2}
+ 415 00de 2848     		ldr	r0, .L31+32
+ 416 00e0 FFF7FEFF 		bl	ssd1306_WriteString
+ 417              	.LVL34:
+ 103:Core/Src/oled/marco_page.c **** 		ssd1306_SetCursor(0, 40);
+ 418              		.loc 1 103 3 view .LVU97
+ 419 00e4 274B     		ldr	r3, .L31+36
+ARM GAS  /tmp/ccDOtSUT.s 			page 12
+
+
+ 420 00e6 1B78     		ldrb	r3, [r3]	@ zero_extendqisi2
+ 421 00e8 234A     		ldr	r2, .L31+24
+ 422 00ea 1E21     		movs	r1, #30
+ 423 00ec 6846     		mov	r0, sp
+ 424 00ee FFF7FEFF 		bl	snprintf
+ 425              	.LVL35:
+ 104:Core/Src/oled/marco_page.c **** 		ssd1306_WriteString(temp, Font_7x10, White);
+ 426              		.loc 1 104 3 view .LVU98
+ 427 00f2 2821     		movs	r1, #40
+ 428 00f4 0020     		movs	r0, #0
+ 429 00f6 FFF7FEFF 		bl	ssd1306_SetCursor
+ 430              	.LVL36:
+ 105:Core/Src/oled/marco_page.c **** 		break;
+ 431              		.loc 1 105 3 view .LVU99
+ 432 00fa 0123     		movs	r3, #1
+ 433 00fc 94E80600 		ldm	r4, {r1, r2}
+ 434 0100 6846     		mov	r0, sp
+ 435 0102 FFF7FEFF 		bl	ssd1306_WriteString
+ 436              	.LVL37:
+ 106:Core/Src/oled/marco_page.c **** 	case COMBINATION:
+ 437              		.loc 1 106 3 view .LVU100
+ 438 0106 A3E7     		b	.L15
+ 439              	.L18:
+ 108:Core/Src/oled/marco_page.c **** 		ssd1306_WriteString("Set Keybind", Font_7x10, White);
+ 440              		.loc 1 108 3 view .LVU101
+ 441 0108 1E21     		movs	r1, #30
+ 442 010a 0020     		movs	r0, #0
+ 443 010c FFF7FEFF 		bl	ssd1306_SetCursor
+ 444              	.LVL38:
+ 109:Core/Src/oled/marco_page.c **** 
+ 445              		.loc 1 109 3 view .LVU102
+ 446 0110 164A     		ldr	r2, .L31+12
+ 447 0112 0123     		movs	r3, #1
+ 448 0114 06CA     		ldm	r2, {r1, r2}
+ 449 0116 1A48     		ldr	r0, .L31+32
+ 450 0118 FFF7FEFF 		bl	ssd1306_WriteString
+ 451              	.LVL39:
+ 111:Core/Src/oled/marco_page.c **** 			ssd1306_SetCursor(0, 40);
+ 452              		.loc 1 111 3 view .LVU103
+ 111:Core/Src/oled/marco_page.c **** 			ssd1306_SetCursor(0, 40);
+ 453              		.loc 1 111 17 is_stmt 0 view .LVU104
+ 454 011c 1A4B     		ldr	r3, .L31+40
+ 455 011e 1C68     		ldr	r4, [r3]
+ 111:Core/Src/oled/marco_page.c **** 			ssd1306_SetCursor(0, 40);
+ 456              		.loc 1 111 5 view .LVU105
+ 457 0120 0CB1     		cbz	r4, .L30
+ 458              	.LBB10:
+ 116:Core/Src/oled/marco_page.c **** 			Node *temp = macro_head;
+ 459              		.loc 1 116 8 view .LVU106
+ 460 0122 0025     		movs	r5, #0
+ 461 0124 18E0     		b	.L22
+ 462              	.L30:
+ 463              	.LBE10:
+ 112:Core/Src/oled/marco_page.c **** 			ssd1306_WriteString("Input Macro", Font_7x10, White);
+ 464              		.loc 1 112 4 is_stmt 1 view .LVU107
+ 465 0126 2821     		movs	r1, #40
+ 466 0128 0020     		movs	r0, #0
+ARM GAS  /tmp/ccDOtSUT.s 			page 13
+
+
+ 467 012a FFF7FEFF 		bl	ssd1306_SetCursor
+ 468              	.LVL40:
+ 113:Core/Src/oled/marco_page.c **** 		}
+ 469              		.loc 1 113 4 view .LVU108
+ 470 012e 0F4A     		ldr	r2, .L31+12
+ 471 0130 0123     		movs	r3, #1
+ 472 0132 06CA     		ldm	r2, {r1, r2}
+ 473 0134 1548     		ldr	r0, .L31+44
+ 474 0136 FFF7FEFF 		bl	ssd1306_WriteString
+ 475              	.LVL41:
+ 476 013a 89E7     		b	.L15
+ 477              	.LVL42:
+ 478              	.L23:
+ 479              	.LBB11:
+ 119:Core/Src/oled/marco_page.c **** 				ssd1306_WriteChar(temp->data, Font_7x10, White);
+ 480              		.loc 1 119 5 view .LVU109
+ 481 013c C5EBC500 		rsb	r0, r5, r5, lsl #3
+ 482 0140 2821     		movs	r1, #40
+ 483 0142 C0B2     		uxtb	r0, r0
+ 484 0144 FFF7FEFF 		bl	ssd1306_SetCursor
+ 485              	.LVL43:
+ 120:Core/Src/oled/marco_page.c **** 				temp = temp->next;
+ 486              		.loc 1 120 5 view .LVU110
+ 487 0148 084A     		ldr	r2, .L31+12
+ 488 014a 0123     		movs	r3, #1
+ 489 014c 06CA     		ldm	r2, {r1, r2}
+ 490 014e 2078     		ldrb	r0, [r4]	@ zero_extendqisi2
+ 491 0150 FFF7FEFF 		bl	ssd1306_WriteChar
+ 492              	.LVL44:
+ 121:Core/Src/oled/marco_page.c **** 				index++;
+ 493              		.loc 1 121 5 view .LVU111
+ 121:Core/Src/oled/marco_page.c **** 				index++;
+ 494              		.loc 1 121 10 is_stmt 0 view .LVU112
+ 495 0154 A468     		ldr	r4, [r4, #8]
+ 496              	.LVL45:
+ 122:Core/Src/oled/marco_page.c **** 			}
+ 497              		.loc 1 122 5 is_stmt 1 view .LVU113
+ 122:Core/Src/oled/marco_page.c **** 			}
+ 498              		.loc 1 122 10 is_stmt 0 view .LVU114
+ 499 0156 0135     		adds	r5, r5, #1
+ 500              	.LVL46:
+ 501              	.L22:
+ 118:Core/Src/oled/marco_page.c **** 				ssd1306_SetCursor(index * 7, 40);
+ 502              		.loc 1 118 9 is_stmt 1 view .LVU115
+ 503 0158 002C     		cmp	r4, #0
+ 504 015a EFD1     		bne	.L23
+ 505 015c 78E7     		b	.L15
+ 506              	.L32:
+ 507 015e 00BF     		.align	2
+ 508              	.L31:
+ 509 0160 00000000 		.word	.LANCHOR0
+ 510 0164 00000000 		.word	.LANCHOR1
+ 511 0168 00000000 		.word	.LC0
+ 512 016c 00000000 		.word	Font_7x10
+ 513 0170 00000000 		.word	.LANCHOR2
+ 514 0174 00000000 		.word	combination
+ 515 0178 10000000 		.word	.LC1
+ARM GAS  /tmp/ccDOtSUT.s 			page 14
+
+
+ 516 017c 20000000 		.word	.LC2
+ 517 0180 28000000 		.word	.LC3
+ 518 0184 00000000 		.word	.LANCHOR3
+ 519 0188 00000000 		.word	.LANCHOR4
+ 520 018c 34000000 		.word	.LC4
+ 521              	.LBE11:
+ 522              		.cfi_endproc
+ 523              	.LFE67:
+ 525              		.section	.text.macro_onclick,"ax",%progbits
+ 526              		.align	1
+ 527              		.global	macro_onclick
+ 528              		.syntax unified
+ 529              		.thumb
+ 530              		.thumb_func
+ 531              		.fpu softvfp
+ 533              	macro_onclick:
+ 534              	.LVL47:
+ 535              	.LFB68:
+ 128:Core/Src/oled/marco_page.c **** 
+ 129:Core/Src/oled/marco_page.c **** void macro_onclick(char *input, int charNum){
+ 536              		.loc 1 129 45 view -0
+ 537              		.cfi_startproc
+ 538              		@ args = 0, pretend = 0, frame = 128
+ 539              		@ frame_needed = 0, uses_anonymous_args = 0
+ 130:Core/Src/oled/marco_page.c **** 	if(charNum > 1) return;
+ 540              		.loc 1 130 2 view .LVU117
+ 541              		.loc 1 130 4 is_stmt 0 view .LVU118
+ 542 0000 0129     		cmp	r1, #1
+ 543 0002 00F3AB80 		bgt	.L50
+ 129:Core/Src/oled/marco_page.c **** 	if(charNum > 1) return;
+ 544              		.loc 1 129 45 view .LVU119
+ 545 0006 70B5     		push	{r4, r5, r6, lr}
+ 546              	.LCFI8:
+ 547              		.cfi_def_cfa_offset 16
+ 548              		.cfi_offset 4, -16
+ 549              		.cfi_offset 5, -12
+ 550              		.cfi_offset 6, -8
+ 551              		.cfi_offset 14, -4
+ 552 0008 A0B0     		sub	sp, sp, #128
+ 553              	.LCFI9:
+ 554              		.cfi_def_cfa_offset 144
+ 131:Core/Src/oled/marco_page.c **** 
+ 132:Core/Src/oled/marco_page.c **** 	//deal with the possible combination
+ 133:Core/Src/oled/marco_page.c **** 	//Ascii didnt lie between 128 - 255
+ 134:Core/Src/oled/marco_page.c **** 	//Left arrow 129
+ 135:Core/Src/oled/marco_page.c **** 	//right arrow 130
+ 136:Core/Src/oled/marco_page.c **** 	//Up arrow 131
+ 137:Core/Src/oled/marco_page.c **** 	//Down arrow 132
+ 138:Core/Src/oled/marco_page.c **** 	switch(current_macro_page){
+ 555              		.loc 1 138 2 is_stmt 1 view .LVU120
+ 556 000a 554B     		ldr	r3, .L62
+ 557 000c 1B78     		ldrb	r3, [r3]	@ zero_extendqisi2
+ 558 000e 012B     		cmp	r3, #1
+ 559 0010 1CD0     		beq	.L35
+ 560 0012 022B     		cmp	r3, #2
+ 561 0014 2DD0     		beq	.L36
+ 562 0016 1BB1     		cbz	r3, .L53
+ARM GAS  /tmp/ccDOtSUT.s 			page 15
+
+
+ 563              	.LVL48:
+ 564              	.L37:
+ 139:Core/Src/oled/marco_page.c **** 		case MAIN:
+ 140:Core/Src/oled/marco_page.c **** 			//deal with macro display
+ 141:Core/Src/oled/marco_page.c **** 			//for now deal enter
+ 142:Core/Src/oled/marco_page.c **** 			if(input[0] == 13){
+ 143:Core/Src/oled/marco_page.c **** 				current_macro_page = KEY;
+ 144:Core/Src/oled/marco_page.c **** 				keybind = ' ';
+ 145:Core/Src/oled/marco_page.c **** 			}
+ 146:Core/Src/oled/marco_page.c **** 			else if(input[0] == 129){
+ 147:Core/Src/oled/marco_page.c **** 				current_macro = (current_macro + 1) % MAX_MACRO;
+ 148:Core/Src/oled/marco_page.c **** 			}
+ 149:Core/Src/oled/marco_page.c **** 			else if(input[0] == 130){
+ 150:Core/Src/oled/marco_page.c **** 				current_macro = (current_macro - 1) < 0 ? MAX_MACRO - 1: (current_macro - 1) % MAX_MACRO;
+ 151:Core/Src/oled/marco_page.c **** 			}
+ 152:Core/Src/oled/marco_page.c **** 			break;
+ 153:Core/Src/oled/marco_page.c **** 		case KEY:
+ 154:Core/Src/oled/marco_page.c **** 			//handle with inputing the data
+ 155:Core/Src/oled/marco_page.c **** 			if(input[0] == 13 && keybind != ' '){
+ 156:Core/Src/oled/marco_page.c **** 				current_macro_page = COMBINATION;
+ 157:Core/Src/oled/marco_page.c **** 				macro_head = NULL;
+ 158:Core/Src/oled/marco_page.c **** 				macro_iter = NULL;
+ 159:Core/Src/oled/marco_page.c **** 			}
+ 160:Core/Src/oled/marco_page.c **** 			else{
+ 161:Core/Src/oled/marco_page.c **** 				keybind = input[0];
+ 162:Core/Src/oled/marco_page.c **** 			}
+ 163:Core/Src/oled/marco_page.c **** 			break;
+ 164:Core/Src/oled/marco_page.c **** 		case COMBINATION:
+ 165:Core/Src/oled/marco_page.c **** 			//handle with inputting the macro
+ 166:Core/Src/oled/marco_page.c **** 			if(input[0] == 13 && macro_iter != NULL){
+ 167:Core/Src/oled/marco_page.c **** 				current_macro_page = MAIN;
+ 168:Core/Src/oled/marco_page.c **** 				{
+ 169:Core/Src/oled/marco_page.c **** 					if(combination[current_macro].macro != NULL){
+ 170:Core/Src/oled/marco_page.c **** 						delete_all(combination[current_macro].macro);
+ 171:Core/Src/oled/marco_page.c **** 					}
+ 172:Core/Src/oled/marco_page.c **** 					combination[current_macro].macro = macro_head;
+ 173:Core/Src/oled/marco_page.c **** 					combination[current_macro].keybind = keybind;
+ 174:Core/Src/oled/marco_page.c **** 					//insert saving node to combination
+ 175:Core/Src/oled/marco_page.c **** 				}
+ 176:Core/Src/oled/marco_page.c **** 				{
+ 177:Core/Src/oled/marco_page.c **** 					//insert flash handling
+ 178:Core/Src/oled/marco_page.c **** 					char template[MAX_MACRO_TEMPLATE] = {0}; //hard cap
+ 179:Core/Src/oled/marco_page.c **** 					uint32_t final_data[MAX_MACRO_TEMPLATE/4] = {0};
+ 180:Core/Src/oled/marco_page.c **** 					//insert keybind
+ 181:Core/Src/oled/marco_page.c **** 					template[0] = combination[current_macro].keybind;
+ 182:Core/Src/oled/marco_page.c **** 					int index = 0;
+ 183:Core/Src/oled/marco_page.c **** 					Node *temp = macro_head;
+ 184:Core/Src/oled/marco_page.c **** 					while(temp != NULL){
+ 185:Core/Src/oled/marco_page.c **** 						if(index >= (MAX_MACRO_TEMPLATE - 1)) break;
+ 186:Core/Src/oled/marco_page.c **** 						template[1 + index] = temp->data;
+ 187:Core/Src/oled/marco_page.c **** 						temp = temp->next;
+ 188:Core/Src/oled/marco_page.c **** 						index++;
+ 189:Core/Src/oled/marco_page.c **** 					}
+ 190:Core/Src/oled/marco_page.c **** 					template[1 + index] = '/';
+ 191:Core/Src/oled/marco_page.c **** 					Str_To_uint32(template, final_data);
+ 192:Core/Src/oled/marco_page.c **** 					Flash_Write_Data(START_ADDR + (MAX_MACRO_TEMPLATE * current_macro), final_data, MAX_MACRO_TEMP
+ 193:Core/Src/oled/marco_page.c **** 					//
+ARM GAS  /tmp/ccDOtSUT.s 			page 16
+
+
+ 194:Core/Src/oled/marco_page.c **** 				}
+ 195:Core/Src/oled/marco_page.c **** 			} //save macro
+ 196:Core/Src/oled/marco_page.c **** 			else if(input[0] == 127){// backspace
+ 197:Core/Src/oled/marco_page.c **** 				if(macro_iter != NULL){
+ 198:Core/Src/oled/marco_page.c **** 					Node *temp = macro_iter->prev;
+ 199:Core/Src/oled/marco_page.c **** 					delete_node(macro_iter);
+ 200:Core/Src/oled/marco_page.c **** 					if(temp == NULL){
+ 201:Core/Src/oled/marco_page.c **** 						macro_head = NULL;
+ 202:Core/Src/oled/marco_page.c **** 					}
+ 203:Core/Src/oled/marco_page.c **** 					macro_iter = temp;
+ 204:Core/Src/oled/marco_page.c **** 				}
+ 205:Core/Src/oled/marco_page.c **** 			}
+ 206:Core/Src/oled/marco_page.c **** 			else{
+ 207:Core/Src/oled/marco_page.c **** 				if(macro_head == NULL){
+ 208:Core/Src/oled/marco_page.c **** 					macro_head  = macro_iter = create_node(input[0]);
+ 209:Core/Src/oled/marco_page.c **** 				}
+ 210:Core/Src/oled/marco_page.c **** 				else{
+ 211:Core/Src/oled/marco_page.c **** 					Node *new = create_node(input[0]);
+ 212:Core/Src/oled/marco_page.c **** 					//link it
+ 213:Core/Src/oled/marco_page.c **** 					macro_iter->next = new;
+ 214:Core/Src/oled/marco_page.c **** 					new->prev = macro_iter;
+ 215:Core/Src/oled/marco_page.c **** 					macro_iter = new;
+ 216:Core/Src/oled/marco_page.c **** 				}
+ 217:Core/Src/oled/marco_page.c **** 			}
+ 218:Core/Src/oled/marco_page.c **** 			break;
+ 219:Core/Src/oled/marco_page.c **** 	}
+ 220:Core/Src/oled/marco_page.c **** 	macro_update();
+ 565              		.loc 1 220 2 view .LVU121
+ 566 0018 FFF7FEFF 		bl	macro_update
+ 567              	.LVL49:
+ 221:Core/Src/oled/marco_page.c **** }
+ 568              		.loc 1 221 1 is_stmt 0 view .LVU122
+ 569 001c 20B0     		add	sp, sp, #128
+ 570              	.LCFI10:
+ 571              		.cfi_remember_state
+ 572              		.cfi_def_cfa_offset 16
+ 573              		@ sp needed
+ 574 001e 70BD     		pop	{r4, r5, r6, pc}
+ 575              	.LVL50:
+ 576              	.L53:
+ 577              	.LCFI11:
+ 578              		.cfi_restore_state
+ 142:Core/Src/oled/marco_page.c **** 				current_macro_page = KEY;
+ 579              		.loc 1 142 4 is_stmt 1 view .LVU123
+ 142:Core/Src/oled/marco_page.c **** 				current_macro_page = KEY;
+ 580              		.loc 1 142 12 is_stmt 0 view .LVU124
+ 581 0020 0378     		ldrb	r3, [r0]	@ zero_extendqisi2
+ 142:Core/Src/oled/marco_page.c **** 				current_macro_page = KEY;
+ 582              		.loc 1 142 6 view .LVU125
+ 583 0022 0D2B     		cmp	r3, #13
+ 584 0024 07D0     		beq	.L54
+ 146:Core/Src/oled/marco_page.c **** 				current_macro = (current_macro + 1) % MAX_MACRO;
+ 585              		.loc 1 146 9 is_stmt 1 view .LVU126
+ 146:Core/Src/oled/marco_page.c **** 				current_macro = (current_macro + 1) % MAX_MACRO;
+ 586              		.loc 1 146 11 is_stmt 0 view .LVU127
+ 587 0026 812B     		cmp	r3, #129
+ 588 0028 0CD0     		beq	.L55
+ARM GAS  /tmp/ccDOtSUT.s 			page 17
+
+
+ 149:Core/Src/oled/marco_page.c **** 				current_macro = (current_macro - 1) < 0 ? MAX_MACRO - 1: (current_macro - 1) % MAX_MACRO;
+ 589              		.loc 1 149 9 is_stmt 1 view .LVU128
+ 149:Core/Src/oled/marco_page.c **** 				current_macro = (current_macro - 1) < 0 ? MAX_MACRO - 1: (current_macro - 1) % MAX_MACRO;
+ 590              		.loc 1 149 11 is_stmt 0 view .LVU129
+ 591 002a 822B     		cmp	r3, #130
+ 592 002c F4D1     		bne	.L37
+ 150:Core/Src/oled/marco_page.c **** 			}
+ 593              		.loc 1 150 5 is_stmt 1 view .LVU130
+ 150:Core/Src/oled/marco_page.c **** 			}
+ 594              		.loc 1 150 19 is_stmt 0 view .LVU131
+ 595 002e 4D4B     		ldr	r3, .L62+4
+ 596 0030 0022     		movs	r2, #0
+ 597 0032 1A60     		str	r2, [r3]
+ 598 0034 F0E7     		b	.L37
+ 599              	.L54:
+ 143:Core/Src/oled/marco_page.c **** 				keybind = ' ';
+ 600              		.loc 1 143 5 is_stmt 1 view .LVU132
+ 143:Core/Src/oled/marco_page.c **** 				keybind = ' ';
+ 601              		.loc 1 143 24 is_stmt 0 view .LVU133
+ 602 0036 4A4B     		ldr	r3, .L62
+ 603 0038 0122     		movs	r2, #1
+ 604 003a 1A70     		strb	r2, [r3]
+ 144:Core/Src/oled/marco_page.c **** 			}
+ 605              		.loc 1 144 5 is_stmt 1 view .LVU134
+ 144:Core/Src/oled/marco_page.c **** 			}
+ 606              		.loc 1 144 13 is_stmt 0 view .LVU135
+ 607 003c 4A4B     		ldr	r3, .L62+8
+ 608 003e 2022     		movs	r2, #32
+ 609 0040 1A70     		strb	r2, [r3]
+ 610 0042 E9E7     		b	.L37
+ 611              	.L55:
+ 147:Core/Src/oled/marco_page.c **** 			}
+ 612              		.loc 1 147 5 is_stmt 1 view .LVU136
+ 147:Core/Src/oled/marco_page.c **** 			}
+ 613              		.loc 1 147 19 is_stmt 0 view .LVU137
+ 614 0044 474B     		ldr	r3, .L62+4
+ 615 0046 0022     		movs	r2, #0
+ 616 0048 1A60     		str	r2, [r3]
+ 617 004a E5E7     		b	.L37
+ 618              	.L35:
+ 155:Core/Src/oled/marco_page.c **** 				current_macro_page = COMBINATION;
+ 619              		.loc 1 155 4 is_stmt 1 view .LVU138
+ 155:Core/Src/oled/marco_page.c **** 				current_macro_page = COMBINATION;
+ 620              		.loc 1 155 12 is_stmt 0 view .LVU139
+ 621 004c 0378     		ldrb	r3, [r0]	@ zero_extendqisi2
+ 155:Core/Src/oled/marco_page.c **** 				current_macro_page = COMBINATION;
+ 622              		.loc 1 155 6 view .LVU140
+ 623 004e 0D2B     		cmp	r3, #13
+ 624 0050 02D0     		beq	.L56
+ 625              	.L40:
+ 161:Core/Src/oled/marco_page.c **** 			}
+ 626              		.loc 1 161 5 is_stmt 1 view .LVU141
+ 161:Core/Src/oled/marco_page.c **** 			}
+ 627              		.loc 1 161 13 is_stmt 0 view .LVU142
+ 628 0052 454A     		ldr	r2, .L62+8
+ 629 0054 1370     		strb	r3, [r2]
+ 630 0056 DFE7     		b	.L37
+ARM GAS  /tmp/ccDOtSUT.s 			page 18
+
+
+ 631              	.L56:
+ 155:Core/Src/oled/marco_page.c **** 				current_macro_page = COMBINATION;
+ 632              		.loc 1 155 33 discriminator 1 view .LVU143
+ 633 0058 434A     		ldr	r2, .L62+8
+ 634 005a 1278     		ldrb	r2, [r2]	@ zero_extendqisi2
+ 155:Core/Src/oled/marco_page.c **** 				current_macro_page = COMBINATION;
+ 635              		.loc 1 155 22 discriminator 1 view .LVU144
+ 636 005c 202A     		cmp	r2, #32
+ 637 005e F8D0     		beq	.L40
+ 156:Core/Src/oled/marco_page.c **** 				macro_head = NULL;
+ 638              		.loc 1 156 5 is_stmt 1 view .LVU145
+ 156:Core/Src/oled/marco_page.c **** 				macro_head = NULL;
+ 639              		.loc 1 156 24 is_stmt 0 view .LVU146
+ 640 0060 3F4B     		ldr	r3, .L62
+ 641 0062 0222     		movs	r2, #2
+ 642 0064 1A70     		strb	r2, [r3]
+ 157:Core/Src/oled/marco_page.c **** 				macro_iter = NULL;
+ 643              		.loc 1 157 5 is_stmt 1 view .LVU147
+ 157:Core/Src/oled/marco_page.c **** 				macro_iter = NULL;
+ 644              		.loc 1 157 16 is_stmt 0 view .LVU148
+ 645 0066 0023     		movs	r3, #0
+ 646 0068 404A     		ldr	r2, .L62+12
+ 647 006a 1360     		str	r3, [r2]
+ 158:Core/Src/oled/marco_page.c **** 			}
+ 648              		.loc 1 158 5 is_stmt 1 view .LVU149
+ 158:Core/Src/oled/marco_page.c **** 			}
+ 649              		.loc 1 158 16 is_stmt 0 view .LVU150
+ 650 006c 404A     		ldr	r2, .L62+16
+ 651 006e 1360     		str	r3, [r2]
+ 652 0070 D2E7     		b	.L37
+ 653              	.L36:
+ 166:Core/Src/oled/marco_page.c **** 				current_macro_page = MAIN;
+ 654              		.loc 1 166 4 is_stmt 1 view .LVU151
+ 166:Core/Src/oled/marco_page.c **** 				current_macro_page = MAIN;
+ 655              		.loc 1 166 12 is_stmt 0 view .LVU152
+ 656 0072 0078     		ldrb	r0, [r0]	@ zero_extendqisi2
+ 657              	.LVL51:
+ 166:Core/Src/oled/marco_page.c **** 				current_macro_page = MAIN;
+ 658              		.loc 1 166 6 view .LVU153
+ 659 0074 0D28     		cmp	r0, #13
+ 660 0076 0DD0     		beq	.L57
+ 661              	.L41:
+ 196:Core/Src/oled/marco_page.c **** 				if(macro_iter != NULL){
+ 662              		.loc 1 196 9 is_stmt 1 view .LVU154
+ 196:Core/Src/oled/marco_page.c **** 				if(macro_iter != NULL){
+ 663              		.loc 1 196 11 is_stmt 0 view .LVU155
+ 664 0078 7F28     		cmp	r0, #127
+ 665 007a 58D0     		beq	.L58
+ 207:Core/Src/oled/marco_page.c **** 					macro_head  = macro_iter = create_node(input[0]);
+ 666              		.loc 1 207 5 is_stmt 1 view .LVU156
+ 207:Core/Src/oled/marco_page.c **** 					macro_head  = macro_iter = create_node(input[0]);
+ 667              		.loc 1 207 19 is_stmt 0 view .LVU157
+ 668 007c 3B4B     		ldr	r3, .L62+12
+ 669 007e 1B68     		ldr	r3, [r3]
+ 207:Core/Src/oled/marco_page.c **** 					macro_head  = macro_iter = create_node(input[0]);
+ 670              		.loc 1 207 7 view .LVU158
+ 671 0080 002B     		cmp	r3, #0
+ARM GAS  /tmp/ccDOtSUT.s 			page 19
+
+
+ 672 0082 64D0     		beq	.L59
+ 673              	.LBB12:
+ 211:Core/Src/oled/marco_page.c **** 					//link it
+ 674              		.loc 1 211 6 is_stmt 1 view .LVU159
+ 211:Core/Src/oled/marco_page.c **** 					//link it
+ 675              		.loc 1 211 18 is_stmt 0 view .LVU160
+ 676 0084 FFF7FEFF 		bl	create_node
+ 677              	.LVL52:
+ 213:Core/Src/oled/marco_page.c **** 					new->prev = macro_iter;
+ 678              		.loc 1 213 6 is_stmt 1 view .LVU161
+ 213:Core/Src/oled/marco_page.c **** 					new->prev = macro_iter;
+ 679              		.loc 1 213 16 is_stmt 0 view .LVU162
+ 680 0088 394B     		ldr	r3, .L62+16
+ 681 008a 1A68     		ldr	r2, [r3]
+ 213:Core/Src/oled/marco_page.c **** 					new->prev = macro_iter;
+ 682              		.loc 1 213 23 view .LVU163
+ 683 008c 9060     		str	r0, [r2, #8]
+ 214:Core/Src/oled/marco_page.c **** 					macro_iter = new;
+ 684              		.loc 1 214 6 is_stmt 1 view .LVU164
+ 214:Core/Src/oled/marco_page.c **** 					macro_iter = new;
+ 685              		.loc 1 214 16 is_stmt 0 view .LVU165
+ 686 008e 4260     		str	r2, [r0, #4]
+ 215:Core/Src/oled/marco_page.c **** 				}
+ 687              		.loc 1 215 6 is_stmt 1 view .LVU166
+ 215:Core/Src/oled/marco_page.c **** 				}
+ 688              		.loc 1 215 17 is_stmt 0 view .LVU167
+ 689 0090 1860     		str	r0, [r3]
+ 690 0092 C1E7     		b	.L37
+ 691              	.LVL53:
+ 692              	.L57:
+ 215:Core/Src/oled/marco_page.c **** 				}
+ 693              		.loc 1 215 17 view .LVU168
+ 694              	.LBE12:
+ 166:Core/Src/oled/marco_page.c **** 				current_macro_page = MAIN;
+ 695              		.loc 1 166 36 discriminator 1 view .LVU169
+ 696 0094 364B     		ldr	r3, .L62+16
+ 697 0096 1B68     		ldr	r3, [r3]
+ 166:Core/Src/oled/marco_page.c **** 				current_macro_page = MAIN;
+ 698              		.loc 1 166 22 discriminator 1 view .LVU170
+ 699 0098 002B     		cmp	r3, #0
+ 700 009a EDD0     		beq	.L41
+ 167:Core/Src/oled/marco_page.c **** 				{
+ 701              		.loc 1 167 5 is_stmt 1 view .LVU171
+ 167:Core/Src/oled/marco_page.c **** 				{
+ 702              		.loc 1 167 24 is_stmt 0 view .LVU172
+ 703 009c 304B     		ldr	r3, .L62
+ 704 009e 0022     		movs	r2, #0
+ 705 00a0 1A70     		strb	r2, [r3]
+ 169:Core/Src/oled/marco_page.c **** 						delete_all(combination[current_macro].macro);
+ 706              		.loc 1 169 6 is_stmt 1 view .LVU173
+ 169:Core/Src/oled/marco_page.c **** 						delete_all(combination[current_macro].macro);
+ 707              		.loc 1 169 35 is_stmt 0 view .LVU174
+ 708 00a2 304B     		ldr	r3, .L62+4
+ 709 00a4 1A68     		ldr	r2, [r3]
+ 710 00a6 334B     		ldr	r3, .L62+20
+ 711 00a8 03EBC203 		add	r3, r3, r2, lsl #3
+ 712 00ac 5868     		ldr	r0, [r3, #4]
+ARM GAS  /tmp/ccDOtSUT.s 			page 20
+
+
+ 169:Core/Src/oled/marco_page.c **** 						delete_all(combination[current_macro].macro);
+ 713              		.loc 1 169 8 view .LVU175
+ 714 00ae 08B1     		cbz	r0, .L42
+ 170:Core/Src/oled/marco_page.c **** 					}
+ 715              		.loc 1 170 7 is_stmt 1 view .LVU176
+ 716 00b0 FFF7FEFF 		bl	delete_all
+ 717              	.LVL54:
+ 718              	.L42:
+ 172:Core/Src/oled/marco_page.c **** 					combination[current_macro].keybind = keybind;
+ 719              		.loc 1 172 6 view .LVU177
+ 172:Core/Src/oled/marco_page.c **** 					combination[current_macro].keybind = keybind;
+ 720              		.loc 1 172 32 is_stmt 0 view .LVU178
+ 721 00b4 2B4B     		ldr	r3, .L62+4
+ 722 00b6 1A68     		ldr	r2, [r3]
+ 172:Core/Src/oled/marco_page.c **** 					combination[current_macro].keybind = keybind;
+ 723              		.loc 1 172 39 view .LVU179
+ 724 00b8 2C4B     		ldr	r3, .L62+12
+ 725 00ba 1D68     		ldr	r5, [r3]
+ 726 00bc 2D4B     		ldr	r3, .L62+20
+ 727 00be 03EBC201 		add	r1, r3, r2, lsl #3
+ 728 00c2 4D60     		str	r5, [r1, #4]
+ 173:Core/Src/oled/marco_page.c **** 					//insert saving node to combination
+ 729              		.loc 1 173 6 is_stmt 1 view .LVU180
+ 173:Core/Src/oled/marco_page.c **** 					//insert saving node to combination
+ 730              		.loc 1 173 41 is_stmt 0 view .LVU181
+ 731 00c4 2849     		ldr	r1, .L62+8
+ 732 00c6 0E78     		ldrb	r6, [r1]	@ zero_extendqisi2
+ 733 00c8 03F83260 		strb	r6, [r3, r2, lsl #3]
+ 734              	.LBB13:
+ 178:Core/Src/oled/marco_page.c **** 					uint32_t final_data[MAX_MACRO_TEMPLATE/4] = {0};
+ 735              		.loc 1 178 6 is_stmt 1 view .LVU182
+ 178:Core/Src/oled/marco_page.c **** 					uint32_t final_data[MAX_MACRO_TEMPLATE/4] = {0};
+ 736              		.loc 1 178 11 is_stmt 0 view .LVU183
+ 737 00cc 0024     		movs	r4, #0
+ 738 00ce 0094     		str	r4, [sp]
+ 739 00d0 3C22     		movs	r2, #60
+ 740 00d2 2146     		mov	r1, r4
+ 741 00d4 01A8     		add	r0, sp, #4
+ 742 00d6 FFF7FEFF 		bl	memset
+ 743              	.LVL55:
+ 179:Core/Src/oled/marco_page.c **** 					//insert keybind
+ 744              		.loc 1 179 6 is_stmt 1 view .LVU184
+ 179:Core/Src/oled/marco_page.c **** 					//insert keybind
+ 745              		.loc 1 179 15 is_stmt 0 view .LVU185
+ 746 00da 4022     		movs	r2, #64
+ 747 00dc 2146     		mov	r1, r4
+ 748 00de 0DEB0200 		add	r0, sp, r2
+ 749 00e2 FFF7FEFF 		bl	memset
+ 750              	.LVL56:
+ 181:Core/Src/oled/marco_page.c **** 					int index = 0;
+ 751              		.loc 1 181 6 is_stmt 1 view .LVU186
+ 181:Core/Src/oled/marco_page.c **** 					int index = 0;
+ 752              		.loc 1 181 18 is_stmt 0 view .LVU187
+ 753 00e6 8DF80060 		strb	r6, [sp]
+ 182:Core/Src/oled/marco_page.c **** 					Node *temp = macro_head;
+ 754              		.loc 1 182 6 is_stmt 1 view .LVU188
+ 755              	.LVL57:
+ARM GAS  /tmp/ccDOtSUT.s 			page 21
+
+
+ 183:Core/Src/oled/marco_page.c **** 					while(temp != NULL){
+ 756              		.loc 1 183 6 view .LVU189
+ 184:Core/Src/oled/marco_page.c **** 						if(index >= (MAX_MACRO_TEMPLATE - 1)) break;
+ 757              		.loc 1 184 6 view .LVU190
+ 182:Core/Src/oled/marco_page.c **** 					Node *temp = macro_head;
+ 758              		.loc 1 182 10 is_stmt 0 view .LVU191
+ 759 00ea 2146     		mov	r1, r4
+ 184:Core/Src/oled/marco_page.c **** 						if(index >= (MAX_MACRO_TEMPLATE - 1)) break;
+ 760              		.loc 1 184 11 view .LVU192
+ 761 00ec 06E0     		b	.L43
+ 762              	.LVL58:
+ 763              	.L60:
+ 186:Core/Src/oled/marco_page.c **** 						temp = temp->next;
+ 764              		.loc 1 186 7 is_stmt 1 view .LVU193
+ 186:Core/Src/oled/marco_page.c **** 						temp = temp->next;
+ 765              		.loc 1 186 18 is_stmt 0 view .LVU194
+ 766 00ee 0131     		adds	r1, r1, #1
+ 767              	.LVL59:
+ 186:Core/Src/oled/marco_page.c **** 						temp = temp->next;
+ 768              		.loc 1 186 33 view .LVU195
+ 769 00f0 2A78     		ldrb	r2, [r5]	@ zero_extendqisi2
+ 186:Core/Src/oled/marco_page.c **** 						temp = temp->next;
+ 770              		.loc 1 186 27 view .LVU196
+ 771 00f2 20AB     		add	r3, sp, #128
+ 772 00f4 0B44     		add	r3, r3, r1
+ 773 00f6 03F8802C 		strb	r2, [r3, #-128]
+ 187:Core/Src/oled/marco_page.c **** 						index++;
+ 774              		.loc 1 187 7 is_stmt 1 view .LVU197
+ 187:Core/Src/oled/marco_page.c **** 						index++;
+ 775              		.loc 1 187 12 is_stmt 0 view .LVU198
+ 776 00fa AD68     		ldr	r5, [r5, #8]
+ 777              	.LVL60:
+ 188:Core/Src/oled/marco_page.c **** 					}
+ 778              		.loc 1 188 7 is_stmt 1 view .LVU199
+ 779              	.L43:
+ 184:Core/Src/oled/marco_page.c **** 						if(index >= (MAX_MACRO_TEMPLATE - 1)) break;
+ 780              		.loc 1 184 11 view .LVU200
+ 781 00fc 0DB1     		cbz	r5, .L44
+ 185:Core/Src/oled/marco_page.c **** 						template[1 + index] = temp->data;
+ 782              		.loc 1 185 7 view .LVU201
+ 185:Core/Src/oled/marco_page.c **** 						template[1 + index] = temp->data;
+ 783              		.loc 1 185 9 is_stmt 0 view .LVU202
+ 784 00fe 3E29     		cmp	r1, #62
+ 785 0100 F5DD     		ble	.L60
+ 786              	.L44:
+ 190:Core/Src/oled/marco_page.c **** 					Str_To_uint32(template, final_data);
+ 787              		.loc 1 190 6 is_stmt 1 view .LVU203
+ 190:Core/Src/oled/marco_page.c **** 					Str_To_uint32(template, final_data);
+ 788              		.loc 1 190 17 is_stmt 0 view .LVU204
+ 789 0102 0131     		adds	r1, r1, #1
+ 790              	.LVL61:
+ 190:Core/Src/oled/marco_page.c **** 					Str_To_uint32(template, final_data);
+ 791              		.loc 1 190 26 view .LVU205
+ 792 0104 20AB     		add	r3, sp, #128
+ 793 0106 1944     		add	r1, r1, r3
+ 794              	.LVL62:
+ 190:Core/Src/oled/marco_page.c **** 					Str_To_uint32(template, final_data);
+ARM GAS  /tmp/ccDOtSUT.s 			page 22
+
+
+ 795              		.loc 1 190 26 view .LVU206
+ 796 0108 2F23     		movs	r3, #47
+ 797 010a 01F8803C 		strb	r3, [r1, #-128]
+ 191:Core/Src/oled/marco_page.c **** 					Flash_Write_Data(START_ADDR + (MAX_MACRO_TEMPLATE * current_macro), final_data, MAX_MACRO_TEMP
+ 798              		.loc 1 191 6 is_stmt 1 view .LVU207
+ 799 010e 10A9     		add	r1, sp, #64
+ 800 0110 6846     		mov	r0, sp
+ 801 0112 FFF7FEFF 		bl	Str_To_uint32
+ 802              	.LVL63:
+ 192:Core/Src/oled/marco_page.c **** 					//
+ 803              		.loc 1 192 6 view .LVU208
+ 192:Core/Src/oled/marco_page.c **** 					//
+ 804              		.loc 1 192 34 is_stmt 0 view .LVU209
+ 805 0116 134B     		ldr	r3, .L62+4
+ 806 0118 1868     		ldr	r0, [r3]
+ 807 011a 00F50010 		add	r0, r0, #2097152
+ 808 011e 00F5FF50 		add	r0, r0, #8160
+ 192:Core/Src/oled/marco_page.c **** 					//
+ 809              		.loc 1 192 6 view .LVU210
+ 810 0122 1022     		movs	r2, #16
+ 811 0124 10A9     		add	r1, sp, #64
+ 812 0126 8001     		lsls	r0, r0, #6
+ 813 0128 FFF7FEFF 		bl	Flash_Write_Data
+ 814              	.LVL64:
+ 815              	.LBE13:
+ 176:Core/Src/oled/marco_page.c **** 					//insert flash handling
+ 816              		.loc 1 176 5 view .LVU211
+ 817 012c 74E7     		b	.L37
+ 818              	.LVL65:
+ 819              	.L58:
+ 197:Core/Src/oled/marco_page.c **** 					Node *temp = macro_iter->prev;
+ 820              		.loc 1 197 5 is_stmt 1 view .LVU212
+ 197:Core/Src/oled/marco_page.c **** 					Node *temp = macro_iter->prev;
+ 821              		.loc 1 197 19 is_stmt 0 view .LVU213
+ 822 012e 104B     		ldr	r3, .L62+16
+ 823 0130 1868     		ldr	r0, [r3]
+ 197:Core/Src/oled/marco_page.c **** 					Node *temp = macro_iter->prev;
+ 824              		.loc 1 197 7 view .LVU214
+ 825 0132 0028     		cmp	r0, #0
+ 826 0134 3FF470AF 		beq	.L37
+ 827              	.LBB14:
+ 198:Core/Src/oled/marco_page.c **** 					delete_node(macro_iter);
+ 828              		.loc 1 198 6 is_stmt 1 view .LVU215
+ 198:Core/Src/oled/marco_page.c **** 					delete_node(macro_iter);
+ 829              		.loc 1 198 12 is_stmt 0 view .LVU216
+ 830 0138 4468     		ldr	r4, [r0, #4]
+ 831              	.LVL66:
+ 199:Core/Src/oled/marco_page.c **** 					if(temp == NULL){
+ 832              		.loc 1 199 6 is_stmt 1 view .LVU217
+ 833 013a FFF7FEFF 		bl	delete_node
+ 834              	.LVL67:
+ 200:Core/Src/oled/marco_page.c **** 						macro_head = NULL;
+ 835              		.loc 1 200 6 view .LVU218
+ 200:Core/Src/oled/marco_page.c **** 						macro_head = NULL;
+ 836              		.loc 1 200 8 is_stmt 0 view .LVU219
+ 837 013e 14B1     		cbz	r4, .L61
+ 838              	.L47:
+ARM GAS  /tmp/ccDOtSUT.s 			page 23
+
+
+ 203:Core/Src/oled/marco_page.c **** 				}
+ 839              		.loc 1 203 6 is_stmt 1 view .LVU220
+ 203:Core/Src/oled/marco_page.c **** 				}
+ 840              		.loc 1 203 17 is_stmt 0 view .LVU221
+ 841 0140 0B4B     		ldr	r3, .L62+16
+ 842 0142 1C60     		str	r4, [r3]
+ 843 0144 68E7     		b	.L37
+ 844              	.L61:
+ 201:Core/Src/oled/marco_page.c **** 					}
+ 845              		.loc 1 201 7 is_stmt 1 view .LVU222
+ 201:Core/Src/oled/marco_page.c **** 					}
+ 846              		.loc 1 201 18 is_stmt 0 view .LVU223
+ 847 0146 094B     		ldr	r3, .L62+12
+ 848 0148 0022     		movs	r2, #0
+ 849 014a 1A60     		str	r2, [r3]
+ 850 014c F8E7     		b	.L47
+ 851              	.LVL68:
+ 852              	.L59:
+ 201:Core/Src/oled/marco_page.c **** 					}
+ 853              		.loc 1 201 18 view .LVU224
+ 854              	.LBE14:
+ 208:Core/Src/oled/marco_page.c **** 				}
+ 855              		.loc 1 208 6 is_stmt 1 view .LVU225
+ 208:Core/Src/oled/marco_page.c **** 				}
+ 856              		.loc 1 208 33 is_stmt 0 view .LVU226
+ 857 014e FFF7FEFF 		bl	create_node
+ 858              	.LVL69:
+ 208:Core/Src/oled/marco_page.c **** 				}
+ 859              		.loc 1 208 31 view .LVU227
+ 860 0152 074B     		ldr	r3, .L62+16
+ 861 0154 1860     		str	r0, [r3]
+ 208:Core/Src/oled/marco_page.c **** 				}
+ 862              		.loc 1 208 18 view .LVU228
+ 863 0156 054B     		ldr	r3, .L62+12
+ 864 0158 1860     		str	r0, [r3]
+ 865 015a 5DE7     		b	.L37
+ 866              	.LVL70:
+ 867              	.L50:
+ 868              	.LCFI12:
+ 869              		.cfi_def_cfa_offset 0
+ 870              		.cfi_restore 4
+ 871              		.cfi_restore 5
+ 872              		.cfi_restore 6
+ 873              		.cfi_restore 14
+ 208:Core/Src/oled/marco_page.c **** 				}
+ 874              		.loc 1 208 18 view .LVU229
+ 875 015c 7047     		bx	lr
+ 876              	.L63:
+ 877 015e 00BF     		.align	2
+ 878              	.L62:
+ 879 0160 00000000 		.word	.LANCHOR2
+ 880 0164 00000000 		.word	.LANCHOR1
+ 881 0168 00000000 		.word	.LANCHOR3
+ 882 016c 00000000 		.word	.LANCHOR4
+ 883 0170 00000000 		.word	.LANCHOR5
+ 884 0174 00000000 		.word	combination
+ 885              		.cfi_endproc
+ARM GAS  /tmp/ccDOtSUT.s 			page 24
+
+
+ 886              	.LFE68:
+ 888              		.section	.text.get_macro,"ax",%progbits
+ 889              		.align	1
+ 890              		.global	get_macro
+ 891              		.syntax unified
+ 892              		.thumb
+ 893              		.thumb_func
+ 894              		.fpu softvfp
+ 896              	get_macro:
+ 897              	.LVL71:
+ 898              	.LFB69:
+ 222:Core/Src/oled/marco_page.c **** 
+ 223:Core/Src/oled/marco_page.c **** Node* get_macro(char value){
+ 899              		.loc 1 223 28 is_stmt 1 view -0
+ 900              		.cfi_startproc
+ 901              		@ args = 0, pretend = 0, frame = 0
+ 902              		@ frame_needed = 0, uses_anonymous_args = 0
+ 903              		@ link register save eliminated.
+ 224:Core/Src/oled/marco_page.c **** 	for(int i = 0; i < MAX_MACRO; i++){
+ 904              		.loc 1 224 2 view .LVU231
+ 905              	.LBB15:
+ 906              		.loc 1 224 6 view .LVU232
+ 907              		.loc 1 224 10 is_stmt 0 view .LVU233
+ 908 0000 0023     		movs	r3, #0
+ 909              	.LVL72:
+ 910              	.L65:
+ 911              		.loc 1 224 17 is_stmt 1 discriminator 1 view .LVU234
+ 912              		.loc 1 224 2 is_stmt 0 discriminator 1 view .LVU235
+ 913 0002 002B     		cmp	r3, #0
+ 914 0004 01DD     		ble	.L68
+ 915              	.LBE15:
+ 225:Core/Src/oled/marco_page.c **** 		if(combination[i].keybind == value){
+ 226:Core/Src/oled/marco_page.c **** 			return combination[i].macro;
+ 227:Core/Src/oled/marco_page.c **** 		}
+ 228:Core/Src/oled/marco_page.c **** 	}
+ 229:Core/Src/oled/marco_page.c **** 	return NULL;
+ 916              		.loc 1 229 9 view .LVU236
+ 917 0006 0020     		movs	r0, #0
+ 918              	.LVL73:
+ 230:Core/Src/oled/marco_page.c **** }
+ 919              		.loc 1 230 1 view .LVU237
+ 920 0008 7047     		bx	lr
+ 921              	.LVL74:
+ 922              	.L68:
+ 923              	.LBB16:
+ 225:Core/Src/oled/marco_page.c **** 		if(combination[i].keybind == value){
+ 924              		.loc 1 225 3 is_stmt 1 view .LVU238
+ 225:Core/Src/oled/marco_page.c **** 		if(combination[i].keybind == value){
+ 925              		.loc 1 225 20 is_stmt 0 view .LVU239
+ 926 000a 064A     		ldr	r2, .L70
+ 927 000c 12F83320 		ldrb	r2, [r2, r3, lsl #3]	@ zero_extendqisi2
+ 225:Core/Src/oled/marco_page.c **** 		if(combination[i].keybind == value){
+ 928              		.loc 1 225 5 view .LVU240
+ 929 0010 8242     		cmp	r2, r0
+ 930 0012 01D0     		beq	.L69
+ 224:Core/Src/oled/marco_page.c **** 	for(int i = 0; i < MAX_MACRO; i++){
+ 931              		.loc 1 224 32 is_stmt 1 discriminator 2 view .LVU241
+ARM GAS  /tmp/ccDOtSUT.s 			page 25
+
+
+ 224:Core/Src/oled/marco_page.c **** 	for(int i = 0; i < MAX_MACRO; i++){
+ 932              		.loc 1 224 33 is_stmt 0 discriminator 2 view .LVU242
+ 933 0014 0133     		adds	r3, r3, #1
+ 934              	.LVL75:
+ 224:Core/Src/oled/marco_page.c **** 	for(int i = 0; i < MAX_MACRO; i++){
+ 935              		.loc 1 224 33 discriminator 2 view .LVU243
+ 936 0016 F4E7     		b	.L65
+ 937              	.L69:
+ 226:Core/Src/oled/marco_page.c **** 		}
+ 938              		.loc 1 226 4 is_stmt 1 view .LVU244
+ 226:Core/Src/oled/marco_page.c **** 		}
+ 939              		.loc 1 226 25 is_stmt 0 view .LVU245
+ 940 0018 024A     		ldr	r2, .L70
+ 941 001a 02EBC303 		add	r3, r2, r3, lsl #3
+ 942              	.LVL76:
+ 226:Core/Src/oled/marco_page.c **** 		}
+ 943              		.loc 1 226 25 view .LVU246
+ 944 001e 5868     		ldr	r0, [r3, #4]
+ 945              	.LVL77:
+ 226:Core/Src/oled/marco_page.c **** 		}
+ 946              		.loc 1 226 25 view .LVU247
+ 947 0020 7047     		bx	lr
+ 948              	.L71:
+ 949 0022 00BF     		.align	2
+ 950              	.L70:
+ 951 0024 00000000 		.word	combination
+ 952              	.LBE16:
+ 953              		.cfi_endproc
+ 954              	.LFE69:
+ 956              		.comm	combination,8,4
+ 957              		.global	macro_iter
+ 958              		.global	macro_head
+ 959              		.global	keybind
+ 960              		.global	current_macro
+ 961              		.global	current_macro_page
+ 962              		.global	init
+ 963              		.global	macro
+ 964              		.section	.bss.current_macro,"aw",%nobits
+ 965              		.align	2
+ 966              		.set	.LANCHOR1,. + 0
+ 969              	current_macro:
+ 970 0000 00000000 		.space	4
+ 971              		.section	.bss.current_macro_page,"aw",%nobits
+ 972              		.set	.LANCHOR2,. + 0
+ 975              	current_macro_page:
+ 976 0000 00       		.space	1
+ 977              		.section	.bss.init,"aw",%nobits
+ 978              		.set	.LANCHOR0,. + 0
+ 981              	init:
+ 982 0000 00       		.space	1
+ 983              		.section	.bss.macro_head,"aw",%nobits
+ 984              		.align	2
+ 985              		.set	.LANCHOR4,. + 0
+ 988              	macro_head:
+ 989 0000 00000000 		.space	4
+ 990              		.section	.bss.macro_iter,"aw",%nobits
+ 991              		.align	2
+ARM GAS  /tmp/ccDOtSUT.s 			page 26
+
+
+ 992              		.set	.LANCHOR5,. + 0
+ 995              	macro_iter:
+ 996 0000 00000000 		.space	4
+ 997              		.section	.data.keybind,"aw"
+ 998              		.set	.LANCHOR3,. + 0
+ 1001              	keybind:
+ 1002 0000 20       		.byte	32
+ 1003              		.section	.data.macro,"aw"
+ 1004              		.align	2
+ 1007              	macro:
+ 1008 0000 4D616372 		.ascii	"Macro\000"
+ 1008      6F00
+ 1009 0006 00000000 		.space	24
+ 1009      00000000 
+ 1009      00000000 
+ 1009      00000000 
+ 1009      00000000 
+ 1010 001e 0000     		.space	2
+ 1011 0020 00000000 		.word	macro_update
+ 1012 0024 00000000 		.word	macro_onclick
+ 1013 0028 00000000 		.word	macro_init
+ 1014              		.text
+ 1015              	.Letext0:
+ 1016              		.file 2 "/usr/lib/gcc/arm-none-eabi/9.2.1/include/stdint.h"
+ 1017              		.file 3 "Drivers/CMSIS/Include/core_cm3.h"
+ 1018              		.file 4 "Drivers/CMSIS/Device/ST/STM32F1xx/Include/system_stm32f1xx.h"
+ 1019              		.file 5 "Drivers/CMSIS/Device/ST/STM32F1xx/Include/stm32f103xe.h"
+ 1020              		.file 6 "/usr/lib/gcc/arm-none-eabi/9.2.1/include/stddef.h"
+ 1021              		.file 7 "/usr/include/newlib/sys/_types.h"
+ 1022              		.file 8 "/usr/include/newlib/sys/reent.h"
+ 1023              		.file 9 "/usr/include/newlib/sys/lock.h"
+ 1024              		.file 10 "Drivers/STM32F1xx_HAL_Driver/Inc/stm32f1xx_hal_def.h"
+ 1025              		.file 11 "Drivers/STM32F1xx_HAL_Driver/Inc/stm32f1xx_hal_dma.h"
+ 1026              		.file 12 "Drivers/STM32F1xx_HAL_Driver/Inc/stm32f1xx_hal_i2c.h"
+ 1027              		.file 13 "Drivers/STM32F1xx_HAL_Driver/Inc/stm32f1xx_hal.h"
+ 1028              		.file 14 "Core/Inc/oled/ssd1306_fonts.h"
+ 1029              		.file 15 "Core/Inc/oled/ssd1306.h"
+ 1030              		.file 16 "Core/Inc/oled/page_template.h"
+ 1031              		.file 17 "Core/Inc/linked_list.h"
+ 1032              		.file 18 "/usr/include/newlib/math.h"
+ 1033              		.file 19 "Core/Inc/oled/macro_page.h"
+ 1034              		.file 20 "Core/Inc/flash.h"
+ 1035              		.file 21 "/usr/include/newlib/stdio.h"
+ 1036              		.file 22 "<built-in>"
+ARM GAS  /tmp/ccDOtSUT.s 			page 27
+
+
+DEFINED SYMBOLS
+                            *ABS*:0000000000000000 marco_page.c
+     /tmp/ccDOtSUT.s:16     .text.macro_init:0000000000000000 $t
+     /tmp/ccDOtSUT.s:24     .text.macro_init:0000000000000000 macro_init
+     /tmp/ccDOtSUT.s:210    .text.macro_init:000000000000009c $d
+                            *COM*:0000000000000008 combination
+     /tmp/ccDOtSUT.s:217    .rodata.macro_update.str1.4:0000000000000000 $d
+     /tmp/ccDOtSUT.s:233    .text.macro_update:0000000000000000 $t
+     /tmp/ccDOtSUT.s:240    .text.macro_update:0000000000000000 macro_update
+     /tmp/ccDOtSUT.s:509    .text.macro_update:0000000000000160 $d
+     /tmp/ccDOtSUT.s:526    .text.macro_onclick:0000000000000000 $t
+     /tmp/ccDOtSUT.s:533    .text.macro_onclick:0000000000000000 macro_onclick
+     /tmp/ccDOtSUT.s:879    .text.macro_onclick:0000000000000160 $d
+     /tmp/ccDOtSUT.s:889    .text.get_macro:0000000000000000 $t
+     /tmp/ccDOtSUT.s:896    .text.get_macro:0000000000000000 get_macro
+     /tmp/ccDOtSUT.s:951    .text.get_macro:0000000000000024 $d
+     /tmp/ccDOtSUT.s:995    .bss.macro_iter:0000000000000000 macro_iter
+     /tmp/ccDOtSUT.s:988    .bss.macro_head:0000000000000000 macro_head
+     /tmp/ccDOtSUT.s:1001   .data.keybind:0000000000000000 keybind
+     /tmp/ccDOtSUT.s:969    .bss.current_macro:0000000000000000 current_macro
+     /tmp/ccDOtSUT.s:975    .bss.current_macro_page:0000000000000000 current_macro_page
+     /tmp/ccDOtSUT.s:981    .bss.init:0000000000000000 init
+     /tmp/ccDOtSUT.s:1007   .data.macro:0000000000000000 macro
+     /tmp/ccDOtSUT.s:965    .bss.current_macro:0000000000000000 $d
+     /tmp/ccDOtSUT.s:976    .bss.current_macro_page:0000000000000000 $d
+     /tmp/ccDOtSUT.s:982    .bss.init:0000000000000000 $d
+     /tmp/ccDOtSUT.s:984    .bss.macro_head:0000000000000000 $d
+     /tmp/ccDOtSUT.s:991    .bss.macro_iter:0000000000000000 $d
+     /tmp/ccDOtSUT.s:1004   .data.macro:0000000000000000 $d
+
+UNDEFINED SYMBOLS
+memset
+Flash_Read_Data
+create_node
+snprintf
+ssd1306_SetCursor
+ssd1306_WriteString
+ssd1306_WriteChar
+Font_7x10
+delete_all
+Str_To_uint32
+Flash_Write_Data
+delete_node

@@ -1,0 +1,345 @@
+ARM GAS  /tmp/ccDJIZk3.s 			page 1
+
+
+   1              		.cpu cortex-m3
+   2              		.eabi_attribute 20, 1
+   3              		.eabi_attribute 21, 1
+   4              		.eabi_attribute 23, 3
+   5              		.eabi_attribute 24, 1
+   6              		.eabi_attribute 25, 1
+   7              		.eabi_attribute 26, 1
+   8              		.eabi_attribute 30, 1
+   9              		.eabi_attribute 34, 1
+  10              		.eabi_attribute 18, 4
+  11              		.file	"led_mode_page.c"
+  12              		.text
+  13              	.Ltext0:
+  14              		.cfi_sections	.debug_frame
+  15              		.section	.rodata.led_mode_update.str1.4,"aMS",%progbits,1
+  16              		.align	2
+  17              	.LC0:
+  18 0000 53544154 		.ascii	"STATICMODE\000"
+  18      49434D4F 
+  18      444500
+  19 000b 00       		.align	2
+  20              	.LC1:
+  21 000c 42524541 		.ascii	"BREATHMODE\000"
+  21      54484D4F 
+  21      444500
+  22 0017 00       		.align	2
+  23              	.LC2:
+  24 0018 4C4F4F50 		.ascii	"LOOPMODE\000"
+  24      4D4F4445 
+  24      00
+  25 0021 000000   		.align	2
+  26              	.LC3:
+  27 0024 57533238 		.ascii	"WS2812DISABLE\000"
+  27      31324449 
+  27      5341424C 
+  27      4500
+  28 0032 0000     		.align	2
+  29              	.LC4:
+  30 0034 4552524F 		.ascii	"ERROR\000"
+  30      5200
+  31              		.section	.text.led_mode_update,"ax",%progbits
+  32              		.align	1
+  33              		.global	led_mode_update
+  34              		.arch armv7-m
+  35              		.syntax unified
+  36              		.thumb
+  37              		.thumb_func
+  38              		.fpu softvfp
+  40              	led_mode_update:
+  41              	.LFB66:
+  42              		.file 1 "Core/Src/oled/led_mode_page.c"
+   1:Core/Src/oled/led_mode_page.c **** /*
+   2:Core/Src/oled/led_mode_page.c ****  * led_mode_page.c
+   3:Core/Src/oled/led_mode_page.c ****  *
+   4:Core/Src/oled/led_mode_page.c ****  *  Created on: Nov 23, 2021
+   5:Core/Src/oled/led_mode_page.c ****  *      Author: luoshiheng
+   6:Core/Src/oled/led_mode_page.c ****  */
+ARM GAS  /tmp/ccDJIZk3.s 			page 2
+
+
+   7:Core/Src/oled/led_mode_page.c **** 
+   8:Core/Src/oled/led_mode_page.c **** #include "led_mode_page.h"
+   9:Core/Src/oled/led_mode_page.c **** 
+  10:Core/Src/oled/led_mode_page.c **** extern WS2812Mode rgb_mode;
+  11:Core/Src/oled/led_mode_page.c **** 
+  12:Core/Src/oled/led_mode_page.c **** PAGE rgb_pattern = {
+  13:Core/Src/oled/led_mode_page.c **** 		.title = "RGB Mode",
+  14:Core/Src/oled/led_mode_page.c **** 		.update_page = led_mode_update,
+  15:Core/Src/oled/led_mode_page.c **** 		.on_click= led_mode_onclick,
+  16:Core/Src/oled/led_mode_page.c **** 		.init = NULL
+  17:Core/Src/oled/led_mode_page.c **** 
+  18:Core/Src/oled/led_mode_page.c **** };
+  19:Core/Src/oled/led_mode_page.c **** 
+  20:Core/Src/oled/led_mode_page.c **** void led_mode_update(){
+  43              		.loc 1 20 23 view -0
+  44              		.cfi_startproc
+  45              		@ args = 0, pretend = 0, frame = 0
+  46              		@ frame_needed = 0, uses_anonymous_args = 0
+  47 0000 10B5     		push	{r4, lr}
+  48              	.LCFI0:
+  49              		.cfi_def_cfa_offset 8
+  50              		.cfi_offset 4, -8
+  51              		.cfi_offset 14, -4
+  21:Core/Src/oled/led_mode_page.c ****     static char temp[30] = "";
+  52              		.loc 1 21 5 view .LVU1
+  22:Core/Src/oled/led_mode_page.c **** 	switch(rgb_mode){
+  53              		.loc 1 22 2 view .LVU2
+  54 0002 1B4B     		ldr	r3, .L10
+  55 0004 1B78     		ldrb	r3, [r3]	@ zero_extendqisi2
+  56 0006 032B     		cmp	r3, #3
+  57 0008 2BD8     		bhi	.L2
+  58 000a DFE803F0 		tbb	[pc, r3]
+  59              	.L4:
+  60 000e 24       		.byte	(.L7-.L4)/2
+  61 000f 02       		.byte	(.L6-.L4)/2
+  62 0010 15       		.byte	(.L5-.L4)/2
+  63 0011 1E       		.byte	(.L3-.L4)/2
+  64              		.p2align 1
+  65              	.L6:
+  23:Core/Src/oled/led_mode_page.c ****         case STATICMODE:
+  24:Core/Src/oled/led_mode_page.c ****             sprintf(temp, "STATICMODE");
+  66              		.loc 1 24 13 view .LVU3
+  67 0012 184A     		ldr	r2, .L10+4
+  68 0014 184B     		ldr	r3, .L10+8
+  69 0016 07CA     		ldm	r2, {r0, r1, r2}
+  70 0018 03C3     		stmia	r3!, {r0, r1}
+  71 001a 23F8022B 		strh	r2, [r3], #2	@ movhi
+  72 001e 120C     		lsrs	r2, r2, #16
+  73 0020 1A70     		strb	r2, [r3]
+  25:Core/Src/oled/led_mode_page.c ****             break;
+  74              		.loc 1 25 13 view .LVU4
+  75              	.L8:
+  26:Core/Src/oled/led_mode_page.c ****         case BREATHMODE:
+  27:Core/Src/oled/led_mode_page.c ****             sprintf(temp, "BREATHMODE");
+  28:Core/Src/oled/led_mode_page.c ****             break;
+  29:Core/Src/oled/led_mode_page.c ****         case LOOPMODE:
+  30:Core/Src/oled/led_mode_page.c ****             sprintf(temp, "LOOPMODE");
+ARM GAS  /tmp/ccDJIZk3.s 			page 3
+
+
+  31:Core/Src/oled/led_mode_page.c ****             break;
+  32:Core/Src/oled/led_mode_page.c ****         case WS2812DISABLE:
+  33:Core/Src/oled/led_mode_page.c ****             sprintf(temp, "WS2812DISABLE");
+  34:Core/Src/oled/led_mode_page.c ****             break;
+  35:Core/Src/oled/led_mode_page.c ****         default:
+  36:Core/Src/oled/led_mode_page.c ****         	sprintf(temp, "ERROR");
+  37:Core/Src/oled/led_mode_page.c ****         	break;
+  38:Core/Src/oled/led_mode_page.c ****     }
+  39:Core/Src/oled/led_mode_page.c **** 	ssd1306_SetCursor(0, 20);
+  76              		.loc 1 39 2 view .LVU5
+  77 0022 1421     		movs	r1, #20
+  78 0024 0020     		movs	r0, #0
+  79 0026 FFF7FEFF 		bl	ssd1306_SetCursor
+  80              	.LVL0:
+  40:Core/Src/oled/led_mode_page.c **** 	ssd1306_WriteString(temp, Font_7x10, White);
+  81              		.loc 1 40 2 view .LVU6
+  82 002a 144A     		ldr	r2, .L10+12
+  83 002c 0123     		movs	r3, #1
+  84 002e 06CA     		ldm	r2, {r1, r2}
+  85 0030 1148     		ldr	r0, .L10+8
+  86 0032 FFF7FEFF 		bl	ssd1306_WriteString
+  87              	.LVL1:
+  41:Core/Src/oled/led_mode_page.c **** }
+  88              		.loc 1 41 1 is_stmt 0 view .LVU7
+  89 0036 10BD     		pop	{r4, pc}
+  90              	.L5:
+  27:Core/Src/oled/led_mode_page.c ****             break;
+  91              		.loc 1 27 13 is_stmt 1 view .LVU8
+  92 0038 114A     		ldr	r2, .L10+16
+  93 003a 0F4B     		ldr	r3, .L10+8
+  94 003c 07CA     		ldm	r2, {r0, r1, r2}
+  95 003e 03C3     		stmia	r3!, {r0, r1}
+  96 0040 23F8022B 		strh	r2, [r3], #2	@ movhi
+  97 0044 120C     		lsrs	r2, r2, #16
+  98 0046 1A70     		strb	r2, [r3]
+  28:Core/Src/oled/led_mode_page.c ****         case LOOPMODE:
+  99              		.loc 1 28 13 view .LVU9
+ 100 0048 EBE7     		b	.L8
+ 101              	.L3:
+  30:Core/Src/oled/led_mode_page.c ****             break;
+ 102              		.loc 1 30 13 view .LVU10
+ 103 004a 0E4A     		ldr	r2, .L10+20
+ 104 004c 0A4B     		ldr	r3, .L10+8
+ 105 004e 07CA     		ldm	r2, {r0, r1, r2}
+ 106 0050 03C3     		stmia	r3!, {r0, r1}
+ 107 0052 1A70     		strb	r2, [r3]
+  31:Core/Src/oled/led_mode_page.c ****         case WS2812DISABLE:
+ 108              		.loc 1 31 13 view .LVU11
+ 109 0054 E5E7     		b	.L8
+ 110              	.L7:
+  33:Core/Src/oled/led_mode_page.c ****             break;
+ 111              		.loc 1 33 13 view .LVU12
+ 112 0056 0C4B     		ldr	r3, .L10+24
+ 113 0058 074C     		ldr	r4, .L10+8
+ 114 005a 0FCB     		ldm	r3, {r0, r1, r2, r3}
+ 115 005c 07C4     		stmia	r4!, {r0, r1, r2}
+ 116 005e 2380     		strh	r3, [r4]	@ movhi
+ARM GAS  /tmp/ccDJIZk3.s 			page 4
+
+
+  34:Core/Src/oled/led_mode_page.c ****         default:
+ 117              		.loc 1 34 13 view .LVU13
+ 118 0060 DFE7     		b	.L8
+ 119              	.L2:
+  36:Core/Src/oled/led_mode_page.c ****         	break;
+ 120              		.loc 1 36 10 view .LVU14
+ 121 0062 054B     		ldr	r3, .L10+8
+ 122 0064 094A     		ldr	r2, .L10+28
+ 123 0066 92E80300 		ldm	r2, {r0, r1}
+ 124 006a 1860     		str	r0, [r3]
+ 125 006c 9980     		strh	r1, [r3, #4]	@ movhi
+  37:Core/Src/oled/led_mode_page.c ****     }
+ 126              		.loc 1 37 10 view .LVU15
+ 127 006e D8E7     		b	.L8
+ 128              	.L11:
+ 129              		.align	2
+ 130              	.L10:
+ 131 0070 00000000 		.word	rgb_mode
+ 132 0074 00000000 		.word	.LC0
+ 133 0078 00000000 		.word	.LANCHOR0
+ 134 007c 00000000 		.word	Font_7x10
+ 135 0080 0C000000 		.word	.LC1
+ 136 0084 18000000 		.word	.LC2
+ 137 0088 24000000 		.word	.LC3
+ 138 008c 34000000 		.word	.LC4
+ 139              		.cfi_endproc
+ 140              	.LFE66:
+ 142              		.section	.text.led_mode_onclick,"ax",%progbits
+ 143              		.align	1
+ 144              		.global	led_mode_onclick
+ 145              		.syntax unified
+ 146              		.thumb
+ 147              		.thumb_func
+ 148              		.fpu softvfp
+ 150              	led_mode_onclick:
+ 151              	.LVL2:
+ 152              	.LFB67:
+  42:Core/Src/oled/led_mode_page.c **** 
+  43:Core/Src/oled/led_mode_page.c **** void led_mode_onclick(char *combination, int charNum){
+ 153              		.loc 1 43 54 view -0
+ 154              		.cfi_startproc
+ 155              		@ args = 0, pretend = 0, frame = 0
+ 156              		@ frame_needed = 0, uses_anonymous_args = 0
+ 157              		.loc 1 43 54 is_stmt 0 view .LVU17
+ 158 0000 08B5     		push	{r3, lr}
+ 159              	.LCFI1:
+ 160              		.cfi_def_cfa_offset 8
+ 161              		.cfi_offset 3, -8
+ 162              		.cfi_offset 14, -4
+  44:Core/Src/oled/led_mode_page.c **** 	if(combination[0] == 13){
+ 163              		.loc 1 44 2 is_stmt 1 view .LVU18
+ 164              		.loc 1 44 16 is_stmt 0 view .LVU19
+ 165 0002 0378     		ldrb	r3, [r0]	@ zero_extendqisi2
+ 166              		.loc 1 44 4 view .LVU20
+ 167 0004 0D2B     		cmp	r3, #13
+ 168 0006 02D0     		beq	.L15
+ 169              	.L13:
+ARM GAS  /tmp/ccDJIZk3.s 			page 5
+
+
+  45:Core/Src/oled/led_mode_page.c **** 		rgb_mode = (++rgb_mode) % NUM_OF_RGB_MODE;
+  46:Core/Src/oled/led_mode_page.c **** 
+  47:Core/Src/oled/led_mode_page.c **** 	}
+  48:Core/Src/oled/led_mode_page.c **** 	led_mode_update();
+ 170              		.loc 1 48 2 is_stmt 1 view .LVU21
+ 171 0008 FFF7FEFF 		bl	led_mode_update
+ 172              	.LVL3:
+  49:Core/Src/oled/led_mode_page.c **** 
+  50:Core/Src/oled/led_mode_page.c **** }
+ 173              		.loc 1 50 1 is_stmt 0 view .LVU22
+ 174 000c 08BD     		pop	{r3, pc}
+ 175              	.LVL4:
+ 176              	.L15:
+  45:Core/Src/oled/led_mode_page.c **** 		rgb_mode = (++rgb_mode) % NUM_OF_RGB_MODE;
+ 177              		.loc 1 45 3 is_stmt 1 view .LVU23
+  45:Core/Src/oled/led_mode_page.c **** 		rgb_mode = (++rgb_mode) % NUM_OF_RGB_MODE;
+ 178              		.loc 1 45 27 is_stmt 0 view .LVU24
+ 179 000e 034A     		ldr	r2, .L16
+ 180 0010 1378     		ldrb	r3, [r2]	@ zero_extendqisi2
+ 181 0012 0133     		adds	r3, r3, #1
+ 182 0014 03F00303 		and	r3, r3, #3
+  45:Core/Src/oled/led_mode_page.c **** 		rgb_mode = (++rgb_mode) % NUM_OF_RGB_MODE;
+ 183              		.loc 1 45 12 view .LVU25
+ 184 0018 1370     		strb	r3, [r2]
+ 185 001a F5E7     		b	.L13
+ 186              	.L17:
+ 187              		.align	2
+ 188              	.L16:
+ 189 001c 00000000 		.word	rgb_mode
+ 190              		.cfi_endproc
+ 191              	.LFE67:
+ 193              		.global	rgb_pattern
+ 194              		.section	.bss.temp.8261,"aw",%nobits
+ 195              		.align	2
+ 196              		.set	.LANCHOR0,. + 0
+ 199              	temp.8261:
+ 200 0000 00000000 		.space	30
+ 200      00000000 
+ 200      00000000 
+ 200      00000000 
+ 200      00000000 
+ 201              		.section	.data.rgb_pattern,"aw"
+ 202              		.align	2
+ 205              	rgb_pattern:
+ 206 0000 52474220 		.ascii	"RGB Mode\000"
+ 206      4D6F6465 
+ 206      00
+ 207 0009 00000000 		.space	21
+ 207      00000000 
+ 207      00000000 
+ 207      00000000 
+ 207      00000000 
+ 208 001e 0000     		.space	2
+ 209 0020 00000000 		.word	led_mode_update
+ 210 0024 00000000 		.word	led_mode_onclick
+ 211 0028 00000000 		.word	0
+ 212              		.text
+ARM GAS  /tmp/ccDJIZk3.s 			page 6
+
+
+ 213              	.Letext0:
+ 214              		.file 2 "/usr/lib/gcc/arm-none-eabi/9.2.1/include/stdint.h"
+ 215              		.file 3 "Drivers/CMSIS/Include/core_cm3.h"
+ 216              		.file 4 "Drivers/CMSIS/Device/ST/STM32F1xx/Include/system_stm32f1xx.h"
+ 217              		.file 5 "Drivers/CMSIS/Device/ST/STM32F1xx/Include/stm32f103xe.h"
+ 218              		.file 6 "/usr/lib/gcc/arm-none-eabi/9.2.1/include/stddef.h"
+ 219              		.file 7 "/usr/include/newlib/sys/_types.h"
+ 220              		.file 8 "/usr/include/newlib/sys/reent.h"
+ 221              		.file 9 "/usr/include/newlib/sys/lock.h"
+ 222              		.file 10 "Drivers/STM32F1xx_HAL_Driver/Inc/stm32f1xx_hal_def.h"
+ 223              		.file 11 "Drivers/STM32F1xx_HAL_Driver/Inc/stm32f1xx_hal_dma.h"
+ 224              		.file 12 "Drivers/STM32F1xx_HAL_Driver/Inc/stm32f1xx_hal_i2c.h"
+ 225              		.file 13 "Drivers/STM32F1xx_HAL_Driver/Inc/stm32f1xx_hal.h"
+ 226              		.file 14 "Core/Inc/oled/ssd1306_fonts.h"
+ 227              		.file 15 "Core/Inc/oled/ssd1306.h"
+ 228              		.file 16 "Core/Inc/oled/page_template.h"
+ 229              		.file 17 "/usr/include/newlib/stdlib.h"
+ 230              		.file 18 "Core/Inc/RGB.h"
+ARM GAS  /tmp/ccDJIZk3.s 			page 7
+
+
+DEFINED SYMBOLS
+                            *ABS*:0000000000000000 led_mode_page.c
+     /tmp/ccDJIZk3.s:16     .rodata.led_mode_update.str1.4:0000000000000000 $d
+     /tmp/ccDJIZk3.s:32     .text.led_mode_update:0000000000000000 $t
+     /tmp/ccDJIZk3.s:40     .text.led_mode_update:0000000000000000 led_mode_update
+     /tmp/ccDJIZk3.s:60     .text.led_mode_update:000000000000000e $d
+     /tmp/ccDJIZk3.s:64     .text.led_mode_update:0000000000000012 $t
+     /tmp/ccDJIZk3.s:131    .text.led_mode_update:0000000000000070 $d
+     /tmp/ccDJIZk3.s:143    .text.led_mode_onclick:0000000000000000 $t
+     /tmp/ccDJIZk3.s:150    .text.led_mode_onclick:0000000000000000 led_mode_onclick
+     /tmp/ccDJIZk3.s:189    .text.led_mode_onclick:000000000000001c $d
+     /tmp/ccDJIZk3.s:205    .data.rgb_pattern:0000000000000000 rgb_pattern
+     /tmp/ccDJIZk3.s:195    .bss.temp.8261:0000000000000000 $d
+     /tmp/ccDJIZk3.s:199    .bss.temp.8261:0000000000000000 temp.8261
+     /tmp/ccDJIZk3.s:202    .data.rgb_pattern:0000000000000000 $d
+
+UNDEFINED SYMBOLS
+ssd1306_SetCursor
+ssd1306_WriteString
+rgb_mode
+Font_7x10

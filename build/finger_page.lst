@@ -1,0 +1,483 @@
+ARM GAS  /tmp/ccpCdV1G.s 			page 1
+
+
+   1              		.cpu cortex-m3
+   2              		.eabi_attribute 20, 1
+   3              		.eabi_attribute 21, 1
+   4              		.eabi_attribute 23, 3
+   5              		.eabi_attribute 24, 1
+   6              		.eabi_attribute 25, 1
+   7              		.eabi_attribute 26, 1
+   8              		.eabi_attribute 30, 1
+   9              		.eabi_attribute 34, 1
+  10              		.eabi_attribute 18, 4
+  11              		.file	"finger_page.c"
+  12              		.text
+  13              	.Ltext0:
+  14              		.cfi_sections	.debug_frame
+  15              		.section	.rodata.finger_update.str1.4,"aMS",%progbits,1
+  16              		.align	2
+  17              	.LC0:
+  18 0000 4572726F 		.ascii	"Error\000"
+  18      7200
+  19 0006 0000     		.align	2
+  20              	.LC1:
+  21 0008 5265636F 		.ascii	"Recorded\000"
+  21      72646564 
+  21      00
+  22 0011 000000   		.align	2
+  23              	.LC2:
+  24 0014 46696E67 		.ascii	"Finger Saved\000"
+  24      65722053 
+  24      61766564 
+  24      00
+  25 0021 000000   		.align	2
+  26              	.LC3:
+  27 0024 4E6F2046 		.ascii	"No Finger Saved\000"
+  27      696E6765 
+  27      72205361 
+  27      76656400 
+  28              		.align	2
+  29              	.LC4:
+  30 0034 53657420 		.ascii	"Set Fingerprint\000"
+  30      46696E67 
+  30      65727072 
+  30      696E7400 
+  31              		.align	2
+  32              	.LC5:
+  33 0044 456E7465 		.ascii	"Enter to Start\000"
+  33      7220746F 
+  33      20537461 
+  33      727400
+  34 0053 00       		.align	2
+  35              	.LC6:
+  36 0054 46696E67 		.ascii	"Finger %s\000"
+  36      65722025 
+  36      7300
+  37              		.section	.text.finger_update,"ax",%progbits
+  38              		.align	1
+  39              		.global	finger_update
+  40              		.arch armv7-m
+ARM GAS  /tmp/ccpCdV1G.s 			page 2
+
+
+  41              		.syntax unified
+  42              		.thumb
+  43              		.thumb_func
+  44              		.fpu softvfp
+  46              	finger_update:
+  47              	.LFB66:
+  48              		.file 1 "Core/Src/oled/finger_page.c"
+   1:Core/Src/oled/finger_page.c **** /*
+   2:Core/Src/oled/finger_page.c ****  * finger_page.c
+   3:Core/Src/oled/finger_page.c ****  *
+   4:Core/Src/oled/finger_page.c ****  *  Created on: Nov 19, 2021
+   5:Core/Src/oled/finger_page.c ****  *      Author: Steven
+   6:Core/Src/oled/finger_page.c ****  */
+   7:Core/Src/oled/finger_page.c **** #include "finger_page.h"
+   8:Core/Src/oled/finger_page.c **** 
+   9:Core/Src/oled/finger_page.c **** uint8_t current_page = 0;
+  10:Core/Src/oled/finger_page.c **** 
+  11:Core/Src/oled/finger_page.c **** PAGE finger = {
+  12:Core/Src/oled/finger_page.c **** 		.title = "Fingerprint",
+  13:Core/Src/oled/finger_page.c **** 		.update_page = finger_update,
+  14:Core/Src/oled/finger_page.c **** 		.on_click = finger_onclick,
+  15:Core/Src/oled/finger_page.c **** 		.init = NULL
+  16:Core/Src/oled/finger_page.c **** };
+  17:Core/Src/oled/finger_page.c **** 
+  18:Core/Src/oled/finger_page.c **** finger_page page_mode = DEFAULT;
+  19:Core/Src/oled/finger_page.c **** 
+  20:Core/Src/oled/finger_page.c **** uint8_t fingerprint_mode = 0;
+  21:Core/Src/oled/finger_page.c **** uint8_t macro_mode = 0;
+  22:Core/Src/oled/finger_page.c **** //the function of the fingerprint is just to set macro and
+  23:Core/Src/oled/finger_page.c **** //fingerprint.
+  24:Core/Src/oled/finger_page.c **** 
+  25:Core/Src/oled/finger_page.c **** void finger_update(){
+  49              		.loc 1 25 21 view -0
+  50              		.cfi_startproc
+  51              		@ args = 0, pretend = 0, frame = 32
+  52              		@ frame_needed = 0, uses_anonymous_args = 0
+  53 0000 70B5     		push	{r4, r5, r6, lr}
+  54              	.LCFI0:
+  55              		.cfi_def_cfa_offset 16
+  56              		.cfi_offset 4, -16
+  57              		.cfi_offset 5, -12
+  58              		.cfi_offset 6, -8
+  59              		.cfi_offset 14, -4
+  60 0002 88B0     		sub	sp, sp, #32
+  61              	.LCFI1:
+  62              		.cfi_def_cfa_offset 48
+  26:Core/Src/oled/finger_page.c **** 	char temp[30];
+  63              		.loc 1 26 2 view .LVU1
+  27:Core/Src/oled/finger_page.c **** 	snprintf(temp, 30, "Set Fingerprint");
+  64              		.loc 1 27 2 view .LVU2
+  65 0004 6C46     		mov	r4, sp
+  66 0006 254B     		ldr	r3, .L7
+  67 0008 0FCB     		ldm	r3, {r0, r1, r2, r3}
+  68 000a 84E80F00 		stm	r4, {r0, r1, r2, r3}
+  28:Core/Src/oled/finger_page.c **** 	ssd1306_SetCursor(0, 20);
+  69              		.loc 1 28 2 view .LVU3
+  70 000e 1421     		movs	r1, #20
+ARM GAS  /tmp/ccpCdV1G.s 			page 3
+
+
+  71 0010 0020     		movs	r0, #0
+  72 0012 FFF7FEFF 		bl	ssd1306_SetCursor
+  73              	.LVL0:
+  29:Core/Src/oled/finger_page.c **** 	ssd1306_WriteString(temp, Font_6x8, White);
+  74              		.loc 1 29 2 view .LVU4
+  75 0016 224E     		ldr	r6, .L7+4
+  76 0018 0123     		movs	r3, #1
+  77 001a 96E80600 		ldm	r6, {r1, r2}
+  78 001e 2046     		mov	r0, r4
+  79 0020 FFF7FEFF 		bl	ssd1306_WriteString
+  80              	.LVL1:
+  30:Core/Src/oled/finger_page.c **** 
+  31:Core/Src/oled/finger_page.c **** 	snprintf(temp, 30, "Enter to Start");
+  81              		.loc 1 31 2 view .LVU5
+  82 0024 1F4B     		ldr	r3, .L7+8
+  83 0026 2546     		mov	r5, r4
+  84 0028 0FCB     		ldm	r3, {r0, r1, r2, r3}
+  85 002a 07C5     		stmia	r5!, {r0, r1, r2}
+  86 002c 2B80     		strh	r3, [r5]	@ movhi
+  87 002e 1B0C     		lsrs	r3, r3, #16
+  88 0030 A373     		strb	r3, [r4, #14]
+  32:Core/Src/oled/finger_page.c **** 	ssd1306_SetCursor(0, 30);
+  89              		.loc 1 32 2 view .LVU6
+  90 0032 1E21     		movs	r1, #30
+  91 0034 0020     		movs	r0, #0
+  92 0036 FFF7FEFF 		bl	ssd1306_SetCursor
+  93              	.LVL2:
+  33:Core/Src/oled/finger_page.c **** 	ssd1306_WriteString(temp, Font_6x8, White);
+  94              		.loc 1 33 2 view .LVU7
+  95 003a 0123     		movs	r3, #1
+  96 003c 96E80600 		ldm	r6, {r1, r2}
+  97 0040 2046     		mov	r0, r4
+  98 0042 FFF7FEFF 		bl	ssd1306_WriteString
+  99              	.LVL3:
+  34:Core/Src/oled/finger_page.c **** 
+  35:Core/Src/oled/finger_page.c **** 	if(fingerprint_mode >= 0){
+ 100              		.loc 1 35 2 view .LVU8
+  36:Core/Src/oled/finger_page.c **** 		snprintf(temp, 30, "Finger %s", fingerprint_mode == 0? "Recorded" : "Error");
+ 101              		.loc 1 36 3 view .LVU9
+ 102              		.loc 1 36 52 is_stmt 0 view .LVU10
+ 103 0046 184B     		ldr	r3, .L7+12
+ 104 0048 1B78     		ldrb	r3, [r3]	@ zero_extendqisi2
+ 105              		.loc 1 36 3 view .LVU11
+ 106 004a 1BBB     		cbnz	r3, .L4
+ 107 004c 174B     		ldr	r3, .L7+16
+ 108              	.L2:
+ 109              		.loc 1 36 3 discriminator 4 view .LVU12
+ 110 004e 184A     		ldr	r2, .L7+20
+ 111 0050 1E21     		movs	r1, #30
+ 112 0052 6846     		mov	r0, sp
+ 113 0054 FFF7FEFF 		bl	snprintf
+ 114              	.LVL4:
+  37:Core/Src/oled/finger_page.c **** 		ssd1306_SetCursor(0, 40);
+ 115              		.loc 1 37 3 is_stmt 1 discriminator 4 view .LVU13
+ 116 0058 2821     		movs	r1, #40
+ 117 005a 0020     		movs	r0, #0
+ 118 005c FFF7FEFF 		bl	ssd1306_SetCursor
+ARM GAS  /tmp/ccpCdV1G.s 			page 4
+
+
+ 119              	.LVL5:
+  38:Core/Src/oled/finger_page.c **** 		ssd1306_WriteString(temp, Font_6x8, White);
+ 120              		.loc 1 38 3 discriminator 4 view .LVU14
+ 121 0060 0F4A     		ldr	r2, .L7+4
+ 122 0062 0123     		movs	r3, #1
+ 123 0064 06CA     		ldm	r2, {r1, r2}
+ 124 0066 6846     		mov	r0, sp
+ 125 0068 FFF7FEFF 		bl	ssd1306_WriteString
+ 126              	.LVL6:
+  39:Core/Src/oled/finger_page.c **** 	}
+  40:Core/Src/oled/finger_page.c **** 
+  41:Core/Src/oled/finger_page.c **** 	uint16_t template_num = get_template_number();
+ 127              		.loc 1 41 2 discriminator 4 view .LVU15
+ 128              		.loc 1 41 26 is_stmt 0 discriminator 4 view .LVU16
+ 129 006c FFF7FEFF 		bl	get_template_number
+ 130              	.LVL7:
+  42:Core/Src/oled/finger_page.c **** 	snprintf(temp, 30, template_num == 0 ? "No Finger Saved" : "Finger Saved");
+ 131              		.loc 1 42 2 is_stmt 1 discriminator 4 view .LVU17
+ 132 0070 90B9     		cbnz	r0, .L5
+ 133              		.loc 1 42 2 is_stmt 0 view .LVU18
+ 134 0072 104A     		ldr	r2, .L7+24
+ 135              	.L3:
+ 136              		.loc 1 42 2 discriminator 4 view .LVU19
+ 137 0074 1E21     		movs	r1, #30
+ 138 0076 6846     		mov	r0, sp
+ 139              	.LVL8:
+ 140              		.loc 1 42 2 discriminator 4 view .LVU20
+ 141 0078 FFF7FEFF 		bl	snprintf
+ 142              	.LVL9:
+  43:Core/Src/oled/finger_page.c **** 	ssd1306_SetCursor(0, 50);
+ 143              		.loc 1 43 2 is_stmt 1 discriminator 4 view .LVU21
+ 144 007c 3221     		movs	r1, #50
+ 145 007e 0020     		movs	r0, #0
+ 146 0080 FFF7FEFF 		bl	ssd1306_SetCursor
+ 147              	.LVL10:
+  44:Core/Src/oled/finger_page.c **** 	ssd1306_WriteString(temp, Font_6x8, White);
+ 148              		.loc 1 44 2 discriminator 4 view .LVU22
+ 149 0084 064A     		ldr	r2, .L7+4
+ 150 0086 0123     		movs	r3, #1
+ 151 0088 06CA     		ldm	r2, {r1, r2}
+ 152 008a 6846     		mov	r0, sp
+ 153 008c FFF7FEFF 		bl	ssd1306_WriteString
+ 154              	.LVL11:
+  45:Core/Src/oled/finger_page.c **** }
+ 155              		.loc 1 45 1 is_stmt 0 discriminator 4 view .LVU23
+ 156 0090 08B0     		add	sp, sp, #32
+ 157              	.LCFI2:
+ 158              		.cfi_remember_state
+ 159              		.cfi_def_cfa_offset 16
+ 160              		@ sp needed
+ 161 0092 70BD     		pop	{r4, r5, r6, pc}
+ 162              	.L4:
+ 163              	.LCFI3:
+ 164              		.cfi_restore_state
+  36:Core/Src/oled/finger_page.c **** 		ssd1306_SetCursor(0, 40);
+ 165              		.loc 1 36 3 view .LVU24
+ 166 0094 084B     		ldr	r3, .L7+28
+ARM GAS  /tmp/ccpCdV1G.s 			page 5
+
+
+ 167 0096 DAE7     		b	.L2
+ 168              	.LVL12:
+ 169              	.L5:
+  42:Core/Src/oled/finger_page.c **** 	ssd1306_SetCursor(0, 50);
+ 170              		.loc 1 42 2 view .LVU25
+ 171 0098 084A     		ldr	r2, .L7+32
+ 172 009a EBE7     		b	.L3
+ 173              	.L8:
+ 174              		.align	2
+ 175              	.L7:
+ 176 009c 34000000 		.word	.LC4
+ 177 00a0 00000000 		.word	Font_6x8
+ 178 00a4 44000000 		.word	.LC5
+ 179 00a8 00000000 		.word	.LANCHOR0
+ 180 00ac 08000000 		.word	.LC1
+ 181 00b0 54000000 		.word	.LC6
+ 182 00b4 24000000 		.word	.LC3
+ 183 00b8 00000000 		.word	.LC0
+ 184 00bc 14000000 		.word	.LC2
+ 185              		.cfi_endproc
+ 186              	.LFE66:
+ 188              		.section	.text.finger_onclick,"ax",%progbits
+ 189              		.align	1
+ 190              		.global	finger_onclick
+ 191              		.syntax unified
+ 192              		.thumb
+ 193              		.thumb_func
+ 194              		.fpu softvfp
+ 196              	finger_onclick:
+ 197              	.LVL13:
+ 198              	.LFB67:
+  46:Core/Src/oled/finger_page.c **** 
+  47:Core/Src/oled/finger_page.c **** void finger_onclick(char *combination, int charNum){
+ 199              		.loc 1 47 52 is_stmt 1 view -0
+ 200              		.cfi_startproc
+ 201              		@ args = 0, pretend = 0, frame = 0
+ 202              		@ frame_needed = 0, uses_anonymous_args = 0
+ 203              		.loc 1 47 52 is_stmt 0 view .LVU27
+ 204 0000 08B5     		push	{r3, lr}
+ 205              	.LCFI4:
+ 206              		.cfi_def_cfa_offset 8
+ 207              		.cfi_offset 3, -8
+ 208              		.cfi_offset 14, -4
+  48:Core/Src/oled/finger_page.c **** 
+  49:Core/Src/oled/finger_page.c **** 	if(page_mode == DEFAULT && current_page == 0){
+ 209              		.loc 1 49 2 is_stmt 1 view .LVU28
+ 210              		.loc 1 49 15 is_stmt 0 view .LVU29
+ 211 0002 0F4B     		ldr	r3, .L17
+ 212 0004 1B78     		ldrb	r3, [r3]	@ zero_extendqisi2
+ 213              		.loc 1 49 4 view .LVU30
+ 214 0006 4BB9     		cbnz	r3, .L10
+ 215              		.loc 1 49 42 discriminator 1 view .LVU31
+ 216 0008 0E4B     		ldr	r3, .L17+4
+ 217 000a 1B78     		ldrb	r3, [r3]	@ zero_extendqisi2
+ 218              		.loc 1 49 26 discriminator 1 view .LVU32
+ 219 000c 33B9     		cbnz	r3, .L10
+  50:Core/Src/oled/finger_page.c **** 		if(combination[0] == 13){
+ARM GAS  /tmp/ccpCdV1G.s 			page 6
+
+
+ 220              		.loc 1 50 3 is_stmt 1 view .LVU33
+ 221              		.loc 1 50 17 is_stmt 0 view .LVU34
+ 222 000e 0378     		ldrb	r3, [r0]	@ zero_extendqisi2
+ 223              		.loc 1 50 5 view .LVU35
+ 224 0010 0D2B     		cmp	r3, #13
+ 225 0012 06D0     		beq	.L14
+  51:Core/Src/oled/finger_page.c **** 			//start scanning the shit
+  52:Core/Src/oled/finger_page.c **** 			fingerprint_mode = save_fingerprint(0);
+  53:Core/Src/oled/finger_page.c **** 		}
+  54:Core/Src/oled/finger_page.c **** 
+  55:Core/Src/oled/finger_page.c **** 		else if(combination[0] == 129){
+ 226              		.loc 1 55 8 is_stmt 1 view .LVU36
+ 227              		.loc 1 55 10 is_stmt 0 view .LVU37
+ 228 0014 812B     		cmp	r3, #129
+ 229 0016 0AD0     		beq	.L15
+  56:Core/Src/oled/finger_page.c **** 			//start scanning the shit
+  57:Core/Src/oled/finger_page.c **** 			reset_database();
+  58:Core/Src/oled/finger_page.c **** 			fingerprint_mode = -1;
+  59:Core/Src/oled/finger_page.c **** 
+  60:Core/Src/oled/finger_page.c **** 		}
+  61:Core/Src/oled/finger_page.c **** 		else if(combination[0] == 130){
+ 230              		.loc 1 61 8 is_stmt 1 view .LVU38
+ 231              		.loc 1 61 10 is_stmt 0 view .LVU39
+ 232 0018 822B     		cmp	r3, #130
+ 233 001a 0ED0     		beq	.L16
+ 234              	.LVL14:
+ 235              	.L10:
+  62:Core/Src/oled/finger_page.c **** 			check_fingerprint();
+  63:Core/Src/oled/finger_page.c **** 
+  64:Core/Src/oled/finger_page.c **** 		}
+  65:Core/Src/oled/finger_page.c **** 	}
+  66:Core/Src/oled/finger_page.c **** 	finger_update();
+ 236              		.loc 1 66 2 is_stmt 1 view .LVU40
+ 237 001c FFF7FEFF 		bl	finger_update
+ 238              	.LVL15:
+  67:Core/Src/oled/finger_page.c **** }
+ 239              		.loc 1 67 1 is_stmt 0 view .LVU41
+ 240 0020 08BD     		pop	{r3, pc}
+ 241              	.LVL16:
+ 242              	.L14:
+  52:Core/Src/oled/finger_page.c **** 		}
+ 243              		.loc 1 52 4 is_stmt 1 view .LVU42
+  52:Core/Src/oled/finger_page.c **** 		}
+ 244              		.loc 1 52 23 is_stmt 0 view .LVU43
+ 245 0022 0020     		movs	r0, #0
+ 246              	.LVL17:
+  52:Core/Src/oled/finger_page.c **** 		}
+ 247              		.loc 1 52 23 view .LVU44
+ 248 0024 FFF7FEFF 		bl	save_fingerprint
+ 249              	.LVL18:
+  52:Core/Src/oled/finger_page.c **** 		}
+ 250              		.loc 1 52 21 view .LVU45
+ 251 0028 074B     		ldr	r3, .L17+8
+ 252 002a 1870     		strb	r0, [r3]
+ 253 002c F6E7     		b	.L10
+ 254              	.LVL19:
+ 255              	.L15:
+ARM GAS  /tmp/ccpCdV1G.s 			page 7
+
+
+  57:Core/Src/oled/finger_page.c **** 			fingerprint_mode = -1;
+ 256              		.loc 1 57 4 is_stmt 1 view .LVU46
+ 257 002e FFF7FEFF 		bl	reset_database
+ 258              	.LVL20:
+  58:Core/Src/oled/finger_page.c **** 
+ 259              		.loc 1 58 4 view .LVU47
+  58:Core/Src/oled/finger_page.c **** 
+ 260              		.loc 1 58 21 is_stmt 0 view .LVU48
+ 261 0032 054B     		ldr	r3, .L17+8
+ 262 0034 FF22     		movs	r2, #255
+ 263 0036 1A70     		strb	r2, [r3]
+ 264 0038 F0E7     		b	.L10
+ 265              	.LVL21:
+ 266              	.L16:
+  62:Core/Src/oled/finger_page.c **** 
+ 267              		.loc 1 62 4 is_stmt 1 view .LVU49
+ 268 003a FFF7FEFF 		bl	check_fingerprint
+ 269              	.LVL22:
+  62:Core/Src/oled/finger_page.c **** 
+ 270              		.loc 1 62 4 is_stmt 0 view .LVU50
+ 271 003e EDE7     		b	.L10
+ 272              	.L18:
+ 273              		.align	2
+ 274              	.L17:
+ 275 0040 00000000 		.word	.LANCHOR1
+ 276 0044 00000000 		.word	.LANCHOR2
+ 277 0048 00000000 		.word	.LANCHOR0
+ 278              		.cfi_endproc
+ 279              	.LFE67:
+ 281              		.global	macro_mode
+ 282              		.global	fingerprint_mode
+ 283              		.global	page_mode
+ 284              		.global	finger
+ 285              		.global	current_page
+ 286              		.section	.bss.current_page,"aw",%nobits
+ 287              		.set	.LANCHOR2,. + 0
+ 290              	current_page:
+ 291 0000 00       		.space	1
+ 292              		.section	.bss.fingerprint_mode,"aw",%nobits
+ 293              		.set	.LANCHOR0,. + 0
+ 296              	fingerprint_mode:
+ 297 0000 00       		.space	1
+ 298              		.section	.bss.macro_mode,"aw",%nobits
+ 301              	macro_mode:
+ 302 0000 00       		.space	1
+ 303              		.section	.bss.page_mode,"aw",%nobits
+ 304              		.set	.LANCHOR1,. + 0
+ 307              	page_mode:
+ 308 0000 00       		.space	1
+ 309              		.section	.data.finger,"aw"
+ 310              		.align	2
+ 313              	finger:
+ 314 0000 46696E67 		.ascii	"Fingerprint\000"
+ 314      65727072 
+ 314      696E7400 
+ 315 000c 00000000 		.space	18
+ 315      00000000 
+ARM GAS  /tmp/ccpCdV1G.s 			page 8
+
+
+ 315      00000000 
+ 315      00000000 
+ 315      0000
+ 316 001e 0000     		.space	2
+ 317 0020 00000000 		.word	finger_update
+ 318 0024 00000000 		.word	finger_onclick
+ 319 0028 00000000 		.word	0
+ 320              		.text
+ 321              	.Letext0:
+ 322              		.file 2 "/usr/lib/gcc/arm-none-eabi/9.2.1/include/stdint.h"
+ 323              		.file 3 "Drivers/CMSIS/Include/core_cm3.h"
+ 324              		.file 4 "Drivers/CMSIS/Device/ST/STM32F1xx/Include/system_stm32f1xx.h"
+ 325              		.file 5 "Drivers/CMSIS/Device/ST/STM32F1xx/Include/stm32f103xe.h"
+ 326              		.file 6 "/usr/lib/gcc/arm-none-eabi/9.2.1/include/stddef.h"
+ 327              		.file 7 "/usr/include/newlib/sys/_types.h"
+ 328              		.file 8 "/usr/include/newlib/sys/reent.h"
+ 329              		.file 9 "/usr/include/newlib/sys/lock.h"
+ 330              		.file 10 "Drivers/STM32F1xx_HAL_Driver/Inc/stm32f1xx_hal_def.h"
+ 331              		.file 11 "Drivers/STM32F1xx_HAL_Driver/Inc/stm32f1xx_hal_dma.h"
+ 332              		.file 12 "Drivers/STM32F1xx_HAL_Driver/Inc/stm32f1xx_hal_i2c.h"
+ 333              		.file 13 "Drivers/STM32F1xx_HAL_Driver/Inc/stm32f1xx_hal_uart.h"
+ 334              		.file 14 "Drivers/STM32F1xx_HAL_Driver/Inc/stm32f1xx_hal.h"
+ 335              		.file 15 "Core/Inc/oled/ssd1306_fonts.h"
+ 336              		.file 16 "Core/Inc/oled/ssd1306.h"
+ 337              		.file 17 "Core/Inc/oled/page_template.h"
+ 338              		.file 18 "Core/Inc/fingerprint.h"
+ 339              		.file 19 "Core/Inc/oled/finger_page.h"
+ 340              		.file 20 "/usr/include/newlib/stdio.h"
+ARM GAS  /tmp/ccpCdV1G.s 			page 9
+
+
+DEFINED SYMBOLS
+                            *ABS*:0000000000000000 finger_page.c
+     /tmp/ccpCdV1G.s:16     .rodata.finger_update.str1.4:0000000000000000 $d
+     /tmp/ccpCdV1G.s:38     .text.finger_update:0000000000000000 $t
+     /tmp/ccpCdV1G.s:46     .text.finger_update:0000000000000000 finger_update
+     /tmp/ccpCdV1G.s:176    .text.finger_update:000000000000009c $d
+     /tmp/ccpCdV1G.s:189    .text.finger_onclick:0000000000000000 $t
+     /tmp/ccpCdV1G.s:196    .text.finger_onclick:0000000000000000 finger_onclick
+     /tmp/ccpCdV1G.s:275    .text.finger_onclick:0000000000000040 $d
+     /tmp/ccpCdV1G.s:301    .bss.macro_mode:0000000000000000 macro_mode
+     /tmp/ccpCdV1G.s:296    .bss.fingerprint_mode:0000000000000000 fingerprint_mode
+     /tmp/ccpCdV1G.s:307    .bss.page_mode:0000000000000000 page_mode
+     /tmp/ccpCdV1G.s:313    .data.finger:0000000000000000 finger
+     /tmp/ccpCdV1G.s:290    .bss.current_page:0000000000000000 current_page
+     /tmp/ccpCdV1G.s:291    .bss.current_page:0000000000000000 $d
+     /tmp/ccpCdV1G.s:297    .bss.fingerprint_mode:0000000000000000 $d
+     /tmp/ccpCdV1G.s:302    .bss.macro_mode:0000000000000000 $d
+     /tmp/ccpCdV1G.s:308    .bss.page_mode:0000000000000000 $d
+     /tmp/ccpCdV1G.s:310    .data.finger:0000000000000000 $d
+
+UNDEFINED SYMBOLS
+ssd1306_SetCursor
+ssd1306_WriteString
+snprintf
+get_template_number
+Font_6x8
+save_fingerprint
+reset_database
+check_fingerprint

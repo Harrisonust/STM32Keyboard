@@ -1,0 +1,1570 @@
+ARM GAS  /tmp/ccW9g89E.s 			page 1
+
+
+   1              		.cpu cortex-m3
+   2              		.eabi_attribute 20, 1
+   3              		.eabi_attribute 21, 1
+   4              		.eabi_attribute 23, 3
+   5              		.eabi_attribute 24, 1
+   6              		.eabi_attribute 25, 1
+   7              		.eabi_attribute 26, 1
+   8              		.eabi_attribute 30, 1
+   9              		.eabi_attribute 34, 1
+  10              		.eabi_attribute 18, 4
+  11              		.file	"fingerprint.c"
+  12              		.text
+  13              	.Ltext0:
+  14              		.cfi_sections	.debug_frame
+  15              		.section	.text.setup_packet,"ax",%progbits
+  16              		.align	1
+  17              		.global	setup_packet
+  18              		.arch armv7-m
+  19              		.syntax unified
+  20              		.thumb
+  21              		.thumb_func
+  22              		.fpu softvfp
+  24              	setup_packet:
+  25              	.LVL0:
+  26              	.LFB67:
+  27              		.file 1 "Core/Src/fingerprint.c"
+   1:Core/Src/fingerprint.c **** /*
+   2:Core/Src/fingerprint.c ****  * fingerprint.c
+   3:Core/Src/fingerprint.c ****  *
+   4:Core/Src/fingerprint.c ****  *  Created on: Nov 18, 2021
+   5:Core/Src/fingerprint.c ****  *      Author: Steven
+   6:Core/Src/fingerprint.c ****  */
+   7:Core/Src/fingerprint.c **** 
+   8:Core/Src/fingerprint.c **** #include "fingerprint.h"
+   9:Core/Src/fingerprint.c **** 
+  10:Core/Src/fingerprint.c **** F_Packet fpacket = {
+  11:Core/Src/fingerprint.c **** 		.start_code = FINGERPRINT_STARTCODE,
+  12:Core/Src/fingerprint.c **** 		.address = 0xFFFFFFFF,
+  13:Core/Src/fingerprint.c **** 		.type = FINGERPRINT_COMMANDPACKET,
+  14:Core/Src/fingerprint.c **** 		};
+  15:Core/Src/fingerprint.c **** 
+  16:Core/Src/fingerprint.c **** F_Packet rpacket;
+  17:Core/Src/fingerprint.c **** 
+  18:Core/Src/fingerprint.c **** uint16_t status_reg = 0x0; ///< The status register (set by getParameters)
+  19:Core/Src/fingerprint.c **** uint16_t system_id = 0x0;  ///< The system identifier (set by getParameters)
+  20:Core/Src/fingerprint.c **** uint16_t capacity = 64; ///< The fingerprint capacity (set by getParameters)
+  21:Core/Src/fingerprint.c **** uint16_t security_level = 0; ///< The security level (set by getParameters)
+  22:Core/Src/fingerprint.c **** uint32_t device_addr =
+  23:Core/Src/fingerprint.c ****     0xFFFFFFFF;             ///< The device address (set by getParameters)
+  24:Core/Src/fingerprint.c **** uint16_t packet_len = 64;   ///< The max packet length (set by getParameters)
+  25:Core/Src/fingerprint.c **** uint16_t baud_rate = 57600; ///< The UART baud rate (set by getParameters)
+  26:Core/Src/fingerprint.c **** 
+  27:Core/Src/fingerprint.c **** 
+  28:Core/Src/fingerprint.c **** void init_fingerprint(){
+  29:Core/Src/fingerprint.c **** 	uint8_t temp = FINGERPRINT_READSYSPARAM;
+  30:Core/Src/fingerprint.c **** 	setup_packet(&temp, 1);
+  31:Core/Src/fingerprint.c **** 	receive();
+ARM GAS  /tmp/ccW9g89E.s 			page 2
+
+
+  32:Core/Src/fingerprint.c **** 	//insert init;
+  33:Core/Src/fingerprint.c **** }
+  34:Core/Src/fingerprint.c **** 
+  35:Core/Src/fingerprint.c **** void setup_packet(uint8_t *data, uint8_t size){
+  28              		.loc 1 35 47 view -0
+  29              		.cfi_startproc
+  30              		@ args = 0, pretend = 0, frame = 0
+  31              		@ frame_needed = 0, uses_anonymous_args = 0
+  32              		@ link register save eliminated.
+  36:Core/Src/fingerprint.c **** 	//setup the length, datasize, and checksum
+  37:Core/Src/fingerprint.c **** 	if(size > 64) return;
+  33              		.loc 1 37 2 view .LVU1
+  34              		.loc 1 37 4 is_stmt 0 view .LVU2
+  35 0000 4029     		cmp	r1, #64
+  36 0002 1AD8     		bhi	.L6
+  35:Core/Src/fingerprint.c **** 	//setup the length, datasize, and checksum
+  37              		.loc 1 35 47 view .LVU3
+  38 0004 30B4     		push	{r4, r5}
+  39              	.LCFI0:
+  40              		.cfi_def_cfa_offset 8
+  41              		.cfi_offset 4, -8
+  42              		.cfi_offset 5, -4
+  38:Core/Src/fingerprint.c **** 
+  39:Core/Src/fingerprint.c **** 	//length
+  40:Core/Src/fingerprint.c **** 	uint16_t packet_length = 2 + size;
+  43              		.loc 1 40 2 is_stmt 1 view .LVU4
+  44              		.loc 1 40 11 is_stmt 0 view .LVU5
+  45 0006 8B1C     		adds	r3, r1, #2
+  41:Core/Src/fingerprint.c **** 	fpacket.length = size; //packet size
+  46              		.loc 1 41 2 is_stmt 1 view .LVU6
+  47              		.loc 1 41 17 is_stmt 0 view .LVU7
+  48 0008 0C4C     		ldr	r4, .L10
+  49 000a 6182     		strh	r1, [r4, #18]	@ movhi
+  42:Core/Src/fingerprint.c **** 
+  43:Core/Src/fingerprint.c **** 	//data and checksum
+  44:Core/Src/fingerprint.c **** 	uint16_t sum = ((packet_length) >> 8) + ((packet_length) & 0xFF) + fpacket.type;
+  50              		.loc 1 44 2 is_stmt 1 view .LVU8
+  51              		.loc 1 44 59 is_stmt 0 view .LVU9
+  52 000c 1A46     		mov	r2, r3
+  53 000e DBB2     		uxtb	r3, r3
+  54              		.loc 1 44 40 view .LVU10
+  55 0010 03EB1223 		add	r3, r3, r2, lsr #8
+  56              		.loc 1 44 76 view .LVU11
+  57 0014 227C     		ldrb	r2, [r4, #16]	@ zero_extendqisi2
+  58              		.loc 1 44 11 view .LVU12
+  59 0016 1344     		add	r3, r3, r2
+  60              	.LVL1:
+  45:Core/Src/fingerprint.c **** 
+  46:Core/Src/fingerprint.c **** 	for(int i = 0; i < size; i++){
+  61              		.loc 1 46 2 is_stmt 1 view .LVU13
+  62              	.LBB2:
+  63              		.loc 1 46 6 view .LVU14
+  64              		.loc 1 46 10 is_stmt 0 view .LVU15
+  65 0018 0022     		movs	r2, #0
+  66              	.LVL2:
+  67              	.L3:
+  68              		.loc 1 46 17 is_stmt 1 discriminator 1 view .LVU16
+ARM GAS  /tmp/ccW9g89E.s 			page 3
+
+
+  69              		.loc 1 46 2 is_stmt 0 discriminator 1 view .LVU17
+  70 001a 9142     		cmp	r1, r2
+  71 001c 08DD     		ble	.L9
+  47:Core/Src/fingerprint.c **** 		fpacket.data[i] = data[0];
+  72              		.loc 1 47 3 is_stmt 1 discriminator 3 view .LVU18
+  73              		.loc 1 47 25 is_stmt 0 discriminator 3 view .LVU19
+  74 001e 10F8015B 		ldrb	r5, [r0], #1	@ zero_extendqisi2
+  75              	.LVL3:
+  76              		.loc 1 47 19 discriminator 3 view .LVU20
+  77 0022 064C     		ldr	r4, .L10
+  78 0024 1444     		add	r4, r4, r2
+  79 0026 2575     		strb	r5, [r4, #20]
+  48:Core/Src/fingerprint.c **** 		sum += *data;
+  80              		.loc 1 48 3 is_stmt 1 discriminator 3 view .LVU21
+  81              		.loc 1 48 7 is_stmt 0 discriminator 3 view .LVU22
+  82 0028 2B44     		add	r3, r3, r5
+  83              	.LVL4:
+  84              		.loc 1 48 7 discriminator 3 view .LVU23
+  85 002a 9BB2     		uxth	r3, r3
+  86              	.LVL5:
+  49:Core/Src/fingerprint.c **** 		data++;
+  87              		.loc 1 49 3 is_stmt 1 discriminator 3 view .LVU24
+  46:Core/Src/fingerprint.c **** 		fpacket.data[i] = data[0];
+  88              		.loc 1 46 27 discriminator 3 view .LVU25
+  46:Core/Src/fingerprint.c **** 		fpacket.data[i] = data[0];
+  89              		.loc 1 46 28 is_stmt 0 discriminator 3 view .LVU26
+  90 002c 0132     		adds	r2, r2, #1
+  91              	.LVL6:
+  46:Core/Src/fingerprint.c **** 		fpacket.data[i] = data[0];
+  92              		.loc 1 46 28 discriminator 3 view .LVU27
+  93 002e F4E7     		b	.L3
+  94              	.L9:
+  46:Core/Src/fingerprint.c **** 		fpacket.data[i] = data[0];
+  95              		.loc 1 46 28 discriminator 3 view .LVU28
+  96              	.LBE2:
+  50:Core/Src/fingerprint.c **** 	}
+  51:Core/Src/fingerprint.c **** 	fpacket.checksum = sum;
+  97              		.loc 1 51 2 is_stmt 1 view .LVU29
+  98              		.loc 1 51 19 is_stmt 0 view .LVU30
+  99 0030 024A     		ldr	r2, .L10
+ 100              	.LVL7:
+ 101              		.loc 1 51 19 view .LVU31
+ 102 0032 A2F85430 		strh	r3, [r2, #84]	@ movhi
+  52:Core/Src/fingerprint.c **** 	//
+  53:Core/Src/fingerprint.c **** }
+ 103              		.loc 1 53 1 view .LVU32
+ 104 0036 30BC     		pop	{r4, r5}
+ 105              	.LCFI1:
+ 106              		.cfi_restore 5
+ 107              		.cfi_restore 4
+ 108              		.cfi_def_cfa_offset 0
+ 109 0038 7047     		bx	lr
+ 110              	.LVL8:
+ 111              	.L6:
+ 112              		.loc 1 53 1 view .LVU33
+ 113 003a 7047     		bx	lr
+ 114              	.L11:
+ARM GAS  /tmp/ccW9g89E.s 			page 4
+
+
+ 115              		.align	2
+ 116              	.L10:
+ 117 003c 00000000 		.word	.LANCHOR0
+ 118              		.cfi_endproc
+ 119              	.LFE67:
+ 121              		.section	.text.setup_received,"ax",%progbits
+ 122              		.align	1
+ 123              		.global	setup_received
+ 124              		.syntax unified
+ 125              		.thumb
+ 126              		.thumb_func
+ 127              		.fpu softvfp
+ 129              	setup_received:
+ 130              	.LVL9:
+ 131              	.LFB68:
+  54:Core/Src/fingerprint.c **** 
+  55:Core/Src/fingerprint.c **** void setup_received(uint8_t *data){
+ 132              		.loc 1 55 35 is_stmt 1 view -0
+ 133              		.cfi_startproc
+ 134              		@ args = 0, pretend = 0, frame = 0
+ 135              		@ frame_needed = 0, uses_anonymous_args = 0
+ 136              		@ link register save eliminated.
+ 137              		.loc 1 55 35 is_stmt 0 view .LVU35
+ 138 0000 10B4     		push	{r4}
+ 139              	.LCFI2:
+ 140              		.cfi_def_cfa_offset 4
+ 141              		.cfi_offset 4, -4
+  56:Core/Src/fingerprint.c **** 	//Data format
+  57:Core/Src/fingerprint.c **** 	/*
+  58:Core/Src/fingerprint.c **** 	 * 2 bytes of header
+  59:Core/Src/fingerprint.c **** 	 * 4 bytes of address
+  60:Core/Src/fingerprint.c **** 	 * 1 byte of package identifier (type)
+  61:Core/Src/fingerprint.c **** 	 * 2 byte of length
+  62:Core/Src/fingerprint.c **** 	 * n amount of data
+  63:Core/Src/fingerprint.c **** 	 * 2 checksum (which technically u dunnit)
+  64:Core/Src/fingerprint.c **** 	 *
+  65:Core/Src/fingerprint.c **** 	 * */
+  66:Core/Src/fingerprint.c **** 	rpacket.start_code = ((uint16_t)data[0] << 8)+ ((uint16_t)data[1]);
+ 142              		.loc 1 66 2 is_stmt 1 view .LVU36
+ 143              		.loc 1 66 38 is_stmt 0 view .LVU37
+ 144 0002 0278     		ldrb	r2, [r0]	@ zero_extendqisi2
+ 145              		.loc 1 66 64 view .LVU38
+ 146 0004 4378     		ldrb	r3, [r0, #1]	@ zero_extendqisi2
+ 147              		.loc 1 66 47 view .LVU39
+ 148 0006 03EB0223 		add	r3, r3, r2, lsl #8
+ 149              		.loc 1 66 21 view .LVU40
+ 150 000a 1249     		ldr	r1, .L17
+ 151 000c 0B80     		strh	r3, [r1]	@ movhi
+  67:Core/Src/fingerprint.c **** 	rpacket.address = ((uint32_t)data[2] << 24) + ((uint32_t)data[3] << 16) + ((uint32_t)data[4]<< 8) 
+ 152              		.loc 1 67 2 is_stmt 1 view .LVU41
+ 153              		.loc 1 67 35 is_stmt 0 view .LVU42
+ 154 000e 8378     		ldrb	r3, [r0, #2]	@ zero_extendqisi2
+ 155              		.loc 1 67 63 view .LVU43
+ 156 0010 C278     		ldrb	r2, [r0, #3]	@ zero_extendqisi2
+ 157              		.loc 1 67 67 view .LVU44
+ 158 0012 1204     		lsls	r2, r2, #16
+ 159              		.loc 1 67 46 view .LVU45
+ARM GAS  /tmp/ccW9g89E.s 			page 5
+
+
+ 160 0014 02EB0362 		add	r2, r2, r3, lsl #24
+ 161              		.loc 1 67 91 view .LVU46
+ 162 0018 0379     		ldrb	r3, [r0, #4]	@ zero_extendqisi2
+ 163              		.loc 1 67 74 view .LVU47
+ 164 001a 02EB0322 		add	r2, r2, r3, lsl #8
+ 165              		.loc 1 67 117 view .LVU48
+ 166 001e 4379     		ldrb	r3, [r0, #5]	@ zero_extendqisi2
+ 167              		.loc 1 67 100 view .LVU49
+ 168 0020 1A44     		add	r2, r2, r3
+ 169 0022 0023     		movs	r3, #0
+ 170              		.loc 1 67 18 view .LVU50
+ 171 0024 8A60     		str	r2, [r1, #8]
+ 172 0026 CB60     		str	r3, [r1, #12]
+  68:Core/Src/fingerprint.c **** 	rpacket.type = data[6];
+ 173              		.loc 1 68 2 is_stmt 1 view .LVU51
+ 174              		.loc 1 68 15 is_stmt 0 view .LVU52
+ 175 0028 8279     		ldrb	r2, [r0, #6]	@ zero_extendqisi2
+ 176 002a 0A74     		strb	r2, [r1, #16]
+  69:Core/Src/fingerprint.c **** 	rpacket.length = ((uint16_t)data[7]<<8) + ((uint16_t)data[8]);
+ 177              		.loc 1 69 2 is_stmt 1 view .LVU53
+ 178              		.loc 1 69 34 is_stmt 0 view .LVU54
+ 179 002c C279     		ldrb	r2, [r0, #7]	@ zero_extendqisi2
+ 180              		.loc 1 69 59 view .LVU55
+ 181 002e 047A     		ldrb	r4, [r0, #8]	@ zero_extendqisi2
+ 182              		.loc 1 69 42 view .LVU56
+ 183 0030 04EB0224 		add	r4, r4, r2, lsl #8
+ 184 0034 A4B2     		uxth	r4, r4
+ 185              		.loc 1 69 17 view .LVU57
+ 186 0036 4C82     		strh	r4, [r1, #18]	@ movhi
+  70:Core/Src/fingerprint.c **** 
+  71:Core/Src/fingerprint.c **** 	//get all the data
+  72:Core/Src/fingerprint.c **** 	for(int i = 0; i < rpacket.length - 2; i++){
+ 187              		.loc 1 72 2 is_stmt 1 view .LVU58
+ 188              	.LBB3:
+ 189              		.loc 1 72 6 view .LVU59
+ 190              	.LVL10:
+ 191              	.L13:
+ 192              		.loc 1 72 17 discriminator 1 view .LVU60
+ 193              		.loc 1 72 36 is_stmt 0 discriminator 1 view .LVU61
+ 194 0038 A21E     		subs	r2, r4, #2
+ 195              		.loc 1 72 2 discriminator 1 view .LVU62
+ 196 003a 9A42     		cmp	r2, r3
+ 197 003c 07DD     		ble	.L16
+  73:Core/Src/fingerprint.c **** 		rpacket.data[i] = data[9 + i];
+ 198              		.loc 1 73 3 is_stmt 1 discriminator 3 view .LVU63
+ 199              		.loc 1 73 28 is_stmt 0 discriminator 3 view .LVU64
+ 200 003e 03F10902 		add	r2, r3, #9
+ 201              		.loc 1 73 25 discriminator 3 view .LVU65
+ 202 0042 815C     		ldrb	r1, [r0, r2]	@ zero_extendqisi2
+ 203              		.loc 1 73 19 discriminator 3 view .LVU66
+ 204 0044 034A     		ldr	r2, .L17
+ 205 0046 1A44     		add	r2, r2, r3
+ 206 0048 1175     		strb	r1, [r2, #20]
+  72:Core/Src/fingerprint.c **** 		rpacket.data[i] = data[9 + i];
+ 207              		.loc 1 72 41 is_stmt 1 discriminator 3 view .LVU67
+  72:Core/Src/fingerprint.c **** 		rpacket.data[i] = data[9 + i];
+ 208              		.loc 1 72 42 is_stmt 0 discriminator 3 view .LVU68
+ARM GAS  /tmp/ccW9g89E.s 			page 6
+
+
+ 209 004a 0133     		adds	r3, r3, #1
+ 210              	.LVL11:
+  72:Core/Src/fingerprint.c **** 		rpacket.data[i] = data[9 + i];
+ 211              		.loc 1 72 42 discriminator 3 view .LVU69
+ 212 004c F4E7     		b	.L13
+ 213              	.L16:
+  72:Core/Src/fingerprint.c **** 		rpacket.data[i] = data[9 + i];
+ 214              		.loc 1 72 42 discriminator 3 view .LVU70
+ 215              	.LBE3:
+  74:Core/Src/fingerprint.c **** 	}
+  75:Core/Src/fingerprint.c **** }
+ 216              		.loc 1 75 1 view .LVU71
+ 217 004e 10BC     		pop	{r4}
+ 218              	.LCFI3:
+ 219              		.cfi_restore 4
+ 220              		.cfi_def_cfa_offset 0
+ 221 0050 7047     		bx	lr
+ 222              	.L18:
+ 223 0052 00BF     		.align	2
+ 224              	.L17:
+ 225 0054 00000000 		.word	rpacket
+ 226              		.cfi_endproc
+ 227              	.LFE68:
+ 229              		.section	.text.send,"ax",%progbits
+ 230              		.align	1
+ 231              		.global	send
+ 232              		.syntax unified
+ 233              		.thumb
+ 234              		.thumb_func
+ 235              		.fpu softvfp
+ 237              	send:
+ 238              	.LFB69:
+  76:Core/Src/fingerprint.c **** 
+  77:Core/Src/fingerprint.c **** void send(){
+ 239              		.loc 1 77 12 is_stmt 1 view -0
+ 240              		.cfi_startproc
+ 241              		@ args = 0, pretend = 0, frame = 8
+ 242              		@ frame_needed = 0, uses_anonymous_args = 0
+ 243 0000 30B5     		push	{r4, r5, lr}
+ 244              	.LCFI4:
+ 245              		.cfi_def_cfa_offset 12
+ 246              		.cfi_offset 4, -12
+ 247              		.cfi_offset 5, -8
+ 248              		.cfi_offset 14, -4
+ 249 0002 83B0     		sub	sp, sp, #12
+ 250              	.LCFI5:
+ 251              		.cfi_def_cfa_offset 24
+  78:Core/Src/fingerprint.c **** 	//first, send start command
+  79:Core/Src/fingerprint.c **** 	uint8_t value;
+ 252              		.loc 1 79 2 view .LVU73
+  80:Core/Src/fingerprint.c **** 
+  81:Core/Src/fingerprint.c **** 	for(int i = 0; i < 2; i++){
+ 253              		.loc 1 81 2 view .LVU74
+ 254              	.LBB4:
+ 255              		.loc 1 81 6 view .LVU75
+ 256              	.LVL12:
+ 257              		.loc 1 81 10 is_stmt 0 view .LVU76
+ARM GAS  /tmp/ccW9g89E.s 			page 7
+
+
+ 258 0004 0024     		movs	r4, #0
+ 259              		.loc 1 81 2 view .LVU77
+ 260 0006 0FE0     		b	.L20
+ 261              	.LVL13:
+ 262              	.L21:
+  82:Core/Src/fingerprint.c **** 		value = (fpacket.start_code >> (8 * (1 - i)));
+ 263              		.loc 1 82 3 is_stmt 1 discriminator 3 view .LVU78
+ 264              		.loc 1 82 19 is_stmt 0 discriminator 3 view .LVU79
+ 265 0008 354B     		ldr	r3, .L31
+ 266 000a 1B88     		ldrh	r3, [r3]
+ 267              		.loc 1 82 42 discriminator 3 view .LVU80
+ 268 000c C4F10102 		rsb	r2, r4, #1
+ 269              		.loc 1 82 37 discriminator 3 view .LVU81
+ 270 0010 D200     		lsls	r2, r2, #3
+ 271              		.loc 1 82 31 discriminator 3 view .LVU82
+ 272 0012 1341     		asrs	r3, r3, r2
+ 273              		.loc 1 82 9 discriminator 3 view .LVU83
+ 274 0014 8DF80730 		strb	r3, [sp, #7]
+  83:Core/Src/fingerprint.c **** 		HAL_UART_Transmit (&UART_HANDLER, &value, 1, 100);
+ 275              		.loc 1 83 3 is_stmt 1 discriminator 3 view .LVU84
+ 276 0018 6423     		movs	r3, #100
+ 277 001a 0122     		movs	r2, #1
+ 278 001c 0DF10701 		add	r1, sp, #7
+ 279 0020 3048     		ldr	r0, .L31+4
+ 280 0022 FFF7FEFF 		bl	HAL_UART_Transmit
+ 281              	.LVL14:
+  81:Core/Src/fingerprint.c **** 		value = (fpacket.start_code >> (8 * (1 - i)));
+ 282              		.loc 1 81 24 discriminator 3 view .LVU85
+  81:Core/Src/fingerprint.c **** 		value = (fpacket.start_code >> (8 * (1 - i)));
+ 283              		.loc 1 81 25 is_stmt 0 discriminator 3 view .LVU86
+ 284 0026 0134     		adds	r4, r4, #1
+ 285              	.LVL15:
+ 286              	.L20:
+  81:Core/Src/fingerprint.c **** 		value = (fpacket.start_code >> (8 * (1 - i)));
+ 287              		.loc 1 81 17 is_stmt 1 discriminator 1 view .LVU87
+  81:Core/Src/fingerprint.c **** 		value = (fpacket.start_code >> (8 * (1 - i)));
+ 288              		.loc 1 81 2 is_stmt 0 discriminator 1 view .LVU88
+ 289 0028 012C     		cmp	r4, #1
+ 290 002a EDDD     		ble	.L21
+ 291              	.LBE4:
+ 292              	.LBB5:
+  84:Core/Src/fingerprint.c **** 	}
+  85:Core/Src/fingerprint.c **** 
+  86:Core/Src/fingerprint.c **** 	//second, send chip addr
+  87:Core/Src/fingerprint.c **** 	for(int i = 0; i < 4; i++){
+ 293              		.loc 1 87 10 view .LVU89
+ 294 002c 0024     		movs	r4, #0
+ 295              	.LVL16:
+ 296              		.loc 1 87 10 view .LVU90
+ 297 002e 0AE0     		b	.L22
+ 298              	.LVL17:
+ 299              	.L23:
+  88:Core/Src/fingerprint.c **** 		value = 0xFF;
+ 300              		.loc 1 88 3 is_stmt 1 discriminator 3 view .LVU91
+ 301              		.loc 1 88 9 is_stmt 0 discriminator 3 view .LVU92
+ 302 0030 FF23     		movs	r3, #255
+ 303 0032 8DF80730 		strb	r3, [sp, #7]
+ARM GAS  /tmp/ccW9g89E.s 			page 8
+
+
+  89:Core/Src/fingerprint.c **** 		HAL_UART_Transmit (&UART_HANDLER, &value, 1, 100);
+ 304              		.loc 1 89 3 is_stmt 1 discriminator 3 view .LVU93
+ 305 0036 6423     		movs	r3, #100
+ 306 0038 0122     		movs	r2, #1
+ 307 003a 0DF10701 		add	r1, sp, #7
+ 308 003e 2948     		ldr	r0, .L31+4
+ 309 0040 FFF7FEFF 		bl	HAL_UART_Transmit
+ 310              	.LVL18:
+  87:Core/Src/fingerprint.c **** 		value = 0xFF;
+ 311              		.loc 1 87 24 discriminator 3 view .LVU94
+  87:Core/Src/fingerprint.c **** 		value = 0xFF;
+ 312              		.loc 1 87 25 is_stmt 0 discriminator 3 view .LVU95
+ 313 0044 0134     		adds	r4, r4, #1
+ 314              	.LVL19:
+ 315              	.L22:
+  87:Core/Src/fingerprint.c **** 		value = 0xFF;
+ 316              		.loc 1 87 17 is_stmt 1 discriminator 1 view .LVU96
+  87:Core/Src/fingerprint.c **** 		value = 0xFF;
+ 317              		.loc 1 87 2 is_stmt 0 discriminator 1 view .LVU97
+ 318 0046 032C     		cmp	r4, #3
+ 319 0048 F2DD     		ble	.L23
+ 320              	.LBE5:
+  90:Core/Src/fingerprint.c **** 	}
+  91:Core/Src/fingerprint.c **** 
+  92:Core/Src/fingerprint.c **** 	//third, send package identifier
+  93:Core/Src/fingerprint.c **** 	value = fpacket.type;
+ 321              		.loc 1 93 2 is_stmt 1 view .LVU98
+ 322              		.loc 1 93 17 is_stmt 0 view .LVU99
+ 323 004a 254C     		ldr	r4, .L31
+ 324              	.LVL20:
+ 325              		.loc 1 93 17 view .LVU100
+ 326 004c 237C     		ldrb	r3, [r4, #16]	@ zero_extendqisi2
+ 327              		.loc 1 93 8 view .LVU101
+ 328 004e 8DF80730 		strb	r3, [sp, #7]
+  94:Core/Src/fingerprint.c **** 	HAL_UART_Transmit (&UART_HANDLER, &value, 1, 100);
+ 329              		.loc 1 94 2 is_stmt 1 view .LVU102
+ 330 0052 6423     		movs	r3, #100
+ 331 0054 0122     		movs	r2, #1
+ 332 0056 0DF10701 		add	r1, sp, #7
+ 333 005a 2248     		ldr	r0, .L31+4
+ 334 005c FFF7FEFF 		bl	HAL_UART_Transmit
+ 335              	.LVL21:
+  95:Core/Src/fingerprint.c **** 
+  96:Core/Src/fingerprint.c **** 	//fourth, send package length
+  97:Core/Src/fingerprint.c **** 	uint16_t packet_length = fpacket.length + 2;
+ 336              		.loc 1 97 2 view .LVU103
+ 337              		.loc 1 97 34 is_stmt 0 view .LVU104
+ 338 0060 658A     		ldrh	r5, [r4, #18]
+ 339              		.loc 1 97 11 view .LVU105
+ 340 0062 0235     		adds	r5, r5, #2
+ 341 0064 ADB2     		uxth	r5, r5
+ 342              	.LVL22:
+  98:Core/Src/fingerprint.c **** 	for(int i = 0; i < 2; i++){
+ 343              		.loc 1 98 2 is_stmt 1 view .LVU106
+ 344              	.LBB6:
+ 345              		.loc 1 98 6 view .LVU107
+ 346              		.loc 1 98 10 is_stmt 0 view .LVU108
+ARM GAS  /tmp/ccW9g89E.s 			page 9
+
+
+ 347 0066 0024     		movs	r4, #0
+ 348              		.loc 1 98 2 view .LVU109
+ 349 0068 0EE0     		b	.L24
+ 350              	.LVL23:
+ 351              	.L25:
+  99:Core/Src/fingerprint.c **** 		value = (packet_length >> (8 * (1 - i)));
+ 352              		.loc 1 99 3 is_stmt 1 discriminator 3 view .LVU110
+ 353              		.loc 1 99 37 is_stmt 0 discriminator 3 view .LVU111
+ 354 006a C4F10103 		rsb	r3, r4, #1
+ 355              		.loc 1 99 32 discriminator 3 view .LVU112
+ 356 006e DB00     		lsls	r3, r3, #3
+ 357              		.loc 1 99 26 discriminator 3 view .LVU113
+ 358 0070 45FA03F3 		asr	r3, r5, r3
+ 359              		.loc 1 99 9 discriminator 3 view .LVU114
+ 360 0074 8DF80730 		strb	r3, [sp, #7]
+ 100:Core/Src/fingerprint.c **** 		HAL_UART_Transmit (&UART_HANDLER, &value, 1, 100);
+ 361              		.loc 1 100 3 is_stmt 1 discriminator 3 view .LVU115
+ 362 0078 6423     		movs	r3, #100
+ 363 007a 0122     		movs	r2, #1
+ 364 007c 0DF10701 		add	r1, sp, #7
+ 365 0080 1848     		ldr	r0, .L31+4
+ 366 0082 FFF7FEFF 		bl	HAL_UART_Transmit
+ 367              	.LVL24:
+  98:Core/Src/fingerprint.c **** 	for(int i = 0; i < 2; i++){
+ 368              		.loc 1 98 24 discriminator 3 view .LVU116
+  98:Core/Src/fingerprint.c **** 	for(int i = 0; i < 2; i++){
+ 369              		.loc 1 98 25 is_stmt 0 discriminator 3 view .LVU117
+ 370 0086 0134     		adds	r4, r4, #1
+ 371              	.LVL25:
+ 372              	.L24:
+  98:Core/Src/fingerprint.c **** 	for(int i = 0; i < 2; i++){
+ 373              		.loc 1 98 17 is_stmt 1 discriminator 1 view .LVU118
+  98:Core/Src/fingerprint.c **** 	for(int i = 0; i < 2; i++){
+ 374              		.loc 1 98 2 is_stmt 0 discriminator 1 view .LVU119
+ 375 0088 012C     		cmp	r4, #1
+ 376 008a EEDD     		ble	.L25
+ 377              	.LBE6:
+ 378              	.LBB7:
+ 101:Core/Src/fingerprint.c **** 	}
+ 102:Core/Src/fingerprint.c **** 
+ 103:Core/Src/fingerprint.c **** 	//fifth, send package data
+ 104:Core/Src/fingerprint.c **** 	for(int i = 0; i < fpacket.length; i++){
+ 379              		.loc 1 104 10 view .LVU120
+ 380 008c 0024     		movs	r4, #0
+ 381              	.LVL26:
+ 382              		.loc 1 104 10 view .LVU121
+ 383 008e 0CE0     		b	.L26
+ 384              	.LVL27:
+ 385              	.L27:
+ 105:Core/Src/fingerprint.c **** 		value = fpacket.data[i];
+ 386              		.loc 1 105 3 is_stmt 1 discriminator 3 view .LVU122
+ 387              		.loc 1 105 23 is_stmt 0 discriminator 3 view .LVU123
+ 388 0090 134B     		ldr	r3, .L31
+ 389 0092 2344     		add	r3, r3, r4
+ 390 0094 1B7D     		ldrb	r3, [r3, #20]	@ zero_extendqisi2
+ 391              		.loc 1 105 9 discriminator 3 view .LVU124
+ 392 0096 8DF80730 		strb	r3, [sp, #7]
+ARM GAS  /tmp/ccW9g89E.s 			page 10
+
+
+ 106:Core/Src/fingerprint.c **** 		HAL_UART_Transmit (&UART_HANDLER, &value, 1, 100);
+ 393              		.loc 1 106 3 is_stmt 1 discriminator 3 view .LVU125
+ 394 009a 6423     		movs	r3, #100
+ 395 009c 0122     		movs	r2, #1
+ 396 009e 0DF10701 		add	r1, sp, #7
+ 397 00a2 1048     		ldr	r0, .L31+4
+ 398 00a4 FFF7FEFF 		bl	HAL_UART_Transmit
+ 399              	.LVL28:
+ 104:Core/Src/fingerprint.c **** 		value = fpacket.data[i];
+ 400              		.loc 1 104 37 discriminator 3 view .LVU126
+ 104:Core/Src/fingerprint.c **** 		value = fpacket.data[i];
+ 401              		.loc 1 104 38 is_stmt 0 discriminator 3 view .LVU127
+ 402 00a8 0134     		adds	r4, r4, #1
+ 403              	.LVL29:
+ 404              	.L26:
+ 104:Core/Src/fingerprint.c **** 		value = fpacket.data[i];
+ 405              		.loc 1 104 17 is_stmt 1 discriminator 1 view .LVU128
+ 104:Core/Src/fingerprint.c **** 		value = fpacket.data[i];
+ 406              		.loc 1 104 28 is_stmt 0 discriminator 1 view .LVU129
+ 407 00aa 0D4B     		ldr	r3, .L31
+ 408 00ac 5B8A     		ldrh	r3, [r3, #18]
+ 104:Core/Src/fingerprint.c **** 		value = fpacket.data[i];
+ 409              		.loc 1 104 2 discriminator 1 view .LVU130
+ 410 00ae A342     		cmp	r3, r4
+ 411 00b0 EEDC     		bgt	.L27
+ 412              	.LBE7:
+ 413              	.LBB8:
+ 107:Core/Src/fingerprint.c **** 	}
+ 108:Core/Src/fingerprint.c **** 
+ 109:Core/Src/fingerprint.c **** 	//lastly checksum
+ 110:Core/Src/fingerprint.c **** 	for(int i = 0; i < 2; i++){
+ 414              		.loc 1 110 10 view .LVU131
+ 415 00b2 0024     		movs	r4, #0
+ 416              	.LVL30:
+ 417              		.loc 1 110 10 view .LVU132
+ 418 00b4 10E0     		b	.L28
+ 419              	.LVL31:
+ 420              	.L29:
+ 111:Core/Src/fingerprint.c **** 		value = (fpacket.checksum >> (8 * (1 - i)));
+ 421              		.loc 1 111 3 is_stmt 1 discriminator 3 view .LVU133
+ 422              		.loc 1 111 19 is_stmt 0 discriminator 3 view .LVU134
+ 423 00b6 0A4B     		ldr	r3, .L31
+ 424 00b8 B3F85430 		ldrh	r3, [r3, #84]
+ 425              		.loc 1 111 40 discriminator 3 view .LVU135
+ 426 00bc C4F10102 		rsb	r2, r4, #1
+ 427              		.loc 1 111 35 discriminator 3 view .LVU136
+ 428 00c0 D200     		lsls	r2, r2, #3
+ 429              		.loc 1 111 29 discriminator 3 view .LVU137
+ 430 00c2 1341     		asrs	r3, r3, r2
+ 431              		.loc 1 111 9 discriminator 3 view .LVU138
+ 432 00c4 8DF80730 		strb	r3, [sp, #7]
+ 112:Core/Src/fingerprint.c **** 		HAL_UART_Transmit (&UART_HANDLER, &value, 1, 100);
+ 433              		.loc 1 112 3 is_stmt 1 discriminator 3 view .LVU139
+ 434 00c8 6423     		movs	r3, #100
+ 435 00ca 0122     		movs	r2, #1
+ 436 00cc 0DF10701 		add	r1, sp, #7
+ 437 00d0 0448     		ldr	r0, .L31+4
+ARM GAS  /tmp/ccW9g89E.s 			page 11
+
+
+ 438 00d2 FFF7FEFF 		bl	HAL_UART_Transmit
+ 439              	.LVL32:
+ 110:Core/Src/fingerprint.c **** 		value = (fpacket.checksum >> (8 * (1 - i)));
+ 440              		.loc 1 110 24 discriminator 3 view .LVU140
+ 110:Core/Src/fingerprint.c **** 		value = (fpacket.checksum >> (8 * (1 - i)));
+ 441              		.loc 1 110 25 is_stmt 0 discriminator 3 view .LVU141
+ 442 00d6 0134     		adds	r4, r4, #1
+ 443              	.LVL33:
+ 444              	.L28:
+ 110:Core/Src/fingerprint.c **** 		value = (fpacket.checksum >> (8 * (1 - i)));
+ 445              		.loc 1 110 17 is_stmt 1 discriminator 1 view .LVU142
+ 110:Core/Src/fingerprint.c **** 		value = (fpacket.checksum >> (8 * (1 - i)));
+ 446              		.loc 1 110 2 is_stmt 0 discriminator 1 view .LVU143
+ 447 00d8 012C     		cmp	r4, #1
+ 448 00da ECDD     		ble	.L29
+ 449              	.LBE8:
+ 113:Core/Src/fingerprint.c **** 	}
+ 114:Core/Src/fingerprint.c **** }
+ 450              		.loc 1 114 1 view .LVU144
+ 451 00dc 03B0     		add	sp, sp, #12
+ 452              	.LCFI6:
+ 453              		.cfi_def_cfa_offset 12
+ 454              		@ sp needed
+ 455 00de 30BD     		pop	{r4, r5, pc}
+ 456              	.LVL34:
+ 457              	.L32:
+ 458              		.loc 1 114 1 view .LVU145
+ 459              		.align	2
+ 460              	.L31:
+ 461 00e0 00000000 		.word	.LANCHOR0
+ 462 00e4 00000000 		.word	huart1
+ 463              		.cfi_endproc
+ 464              	.LFE69:
+ 466              		.section	.text.receive,"ax",%progbits
+ 467              		.align	1
+ 468              		.global	receive
+ 469              		.syntax unified
+ 470              		.thumb
+ 471              		.thumb_func
+ 472              		.fpu softvfp
+ 474              	receive:
+ 475              	.LFB70:
+ 115:Core/Src/fingerprint.c **** 
+ 116:Core/Src/fingerprint.c **** void receive(){
+ 476              		.loc 1 116 15 is_stmt 1 view -0
+ 477              		.cfi_startproc
+ 478              		@ args = 0, pretend = 0, frame = 104
+ 479              		@ frame_needed = 0, uses_anonymous_args = 0
+ 480 0000 10B5     		push	{r4, lr}
+ 481              	.LCFI7:
+ 482              		.cfi_def_cfa_offset 8
+ 483              		.cfi_offset 4, -8
+ 484              		.cfi_offset 14, -4
+ 485 0002 ACB0     		sub	sp, sp, #176
+ 486              	.LCFI8:
+ 487              		.cfi_def_cfa_offset 184
+ 117:Core/Src/fingerprint.c **** 	uint8_t testing[100]= {0};
+ARM GAS  /tmp/ccW9g89E.s 			page 12
+
+
+ 488              		.loc 1 117 2 view .LVU147
+ 489              		.loc 1 117 10 is_stmt 0 view .LVU148
+ 490 0004 0021     		movs	r1, #0
+ 491 0006 1391     		str	r1, [sp, #76]
+ 492 0008 6022     		movs	r2, #96
+ 493 000a 14A8     		add	r0, sp, #80
+ 494 000c FFF7FEFF 		bl	memset
+ 495              	.LVL35:
+ 118:Core/Src/fingerprint.c **** 	send(fpacket);
+ 496              		.loc 1 118 2 is_stmt 1 view .LVU149
+ 497 0010 0B4C     		ldr	r4, .L35
+ 498 0012 4822     		movs	r2, #72
+ 499 0014 04F11001 		add	r1, r4, #16
+ 500 0018 6846     		mov	r0, sp
+ 501 001a FFF7FEFF 		bl	memcpy
+ 502              	.LVL36:
+ 503 001e 94E80F00 		ldm	r4, {r0, r1, r2, r3}
+ 504 0022 FFF7FEFF 		bl	send
+ 505              	.LVL37:
+ 119:Core/Src/fingerprint.c **** 	HAL_UART_Receive (&UART_HANDLER, testing, 100, 1000); //logically hitting all the 9 data
+ 506              		.loc 1 119 2 view .LVU150
+ 507 0026 4FF47A73 		mov	r3, #1000
+ 508 002a 6422     		movs	r2, #100
+ 509 002c 13A9     		add	r1, sp, #76
+ 510 002e 0548     		ldr	r0, .L35+4
+ 511 0030 FFF7FEFF 		bl	HAL_UART_Receive
+ 512              	.LVL38:
+ 120:Core/Src/fingerprint.c **** 	setup_received(testing);
+ 513              		.loc 1 120 2 view .LVU151
+ 514 0034 13A8     		add	r0, sp, #76
+ 515 0036 FFF7FEFF 		bl	setup_received
+ 516              	.LVL39:
+ 121:Core/Src/fingerprint.c **** 
+ 122:Core/Src/fingerprint.c **** //	//get data and checksum
+ 123:Core/Src/fingerprint.c **** //	HAL_UART_Receive(&UART_HANDLER, &(rpacket->data), rpacket->length - 2 , timeout);
+ 124:Core/Src/fingerprint.c **** 
+ 125:Core/Src/fingerprint.c **** //	//set received checksum
+ 126:Core/Src/fingerprint.c **** //	rpacket->checksum = rpacke
+ 127:Core/Src/fingerprint.c **** 
+ 128:Core/Src/fingerprint.c **** }
+ 517              		.loc 1 128 1 is_stmt 0 view .LVU152
+ 518 003a 2CB0     		add	sp, sp, #176
+ 519              	.LCFI9:
+ 520              		.cfi_def_cfa_offset 8
+ 521              		@ sp needed
+ 522 003c 10BD     		pop	{r4, pc}
+ 523              	.L36:
+ 524 003e 00BF     		.align	2
+ 525              	.L35:
+ 526 0040 00000000 		.word	.LANCHOR0
+ 527 0044 00000000 		.word	huart1
+ 528              		.cfi_endproc
+ 529              	.LFE70:
+ 531              		.section	.text.init_fingerprint,"ax",%progbits
+ 532              		.align	1
+ 533              		.global	init_fingerprint
+ 534              		.syntax unified
+ARM GAS  /tmp/ccW9g89E.s 			page 13
+
+
+ 535              		.thumb
+ 536              		.thumb_func
+ 537              		.fpu softvfp
+ 539              	init_fingerprint:
+ 540              	.LFB66:
+  28:Core/Src/fingerprint.c **** 	uint8_t temp = FINGERPRINT_READSYSPARAM;
+ 541              		.loc 1 28 24 is_stmt 1 view -0
+ 542              		.cfi_startproc
+ 543              		@ args = 0, pretend = 0, frame = 8
+ 544              		@ frame_needed = 0, uses_anonymous_args = 0
+ 545 0000 00B5     		push	{lr}
+ 546              	.LCFI10:
+ 547              		.cfi_def_cfa_offset 4
+ 548              		.cfi_offset 14, -4
+ 549 0002 83B0     		sub	sp, sp, #12
+ 550              	.LCFI11:
+ 551              		.cfi_def_cfa_offset 16
+  29:Core/Src/fingerprint.c **** 	setup_packet(&temp, 1);
+ 552              		.loc 1 29 2 view .LVU154
+  29:Core/Src/fingerprint.c **** 	setup_packet(&temp, 1);
+ 553              		.loc 1 29 10 is_stmt 0 view .LVU155
+ 554 0004 0F23     		movs	r3, #15
+ 555 0006 8DF80730 		strb	r3, [sp, #7]
+  30:Core/Src/fingerprint.c **** 	receive();
+ 556              		.loc 1 30 2 is_stmt 1 view .LVU156
+ 557 000a 0121     		movs	r1, #1
+ 558 000c 0DF10700 		add	r0, sp, #7
+ 559 0010 FFF7FEFF 		bl	setup_packet
+ 560              	.LVL40:
+  31:Core/Src/fingerprint.c **** 	//insert init;
+ 561              		.loc 1 31 2 view .LVU157
+ 562 0014 FFF7FEFF 		bl	receive
+ 563              	.LVL41:
+  33:Core/Src/fingerprint.c **** 
+ 564              		.loc 1 33 1 is_stmt 0 view .LVU158
+ 565 0018 03B0     		add	sp, sp, #12
+ 566              	.LCFI12:
+ 567              		.cfi_def_cfa_offset 4
+ 568              		@ sp needed
+ 569 001a 5DF804FB 		ldr	pc, [sp], #4
+ 570              		.cfi_endproc
+ 571              	.LFE66:
+ 573              		.section	.text.save_fingerprint,"ax",%progbits
+ 574              		.align	1
+ 575              		.global	save_fingerprint
+ 576              		.syntax unified
+ 577              		.thumb
+ 578              		.thumb_func
+ 579              		.fpu softvfp
+ 581              	save_fingerprint:
+ 582              	.LVL42:
+ 583              	.LFB71:
+ 129:Core/Src/fingerprint.c **** 
+ 130:Core/Src/fingerprint.c **** uint8_t save_fingerprint(uint8_t id){
+ 584              		.loc 1 130 37 is_stmt 1 view -0
+ 585              		.cfi_startproc
+ 586              		@ args = 0, pretend = 0, frame = 8
+ARM GAS  /tmp/ccW9g89E.s 			page 14
+
+
+ 587              		@ frame_needed = 0, uses_anonymous_args = 0
+ 588              		.loc 1 130 37 is_stmt 0 view .LVU160
+ 589 0000 30B5     		push	{r4, r5, lr}
+ 590              	.LCFI13:
+ 591              		.cfi_def_cfa_offset 12
+ 592              		.cfi_offset 4, -12
+ 593              		.cfi_offset 5, -8
+ 594              		.cfi_offset 14, -4
+ 595 0002 ABB0     		sub	sp, sp, #172
+ 596              	.LCFI14:
+ 597              		.cfi_def_cfa_offset 184
+ 131:Core/Src/fingerprint.c **** 
+ 132:Core/Src/fingerprint.c **** 	uint8_t temp;
+ 598              		.loc 1 132 2 is_stmt 1 view .LVU161
+ 133:Core/Src/fingerprint.c **** 	//1. GetImage
+ 134:Core/Src/fingerprint.c **** 	temp = FINGERPRINT_GETIMAGE;
+ 599              		.loc 1 134 2 view .LVU162
+ 600              		.loc 1 134 7 is_stmt 0 view .LVU163
+ 601 0004 0121     		movs	r1, #1
+ 602 0006 8DF8A710 		strb	r1, [sp, #167]
+ 135:Core/Src/fingerprint.c **** 	setup_packet(&temp, 1);
+ 603              		.loc 1 135 2 is_stmt 1 view .LVU164
+ 604 000a 0DF1A700 		add	r0, sp, #167
+ 605              	.LVL43:
+ 606              		.loc 1 135 2 is_stmt 0 view .LVU165
+ 607 000e FFF7FEFF 		bl	setup_packet
+ 608              	.LVL44:
+ 136:Core/Src/fingerprint.c **** 	receive();
+ 609              		.loc 1 136 2 is_stmt 1 view .LVU166
+ 610 0012 FFF7FEFF 		bl	receive
+ 611              	.LVL45:
+ 137:Core/Src/fingerprint.c **** 
+ 138:Core/Src/fingerprint.c **** 	if(rpacket.data[0]) return rpacket.data[0];
+ 612              		.loc 1 138 2 view .LVU167
+ 613              		.loc 1 138 17 is_stmt 0 view .LVU168
+ 614 0016 2E4B     		ldr	r3, .L45
+ 615 0018 187D     		ldrb	r0, [r3, #20]	@ zero_extendqisi2
+ 616              		.loc 1 138 4 view .LVU169
+ 617 001a 08B1     		cbz	r0, .L44
+ 618              	.L40:
+ 139:Core/Src/fingerprint.c **** 
+ 140:Core/Src/fingerprint.c **** 	//2. Conv image to value image2Tz
+ 141:Core/Src/fingerprint.c **** 	uint8_t data[4]= {FINGERPRINT_IMAGE2TZ, 1};
+ 142:Core/Src/fingerprint.c **** 	setup_packet(data, 2);
+ 143:Core/Src/fingerprint.c **** 	receive();
+ 144:Core/Src/fingerprint.c **** 
+ 145:Core/Src/fingerprint.c **** 	if(rpacket.data[0]) return rpacket.data[0];
+ 146:Core/Src/fingerprint.c **** 
+ 147:Core/Src/fingerprint.c **** 	//3. GetImage
+ 148:Core/Src/fingerprint.c **** 	setup_packet(&temp, 1);
+ 149:Core/Src/fingerprint.c **** 	receive();
+ 150:Core/Src/fingerprint.c **** 
+ 151:Core/Src/fingerprint.c **** 	if(rpacket.data[0]) return rpacket.data[0];
+ 152:Core/Src/fingerprint.c **** 
+ 153:Core/Src/fingerprint.c **** 	//4. Conv image to value image2Tz
+ 154:Core/Src/fingerprint.c **** 	data[1] = 2;
+ 155:Core/Src/fingerprint.c **** 	setup_packet(data, 2);
+ARM GAS  /tmp/ccW9g89E.s 			page 15
+
+
+ 156:Core/Src/fingerprint.c **** 	receive(fpacket, rpacket);
+ 157:Core/Src/fingerprint.c **** 
+ 158:Core/Src/fingerprint.c **** 	if(rpacket.data[0]) return rpacket.data[0];
+ 159:Core/Src/fingerprint.c **** 
+ 160:Core/Src/fingerprint.c **** 	//5. Create the model
+ 161:Core/Src/fingerprint.c **** 	temp = FINGERPRINT_REGMODEL;
+ 162:Core/Src/fingerprint.c **** 	setup_packet(&temp, 1);
+ 163:Core/Src/fingerprint.c **** 	receive();
+ 164:Core/Src/fingerprint.c **** 	if(rpacket.data[0]) return rpacket.data[0];
+ 165:Core/Src/fingerprint.c **** 
+ 166:Core/Src/fingerprint.c **** 	for(int i = 4; i < 5; i++){
+ 167:Core/Src/fingerprint.c **** 		data[0] = FINGERPRINT_STORE;
+ 168:Core/Src/fingerprint.c **** 		data[1] = 0x01;
+ 169:Core/Src/fingerprint.c **** 		data[2] = 0x00;
+ 170:Core/Src/fingerprint.c **** 		data[3] = (uint8_t)(i & 0xFF);
+ 171:Core/Src/fingerprint.c **** 		setup_packet(data, 4);
+ 172:Core/Src/fingerprint.c **** 		receive();
+ 173:Core/Src/fingerprint.c **** 	}
+ 174:Core/Src/fingerprint.c **** 	return rpacket.data[0];
+ 175:Core/Src/fingerprint.c **** 
+ 176:Core/Src/fingerprint.c **** }
+ 619              		.loc 1 176 1 view .LVU170
+ 620 001c 2BB0     		add	sp, sp, #172
+ 621              	.LCFI15:
+ 622              		.cfi_remember_state
+ 623              		.cfi_def_cfa_offset 12
+ 624              		@ sp needed
+ 625 001e 30BD     		pop	{r4, r5, pc}
+ 626              	.L44:
+ 627              	.LCFI16:
+ 628              		.cfi_restore_state
+ 141:Core/Src/fingerprint.c **** 	setup_packet(data, 2);
+ 629              		.loc 1 141 2 is_stmt 1 view .LVU171
+ 141:Core/Src/fingerprint.c **** 	setup_packet(data, 2);
+ 630              		.loc 1 141 10 is_stmt 0 view .LVU172
+ 631 0020 4FF48173 		mov	r3, #258
+ 632 0024 2893     		str	r3, [sp, #160]
+ 142:Core/Src/fingerprint.c **** 	receive();
+ 633              		.loc 1 142 2 is_stmt 1 view .LVU173
+ 634 0026 0221     		movs	r1, #2
+ 635 0028 28A8     		add	r0, sp, #160
+ 636 002a FFF7FEFF 		bl	setup_packet
+ 637              	.LVL46:
+ 143:Core/Src/fingerprint.c **** 
+ 638              		.loc 1 143 2 view .LVU174
+ 639 002e FFF7FEFF 		bl	receive
+ 640              	.LVL47:
+ 145:Core/Src/fingerprint.c **** 
+ 641              		.loc 1 145 2 view .LVU175
+ 145:Core/Src/fingerprint.c **** 
+ 642              		.loc 1 145 17 is_stmt 0 view .LVU176
+ 643 0032 274B     		ldr	r3, .L45
+ 644 0034 187D     		ldrb	r0, [r3, #20]	@ zero_extendqisi2
+ 145:Core/Src/fingerprint.c **** 
+ 645              		.loc 1 145 4 view .LVU177
+ 646 0036 0028     		cmp	r0, #0
+ 647 0038 F0D1     		bne	.L40
+ARM GAS  /tmp/ccW9g89E.s 			page 16
+
+
+ 148:Core/Src/fingerprint.c **** 	receive();
+ 648              		.loc 1 148 2 is_stmt 1 view .LVU178
+ 649 003a 0121     		movs	r1, #1
+ 650 003c 0DF1A700 		add	r0, sp, #167
+ 651 0040 FFF7FEFF 		bl	setup_packet
+ 652              	.LVL48:
+ 149:Core/Src/fingerprint.c **** 
+ 653              		.loc 1 149 2 view .LVU179
+ 654 0044 FFF7FEFF 		bl	receive
+ 655              	.LVL49:
+ 151:Core/Src/fingerprint.c **** 
+ 656              		.loc 1 151 2 view .LVU180
+ 151:Core/Src/fingerprint.c **** 
+ 657              		.loc 1 151 17 is_stmt 0 view .LVU181
+ 658 0048 214B     		ldr	r3, .L45
+ 659 004a 187D     		ldrb	r0, [r3, #20]	@ zero_extendqisi2
+ 151:Core/Src/fingerprint.c **** 
+ 660              		.loc 1 151 4 view .LVU182
+ 661 004c 0028     		cmp	r0, #0
+ 662 004e E5D1     		bne	.L40
+ 154:Core/Src/fingerprint.c **** 	setup_packet(data, 2);
+ 663              		.loc 1 154 2 is_stmt 1 view .LVU183
+ 154:Core/Src/fingerprint.c **** 	setup_packet(data, 2);
+ 664              		.loc 1 154 10 is_stmt 0 view .LVU184
+ 665 0050 0221     		movs	r1, #2
+ 666 0052 8DF8A110 		strb	r1, [sp, #161]
+ 155:Core/Src/fingerprint.c **** 	receive(fpacket, rpacket);
+ 667              		.loc 1 155 2 is_stmt 1 view .LVU185
+ 668 0056 28A8     		add	r0, sp, #160
+ 669 0058 FFF7FEFF 		bl	setup_packet
+ 670              	.LVL50:
+ 156:Core/Src/fingerprint.c **** 
+ 671              		.loc 1 156 2 view .LVU186
+ 672 005c 1D4C     		ldr	r4, .L45+4
+ 673 005e 1C4D     		ldr	r5, .L45
+ 674 0060 5822     		movs	r2, #88
+ 675 0062 2946     		mov	r1, r5
+ 676 0064 12A8     		add	r0, sp, #72
+ 677 0066 FFF7FEFF 		bl	memcpy
+ 678              	.LVL51:
+ 679 006a 4822     		movs	r2, #72
+ 680 006c 04F11001 		add	r1, r4, #16
+ 681 0070 6846     		mov	r0, sp
+ 682 0072 FFF7FEFF 		bl	memcpy
+ 683              	.LVL52:
+ 684 0076 94E80F00 		ldm	r4, {r0, r1, r2, r3}
+ 685 007a FFF7FEFF 		bl	receive
+ 686              	.LVL53:
+ 158:Core/Src/fingerprint.c **** 
+ 687              		.loc 1 158 2 view .LVU187
+ 158:Core/Src/fingerprint.c **** 
+ 688              		.loc 1 158 17 is_stmt 0 view .LVU188
+ 689 007e 287D     		ldrb	r0, [r5, #20]	@ zero_extendqisi2
+ 158:Core/Src/fingerprint.c **** 
+ 690              		.loc 1 158 4 view .LVU189
+ 691 0080 0028     		cmp	r0, #0
+ 692 0082 CBD1     		bne	.L40
+ARM GAS  /tmp/ccW9g89E.s 			page 17
+
+
+ 161:Core/Src/fingerprint.c **** 	setup_packet(&temp, 1);
+ 693              		.loc 1 161 2 is_stmt 1 view .LVU190
+ 161:Core/Src/fingerprint.c **** 	setup_packet(&temp, 1);
+ 694              		.loc 1 161 7 is_stmt 0 view .LVU191
+ 695 0084 0523     		movs	r3, #5
+ 696 0086 8DF8A730 		strb	r3, [sp, #167]
+ 162:Core/Src/fingerprint.c **** 	receive();
+ 697              		.loc 1 162 2 is_stmt 1 view .LVU192
+ 698 008a 0121     		movs	r1, #1
+ 699 008c 0DF1A700 		add	r0, sp, #167
+ 700 0090 FFF7FEFF 		bl	setup_packet
+ 701              	.LVL54:
+ 163:Core/Src/fingerprint.c **** 	if(rpacket.data[0]) return rpacket.data[0];
+ 702              		.loc 1 163 2 view .LVU193
+ 703 0094 FFF7FEFF 		bl	receive
+ 704              	.LVL55:
+ 164:Core/Src/fingerprint.c **** 
+ 705              		.loc 1 164 2 view .LVU194
+ 164:Core/Src/fingerprint.c **** 
+ 706              		.loc 1 164 17 is_stmt 0 view .LVU195
+ 707 0098 287D     		ldrb	r0, [r5, #20]	@ zero_extendqisi2
+ 164:Core/Src/fingerprint.c **** 
+ 708              		.loc 1 164 4 view .LVU196
+ 709 009a 0028     		cmp	r0, #0
+ 710 009c BED1     		bne	.L40
+ 711              	.LBB9:
+ 166:Core/Src/fingerprint.c **** 		data[0] = FINGERPRINT_STORE;
+ 712              		.loc 1 166 10 view .LVU197
+ 713 009e 0424     		movs	r4, #4
+ 714              	.L41:
+ 715              	.LVL56:
+ 166:Core/Src/fingerprint.c **** 		data[0] = FINGERPRINT_STORE;
+ 716              		.loc 1 166 17 is_stmt 1 discriminator 1 view .LVU198
+ 166:Core/Src/fingerprint.c **** 		data[0] = FINGERPRINT_STORE;
+ 717              		.loc 1 166 2 is_stmt 0 discriminator 1 view .LVU199
+ 718 00a0 042C     		cmp	r4, #4
+ 719 00a2 02DD     		ble	.L42
+ 720              	.LBE9:
+ 174:Core/Src/fingerprint.c **** 
+ 721              		.loc 1 174 2 is_stmt 1 view .LVU200
+ 174:Core/Src/fingerprint.c **** 
+ 722              		.loc 1 174 21 is_stmt 0 view .LVU201
+ 723 00a4 0A4B     		ldr	r3, .L45
+ 724 00a6 187D     		ldrb	r0, [r3, #20]	@ zero_extendqisi2
+ 725 00a8 B8E7     		b	.L40
+ 726              	.L42:
+ 727              	.LBB10:
+ 167:Core/Src/fingerprint.c **** 		data[1] = 0x01;
+ 728              		.loc 1 167 3 is_stmt 1 discriminator 3 view .LVU202
+ 167:Core/Src/fingerprint.c **** 		data[1] = 0x01;
+ 729              		.loc 1 167 11 is_stmt 0 discriminator 3 view .LVU203
+ 730 00aa 0623     		movs	r3, #6
+ 731 00ac 8DF8A030 		strb	r3, [sp, #160]
+ 168:Core/Src/fingerprint.c **** 		data[2] = 0x00;
+ 732              		.loc 1 168 3 is_stmt 1 discriminator 3 view .LVU204
+ 168:Core/Src/fingerprint.c **** 		data[2] = 0x00;
+ 733              		.loc 1 168 11 is_stmt 0 discriminator 3 view .LVU205
+ARM GAS  /tmp/ccW9g89E.s 			page 18
+
+
+ 734 00b0 0123     		movs	r3, #1
+ 735 00b2 8DF8A130 		strb	r3, [sp, #161]
+ 169:Core/Src/fingerprint.c **** 		data[3] = (uint8_t)(i & 0xFF);
+ 736              		.loc 1 169 3 is_stmt 1 discriminator 3 view .LVU206
+ 169:Core/Src/fingerprint.c **** 		data[3] = (uint8_t)(i & 0xFF);
+ 737              		.loc 1 169 11 is_stmt 0 discriminator 3 view .LVU207
+ 738 00b6 0023     		movs	r3, #0
+ 739 00b8 8DF8A230 		strb	r3, [sp, #162]
+ 170:Core/Src/fingerprint.c **** 		setup_packet(data, 4);
+ 740              		.loc 1 170 3 is_stmt 1 discriminator 3 view .LVU208
+ 170:Core/Src/fingerprint.c **** 		setup_packet(data, 4);
+ 741              		.loc 1 170 11 is_stmt 0 discriminator 3 view .LVU209
+ 742 00bc 8DF8A340 		strb	r4, [sp, #163]
+ 171:Core/Src/fingerprint.c **** 		receive();
+ 743              		.loc 1 171 3 is_stmt 1 discriminator 3 view .LVU210
+ 744 00c0 0421     		movs	r1, #4
+ 745 00c2 28A8     		add	r0, sp, #160
+ 746 00c4 FFF7FEFF 		bl	setup_packet
+ 747              	.LVL57:
+ 172:Core/Src/fingerprint.c **** 	}
+ 748              		.loc 1 172 3 discriminator 3 view .LVU211
+ 749 00c8 FFF7FEFF 		bl	receive
+ 750              	.LVL58:
+ 166:Core/Src/fingerprint.c **** 		data[0] = FINGERPRINT_STORE;
+ 751              		.loc 1 166 24 discriminator 3 view .LVU212
+ 166:Core/Src/fingerprint.c **** 		data[0] = FINGERPRINT_STORE;
+ 752              		.loc 1 166 25 is_stmt 0 discriminator 3 view .LVU213
+ 753 00cc 0134     		adds	r4, r4, #1
+ 754              	.LVL59:
+ 166:Core/Src/fingerprint.c **** 		data[0] = FINGERPRINT_STORE;
+ 755              		.loc 1 166 25 discriminator 3 view .LVU214
+ 756 00ce E7E7     		b	.L41
+ 757              	.L46:
+ 758              		.align	2
+ 759              	.L45:
+ 760 00d0 00000000 		.word	rpacket
+ 761 00d4 00000000 		.word	.LANCHOR0
+ 762              	.LBE10:
+ 763              		.cfi_endproc
+ 764              	.LFE71:
+ 766              		.section	.text.check_fingerprint,"ax",%progbits
+ 767              		.align	1
+ 768              		.global	check_fingerprint
+ 769              		.syntax unified
+ 770              		.thumb
+ 771              		.thumb_func
+ 772              		.fpu softvfp
+ 774              	check_fingerprint:
+ 775              	.LFB72:
+ 177:Core/Src/fingerprint.c **** 
+ 178:Core/Src/fingerprint.c **** uint8_t check_fingerprint(){
+ 776              		.loc 1 178 28 is_stmt 1 view -0
+ 777              		.cfi_startproc
+ 778              		@ args = 0, pretend = 0, frame = 8
+ 779              		@ frame_needed = 0, uses_anonymous_args = 0
+ 780 0000 00B5     		push	{lr}
+ 781              	.LCFI17:
+ARM GAS  /tmp/ccW9g89E.s 			page 19
+
+
+ 782              		.cfi_def_cfa_offset 4
+ 783              		.cfi_offset 14, -4
+ 784 0002 83B0     		sub	sp, sp, #12
+ 785              	.LCFI18:
+ 786              		.cfi_def_cfa_offset 16
+ 179:Core/Src/fingerprint.c **** 		uint8_t temp;
+ 787              		.loc 1 179 3 view .LVU216
+ 180:Core/Src/fingerprint.c **** 		//1. GetImage
+ 181:Core/Src/fingerprint.c **** 		temp = FINGERPRINT_GETIMAGE;
+ 788              		.loc 1 181 3 view .LVU217
+ 789              		.loc 1 181 8 is_stmt 0 view .LVU218
+ 790 0004 0121     		movs	r1, #1
+ 791 0006 8DF80710 		strb	r1, [sp, #7]
+ 182:Core/Src/fingerprint.c **** 		setup_packet(&temp, 1);
+ 792              		.loc 1 182 3 is_stmt 1 view .LVU219
+ 793 000a 0DF10700 		add	r0, sp, #7
+ 794 000e FFF7FEFF 		bl	setup_packet
+ 795              	.LVL60:
+ 183:Core/Src/fingerprint.c **** 		receive();
+ 796              		.loc 1 183 3 view .LVU220
+ 797 0012 FFF7FEFF 		bl	receive
+ 798              	.LVL61:
+ 184:Core/Src/fingerprint.c **** 
+ 185:Core/Src/fingerprint.c **** 		if(rpacket.data[0]) return -3;
+ 799              		.loc 1 185 3 view .LVU221
+ 800              		.loc 1 185 18 is_stmt 0 view .LVU222
+ 801 0016 1C4B     		ldr	r3, .L53
+ 802 0018 1B7D     		ldrb	r3, [r3, #20]	@ zero_extendqisi2
+ 803              		.loc 1 185 5 view .LVU223
+ 804 001a 6BBB     		cbnz	r3, .L49
+ 186:Core/Src/fingerprint.c **** 
+ 187:Core/Src/fingerprint.c **** 		//2. Conv image to value image2Tz
+ 188:Core/Src/fingerprint.c **** 		uint8_t data[5]= {FINGERPRINT_IMAGE2TZ, 2};
+ 805              		.loc 1 188 3 is_stmt 1 view .LVU224
+ 806              		.loc 1 188 11 is_stmt 0 view .LVU225
+ 807 001c 40F20223 		movw	r3, #514
+ 808 0020 0093     		str	r3, [sp]
+ 809 0022 0023     		movs	r3, #0
+ 810 0024 8DF80430 		strb	r3, [sp, #4]
+ 189:Core/Src/fingerprint.c **** 		setup_packet(data, 2);
+ 811              		.loc 1 189 3 is_stmt 1 view .LVU226
+ 812 0028 0221     		movs	r1, #2
+ 813 002a 6846     		mov	r0, sp
+ 814 002c FFF7FEFF 		bl	setup_packet
+ 815              	.LVL62:
+ 190:Core/Src/fingerprint.c **** 		receive();
+ 816              		.loc 1 190 3 view .LVU227
+ 817 0030 FFF7FEFF 		bl	receive
+ 818              	.LVL63:
+ 191:Core/Src/fingerprint.c **** 
+ 192:Core/Src/fingerprint.c **** 		if(rpacket.data[0]) return -3;
+ 819              		.loc 1 192 3 view .LVU228
+ 820              		.loc 1 192 18 is_stmt 0 view .LVU229
+ 821 0034 144B     		ldr	r3, .L53
+ 822 0036 1B7D     		ldrb	r3, [r3, #20]	@ zero_extendqisi2
+ 823              		.loc 1 192 5 view .LVU230
+ 824 0038 13BB     		cbnz	r3, .L50
+ARM GAS  /tmp/ccW9g89E.s 			page 20
+
+
+ 193:Core/Src/fingerprint.c **** 
+ 194:Core/Src/fingerprint.c **** 		//3. Search for it
+ 195:Core/Src/fingerprint.c **** 		data[0] = FINGERPRINT_SEARCH;
+ 825              		.loc 1 195 3 is_stmt 1 view .LVU231
+ 826              		.loc 1 195 11 is_stmt 0 view .LVU232
+ 827 003a 0423     		movs	r3, #4
+ 828 003c 8DF80030 		strb	r3, [sp]
+ 196:Core/Src/fingerprint.c **** 		data[1] = 2;
+ 829              		.loc 1 196 3 is_stmt 1 view .LVU233
+ 830              		.loc 1 196 11 is_stmt 0 view .LVU234
+ 831 0040 0223     		movs	r3, #2
+ 832 0042 8DF80130 		strb	r3, [sp, #1]
+ 197:Core/Src/fingerprint.c **** 		data[2] = data[3] = 0x00;
+ 833              		.loc 1 197 3 is_stmt 1 view .LVU235
+ 834              		.loc 1 197 21 is_stmt 0 view .LVU236
+ 835 0046 0023     		movs	r3, #0
+ 836 0048 8DF80330 		strb	r3, [sp, #3]
+ 837              		.loc 1 197 11 view .LVU237
+ 838 004c 8DF80230 		strb	r3, [sp, #2]
+ 198:Core/Src/fingerprint.c **** 		data[4] = (uint8_t)(capacity << 8);
+ 839              		.loc 1 198 3 is_stmt 1 view .LVU238
+ 840              		.loc 1 198 11 is_stmt 0 view .LVU239
+ 841 0050 8DF80430 		strb	r3, [sp, #4]
+ 199:Core/Src/fingerprint.c **** 		data[5] = (uint8_t)(capacity & 0xFF);
+ 842              		.loc 1 199 3 is_stmt 1 view .LVU240
+ 843              		.loc 1 199 13 is_stmt 0 view .LVU241
+ 844 0054 0D4B     		ldr	r3, .L53+4
+ 845 0056 1B78     		ldrb	r3, [r3]	@ zero_extendqisi2
+ 846              		.loc 1 199 11 view .LVU242
+ 847 0058 8DF80530 		strb	r3, [sp, #5]
+ 200:Core/Src/fingerprint.c **** 		setup_packet(data, 6);
+ 848              		.loc 1 200 3 is_stmt 1 view .LVU243
+ 849 005c 0621     		movs	r1, #6
+ 850 005e 6846     		mov	r0, sp
+ 851 0060 FFF7FEFF 		bl	setup_packet
+ 852              	.LVL64:
+ 201:Core/Src/fingerprint.c **** 		receive();
+ 853              		.loc 1 201 3 view .LVU244
+ 854 0064 FFF7FEFF 		bl	receive
+ 855              	.LVL65:
+ 202:Core/Src/fingerprint.c **** 
+ 203:Core/Src/fingerprint.c **** 		if(rpacket.data[0] == 9){  //dont exist
+ 856              		.loc 1 203 3 view .LVU245
+ 857              		.loc 1 203 18 is_stmt 0 view .LVU246
+ 858 0068 074B     		ldr	r3, .L53
+ 859 006a 187D     		ldrb	r0, [r3, #20]	@ zero_extendqisi2
+ 860              		.loc 1 203 5 view .LVU247
+ 861 006c 0928     		cmp	r0, #9
+ 862 006e 09D0     		beq	.L51
+ 204:Core/Src/fingerprint.c **** 			return -1;
+ 205:Core/Src/fingerprint.c **** 		}
+ 206:Core/Src/fingerprint.c **** 		else if(rpacket.data[0] == 1){ //error packet
+ 863              		.loc 1 206 8 is_stmt 1 view .LVU248
+ 864              		.loc 1 206 10 is_stmt 0 view .LVU249
+ 865 0070 0128     		cmp	r0, #1
+ 866 0072 02D1     		bne	.L48
+ 207:Core/Src/fingerprint.c **** 			return -2;
+ARM GAS  /tmp/ccW9g89E.s 			page 21
+
+
+ 867              		.loc 1 207 11 view .LVU250
+ 868 0074 FE20     		movs	r0, #254
+ 869 0076 00E0     		b	.L48
+ 870              	.L49:
+ 185:Core/Src/fingerprint.c **** 
+ 871              		.loc 1 185 30 view .LVU251
+ 872 0078 FD20     		movs	r0, #253
+ 873              	.L48:
+ 208:Core/Src/fingerprint.c **** 		}
+ 209:Core/Src/fingerprint.c **** 		else{
+ 210:Core/Src/fingerprint.c **** 			return rpacket.data[0];
+ 211:Core/Src/fingerprint.c **** 		}
+ 212:Core/Src/fingerprint.c **** 
+ 213:Core/Src/fingerprint.c **** }
+ 874              		.loc 1 213 1 view .LVU252
+ 875 007a 03B0     		add	sp, sp, #12
+ 876              	.LCFI19:
+ 877              		.cfi_remember_state
+ 878              		.cfi_def_cfa_offset 4
+ 879              		@ sp needed
+ 880 007c 5DF804FB 		ldr	pc, [sp], #4
+ 881              	.L50:
+ 882              	.LCFI20:
+ 883              		.cfi_restore_state
+ 192:Core/Src/fingerprint.c **** 
+ 884              		.loc 1 192 30 view .LVU253
+ 885 0080 FD20     		movs	r0, #253
+ 886 0082 FAE7     		b	.L48
+ 887              	.L51:
+ 204:Core/Src/fingerprint.c **** 		}
+ 888              		.loc 1 204 11 view .LVU254
+ 889 0084 FF20     		movs	r0, #255
+ 890 0086 F8E7     		b	.L48
+ 891              	.L54:
+ 892              		.align	2
+ 893              	.L53:
+ 894 0088 00000000 		.word	rpacket
+ 895 008c 00000000 		.word	.LANCHOR1
+ 896              		.cfi_endproc
+ 897              	.LFE72:
+ 899              		.section	.text.led_mode,"ax",%progbits
+ 900              		.align	1
+ 901              		.global	led_mode
+ 902              		.syntax unified
+ 903              		.thumb
+ 904              		.thumb_func
+ 905              		.fpu softvfp
+ 907              	led_mode:
+ 908              	.LVL66:
+ 909              	.LFB73:
+ 214:Core/Src/fingerprint.c **** 
+ 215:Core/Src/fingerprint.c **** void led_mode(uint8_t control){
+ 910              		.loc 1 215 31 is_stmt 1 view -0
+ 911              		.cfi_startproc
+ 912              		@ args = 0, pretend = 0, frame = 8
+ 913              		@ frame_needed = 0, uses_anonymous_args = 0
+ 216:Core/Src/fingerprint.c **** 	if((control == 0) | (control == 1)){
+ARM GAS  /tmp/ccW9g89E.s 			page 22
+
+
+ 914              		.loc 1 216 2 view .LVU256
+ 915              		.loc 1 216 4 is_stmt 0 view .LVU257
+ 916 0000 0128     		cmp	r0, #1
+ 917 0002 00D9     		bls	.L63
+ 918 0004 7047     		bx	lr
+ 919              	.L63:
+ 215:Core/Src/fingerprint.c **** 	if((control == 0) | (control == 1)){
+ 920              		.loc 1 215 31 view .LVU258
+ 921 0006 00B5     		push	{lr}
+ 922              	.LCFI21:
+ 923              		.cfi_def_cfa_offset 4
+ 924              		.cfi_offset 14, -4
+ 925 0008 83B0     		sub	sp, sp, #12
+ 926              	.LCFI22:
+ 927              		.cfi_def_cfa_offset 16
+ 928              	.LBB11:
+ 217:Core/Src/fingerprint.c **** 		uint8_t temp = control == 0 ? FINGERPRINT_LEDOFF : FINGERPRINT_LEDON;
+ 929              		.loc 1 217 3 is_stmt 1 view .LVU259
+ 930              		.loc 1 217 11 is_stmt 0 view .LVU260
+ 931 000a 60B9     		cbnz	r0, .L58
+ 932 000c 5123     		movs	r3, #81
+ 933              	.L57:
+ 934              		.loc 1 217 11 discriminator 4 view .LVU261
+ 935 000e 8DF80730 		strb	r3, [sp, #7]
+ 218:Core/Src/fingerprint.c **** 		setup_packet(&temp, 1);
+ 936              		.loc 1 218 3 is_stmt 1 discriminator 4 view .LVU262
+ 937 0012 0121     		movs	r1, #1
+ 938 0014 0DF10700 		add	r0, sp, #7
+ 939              	.LVL67:
+ 940              		.loc 1 218 3 is_stmt 0 discriminator 4 view .LVU263
+ 941 0018 FFF7FEFF 		bl	setup_packet
+ 942              	.LVL68:
+ 219:Core/Src/fingerprint.c **** 		receive();
+ 943              		.loc 1 219 3 is_stmt 1 discriminator 4 view .LVU264
+ 944 001c FFF7FEFF 		bl	receive
+ 945              	.LVL69:
+ 946              	.LBE11:
+ 220:Core/Src/fingerprint.c **** 	}
+ 221:Core/Src/fingerprint.c **** 
+ 222:Core/Src/fingerprint.c **** }
+ 947              		.loc 1 222 1 is_stmt 0 discriminator 4 view .LVU265
+ 948 0020 03B0     		add	sp, sp, #12
+ 949              	.LCFI23:
+ 950              		.cfi_remember_state
+ 951              		.cfi_def_cfa_offset 4
+ 952              		@ sp needed
+ 953 0022 5DF804FB 		ldr	pc, [sp], #4
+ 954              	.LVL70:
+ 955              	.L58:
+ 956              	.LCFI24:
+ 957              		.cfi_restore_state
+ 958              	.LBB12:
+ 217:Core/Src/fingerprint.c **** 		setup_packet(&temp, 1);
+ 959              		.loc 1 217 11 view .LVU266
+ 960 0026 5023     		movs	r3, #80
+ 961 0028 F1E7     		b	.L57
+ 962              	.LBE12:
+ARM GAS  /tmp/ccW9g89E.s 			page 23
+
+
+ 963              		.cfi_endproc
+ 964              	.LFE73:
+ 966              		.section	.text.get_template_number,"ax",%progbits
+ 967              		.align	1
+ 968              		.global	get_template_number
+ 969              		.syntax unified
+ 970              		.thumb
+ 971              		.thumb_func
+ 972              		.fpu softvfp
+ 974              	get_template_number:
+ 975              	.LFB74:
+ 223:Core/Src/fingerprint.c **** 
+ 224:Core/Src/fingerprint.c **** uint16_t get_template_number(){
+ 976              		.loc 1 224 31 is_stmt 1 view -0
+ 977              		.cfi_startproc
+ 978              		@ args = 0, pretend = 0, frame = 8
+ 979              		@ frame_needed = 0, uses_anonymous_args = 0
+ 980 0000 00B5     		push	{lr}
+ 981              	.LCFI25:
+ 982              		.cfi_def_cfa_offset 4
+ 983              		.cfi_offset 14, -4
+ 984 0002 83B0     		sub	sp, sp, #12
+ 985              	.LCFI26:
+ 986              		.cfi_def_cfa_offset 16
+ 225:Core/Src/fingerprint.c **** 	uint8_t temp;
+ 987              		.loc 1 225 2 view .LVU268
+ 226:Core/Src/fingerprint.c **** 	temp = FINGERPRINT_TEMPLATECOUNT;
+ 988              		.loc 1 226 2 view .LVU269
+ 989              		.loc 1 226 7 is_stmt 0 view .LVU270
+ 990 0004 1D23     		movs	r3, #29
+ 991 0006 8DF80730 		strb	r3, [sp, #7]
+ 227:Core/Src/fingerprint.c **** 	setup_packet(&temp, 1);
+ 992              		.loc 1 227 2 is_stmt 1 view .LVU271
+ 993 000a 0121     		movs	r1, #1
+ 994 000c 0DF10700 		add	r0, sp, #7
+ 995 0010 FFF7FEFF 		bl	setup_packet
+ 996              	.LVL71:
+ 228:Core/Src/fingerprint.c **** 	receive();
+ 997              		.loc 1 228 2 view .LVU272
+ 998 0014 FFF7FEFF 		bl	receive
+ 999              	.LVL72:
+ 229:Core/Src/fingerprint.c **** 	return (((uint16_t)rpacket.data[1]) << 8) + ((uint16_t)rpacket.data[2]);
+ 1000              		.loc 1 229 2 view .LVU273
+ 1001              		.loc 1 229 33 is_stmt 0 view .LVU274
+ 1002 0018 044B     		ldr	r3, .L66
+ 1003 001a 5A7D     		ldrb	r2, [r3, #21]	@ zero_extendqisi2
+ 1004              		.loc 1 229 69 view .LVU275
+ 1005 001c 987D     		ldrb	r0, [r3, #22]	@ zero_extendqisi2
+ 1006              		.loc 1 229 44 view .LVU276
+ 1007 001e 00EB0220 		add	r0, r0, r2, lsl #8
+ 230:Core/Src/fingerprint.c **** }
+ 1008              		.loc 1 230 1 view .LVU277
+ 1009 0022 80B2     		uxth	r0, r0
+ 1010 0024 03B0     		add	sp, sp, #12
+ 1011              	.LCFI27:
+ 1012              		.cfi_def_cfa_offset 4
+ 1013              		@ sp needed
+ARM GAS  /tmp/ccW9g89E.s 			page 24
+
+
+ 1014 0026 5DF804FB 		ldr	pc, [sp], #4
+ 1015              	.L67:
+ 1016 002a 00BF     		.align	2
+ 1017              	.L66:
+ 1018 002c 00000000 		.word	rpacket
+ 1019              		.cfi_endproc
+ 1020              	.LFE74:
+ 1022              		.section	.text.reset_database,"ax",%progbits
+ 1023              		.align	1
+ 1024              		.global	reset_database
+ 1025              		.syntax unified
+ 1026              		.thumb
+ 1027              		.thumb_func
+ 1028              		.fpu softvfp
+ 1030              	reset_database:
+ 1031              	.LFB75:
+ 231:Core/Src/fingerprint.c **** 
+ 232:Core/Src/fingerprint.c **** void reset_database(){
+ 1032              		.loc 1 232 22 is_stmt 1 view -0
+ 1033              		.cfi_startproc
+ 1034              		@ args = 0, pretend = 0, frame = 8
+ 1035              		@ frame_needed = 0, uses_anonymous_args = 0
+ 1036 0000 00B5     		push	{lr}
+ 1037              	.LCFI28:
+ 1038              		.cfi_def_cfa_offset 4
+ 1039              		.cfi_offset 14, -4
+ 1040 0002 83B0     		sub	sp, sp, #12
+ 1041              	.LCFI29:
+ 1042              		.cfi_def_cfa_offset 16
+ 233:Core/Src/fingerprint.c **** 	uint8_t temp;
+ 1043              		.loc 1 233 2 view .LVU279
+ 234:Core/Src/fingerprint.c **** 	//1. GetImage
+ 235:Core/Src/fingerprint.c **** 	temp = FINGERPRINT_EMPTY;
+ 1044              		.loc 1 235 2 view .LVU280
+ 1045              		.loc 1 235 7 is_stmt 0 view .LVU281
+ 1046 0004 0D23     		movs	r3, #13
+ 1047 0006 8DF80730 		strb	r3, [sp, #7]
+ 236:Core/Src/fingerprint.c **** 	setup_packet(&temp, 1);
+ 1048              		.loc 1 236 2 is_stmt 1 view .LVU282
+ 1049 000a 0121     		movs	r1, #1
+ 1050 000c 0DF10700 		add	r0, sp, #7
+ 1051 0010 FFF7FEFF 		bl	setup_packet
+ 1052              	.LVL73:
+ 237:Core/Src/fingerprint.c **** 	send();
+ 1053              		.loc 1 237 2 view .LVU283
+ 1054 0014 FFF7FEFF 		bl	send
+ 1055              	.LVL74:
+ 238:Core/Src/fingerprint.c **** }
+ 1056              		.loc 1 238 1 is_stmt 0 view .LVU284
+ 1057 0018 03B0     		add	sp, sp, #12
+ 1058              	.LCFI30:
+ 1059              		.cfi_def_cfa_offset 4
+ 1060              		@ sp needed
+ 1061 001a 5DF804FB 		ldr	pc, [sp], #4
+ 1062              		.cfi_endproc
+ 1063              	.LFE75:
+ 1065              		.global	baud_rate
+ARM GAS  /tmp/ccW9g89E.s 			page 25
+
+
+ 1066              		.global	packet_len
+ 1067              		.global	device_addr
+ 1068              		.global	security_level
+ 1069              		.global	capacity
+ 1070              		.global	system_id
+ 1071              		.global	status_reg
+ 1072              		.comm	rpacket,88,8
+ 1073              		.global	fpacket
+ 1074              		.section	.bss.security_level,"aw",%nobits
+ 1075              		.align	1
+ 1078              	security_level:
+ 1079 0000 0000     		.space	2
+ 1080              		.section	.bss.status_reg,"aw",%nobits
+ 1081              		.align	1
+ 1084              	status_reg:
+ 1085 0000 0000     		.space	2
+ 1086              		.section	.bss.system_id,"aw",%nobits
+ 1087              		.align	1
+ 1090              	system_id:
+ 1091 0000 0000     		.space	2
+ 1092              		.section	.data.baud_rate,"aw"
+ 1093              		.align	1
+ 1096              	baud_rate:
+ 1097 0000 00E1     		.short	-7936
+ 1098              		.section	.data.capacity,"aw"
+ 1099              		.align	1
+ 1100              		.set	.LANCHOR1,. + 0
+ 1103              	capacity:
+ 1104 0000 4000     		.short	64
+ 1105              		.section	.data.device_addr,"aw"
+ 1106              		.align	2
+ 1109              	device_addr:
+ 1110 0000 FFFFFFFF 		.word	-1
+ 1111              		.section	.data.fpacket,"aw"
+ 1112              		.align	3
+ 1113              		.set	.LANCHOR0,. + 0
+ 1116              	fpacket:
+ 1117 0000 01EF     		.short	-4351
+ 1118 0002 00000000 		.space	6
+ 1118      0000
+ 1119 0008 FFFFFFFF 		.word	-1
+ 1120 000c 00000000 		.word	0
+ 1121 0010 01       		.byte	1
+ 1122 0011 00000000 		.space	71
+ 1122      00000000 
+ 1122      00000000 
+ 1122      00000000 
+ 1122      00000000 
+ 1123              		.section	.data.packet_len,"aw"
+ 1124              		.align	1
+ 1127              	packet_len:
+ 1128 0000 4000     		.short	64
+ 1129              		.text
+ 1130              	.Letext0:
+ 1131              		.file 2 "/usr/lib/gcc/arm-none-eabi/9.2.1/include/stdint.h"
+ 1132              		.file 3 "Drivers/CMSIS/Include/core_cm3.h"
+ 1133              		.file 4 "Drivers/CMSIS/Device/ST/STM32F1xx/Include/system_stm32f1xx.h"
+ARM GAS  /tmp/ccW9g89E.s 			page 26
+
+
+ 1134              		.file 5 "Drivers/CMSIS/Device/ST/STM32F1xx/Include/stm32f103xe.h"
+ 1135              		.file 6 "/usr/lib/gcc/arm-none-eabi/9.2.1/include/stddef.h"
+ 1136              		.file 7 "/usr/include/newlib/sys/_types.h"
+ 1137              		.file 8 "/usr/include/newlib/sys/reent.h"
+ 1138              		.file 9 "/usr/include/newlib/sys/lock.h"
+ 1139              		.file 10 "Drivers/STM32F1xx_HAL_Driver/Inc/stm32f1xx_hal_def.h"
+ 1140              		.file 11 "Drivers/STM32F1xx_HAL_Driver/Inc/stm32f1xx_hal_dma.h"
+ 1141              		.file 12 "Drivers/STM32F1xx_HAL_Driver/Inc/stm32f1xx_hal_uart.h"
+ 1142              		.file 13 "Drivers/STM32F1xx_HAL_Driver/Inc/stm32f1xx_hal.h"
+ 1143              		.file 14 "Core/Inc/fingerprint.h"
+ 1144              		.file 15 "<built-in>"
+ARM GAS  /tmp/ccW9g89E.s 			page 27
+
+
+DEFINED SYMBOLS
+                            *ABS*:0000000000000000 fingerprint.c
+     /tmp/ccW9g89E.s:16     .text.setup_packet:0000000000000000 $t
+     /tmp/ccW9g89E.s:24     .text.setup_packet:0000000000000000 setup_packet
+     /tmp/ccW9g89E.s:117    .text.setup_packet:000000000000003c $d
+     /tmp/ccW9g89E.s:122    .text.setup_received:0000000000000000 $t
+     /tmp/ccW9g89E.s:129    .text.setup_received:0000000000000000 setup_received
+     /tmp/ccW9g89E.s:225    .text.setup_received:0000000000000054 $d
+                            *COM*:0000000000000058 rpacket
+     /tmp/ccW9g89E.s:230    .text.send:0000000000000000 $t
+     /tmp/ccW9g89E.s:237    .text.send:0000000000000000 send
+     /tmp/ccW9g89E.s:461    .text.send:00000000000000e0 $d
+     /tmp/ccW9g89E.s:467    .text.receive:0000000000000000 $t
+     /tmp/ccW9g89E.s:474    .text.receive:0000000000000000 receive
+     /tmp/ccW9g89E.s:526    .text.receive:0000000000000040 $d
+     /tmp/ccW9g89E.s:532    .text.init_fingerprint:0000000000000000 $t
+     /tmp/ccW9g89E.s:539    .text.init_fingerprint:0000000000000000 init_fingerprint
+     /tmp/ccW9g89E.s:574    .text.save_fingerprint:0000000000000000 $t
+     /tmp/ccW9g89E.s:581    .text.save_fingerprint:0000000000000000 save_fingerprint
+     /tmp/ccW9g89E.s:760    .text.save_fingerprint:00000000000000d0 $d
+     /tmp/ccW9g89E.s:767    .text.check_fingerprint:0000000000000000 $t
+     /tmp/ccW9g89E.s:774    .text.check_fingerprint:0000000000000000 check_fingerprint
+     /tmp/ccW9g89E.s:894    .text.check_fingerprint:0000000000000088 $d
+     /tmp/ccW9g89E.s:900    .text.led_mode:0000000000000000 $t
+     /tmp/ccW9g89E.s:907    .text.led_mode:0000000000000000 led_mode
+     /tmp/ccW9g89E.s:967    .text.get_template_number:0000000000000000 $t
+     /tmp/ccW9g89E.s:974    .text.get_template_number:0000000000000000 get_template_number
+     /tmp/ccW9g89E.s:1018   .text.get_template_number:000000000000002c $d
+     /tmp/ccW9g89E.s:1023   .text.reset_database:0000000000000000 $t
+     /tmp/ccW9g89E.s:1030   .text.reset_database:0000000000000000 reset_database
+     /tmp/ccW9g89E.s:1096   .data.baud_rate:0000000000000000 baud_rate
+     /tmp/ccW9g89E.s:1127   .data.packet_len:0000000000000000 packet_len
+     /tmp/ccW9g89E.s:1109   .data.device_addr:0000000000000000 device_addr
+     /tmp/ccW9g89E.s:1078   .bss.security_level:0000000000000000 security_level
+     /tmp/ccW9g89E.s:1103   .data.capacity:0000000000000000 capacity
+     /tmp/ccW9g89E.s:1090   .bss.system_id:0000000000000000 system_id
+     /tmp/ccW9g89E.s:1084   .bss.status_reg:0000000000000000 status_reg
+     /tmp/ccW9g89E.s:1116   .data.fpacket:0000000000000000 fpacket
+     /tmp/ccW9g89E.s:1075   .bss.security_level:0000000000000000 $d
+     /tmp/ccW9g89E.s:1081   .bss.status_reg:0000000000000000 $d
+     /tmp/ccW9g89E.s:1087   .bss.system_id:0000000000000000 $d
+     /tmp/ccW9g89E.s:1093   .data.baud_rate:0000000000000000 $d
+     /tmp/ccW9g89E.s:1099   .data.capacity:0000000000000000 $d
+     /tmp/ccW9g89E.s:1106   .data.device_addr:0000000000000000 $d
+     /tmp/ccW9g89E.s:1112   .data.fpacket:0000000000000000 $d
+     /tmp/ccW9g89E.s:1124   .data.packet_len:0000000000000000 $d
+
+UNDEFINED SYMBOLS
+HAL_UART_Transmit
+huart1
+memset
+memcpy
+HAL_UART_Receive

@@ -1,0 +1,236 @@
+ARM GAS  /tmp/cc2QAtzk.s 			page 1
+
+
+   1              		.cpu cortex-m3
+   2              		.eabi_attribute 20, 1
+   3              		.eabi_attribute 21, 1
+   4              		.eabi_attribute 23, 3
+   5              		.eabi_attribute 24, 1
+   6              		.eabi_attribute 25, 1
+   7              		.eabi_attribute 26, 1
+   8              		.eabi_attribute 30, 1
+   9              		.eabi_attribute 34, 1
+  10              		.eabi_attribute 18, 4
+  11              		.file	"linked_list.c"
+  12              		.text
+  13              	.Ltext0:
+  14              		.cfi_sections	.debug_frame
+  15              		.section	.text.create_node,"ax",%progbits
+  16              		.align	1
+  17              		.global	create_node
+  18              		.arch armv7-m
+  19              		.syntax unified
+  20              		.thumb
+  21              		.thumb_func
+  22              		.fpu softvfp
+  24              	create_node:
+  25              	.LVL0:
+  26              	.LFB0:
+  27              		.file 1 "Core/Src/linked_list.c"
+   1:Core/Src/linked_list.c **** #include "linked_list.h"
+   2:Core/Src/linked_list.c **** #include <stdlib.h>
+   3:Core/Src/linked_list.c **** 
+   4:Core/Src/linked_list.c **** Node* create_node(char data){
+  28              		.loc 1 4 29 view -0
+  29              		.cfi_startproc
+  30              		@ args = 0, pretend = 0, frame = 0
+  31              		@ frame_needed = 0, uses_anonymous_args = 0
+  32              		.loc 1 4 29 is_stmt 0 view .LVU1
+  33 0000 10B5     		push	{r4, lr}
+  34              	.LCFI0:
+  35              		.cfi_def_cfa_offset 8
+  36              		.cfi_offset 4, -8
+  37              		.cfi_offset 14, -4
+  38 0002 0446     		mov	r4, r0
+   5:Core/Src/linked_list.c **** 	Node *link = (Node*) malloc(sizeof(Node));
+  39              		.loc 1 5 2 is_stmt 1 view .LVU2
+  40              		.loc 1 5 23 is_stmt 0 view .LVU3
+  41 0004 0C20     		movs	r0, #12
+  42              	.LVL1:
+  43              		.loc 1 5 23 view .LVU4
+  44 0006 FFF7FEFF 		bl	malloc
+  45              	.LVL2:
+   6:Core/Src/linked_list.c **** 	link->data = data;
+  46              		.loc 1 6 2 is_stmt 1 view .LVU5
+  47              		.loc 1 6 13 is_stmt 0 view .LVU6
+  48 000a 0470     		strb	r4, [r0]
+   7:Core/Src/linked_list.c **** 	link->next = NULL;
+  49              		.loc 1 7 2 is_stmt 1 view .LVU7
+  50              		.loc 1 7 13 is_stmt 0 view .LVU8
+  51 000c 0022     		movs	r2, #0
+ARM GAS  /tmp/cc2QAtzk.s 			page 2
+
+
+  52 000e 8260     		str	r2, [r0, #8]
+   8:Core/Src/linked_list.c **** 	link->prev = NULL;
+  53              		.loc 1 8 2 is_stmt 1 view .LVU9
+  54              		.loc 1 8 13 is_stmt 0 view .LVU10
+  55 0010 4260     		str	r2, [r0, #4]
+   9:Core/Src/linked_list.c **** 	return link;
+  56              		.loc 1 9 2 is_stmt 1 view .LVU11
+  10:Core/Src/linked_list.c **** }
+  57              		.loc 1 10 1 is_stmt 0 view .LVU12
+  58 0012 10BD     		pop	{r4, pc}
+  59              		.cfi_endproc
+  60              	.LFE0:
+  62              		.section	.text.delete_node,"ax",%progbits
+  63              		.align	1
+  64              		.global	delete_node
+  65              		.syntax unified
+  66              		.thumb
+  67              		.thumb_func
+  68              		.fpu softvfp
+  70              	delete_node:
+  71              	.LVL3:
+  72              	.LFB1:
+  11:Core/Src/linked_list.c **** 
+  12:Core/Src/linked_list.c **** void delete_node(Node *point){
+  73              		.loc 1 12 30 is_stmt 1 view -0
+  74              		.cfi_startproc
+  75              		@ args = 0, pretend = 0, frame = 0
+  76              		@ frame_needed = 0, uses_anonymous_args = 0
+  13:Core/Src/linked_list.c **** 	if(point == NULL) return;
+  77              		.loc 1 13 2 view .LVU14
+  78              		.loc 1 13 4 is_stmt 0 view .LVU15
+  79 0000 18B1     		cbz	r0, .L6
+  12:Core/Src/linked_list.c **** 	if(point == NULL) return;
+  80              		.loc 1 12 30 view .LVU16
+  81 0002 08B5     		push	{r3, lr}
+  82              	.LCFI1:
+  83              		.cfi_def_cfa_offset 8
+  84              		.cfi_offset 3, -8
+  85              		.cfi_offset 14, -4
+  14:Core/Src/linked_list.c **** 	free(point);
+  86              		.loc 1 14 2 is_stmt 1 view .LVU17
+  87 0004 FFF7FEFF 		bl	free
+  88              	.LVL4:
+  15:Core/Src/linked_list.c **** }
+  89              		.loc 1 15 1 is_stmt 0 view .LVU18
+  90 0008 08BD     		pop	{r3, pc}
+  91              	.LVL5:
+  92              	.L6:
+  93              	.LCFI2:
+  94              		.cfi_def_cfa_offset 0
+  95              		.cfi_restore 3
+  96              		.cfi_restore 14
+  97              		.loc 1 15 1 view .LVU19
+  98 000a 7047     		bx	lr
+  99              		.cfi_endproc
+ 100              	.LFE1:
+ 102              		.section	.text.delete_all,"ax",%progbits
+ARM GAS  /tmp/cc2QAtzk.s 			page 3
+
+
+ 103              		.align	1
+ 104              		.global	delete_all
+ 105              		.syntax unified
+ 106              		.thumb
+ 107              		.thumb_func
+ 108              		.fpu softvfp
+ 110              	delete_all:
+ 111              	.LVL6:
+ 112              	.LFB2:
+  16:Core/Src/linked_list.c **** 
+  17:Core/Src/linked_list.c **** void delete_all(Node *head){
+ 113              		.loc 1 17 28 is_stmt 1 view -0
+ 114              		.cfi_startproc
+ 115              		@ args = 0, pretend = 0, frame = 0
+ 116              		@ frame_needed = 0, uses_anonymous_args = 0
+  18:Core/Src/linked_list.c **** 	if(head == NULL) return;
+ 117              		.loc 1 18 2 view .LVU21
+ 118              		.loc 1 18 4 is_stmt 0 view .LVU22
+ 119 0000 68B1     		cbz	r0, .L14
+  17:Core/Src/linked_list.c **** 	if(head == NULL) return;
+ 120              		.loc 1 17 28 view .LVU23
+ 121 0002 38B5     		push	{r3, r4, r5, lr}
+ 122              	.LCFI3:
+ 123              		.cfi_def_cfa_offset 16
+ 124              		.cfi_offset 3, -16
+ 125              		.cfi_offset 4, -12
+ 126              		.cfi_offset 5, -8
+ 127              		.cfi_offset 14, -4
+ 128 0004 0546     		mov	r5, r0
+  19:Core/Src/linked_list.c **** 	Node *current = head->next;
+ 129              		.loc 1 19 2 is_stmt 1 view .LVU24
+ 130              		.loc 1 19 8 is_stmt 0 view .LVU25
+ 131 0006 8068     		ldr	r0, [r0, #8]
+ 132              	.LVL7:
+  20:Core/Src/linked_list.c **** 	while(current != NULL){
+ 133              		.loc 1 20 2 is_stmt 1 view .LVU26
+ 134              		.loc 1 20 7 is_stmt 0 view .LVU27
+ 135 0008 03E0     		b	.L11
+ 136              	.L12:
+ 137              	.LBB2:
+  21:Core/Src/linked_list.c **** 		Node *temp = current;
+ 138              		.loc 1 21 3 is_stmt 1 view .LVU28
+ 139              	.LVL8:
+  22:Core/Src/linked_list.c **** 		current = current->next;
+ 140              		.loc 1 22 3 view .LVU29
+ 141              		.loc 1 22 11 is_stmt 0 view .LVU30
+ 142 000a 8468     		ldr	r4, [r0, #8]
+ 143              	.LVL9:
+  23:Core/Src/linked_list.c **** 		free(temp);
+ 144              		.loc 1 23 3 is_stmt 1 view .LVU31
+ 145 000c FFF7FEFF 		bl	free
+ 146              	.LVL10:
+  22:Core/Src/linked_list.c **** 		current = current->next;
+ 147              		.loc 1 22 11 is_stmt 0 view .LVU32
+ 148 0010 2046     		mov	r0, r4
+ 149              	.LVL11:
+ 150              	.L11:
+ARM GAS  /tmp/cc2QAtzk.s 			page 4
+
+
+  22:Core/Src/linked_list.c **** 		current = current->next;
+ 151              		.loc 1 22 11 view .LVU33
+ 152              	.LBE2:
+  20:Core/Src/linked_list.c **** 		Node *temp = current;
+ 153              		.loc 1 20 7 is_stmt 1 view .LVU34
+ 154 0012 0028     		cmp	r0, #0
+ 155 0014 F9D1     		bne	.L12
+  24:Core/Src/linked_list.c **** 	}
+  25:Core/Src/linked_list.c **** 	free(head);
+ 156              		.loc 1 25 2 view .LVU35
+ 157 0016 2846     		mov	r0, r5
+ 158              	.LVL12:
+ 159              		.loc 1 25 2 is_stmt 0 view .LVU36
+ 160 0018 FFF7FEFF 		bl	free
+ 161              	.LVL13:
+  26:Core/Src/linked_list.c **** }
+ 162              		.loc 1 26 1 view .LVU37
+ 163 001c 38BD     		pop	{r3, r4, r5, pc}
+ 164              	.LVL14:
+ 165              	.L14:
+ 166              	.LCFI4:
+ 167              		.cfi_def_cfa_offset 0
+ 168              		.cfi_restore 3
+ 169              		.cfi_restore 4
+ 170              		.cfi_restore 5
+ 171              		.cfi_restore 14
+ 172              		.loc 1 26 1 view .LVU38
+ 173 001e 7047     		bx	lr
+ 174              		.cfi_endproc
+ 175              	.LFE2:
+ 177              		.text
+ 178              	.Letext0:
+ 179              		.file 2 "Core/Inc/linked_list.h"
+ 180              		.file 3 "/usr/lib/gcc/arm-none-eabi/9.2.1/include/stddef.h"
+ 181              		.file 4 "/usr/include/newlib/sys/_types.h"
+ 182              		.file 5 "/usr/include/newlib/sys/reent.h"
+ 183              		.file 6 "/usr/include/newlib/sys/lock.h"
+ 184              		.file 7 "/usr/include/newlib/stdlib.h"
+ARM GAS  /tmp/cc2QAtzk.s 			page 5
+
+
+DEFINED SYMBOLS
+                            *ABS*:0000000000000000 linked_list.c
+     /tmp/cc2QAtzk.s:16     .text.create_node:0000000000000000 $t
+     /tmp/cc2QAtzk.s:24     .text.create_node:0000000000000000 create_node
+     /tmp/cc2QAtzk.s:63     .text.delete_node:0000000000000000 $t
+     /tmp/cc2QAtzk.s:70     .text.delete_node:0000000000000000 delete_node
+     /tmp/cc2QAtzk.s:103    .text.delete_all:0000000000000000 $t
+     /tmp/cc2QAtzk.s:110    .text.delete_all:0000000000000000 delete_all
+
+UNDEFINED SYMBOLS
+malloc
+free

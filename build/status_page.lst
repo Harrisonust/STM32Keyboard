@@ -1,0 +1,351 @@
+ARM GAS  /tmp/ccIbTdet.s 			page 1
+
+
+   1              		.cpu cortex-m3
+   2              		.eabi_attribute 20, 1
+   3              		.eabi_attribute 21, 1
+   4              		.eabi_attribute 23, 3
+   5              		.eabi_attribute 24, 1
+   6              		.eabi_attribute 25, 1
+   7              		.eabi_attribute 26, 1
+   8              		.eabi_attribute 30, 1
+   9              		.eabi_attribute 34, 1
+  10              		.eabi_attribute 18, 4
+  11              		.file	"status_page.c"
+  12              		.text
+  13              	.Ltext0:
+  14              		.cfi_sections	.debug_frame
+  15              		.section	.rodata.status_update.str1.4,"aMS",%progbits,1
+  16              		.align	2
+  17              	.LC0:
+  18 0000 4D4F4445 		.ascii	"MODE: CABLE\000"
+  18      3A204341 
+  18      424C4500 
+  19              		.align	2
+  20              	.LC1:
+  21 000c 4D4F4445 		.ascii	"MODE: BLUETOOTH\000"
+  21      3A20424C 
+  21      5545544F 
+  21      4F544800 
+  22              		.align	2
+  23              	.LC2:
+  24 001c 42617474 		.ascii	"Battery : %u %%\000"
+  24      65727920 
+  24      3A202575 
+  24      20252500 
+  25              		.section	.text.status_update,"ax",%progbits
+  26              		.align	1
+  27              		.global	status_update
+  28              		.arch armv7-m
+  29              		.syntax unified
+  30              		.thumb
+  31              		.thumb_func
+  32              		.fpu softvfp
+  34              	status_update:
+  35              	.LFB66:
+  36              		.file 1 "Core/Src/oled/status_page.c"
+   1:Core/Src/oled/status_page.c **** #include "../../Inc/oled/status_page.h"
+   2:Core/Src/oled/status_page.c **** 
+   3:Core/Src/oled/status_page.c **** PAGE status = {
+   4:Core/Src/oled/status_page.c **** 		.title = "Status",
+   5:Core/Src/oled/status_page.c **** 		.update_page = status_update,
+   6:Core/Src/oled/status_page.c **** 		.on_click= status_onclick,
+   7:Core/Src/oled/status_page.c **** 		.init = NULL
+   8:Core/Src/oled/status_page.c **** 
+   9:Core/Src/oled/status_page.c **** };
+  10:Core/Src/oled/status_page.c **** 
+  11:Core/Src/oled/status_page.c **** 
+  12:Core/Src/oled/status_page.c **** extern KEYBOARD_CONNECTION_MODE keyboard_connection_mode;
+  13:Core/Src/oled/status_page.c **** 
+  14:Core/Src/oled/status_page.c **** void status_update(){
+ARM GAS  /tmp/ccIbTdet.s 			page 2
+
+
+  37              		.loc 1 14 21 view -0
+  38              		.cfi_startproc
+  39              		@ args = 0, pretend = 0, frame = 0
+  40              		@ frame_needed = 0, uses_anonymous_args = 0
+  41 0000 38B5     		push	{r3, r4, r5, lr}
+  42              	.LCFI0:
+  43              		.cfi_def_cfa_offset 16
+  44              		.cfi_offset 3, -16
+  45              		.cfi_offset 4, -12
+  46              		.cfi_offset 5, -8
+  47              		.cfi_offset 14, -4
+  15:Core/Src/oled/status_page.c **** 	//Handle Bluetooth
+  16:Core/Src/oled/status_page.c **** 	static char temp[30] = "";
+  48              		.loc 1 16 2 view .LVU1
+  17:Core/Src/oled/status_page.c **** 	if(keyboard_connection_mode == KEYBOARD_CONNECTION_MODE_CABLE){
+  49              		.loc 1 17 2 view .LVU2
+  50              		.loc 1 17 30 is_stmt 0 view .LVU3
+  51 0002 1D4B     		ldr	r3, .L7
+  52 0004 1B78     		ldrb	r3, [r3]	@ zero_extendqisi2
+  53              		.loc 1 17 4 view .LVU4
+  54 0006 53B3     		cbz	r3, .L5
+  18:Core/Src/oled/status_page.c **** 		snprintf(temp, 30, "MODE: CABLE");
+  19:Core/Src/oled/status_page.c **** 	}else if(keyboard_connection_mode == KEYBOARD_CONNECTION_MODE_BLUETOOTH){
+  55              		.loc 1 19 8 is_stmt 1 view .LVU5
+  56              		.loc 1 19 10 is_stmt 0 view .LVU6
+  57 0008 012B     		cmp	r3, #1
+  58 000a 2ED0     		beq	.L6
+  59              	.L3:
+  20:Core/Src/oled/status_page.c **** 		snprintf(temp, 30, "MODE: BLUETOOTH");
+  21:Core/Src/oled/status_page.c **** 	}
+  22:Core/Src/oled/status_page.c **** 	ssd1306_SetCursor(0, 20);
+  60              		.loc 1 22 2 is_stmt 1 view .LVU7
+  61 000c 1421     		movs	r1, #20
+  62 000e 0020     		movs	r0, #0
+  63 0010 FFF7FEFF 		bl	ssd1306_SetCursor
+  64              	.LVL0:
+  23:Core/Src/oled/status_page.c **** 	ssd1306_WriteString(temp, Font_7x10, White);
+  65              		.loc 1 23 2 view .LVU8
+  66 0014 194C     		ldr	r4, .L7+4
+  67 0016 1A4D     		ldr	r5, .L7+8
+  68 0018 0123     		movs	r3, #1
+  69 001a 94E80600 		ldm	r4, {r1, r2}
+  70 001e 2846     		mov	r0, r5
+  71 0020 FFF7FEFF 		bl	ssd1306_WriteString
+  72              	.LVL1:
+  24:Core/Src/oled/status_page.c **** 
+  25:Core/Src/oled/status_page.c **** 	//Handle Battery
+  26:Core/Src/oled/status_page.c **** 	uint32_t battery_value = HAL_ADC_GetValue(&hadc1);
+  73              		.loc 1 26 2 view .LVU9
+  74              		.loc 1 26 27 is_stmt 0 view .LVU10
+  75 0024 1748     		ldr	r0, .L7+12
+  76 0026 FFF7FEFF 		bl	HAL_ADC_GetValue
+  77              	.LVL2:
+  27:Core/Src/oled/status_page.c **** 	battery_value = ((battery_value - MIN_BATT) * 100) / (MAX_BATT - MIN_BATT);
+  78              		.loc 1 27 2 is_stmt 1 view .LVU11
+  79              		.loc 1 27 46 is_stmt 0 view .LVU12
+  80 002a 6423     		movs	r3, #100
+ARM GAS  /tmp/ccIbTdet.s 			page 3
+
+
+  81 002c 03FB00F3 		mul	r3, r3, r0
+  82 0030 A3F52033 		sub	r3, r3, #163840
+  83 0034 3C3B     		subs	r3, r3, #60
+  84              		.loc 1 27 16 view .LVU13
+  85 0036 1448     		ldr	r0, .L7+16
+  86              	.LVL3:
+  87              		.loc 1 27 16 view .LVU14
+  88 0038 A0FB0323 		umull	r2, r3, r0, r3
+  89              	.LVL4:
+  28:Core/Src/oled/status_page.c **** 
+  29:Core/Src/oled/status_page.c **** 
+  30:Core/Src/oled/status_page.c **** 	snprintf(temp, 30, "Battery : %u %%", battery_value);
+  90              		.loc 1 30 2 is_stmt 1 view .LVU15
+  91 003c 1B0A     		lsrs	r3, r3, #8
+  92              	.LVL5:
+  93              		.loc 1 30 2 is_stmt 0 view .LVU16
+  94 003e 134A     		ldr	r2, .L7+20
+  95 0040 1E21     		movs	r1, #30
+  96 0042 2846     		mov	r0, r5
+  97 0044 FFF7FEFF 		bl	snprintf
+  98              	.LVL6:
+  31:Core/Src/oled/status_page.c **** 	ssd1306_SetCursor(0, 40);
+  99              		.loc 1 31 2 is_stmt 1 view .LVU17
+ 100 0048 2821     		movs	r1, #40
+ 101 004a 0020     		movs	r0, #0
+ 102 004c FFF7FEFF 		bl	ssd1306_SetCursor
+ 103              	.LVL7:
+  32:Core/Src/oled/status_page.c **** 	ssd1306_WriteString(temp, Font_7x10, White);
+ 104              		.loc 1 32 2 view .LVU18
+ 105 0050 0123     		movs	r3, #1
+ 106 0052 94E80600 		ldm	r4, {r1, r2}
+ 107 0056 2846     		mov	r0, r5
+ 108 0058 FFF7FEFF 		bl	ssd1306_WriteString
+ 109              	.LVL8:
+  33:Core/Src/oled/status_page.c **** }
+ 110              		.loc 1 33 1 is_stmt 0 view .LVU19
+ 111 005c 38BD     		pop	{r3, r4, r5, pc}
+ 112              	.L5:
+  18:Core/Src/oled/status_page.c **** 	}else if(keyboard_connection_mode == KEYBOARD_CONNECTION_MODE_BLUETOOTH){
+ 113              		.loc 1 18 3 is_stmt 1 view .LVU20
+ 114 005e 084B     		ldr	r3, .L7+8
+ 115 0060 0B4A     		ldr	r2, .L7+24
+ 116 0062 07CA     		ldm	r2, {r0, r1, r2}
+ 117 0064 83E80700 		stm	r3, {r0, r1, r2}
+ 118 0068 D0E7     		b	.L3
+ 119              	.L6:
+  20:Core/Src/oled/status_page.c **** 	}
+ 120              		.loc 1 20 3 view .LVU21
+ 121 006a 054C     		ldr	r4, .L7+8
+ 122 006c 094B     		ldr	r3, .L7+28
+ 123 006e 0FCB     		ldm	r3, {r0, r1, r2, r3}
+ 124 0070 84E80F00 		stm	r4, {r0, r1, r2, r3}
+ 125 0074 CAE7     		b	.L3
+ 126              	.L8:
+ 127 0076 00BF     		.align	2
+ 128              	.L7:
+ 129 0078 00000000 		.word	keyboard_connection_mode
+ARM GAS  /tmp/ccIbTdet.s 			page 4
+
+
+ 130 007c 00000000 		.word	Font_7x10
+ 131 0080 00000000 		.word	.LANCHOR0
+ 132 0084 00000000 		.word	hadc1
+ 133 0088 89163CA0 		.word	-1606674807
+ 134 008c 1C000000 		.word	.LC2
+ 135 0090 00000000 		.word	.LC0
+ 136 0094 0C000000 		.word	.LC1
+ 137              		.cfi_endproc
+ 138              	.LFE66:
+ 140              		.section	.text.status_onclick,"ax",%progbits
+ 141              		.align	1
+ 142              		.global	status_onclick
+ 143              		.syntax unified
+ 144              		.thumb
+ 145              		.thumb_func
+ 146              		.fpu softvfp
+ 148              	status_onclick:
+ 149              	.LVL9:
+ 150              	.LFB67:
+  34:Core/Src/oled/status_page.c **** 
+  35:Core/Src/oled/status_page.c **** void status_onclick(char *combination, int charNum){
+ 151              		.loc 1 35 52 view -0
+ 152              		.cfi_startproc
+ 153              		@ args = 0, pretend = 0, frame = 0
+ 154              		@ frame_needed = 0, uses_anonymous_args = 0
+ 155              		.loc 1 35 52 is_stmt 0 view .LVU23
+ 156 0000 08B5     		push	{r3, lr}
+ 157              	.LCFI1:
+ 158              		.cfi_def_cfa_offset 8
+ 159              		.cfi_offset 3, -8
+ 160              		.cfi_offset 14, -4
+  36:Core/Src/oled/status_page.c **** 
+  37:Core/Src/oled/status_page.c **** 	if(combination[0] == 13){
+ 161              		.loc 1 37 2 is_stmt 1 view .LVU24
+ 162              		.loc 1 37 16 is_stmt 0 view .LVU25
+ 163 0002 0378     		ldrb	r3, [r0]	@ zero_extendqisi2
+ 164              		.loc 1 37 4 view .LVU26
+ 165 0004 0D2B     		cmp	r3, #13
+ 166 0006 02D0     		beq	.L13
+ 167              	.L10:
+  38:Core/Src/oled/status_page.c **** 		if(keyboard_connection_mode == KEYBOARD_CONNECTION_MODE_CABLE)
+  39:Core/Src/oled/status_page.c **** 			keyboard_connection_mode = KEYBOARD_CONNECTION_MODE_BLUETOOTH;
+  40:Core/Src/oled/status_page.c **** 		else if(keyboard_connection_mode == KEYBOARD_CONNECTION_MODE_BLUETOOTH)
+  41:Core/Src/oled/status_page.c **** 			keyboard_connection_mode = KEYBOARD_CONNECTION_MODE_CABLE;
+  42:Core/Src/oled/status_page.c **** 	}
+  43:Core/Src/oled/status_page.c **** 	status_update();
+ 168              		.loc 1 43 2 is_stmt 1 view .LVU27
+ 169 0008 FFF7FEFF 		bl	status_update
+ 170              	.LVL10:
+  44:Core/Src/oled/status_page.c **** }
+ 171              		.loc 1 44 1 is_stmt 0 view .LVU28
+ 172 000c 08BD     		pop	{r3, pc}
+ 173              	.LVL11:
+ 174              	.L13:
+  38:Core/Src/oled/status_page.c **** 		if(keyboard_connection_mode == KEYBOARD_CONNECTION_MODE_CABLE)
+ 175              		.loc 1 38 3 is_stmt 1 view .LVU29
+  38:Core/Src/oled/status_page.c **** 		if(keyboard_connection_mode == KEYBOARD_CONNECTION_MODE_CABLE)
+ARM GAS  /tmp/ccIbTdet.s 			page 5
+
+
+ 176              		.loc 1 38 31 is_stmt 0 view .LVU30
+ 177 000e 064B     		ldr	r3, .L14
+ 178 0010 1B78     		ldrb	r3, [r3]	@ zero_extendqisi2
+  38:Core/Src/oled/status_page.c **** 		if(keyboard_connection_mode == KEYBOARD_CONNECTION_MODE_CABLE)
+ 179              		.loc 1 38 5 view .LVU31
+ 180 0012 1BB9     		cbnz	r3, .L11
+  39:Core/Src/oled/status_page.c **** 		else if(keyboard_connection_mode == KEYBOARD_CONNECTION_MODE_BLUETOOTH)
+ 181              		.loc 1 39 4 is_stmt 1 view .LVU32
+  39:Core/Src/oled/status_page.c **** 		else if(keyboard_connection_mode == KEYBOARD_CONNECTION_MODE_BLUETOOTH)
+ 182              		.loc 1 39 29 is_stmt 0 view .LVU33
+ 183 0014 044B     		ldr	r3, .L14
+ 184 0016 0122     		movs	r2, #1
+ 185 0018 1A70     		strb	r2, [r3]
+ 186 001a F5E7     		b	.L10
+ 187              	.L11:
+  40:Core/Src/oled/status_page.c **** 			keyboard_connection_mode = KEYBOARD_CONNECTION_MODE_CABLE;
+ 188              		.loc 1 40 8 is_stmt 1 view .LVU34
+  40:Core/Src/oled/status_page.c **** 			keyboard_connection_mode = KEYBOARD_CONNECTION_MODE_CABLE;
+ 189              		.loc 1 40 10 is_stmt 0 view .LVU35
+ 190 001c 012B     		cmp	r3, #1
+ 191 001e F3D1     		bne	.L10
+  41:Core/Src/oled/status_page.c **** 	}
+ 192              		.loc 1 41 4 is_stmt 1 view .LVU36
+  41:Core/Src/oled/status_page.c **** 	}
+ 193              		.loc 1 41 29 is_stmt 0 view .LVU37
+ 194 0020 014B     		ldr	r3, .L14
+ 195 0022 0022     		movs	r2, #0
+ 196 0024 1A70     		strb	r2, [r3]
+ 197 0026 EFE7     		b	.L10
+ 198              	.L15:
+ 199              		.align	2
+ 200              	.L14:
+ 201 0028 00000000 		.word	keyboard_connection_mode
+ 202              		.cfi_endproc
+ 203              	.LFE67:
+ 205              		.global	status
+ 206              		.section	.bss.temp.7842,"aw",%nobits
+ 207              		.align	2
+ 208              		.set	.LANCHOR0,. + 0
+ 211              	temp.7842:
+ 212 0000 00000000 		.space	30
+ 212      00000000 
+ 212      00000000 
+ 212      00000000 
+ 212      00000000 
+ 213              		.section	.data.status,"aw"
+ 214              		.align	2
+ 217              	status:
+ 218 0000 53746174 		.ascii	"Status\000"
+ 218      757300
+ 219 0007 00000000 		.space	23
+ 219      00000000 
+ 219      00000000 
+ 219      00000000 
+ 219      00000000 
+ 220 001e 0000     		.space	2
+ 221 0020 00000000 		.word	status_update
+ARM GAS  /tmp/ccIbTdet.s 			page 6
+
+
+ 222 0024 00000000 		.word	status_onclick
+ 223 0028 00000000 		.word	0
+ 224              		.text
+ 225              	.Letext0:
+ 226              		.file 2 "/usr/lib/gcc/arm-none-eabi/9.2.1/include/stdint.h"
+ 227              		.file 3 "Drivers/CMSIS/Include/core_cm3.h"
+ 228              		.file 4 "Drivers/CMSIS/Device/ST/STM32F1xx/Include/system_stm32f1xx.h"
+ 229              		.file 5 "Drivers/CMSIS/Device/ST/STM32F1xx/Include/stm32f103xe.h"
+ 230              		.file 6 "/usr/lib/gcc/arm-none-eabi/9.2.1/include/stddef.h"
+ 231              		.file 7 "/usr/include/newlib/sys/_types.h"
+ 232              		.file 8 "/usr/include/newlib/sys/reent.h"
+ 233              		.file 9 "/usr/include/newlib/sys/lock.h"
+ 234              		.file 10 "Drivers/STM32F1xx_HAL_Driver/Inc/stm32f1xx_hal_def.h"
+ 235              		.file 11 "Drivers/STM32F1xx_HAL_Driver/Inc/stm32f1xx_hal_dma.h"
+ 236              		.file 12 "Drivers/STM32F1xx_HAL_Driver/Inc/stm32f1xx_hal_adc.h"
+ 237              		.file 13 "Drivers/STM32F1xx_HAL_Driver/Inc/stm32f1xx_hal_i2c.h"
+ 238              		.file 14 "Drivers/STM32F1xx_HAL_Driver/Inc/stm32f1xx_hal.h"
+ 239              		.file 15 "Core/Src/oled/../../Inc/oled/ssd1306_fonts.h"
+ 240              		.file 16 "Core/Src/oled/../../Inc/oled/ssd1306.h"
+ 241              		.file 17 "Core/Src/oled/../../Inc/oled/page_template.h"
+ 242              		.file 18 "Core/Inc/keyInterface.h"
+ 243              		.file 19 "Core/Src/oled/../../Inc/oled/status_page.h"
+ 244              		.file 20 "/usr/include/newlib/stdio.h"
+ARM GAS  /tmp/ccIbTdet.s 			page 7
+
+
+DEFINED SYMBOLS
+                            *ABS*:0000000000000000 status_page.c
+     /tmp/ccIbTdet.s:16     .rodata.status_update.str1.4:0000000000000000 $d
+     /tmp/ccIbTdet.s:26     .text.status_update:0000000000000000 $t
+     /tmp/ccIbTdet.s:34     .text.status_update:0000000000000000 status_update
+     /tmp/ccIbTdet.s:129    .text.status_update:0000000000000078 $d
+     /tmp/ccIbTdet.s:141    .text.status_onclick:0000000000000000 $t
+     /tmp/ccIbTdet.s:148    .text.status_onclick:0000000000000000 status_onclick
+     /tmp/ccIbTdet.s:201    .text.status_onclick:0000000000000028 $d
+     /tmp/ccIbTdet.s:217    .data.status:0000000000000000 status
+     /tmp/ccIbTdet.s:207    .bss.temp.7842:0000000000000000 $d
+     /tmp/ccIbTdet.s:211    .bss.temp.7842:0000000000000000 temp.7842
+     /tmp/ccIbTdet.s:214    .data.status:0000000000000000 $d
+
+UNDEFINED SYMBOLS
+ssd1306_SetCursor
+ssd1306_WriteString
+HAL_ADC_GetValue
+snprintf
+keyboard_connection_mode
+Font_7x10
+hadc1

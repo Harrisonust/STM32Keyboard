@@ -1,0 +1,39 @@
+{
+    "configurations": [
+        {
+            "name": "Linux",
+            "includePath": [
+                "${workspaceRoot}",
+                "${workspaceRoot}/Core/Inc",
+                "${workspaceRoot}/Drivers/CMSIS/Include",
+                "${workspaceFolder}/Drivers/STM32F1xx_HAL_Driver/Inc",
+                "${workspaceFolder}/Drivers/CMSIS/Device/ST/STM32F1xx/Include",
+                "${workspaceFolder}/Middlewares/Third_Party/FreeRTOS/Source/include",
+                "${workspaceFolder}/Middlewares/Third_Party/FreeRTOS/Source/CMSIS_RTOS",
+                "${workspaceFolder}/Middlewares/Third_Party/FreeRTOS/Source/portable/GCC/ARM_CM3",
+                "${workspaceFolder}/Core/Inc/oled",
+                "/usr/include/newlib",
+                "${workspaceFolder}/USB_DEVICE/App",
+                "${workspaceFolder}/Middlewares/ST/STM32_USB_Device_Library/Core/Inc",
+                "${workspaceFolder}/USB_DEVICE/Target"
+            ],
+            "defines": [
+                "USE_HAL_DRIVER",
+                "STM32F103xE"
+            ],
+            "intelliSenseMode": "linux-gcc-x64",
+            "cStandard": "c11",
+            "cppStandard": "c++20",
+            "browse": {
+                "path": [
+                    "${workspaceRoot}",
+                    "${workspaceRoot}/Core/Inc",
+                    "${workspaceRoot}/Drivers/CMSIS/Include"
+                ],
+                "limitSymbolsToIncludedHeaders": true,
+                "databaseFilename": "${workspaceRoot}/.vscode/browse.vc.db"
+            }
+        }
+    ],
+    "version": 4
+}
