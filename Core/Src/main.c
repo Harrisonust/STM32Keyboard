@@ -587,7 +587,7 @@ void StartUSBTask(void const *argument) {
     /* Infinite loop */
     HAL_GPIO_WritePin(USB_EN_GPIO_Port, USB_EN_Pin, 0);
 
-    // keyThread();
+    keyThread();
     /* USER CODE END 5 */
 }
 
@@ -609,52 +609,51 @@ uint32_t oled_tick = 0;
 uint8_t sendPasswordFlag = 0;
 
 void HAL_GPIO_EXTI_Callback(uint16_t GPIO_Pin) {
-    // if (GPIO_Pin == ROW0_Pin || GPIO_Pin == ROW1_Pin || GPIO_Pin == ROW2_Pin
-    // ||
-    //     GPIO_Pin == ROW3_Pin) {
-    //     last_keyinterrupt_tick = HAL_GetTick();
-    //     // rgb_mode = last_rgb_mode;
-    //     sleep_mode = 0;
-    //     ssd_do_once_flag = 1;
-    // }
-    // if (GPIO_Pin == FINGERPRINT_INT_Pin) {
-    //     if (keyboard_operation_mode == KEYBOARD_OPERATION_MODE_NORMAL) {
-    //         uint8_t result = check_fingerprint();
-    //         if (result == 0) {
-    //             led_mode(0);
-    //             sendPasswordFlag = 1;
-    //             led_mode(1);
-    //         }
-    //     }
-    // }
+    if (GPIO_Pin == ROW0_Pin || GPIO_Pin == ROW1_Pin || GPIO_Pin == ROW2_Pin ||
+        GPIO_Pin == ROW3_Pin) {
+        last_keyinterrupt_tick = HAL_GetTick();
+        // rgb_mode = last_rgb_mode;
+        sleep_mode = 0;
+        ssd_do_once_flag = 1;
+    }
+    if (GPIO_Pin == FINGERPRINT_INT_Pin) {
+        if (keyboard_operation_mode == KEYBOARD_OPERATION_MODE_NORMAL) {
+            uint8_t result = check_fingerprint();
+            if (result == 0) {
+                led_mode(0);
+                sendPasswordFlag = 1;
+                led_mode(1);
+            }
+        }
+    }
 }
 /* USER CODE END Header_StartDebugTask02 */
 void StartDebugTask02(void const *argument) {
     /* USER CODE BEGIN StartDebugTask02 */
     /* Infinite loop */
     for (;;) {
-        // if (sendPasswordFlag) {
-        //     sendPassword();
-        //     sendPasswordFlag = 0;
-        // }
-        // if (HAL_GetTick() - last_keyinterrupt_tick > SLEEPMODE_TIMEOUT) {
-        //     sleep_mode = 1;
-        // }
+        if (sendPasswordFlag) {
+            sendPassword();
+            sendPasswordFlag = 0;
+        }
+        if (HAL_GetTick() - last_keyinterrupt_tick > SLEEPMODE_TIMEOUT) {
+            sleep_mode = 1;
+        }
 
-        // if (sleep_mode)
-        //     ssd1306_SetDisplayOn(0);
-        // else {
-        //     if (ssd_do_once_flag) {
-        //         ssd1306_SetDisplayOn(1);
-        //         ssd_do_once_flag = 0;
-        //     }
-        //     if (HAL_GetTick() - oled_tick > 1000 &&
-        //         keyboard_operation_mode == KEYBOARD_OPERATION_MODE_NORMAL) {
-        //         oled_update_page();
-        //         oled_tick = HAL_GetTick();
-        //     }
-        // }
-        // HAL_GPIO_TogglePin(LED3_GPIO_Port, LED3_Pin);
+        if (sleep_mode)
+            ssd1306_SetDisplayOn(0);
+        else {
+            if (ssd_do_once_flag) {
+                ssd1306_SetDisplayOn(1);
+                ssd_do_once_flag = 0;
+            }
+            if (HAL_GetTick() - oled_tick > 1000 &&
+                keyboard_operation_mode == KEYBOARD_OPERATION_MODE_NORMAL) {
+                oled_update_page();
+                oled_tick = HAL_GetTick();
+            }
+        }
+        HAL_GPIO_TogglePin(LED3_GPIO_Port, LED3_Pin);
 
         osDelay(50);
     }

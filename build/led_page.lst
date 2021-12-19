@@ -1,4 +1,4 @@
-ARM GAS  /tmp/cc9SP6by.s 			page 1
+ARM GAS  /tmp/ccJEgw9a.s 			page 1
 
 
    1              		.cpu cortex-m3
@@ -58,7 +58,7 @@ ARM GAS  /tmp/cc9SP6by.s 			page 1
   30:Core/Src/oled/led_page.c **** int current_led = 0;
   31:Core/Src/oled/led_page.c **** int current_selection = 0;
   32:Core/Src/oled/led_page.c **** uint8_t led_init_value = 0;
-ARM GAS  /tmp/cc9SP6by.s 			page 2
+ARM GAS  /tmp/ccJEgw9a.s 			page 2
 
 
   33:Core/Src/oled/led_page.c **** 
@@ -118,7 +118,7 @@ ARM GAS  /tmp/cc9SP6by.s 			page 1
   69              	.LVL2:
   70              	.L4:
   41:Core/Src/oled/led_page.c **** 			ws2812.LED_Data[i][j] = (uint8_t)(data[i] >> (8 * j));
-ARM GAS  /tmp/cc9SP6by.s 			page 3
+ARM GAS  /tmp/ccJEgw9a.s 			page 3
 
 
   71              		.loc 1 41 18 is_stmt 1 discriminator 1 view .LVU13
@@ -178,7 +178,7 @@ ARM GAS  /tmp/cc9SP6by.s 			page 1
  110 004c 0848     		ldr	r0, .L10+8
  111              	.LVL5:
  112              		.loc 1 47 2 is_stmt 0 view .LVU27
-ARM GAS  /tmp/cc9SP6by.s 			page 4
+ARM GAS  /tmp/ccJEgw9a.s 			page 4
 
 
  113 004e FFF7FEFF 		bl	Flash_Read_Data
@@ -238,7 +238,7 @@ ARM GAS  /tmp/cc9SP6by.s 			page 1
  158              		.thumb
  159              		.thumb_func
  160              		.fpu softvfp
-ARM GAS  /tmp/cc9SP6by.s 			page 5
+ARM GAS  /tmp/ccJEgw9a.s 			page 5
 
 
  162              	led_update:
@@ -298,7 +298,7 @@ ARM GAS  /tmp/cc9SP6by.s 			page 1
  196 001c ADF82440 		strh	r4, [sp, #36]	@ movhi
   73:Core/Src/oled/led_page.c **** 
   74:Core/Src/oled/led_page.c **** 	snprintf(temp, 30, "LED : %d", current_led + 1);
-ARM GAS  /tmp/cc9SP6by.s 			page 6
+ARM GAS  /tmp/ccJEgw9a.s 			page 6
 
 
  197              		.loc 1 74 2 is_stmt 1 view .LVU42
@@ -358,7 +358,7 @@ ARM GAS  /tmp/cc9SP6by.s 			page 1
   81:Core/Src/oled/led_page.c **** 				oled_color[i], ws2812.LED_Data[current_led][i]);
  242              		.loc 1 81 48 discriminator 4 view .LVU53
  243 0054 164B     		ldr	r3, .L22+4
-ARM GAS  /tmp/cc9SP6by.s 			page 7
+ARM GAS  /tmp/ccJEgw9a.s 			page 7
 
 
  244 0056 1968     		ldr	r1, [r3]
@@ -418,7 +418,7 @@ ARM GAS  /tmp/cc9SP6by.s 			page 1
  288 009c 1B68     		ldr	r3, [r3]
   79:Core/Src/oled/led_page.c **** 				(i + 1) == current_selection ? "%s:%u <-- " :"%s:%u ",
  289              		.loc 1 79 3 view .LVU65
-ARM GAS  /tmp/cc9SP6by.s 			page 8
+ARM GAS  /tmp/ccJEgw9a.s 			page 8
 
 
  290 009e 9D42     		cmp	r5, r3
@@ -478,7 +478,7 @@ ARM GAS  /tmp/cc9SP6by.s 			page 1
  330              		.cfi_startproc
  331              		@ args = 0, pretend = 0, frame = 72
  332              		@ frame_needed = 0, uses_anonymous_args = 0
-ARM GAS  /tmp/cc9SP6by.s 			page 9
+ARM GAS  /tmp/ccJEgw9a.s 			page 9
 
 
  333 0000 10B5     		push	{r4, lr}
@@ -538,7 +538,7 @@ ARM GAS  /tmp/cc9SP6by.s 			page 1
  373              		.loc 1 57 3 is_stmt 0 discriminator 1 view .LVU82
  374 0028 002A     		cmp	r2, #0
  375 002a EDDA     		bge	.L26
-ARM GAS  /tmp/cc9SP6by.s 			page 10
+ARM GAS  /tmp/ccJEgw9a.s 			page 10
 
 
  376              	.LBE8:
@@ -598,7 +598,7 @@ ARM GAS  /tmp/cc9SP6by.s 			page 1
  419              	.L32:
   65:Core/Src/oled/led_page.c **** 
  420              		.loc 1 65 1 view .LVU94
-ARM GAS  /tmp/cc9SP6by.s 			page 11
+ARM GAS  /tmp/ccJEgw9a.s 			page 11
 
 
  421              		.align	2
@@ -658,7 +658,7 @@ ARM GAS  /tmp/cc9SP6by.s 			page 1
  111:Core/Src/oled/led_page.c **** 
  112:Core/Src/oled/led_page.c **** 	switch(combination[0]){
  464              		.loc 1 112 2 is_stmt 1 view .LVU102
-ARM GAS  /tmp/cc9SP6by.s 			page 12
+ARM GAS  /tmp/ccJEgw9a.s 			page 12
 
 
  465              		.loc 1 112 20 is_stmt 0 view .LVU103
@@ -718,7 +718,7 @@ ARM GAS  /tmp/cc9SP6by.s 			page 1
  510              	.L42:
  120:Core/Src/oled/led_page.c **** 			}
  121:Core/Src/oled/led_page.c **** 			else{//if value > 1
-ARM GAS  /tmp/cc9SP6by.s 			page 13
+ARM GAS  /tmp/ccJEgw9a.s 			page 13
 
 
  122:Core/Src/oled/led_page.c **** 				ws2812.LED_Data[current_led][current_selection - 1] = max(0, ws2812.LED_Data[current_led][curre
@@ -778,7 +778,7 @@ ARM GAS  /tmp/cc9SP6by.s 			page 1
  557 008e 1360     		str	r3, [r2]
  130:Core/Src/oled/led_page.c **** 				current_selection = 0;
  558              		.loc 1 130 5 is_stmt 1 discriminator 4 view .LVU129
-ARM GAS  /tmp/cc9SP6by.s 			page 14
+ARM GAS  /tmp/ccJEgw9a.s 			page 14
 
 
  559              		.loc 1 130 23 is_stmt 0 discriminator 4 view .LVU130
@@ -838,7 +838,7 @@ ARM GAS  /tmp/cc9SP6by.s 			page 1
  141:Core/Src/oled/led_page.c **** 			//down fix bug
  142:Core/Src/oled/led_page.c **** 			current_selection = (current_selection + 1) % (SELECTION + 1);
  143:Core/Src/oled/led_page.c **** 			break;
-ARM GAS  /tmp/cc9SP6by.s 			page 15
+ARM GAS  /tmp/ccJEgw9a.s 			page 15
 
 
  144:Core/Src/oled/led_page.c **** 
@@ -898,7 +898,7 @@ ARM GAS  /tmp/cc9SP6by.s 			page 1
  618 00ee C3EB6103 		rsb	r3, r3, r1, asr #1
  619 00f2 03EB8303 		add	r3, r3, r3, lsl #2
  620 00f6 D31A     		subs	r3, r2, r3
-ARM GAS  /tmp/cc9SP6by.s 			page 16
+ARM GAS  /tmp/ccJEgw9a.s 			page 16
 
 
  142:Core/Src/oled/led_page.c **** 			break;
@@ -958,7 +958,7 @@ ARM GAS  /tmp/cc9SP6by.s 			page 1
  671 0000 57533238 		.ascii	"WS2812DISABLE\000"
  671      31324449 
  671      5341424C 
-ARM GAS  /tmp/cc9SP6by.s 			page 17
+ARM GAS  /tmp/ccJEgw9a.s 			page 17
 
 
  671      4500
@@ -1018,7 +1018,7 @@ ARM GAS  /tmp/cc9SP6by.s 			page 1
  720      00000000 
  721 001e 0000     		.space	2
  722 0020 00000000 		.word	led_update
-ARM GAS  /tmp/cc9SP6by.s 			page 18
+ARM GAS  /tmp/ccJEgw9a.s 			page 18
 
 
  723 0024 00000000 		.word	led_onclick
@@ -1072,41 +1072,41 @@ ARM GAS  /tmp/cc9SP6by.s 			page 1
  767              		.file 21 "Core/Src/oled/../../Inc/oled/led_page.h"
  768              		.file 22 "/usr/include/newlib/stdio.h"
  769              		.file 23 "Core/Inc/flash.h"
-ARM GAS  /tmp/cc9SP6by.s 			page 19
+ARM GAS  /tmp/ccJEgw9a.s 			page 19
 
 
 DEFINED SYMBOLS
                             *ABS*:0000000000000000 led_page.c
-     /tmp/cc9SP6by.s:16     .text.led_init:0000000000000000 $t
-     /tmp/cc9SP6by.s:24     .text.led_init:0000000000000000 led_init
-     /tmp/cc9SP6by.s:137    .text.led_init:0000000000000068 $d
-     /tmp/cc9SP6by.s:145    .rodata.led_update.str1.4:0000000000000000 $d
-     /tmp/cc9SP6by.s:155    .text.led_update:0000000000000000 $t
-     /tmp/cc9SP6by.s:162    .text.led_update:0000000000000000 led_update
-     /tmp/cc9SP6by.s:307    .text.led_update:00000000000000ac $d
-     /tmp/cc9SP6by.s:320    .text.led_flash:0000000000000000 $t
-     /tmp/cc9SP6by.s:327    .text.led_flash:0000000000000000 led_flash
-     /tmp/cc9SP6by.s:423    .text.led_flash:0000000000000054 $d
-     /tmp/cc9SP6by.s:431    .text.led_onclick:0000000000000000 $t
-     /tmp/cc9SP6by.s:438    .text.led_onclick:0000000000000000 led_onclick
-     /tmp/cc9SP6by.s:472    .text.led_onclick:000000000000001a $d
-     /tmp/cc9SP6by.s:477    .text.led_onclick:000000000000001e $t
-     /tmp/cc9SP6by.s:636    .text.led_onclick:0000000000000100 $d
-     /tmp/cc9SP6by.s:644    .text.led_page_update:0000000000000000 $t
-     /tmp/cc9SP6by.s:651    .text.led_page_update:0000000000000000 led_page_update
-     /tmp/cc9SP6by.s:712    .bss.led_init_value:0000000000000000 led_init_value
-     /tmp/cc9SP6by.s:706    .bss.current_selection:0000000000000000 current_selection
-     /tmp/cc9SP6by.s:699    .bss.current_led:0000000000000000 current_led
-     /tmp/cc9SP6by.s:718    .data.led:0000000000000000 led
-     /tmp/cc9SP6by.s:729    .data.led_aura:0000000000000000 led_aura
-     /tmp/cc9SP6by.s:669    .rodata.str1.4:0000000000000000 $d
-     /tmp/cc9SP6by.s:740    .data.oled_color:0000000000000000 oled_color
-     /tmp/cc9SP6by.s:695    .bss.current_led:0000000000000000 $d
-     /tmp/cc9SP6by.s:702    .bss.current_selection:0000000000000000 $d
-     /tmp/cc9SP6by.s:713    .bss.led_init_value:0000000000000000 $d
-     /tmp/cc9SP6by.s:715    .data.led:0000000000000000 $d
-     /tmp/cc9SP6by.s:726    .data.led_aura:0000000000000000 $d
-     /tmp/cc9SP6by.s:736    .data.oled_color:0000000000000000 $d
+     /tmp/ccJEgw9a.s:16     .text.led_init:0000000000000000 $t
+     /tmp/ccJEgw9a.s:24     .text.led_init:0000000000000000 led_init
+     /tmp/ccJEgw9a.s:137    .text.led_init:0000000000000068 $d
+     /tmp/ccJEgw9a.s:145    .rodata.led_update.str1.4:0000000000000000 $d
+     /tmp/ccJEgw9a.s:155    .text.led_update:0000000000000000 $t
+     /tmp/ccJEgw9a.s:162    .text.led_update:0000000000000000 led_update
+     /tmp/ccJEgw9a.s:307    .text.led_update:00000000000000ac $d
+     /tmp/ccJEgw9a.s:320    .text.led_flash:0000000000000000 $t
+     /tmp/ccJEgw9a.s:327    .text.led_flash:0000000000000000 led_flash
+     /tmp/ccJEgw9a.s:423    .text.led_flash:0000000000000054 $d
+     /tmp/ccJEgw9a.s:431    .text.led_onclick:0000000000000000 $t
+     /tmp/ccJEgw9a.s:438    .text.led_onclick:0000000000000000 led_onclick
+     /tmp/ccJEgw9a.s:472    .text.led_onclick:000000000000001a $d
+     /tmp/ccJEgw9a.s:477    .text.led_onclick:000000000000001e $t
+     /tmp/ccJEgw9a.s:636    .text.led_onclick:0000000000000100 $d
+     /tmp/ccJEgw9a.s:644    .text.led_page_update:0000000000000000 $t
+     /tmp/ccJEgw9a.s:651    .text.led_page_update:0000000000000000 led_page_update
+     /tmp/ccJEgw9a.s:712    .bss.led_init_value:0000000000000000 led_init_value
+     /tmp/ccJEgw9a.s:706    .bss.current_selection:0000000000000000 current_selection
+     /tmp/ccJEgw9a.s:699    .bss.current_led:0000000000000000 current_led
+     /tmp/ccJEgw9a.s:718    .data.led:0000000000000000 led
+     /tmp/ccJEgw9a.s:729    .data.led_aura:0000000000000000 led_aura
+     /tmp/ccJEgw9a.s:669    .rodata.str1.4:0000000000000000 $d
+     /tmp/ccJEgw9a.s:740    .data.oled_color:0000000000000000 oled_color
+     /tmp/ccJEgw9a.s:695    .bss.current_led:0000000000000000 $d
+     /tmp/ccJEgw9a.s:702    .bss.current_selection:0000000000000000 $d
+     /tmp/ccJEgw9a.s:713    .bss.led_init_value:0000000000000000 $d
+     /tmp/ccJEgw9a.s:715    .data.led:0000000000000000 $d
+     /tmp/ccJEgw9a.s:726    .data.led_aura:0000000000000000 $d
+     /tmp/ccJEgw9a.s:736    .data.oled_color:0000000000000000 $d
 
 UNDEFINED SYMBOLS
 Flash_Read_Data

@@ -1,4 +1,4 @@
-ARM GAS  /tmp/cci2fGCQ.s 			page 1
+ARM GAS  /tmp/ccuXUsEs.s 			page 1
 
 
    1              		.cpu cortex-m3
@@ -27,527 +27,460 @@ ARM GAS  /tmp/cci2fGCQ.s 			page 1
   25              	.LFB71:
   26              		.file 1 "Middlewares/ST/STM32_USB_Device_Library/Class/HID/Src/usbd_hid.c"
    1:Middlewares/ST/STM32_USB_Device_Library/Class/HID/Src/usbd_hid.c **** /**
-   2:Middlewares/ST/STM32_USB_Device_Library/Class/HID/Src/usbd_hid.c ****   ******************************************************************************
-   3:Middlewares/ST/STM32_USB_Device_Library/Class/HID/Src/usbd_hid.c ****   * @file    usbd_hid.c
-   4:Middlewares/ST/STM32_USB_Device_Library/Class/HID/Src/usbd_hid.c ****   * @author  MCD Application Team
-   5:Middlewares/ST/STM32_USB_Device_Library/Class/HID/Src/usbd_hid.c ****   * @version V2.4.2
-   6:Middlewares/ST/STM32_USB_Device_Library/Class/HID/Src/usbd_hid.c ****   * @date    11-December-2015
-   7:Middlewares/ST/STM32_USB_Device_Library/Class/HID/Src/usbd_hid.c ****   * @brief   This file provides the HID core functions.
-   8:Middlewares/ST/STM32_USB_Device_Library/Class/HID/Src/usbd_hid.c ****   *
-   9:Middlewares/ST/STM32_USB_Device_Library/Class/HID/Src/usbd_hid.c ****   * @verbatim
-  10:Middlewares/ST/STM32_USB_Device_Library/Class/HID/Src/usbd_hid.c ****   *      
-  11:Middlewares/ST/STM32_USB_Device_Library/Class/HID/Src/usbd_hid.c ****   *          ===================================================================      
-  12:Middlewares/ST/STM32_USB_Device_Library/Class/HID/Src/usbd_hid.c ****   *                                HID Class  Description
-  13:Middlewares/ST/STM32_USB_Device_Library/Class/HID/Src/usbd_hid.c ****   *          =================================================================== 
-  14:Middlewares/ST/STM32_USB_Device_Library/Class/HID/Src/usbd_hid.c ****   *           This module manages the HID class V1.11 following the "Device Class Definition
-  15:Middlewares/ST/STM32_USB_Device_Library/Class/HID/Src/usbd_hid.c ****   *           for Human Interface Devices (HID) Version 1.11 Jun 27, 2001".
-  16:Middlewares/ST/STM32_USB_Device_Library/Class/HID/Src/usbd_hid.c ****   *           This driver implements the following aspects of the specification:
-  17:Middlewares/ST/STM32_USB_Device_Library/Class/HID/Src/usbd_hid.c ****   *             - The Boot Interface Subclass
-  18:Middlewares/ST/STM32_USB_Device_Library/Class/HID/Src/usbd_hid.c ****   *             - The Mouse protocol
-  19:Middlewares/ST/STM32_USB_Device_Library/Class/HID/Src/usbd_hid.c ****   *             - Usage Page : Generic Desktop
-  20:Middlewares/ST/STM32_USB_Device_Library/Class/HID/Src/usbd_hid.c ****   *             - Usage : Joystick
-  21:Middlewares/ST/STM32_USB_Device_Library/Class/HID/Src/usbd_hid.c ****   *             - Collection : Application 
-  22:Middlewares/ST/STM32_USB_Device_Library/Class/HID/Src/usbd_hid.c ****   *      
-  23:Middlewares/ST/STM32_USB_Device_Library/Class/HID/Src/usbd_hid.c ****   * @note     In HS mode and when the DMA is used, all variables and data structures
-  24:Middlewares/ST/STM32_USB_Device_Library/Class/HID/Src/usbd_hid.c ****   *           dealing with the DMA during the transaction process should be 32-bit aligned.
-  25:Middlewares/ST/STM32_USB_Device_Library/Class/HID/Src/usbd_hid.c ****   *           
-  26:Middlewares/ST/STM32_USB_Device_Library/Class/HID/Src/usbd_hid.c ****   *      
-  27:Middlewares/ST/STM32_USB_Device_Library/Class/HID/Src/usbd_hid.c ****   *  @endverbatim
-  28:Middlewares/ST/STM32_USB_Device_Library/Class/HID/Src/usbd_hid.c ****   *
-  29:Middlewares/ST/STM32_USB_Device_Library/Class/HID/Src/usbd_hid.c ****   ******************************************************************************
-  30:Middlewares/ST/STM32_USB_Device_Library/Class/HID/Src/usbd_hid.c ****   * @attention
-  31:Middlewares/ST/STM32_USB_Device_Library/Class/HID/Src/usbd_hid.c ****   *
-  32:Middlewares/ST/STM32_USB_Device_Library/Class/HID/Src/usbd_hid.c ****   * <h2><center>&copy; COPYRIGHT 2015 STMicroelectronics</center></h2>
-ARM GAS  /tmp/cci2fGCQ.s 			page 2
+   2:Middlewares/ST/STM32_USB_Device_Library/Class/HID/Src/usbd_hid.c ****  ******************************************************************************
+   3:Middlewares/ST/STM32_USB_Device_Library/Class/HID/Src/usbd_hid.c ****  * @file    usbd_hid.c
+   4:Middlewares/ST/STM32_USB_Device_Library/Class/HID/Src/usbd_hid.c ****  * @author  MCD Application Team
+   5:Middlewares/ST/STM32_USB_Device_Library/Class/HID/Src/usbd_hid.c ****  * @version V2.4.2
+   6:Middlewares/ST/STM32_USB_Device_Library/Class/HID/Src/usbd_hid.c ****  * @date    11-December-2015
+   7:Middlewares/ST/STM32_USB_Device_Library/Class/HID/Src/usbd_hid.c ****  * @brief   This file provides the HID core functions.
+   8:Middlewares/ST/STM32_USB_Device_Library/Class/HID/Src/usbd_hid.c ****  *
+   9:Middlewares/ST/STM32_USB_Device_Library/Class/HID/Src/usbd_hid.c ****  * @verbatim
+  10:Middlewares/ST/STM32_USB_Device_Library/Class/HID/Src/usbd_hid.c ****  *
+  11:Middlewares/ST/STM32_USB_Device_Library/Class/HID/Src/usbd_hid.c ****  *          ===================================================================
+  12:Middlewares/ST/STM32_USB_Device_Library/Class/HID/Src/usbd_hid.c ****  *                                HID Class  Description
+  13:Middlewares/ST/STM32_USB_Device_Library/Class/HID/Src/usbd_hid.c ****  *          ===================================================================
+  14:Middlewares/ST/STM32_USB_Device_Library/Class/HID/Src/usbd_hid.c ****  *           This module manages the HID class V1.11 following the "Device Class
+  15:Middlewares/ST/STM32_USB_Device_Library/Class/HID/Src/usbd_hid.c ****  *Definition for Human Interface Devices (HID) Version 1.11 Jun 27, 2001". This
+  16:Middlewares/ST/STM32_USB_Device_Library/Class/HID/Src/usbd_hid.c ****  *driver implements the following aspects of the specification:
+  17:Middlewares/ST/STM32_USB_Device_Library/Class/HID/Src/usbd_hid.c ****  *             - The Boot Interface Subclass
+  18:Middlewares/ST/STM32_USB_Device_Library/Class/HID/Src/usbd_hid.c ****  *             - The Mouse protocol
+  19:Middlewares/ST/STM32_USB_Device_Library/Class/HID/Src/usbd_hid.c ****  *             - Usage Page : Generic Desktop
+  20:Middlewares/ST/STM32_USB_Device_Library/Class/HID/Src/usbd_hid.c ****  *             - Usage : Joystick
+  21:Middlewares/ST/STM32_USB_Device_Library/Class/HID/Src/usbd_hid.c ****  *             - Collection : Application
+  22:Middlewares/ST/STM32_USB_Device_Library/Class/HID/Src/usbd_hid.c ****  *
+  23:Middlewares/ST/STM32_USB_Device_Library/Class/HID/Src/usbd_hid.c ****  * @note     In HS mode and when the DMA is used, all variables and data
+  24:Middlewares/ST/STM32_USB_Device_Library/Class/HID/Src/usbd_hid.c ****  *structures dealing with the DMA during the transaction process should be
+  25:Middlewares/ST/STM32_USB_Device_Library/Class/HID/Src/usbd_hid.c ****  *32-bit aligned.
+  26:Middlewares/ST/STM32_USB_Device_Library/Class/HID/Src/usbd_hid.c ****  *
+  27:Middlewares/ST/STM32_USB_Device_Library/Class/HID/Src/usbd_hid.c ****  *
+  28:Middlewares/ST/STM32_USB_Device_Library/Class/HID/Src/usbd_hid.c ****  *  @endverbatim
+  29:Middlewares/ST/STM32_USB_Device_Library/Class/HID/Src/usbd_hid.c ****  *
+  30:Middlewares/ST/STM32_USB_Device_Library/Class/HID/Src/usbd_hid.c ****  ******************************************************************************
+  31:Middlewares/ST/STM32_USB_Device_Library/Class/HID/Src/usbd_hid.c ****  * @attention
+  32:Middlewares/ST/STM32_USB_Device_Library/Class/HID/Src/usbd_hid.c ****  *
+ARM GAS  /tmp/ccuXUsEs.s 			page 2
 
 
-  33:Middlewares/ST/STM32_USB_Device_Library/Class/HID/Src/usbd_hid.c ****   *
-  34:Middlewares/ST/STM32_USB_Device_Library/Class/HID/Src/usbd_hid.c ****   * Licensed under MCD-ST Liberty SW License Agreement V2, (the "License");
-  35:Middlewares/ST/STM32_USB_Device_Library/Class/HID/Src/usbd_hid.c ****   * You may not use this file except in compliance with the License.
-  36:Middlewares/ST/STM32_USB_Device_Library/Class/HID/Src/usbd_hid.c ****   * You may obtain a copy of the License at:
-  37:Middlewares/ST/STM32_USB_Device_Library/Class/HID/Src/usbd_hid.c ****   *
-  38:Middlewares/ST/STM32_USB_Device_Library/Class/HID/Src/usbd_hid.c ****   *        http://www.st.com/software_license_agreement_liberty_v2
-  39:Middlewares/ST/STM32_USB_Device_Library/Class/HID/Src/usbd_hid.c ****   *
-  40:Middlewares/ST/STM32_USB_Device_Library/Class/HID/Src/usbd_hid.c ****   * Unless required by applicable law or agreed to in writing, software 
-  41:Middlewares/ST/STM32_USB_Device_Library/Class/HID/Src/usbd_hid.c ****   * distributed under the License is distributed on an "AS IS" BASIS, 
-  42:Middlewares/ST/STM32_USB_Device_Library/Class/HID/Src/usbd_hid.c ****   * WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
-  43:Middlewares/ST/STM32_USB_Device_Library/Class/HID/Src/usbd_hid.c ****   * See the License for the specific language governing permissions and
-  44:Middlewares/ST/STM32_USB_Device_Library/Class/HID/Src/usbd_hid.c ****   * limitations under the License.
-  45:Middlewares/ST/STM32_USB_Device_Library/Class/HID/Src/usbd_hid.c ****   *
-  46:Middlewares/ST/STM32_USB_Device_Library/Class/HID/Src/usbd_hid.c ****   ******************************************************************************
-  47:Middlewares/ST/STM32_USB_Device_Library/Class/HID/Src/usbd_hid.c ****   */ 
-  48:Middlewares/ST/STM32_USB_Device_Library/Class/HID/Src/usbd_hid.c **** 
-  49:Middlewares/ST/STM32_USB_Device_Library/Class/HID/Src/usbd_hid.c **** /* Includes ------------------------------------------------------------------*/
-  50:Middlewares/ST/STM32_USB_Device_Library/Class/HID/Src/usbd_hid.c **** #include "usbd_hid.h"
-  51:Middlewares/ST/STM32_USB_Device_Library/Class/HID/Src/usbd_hid.c **** #include "usbd_desc.h"
-  52:Middlewares/ST/STM32_USB_Device_Library/Class/HID/Src/usbd_hid.c **** #include "usbd_ctlreq.h"
-  53:Middlewares/ST/STM32_USB_Device_Library/Class/HID/Src/usbd_hid.c **** 
-  54:Middlewares/ST/STM32_USB_Device_Library/Class/HID/Src/usbd_hid.c **** 
-  55:Middlewares/ST/STM32_USB_Device_Library/Class/HID/Src/usbd_hid.c **** /** @addtogroup STM32_USB_DEVICE_LIBRARY
-  56:Middlewares/ST/STM32_USB_Device_Library/Class/HID/Src/usbd_hid.c ****   * @{
-  57:Middlewares/ST/STM32_USB_Device_Library/Class/HID/Src/usbd_hid.c ****   */
-  58:Middlewares/ST/STM32_USB_Device_Library/Class/HID/Src/usbd_hid.c **** 
+  33:Middlewares/ST/STM32_USB_Device_Library/Class/HID/Src/usbd_hid.c ****  * <h2><center>&copy; COPYRIGHT 2015 STMicroelectronics</center></h2>
+  34:Middlewares/ST/STM32_USB_Device_Library/Class/HID/Src/usbd_hid.c ****  *
+  35:Middlewares/ST/STM32_USB_Device_Library/Class/HID/Src/usbd_hid.c ****  * Licensed under MCD-ST Liberty SW License Agreement V2, (the "License");
+  36:Middlewares/ST/STM32_USB_Device_Library/Class/HID/Src/usbd_hid.c ****  * You may not use this file except in compliance with the License.
+  37:Middlewares/ST/STM32_USB_Device_Library/Class/HID/Src/usbd_hid.c ****  * You may obtain a copy of the License at:
+  38:Middlewares/ST/STM32_USB_Device_Library/Class/HID/Src/usbd_hid.c ****  *
+  39:Middlewares/ST/STM32_USB_Device_Library/Class/HID/Src/usbd_hid.c ****  *        http://www.st.com/software_license_agreement_liberty_v2
+  40:Middlewares/ST/STM32_USB_Device_Library/Class/HID/Src/usbd_hid.c ****  *
+  41:Middlewares/ST/STM32_USB_Device_Library/Class/HID/Src/usbd_hid.c ****  * Unless required by applicable law or agreed to in writing, software
+  42:Middlewares/ST/STM32_USB_Device_Library/Class/HID/Src/usbd_hid.c ****  * distributed under the License is distributed on an "AS IS" BASIS,
+  43:Middlewares/ST/STM32_USB_Device_Library/Class/HID/Src/usbd_hid.c ****  * WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
+  44:Middlewares/ST/STM32_USB_Device_Library/Class/HID/Src/usbd_hid.c ****  * See the License for the specific language governing permissions and
+  45:Middlewares/ST/STM32_USB_Device_Library/Class/HID/Src/usbd_hid.c ****  * limitations under the License.
+  46:Middlewares/ST/STM32_USB_Device_Library/Class/HID/Src/usbd_hid.c ****  *
+  47:Middlewares/ST/STM32_USB_Device_Library/Class/HID/Src/usbd_hid.c ****  ******************************************************************************
+  48:Middlewares/ST/STM32_USB_Device_Library/Class/HID/Src/usbd_hid.c ****  */
+  49:Middlewares/ST/STM32_USB_Device_Library/Class/HID/Src/usbd_hid.c **** 
+  50:Middlewares/ST/STM32_USB_Device_Library/Class/HID/Src/usbd_hid.c **** /* Includes ------------------------------------------------------------------*/
+  51:Middlewares/ST/STM32_USB_Device_Library/Class/HID/Src/usbd_hid.c **** #include "usbd_hid.h"
+  52:Middlewares/ST/STM32_USB_Device_Library/Class/HID/Src/usbd_hid.c **** 
+  53:Middlewares/ST/STM32_USB_Device_Library/Class/HID/Src/usbd_hid.c **** #include "usbd_ctlreq.h"
+  54:Middlewares/ST/STM32_USB_Device_Library/Class/HID/Src/usbd_hid.c **** #include "usbd_desc.h"
+  55:Middlewares/ST/STM32_USB_Device_Library/Class/HID/Src/usbd_hid.c **** 
+  56:Middlewares/ST/STM32_USB_Device_Library/Class/HID/Src/usbd_hid.c **** /** @addtogroup STM32_USB_DEVICE_LIBRARY
+  57:Middlewares/ST/STM32_USB_Device_Library/Class/HID/Src/usbd_hid.c ****  * @{
+  58:Middlewares/ST/STM32_USB_Device_Library/Class/HID/Src/usbd_hid.c ****  */
   59:Middlewares/ST/STM32_USB_Device_Library/Class/HID/Src/usbd_hid.c **** 
-  60:Middlewares/ST/STM32_USB_Device_Library/Class/HID/Src/usbd_hid.c **** /** @defgroup USBD_HID 
-  61:Middlewares/ST/STM32_USB_Device_Library/Class/HID/Src/usbd_hid.c ****   * @brief usbd core module
-  62:Middlewares/ST/STM32_USB_Device_Library/Class/HID/Src/usbd_hid.c ****   * @{
-  63:Middlewares/ST/STM32_USB_Device_Library/Class/HID/Src/usbd_hid.c ****   */ 
+  60:Middlewares/ST/STM32_USB_Device_Library/Class/HID/Src/usbd_hid.c **** /** @defgroup USBD_HID
+  61:Middlewares/ST/STM32_USB_Device_Library/Class/HID/Src/usbd_hid.c ****  * @brief usbd core module
+  62:Middlewares/ST/STM32_USB_Device_Library/Class/HID/Src/usbd_hid.c ****  * @{
+  63:Middlewares/ST/STM32_USB_Device_Library/Class/HID/Src/usbd_hid.c ****  */
   64:Middlewares/ST/STM32_USB_Device_Library/Class/HID/Src/usbd_hid.c **** 
   65:Middlewares/ST/STM32_USB_Device_Library/Class/HID/Src/usbd_hid.c **** /** @defgroup USBD_HID_Private_TypesDefinitions
-  66:Middlewares/ST/STM32_USB_Device_Library/Class/HID/Src/usbd_hid.c ****   * @{
-  67:Middlewares/ST/STM32_USB_Device_Library/Class/HID/Src/usbd_hid.c ****   */ 
+  66:Middlewares/ST/STM32_USB_Device_Library/Class/HID/Src/usbd_hid.c ****  * @{
+  67:Middlewares/ST/STM32_USB_Device_Library/Class/HID/Src/usbd_hid.c ****  */
   68:Middlewares/ST/STM32_USB_Device_Library/Class/HID/Src/usbd_hid.c **** /**
-  69:Middlewares/ST/STM32_USB_Device_Library/Class/HID/Src/usbd_hid.c ****   * @}
-  70:Middlewares/ST/STM32_USB_Device_Library/Class/HID/Src/usbd_hid.c ****   */ 
+  69:Middlewares/ST/STM32_USB_Device_Library/Class/HID/Src/usbd_hid.c ****  * @}
+  70:Middlewares/ST/STM32_USB_Device_Library/Class/HID/Src/usbd_hid.c ****  */
   71:Middlewares/ST/STM32_USB_Device_Library/Class/HID/Src/usbd_hid.c **** 
-  72:Middlewares/ST/STM32_USB_Device_Library/Class/HID/Src/usbd_hid.c **** 
-  73:Middlewares/ST/STM32_USB_Device_Library/Class/HID/Src/usbd_hid.c **** /** @defgroup USBD_HID_Private_Defines
-  74:Middlewares/ST/STM32_USB_Device_Library/Class/HID/Src/usbd_hid.c ****   * @{
-  75:Middlewares/ST/STM32_USB_Device_Library/Class/HID/Src/usbd_hid.c ****   */ 
-  76:Middlewares/ST/STM32_USB_Device_Library/Class/HID/Src/usbd_hid.c **** 
-  77:Middlewares/ST/STM32_USB_Device_Library/Class/HID/Src/usbd_hid.c **** /**
-  78:Middlewares/ST/STM32_USB_Device_Library/Class/HID/Src/usbd_hid.c ****   * @}
-  79:Middlewares/ST/STM32_USB_Device_Library/Class/HID/Src/usbd_hid.c ****   */ 
-  80:Middlewares/ST/STM32_USB_Device_Library/Class/HID/Src/usbd_hid.c **** 
-  81:Middlewares/ST/STM32_USB_Device_Library/Class/HID/Src/usbd_hid.c **** 
-  82:Middlewares/ST/STM32_USB_Device_Library/Class/HID/Src/usbd_hid.c **** /** @defgroup USBD_HID_Private_Macros
-  83:Middlewares/ST/STM32_USB_Device_Library/Class/HID/Src/usbd_hid.c ****   * @{
-  84:Middlewares/ST/STM32_USB_Device_Library/Class/HID/Src/usbd_hid.c ****   */ 
-  85:Middlewares/ST/STM32_USB_Device_Library/Class/HID/Src/usbd_hid.c **** /**
-  86:Middlewares/ST/STM32_USB_Device_Library/Class/HID/Src/usbd_hid.c ****   * @}
-  87:Middlewares/ST/STM32_USB_Device_Library/Class/HID/Src/usbd_hid.c ****   */ 
-  88:Middlewares/ST/STM32_USB_Device_Library/Class/HID/Src/usbd_hid.c **** 
-  89:Middlewares/ST/STM32_USB_Device_Library/Class/HID/Src/usbd_hid.c **** 
-ARM GAS  /tmp/cci2fGCQ.s 			page 3
+  72:Middlewares/ST/STM32_USB_Device_Library/Class/HID/Src/usbd_hid.c **** /** @defgroup USBD_HID_Private_Defines
+  73:Middlewares/ST/STM32_USB_Device_Library/Class/HID/Src/usbd_hid.c ****  * @{
+  74:Middlewares/ST/STM32_USB_Device_Library/Class/HID/Src/usbd_hid.c ****  */
+  75:Middlewares/ST/STM32_USB_Device_Library/Class/HID/Src/usbd_hid.c **** 
+  76:Middlewares/ST/STM32_USB_Device_Library/Class/HID/Src/usbd_hid.c **** /**
+  77:Middlewares/ST/STM32_USB_Device_Library/Class/HID/Src/usbd_hid.c ****  * @}
+  78:Middlewares/ST/STM32_USB_Device_Library/Class/HID/Src/usbd_hid.c ****  */
+  79:Middlewares/ST/STM32_USB_Device_Library/Class/HID/Src/usbd_hid.c **** 
+  80:Middlewares/ST/STM32_USB_Device_Library/Class/HID/Src/usbd_hid.c **** /** @defgroup USBD_HID_Private_Macros
+  81:Middlewares/ST/STM32_USB_Device_Library/Class/HID/Src/usbd_hid.c ****  * @{
+  82:Middlewares/ST/STM32_USB_Device_Library/Class/HID/Src/usbd_hid.c ****  */
+  83:Middlewares/ST/STM32_USB_Device_Library/Class/HID/Src/usbd_hid.c **** /**
+  84:Middlewares/ST/STM32_USB_Device_Library/Class/HID/Src/usbd_hid.c ****  * @}
+  85:Middlewares/ST/STM32_USB_Device_Library/Class/HID/Src/usbd_hid.c ****  */
+  86:Middlewares/ST/STM32_USB_Device_Library/Class/HID/Src/usbd_hid.c **** 
+  87:Middlewares/ST/STM32_USB_Device_Library/Class/HID/Src/usbd_hid.c **** /** @defgroup USBD_HID_Private_FunctionPrototypes
+  88:Middlewares/ST/STM32_USB_Device_Library/Class/HID/Src/usbd_hid.c ****  * @{
+  89:Middlewares/ST/STM32_USB_Device_Library/Class/HID/Src/usbd_hid.c ****  */
+ARM GAS  /tmp/ccuXUsEs.s 			page 3
 
 
   90:Middlewares/ST/STM32_USB_Device_Library/Class/HID/Src/usbd_hid.c **** 
-  91:Middlewares/ST/STM32_USB_Device_Library/Class/HID/Src/usbd_hid.c **** 
-  92:Middlewares/ST/STM32_USB_Device_Library/Class/HID/Src/usbd_hid.c **** /** @defgroup USBD_HID_Private_FunctionPrototypes
-  93:Middlewares/ST/STM32_USB_Device_Library/Class/HID/Src/usbd_hid.c ****   * @{
-  94:Middlewares/ST/STM32_USB_Device_Library/Class/HID/Src/usbd_hid.c ****   */
-  95:Middlewares/ST/STM32_USB_Device_Library/Class/HID/Src/usbd_hid.c **** 
-  96:Middlewares/ST/STM32_USB_Device_Library/Class/HID/Src/usbd_hid.c **** 
-  97:Middlewares/ST/STM32_USB_Device_Library/Class/HID/Src/usbd_hid.c **** static uint8_t  USBD_HID_Init (USBD_HandleTypeDef *pdev, 
-  98:Middlewares/ST/STM32_USB_Device_Library/Class/HID/Src/usbd_hid.c ****                                uint8_t cfgidx);
+  91:Middlewares/ST/STM32_USB_Device_Library/Class/HID/Src/usbd_hid.c **** static uint8_t USBD_HID_Init(USBD_HandleTypeDef *pdev, uint8_t cfgidx);
+  92:Middlewares/ST/STM32_USB_Device_Library/Class/HID/Src/usbd_hid.c **** 
+  93:Middlewares/ST/STM32_USB_Device_Library/Class/HID/Src/usbd_hid.c **** static uint8_t USBD_HID_DeInit(USBD_HandleTypeDef *pdev, uint8_t cfgidx);
+  94:Middlewares/ST/STM32_USB_Device_Library/Class/HID/Src/usbd_hid.c **** 
+  95:Middlewares/ST/STM32_USB_Device_Library/Class/HID/Src/usbd_hid.c **** static uint8_t USBD_HID_Setup(USBD_HandleTypeDef *pdev,
+  96:Middlewares/ST/STM32_USB_Device_Library/Class/HID/Src/usbd_hid.c ****                               USBD_SetupReqTypedef *req);
+  97:Middlewares/ST/STM32_USB_Device_Library/Class/HID/Src/usbd_hid.c **** 
+  98:Middlewares/ST/STM32_USB_Device_Library/Class/HID/Src/usbd_hid.c **** static uint8_t *USBD_HID_GetCfgDesc(uint16_t *length);
   99:Middlewares/ST/STM32_USB_Device_Library/Class/HID/Src/usbd_hid.c **** 
- 100:Middlewares/ST/STM32_USB_Device_Library/Class/HID/Src/usbd_hid.c **** static uint8_t  USBD_HID_DeInit (USBD_HandleTypeDef *pdev, 
- 101:Middlewares/ST/STM32_USB_Device_Library/Class/HID/Src/usbd_hid.c ****                                  uint8_t cfgidx);
- 102:Middlewares/ST/STM32_USB_Device_Library/Class/HID/Src/usbd_hid.c **** 
- 103:Middlewares/ST/STM32_USB_Device_Library/Class/HID/Src/usbd_hid.c **** static uint8_t  USBD_HID_Setup (USBD_HandleTypeDef *pdev, 
- 104:Middlewares/ST/STM32_USB_Device_Library/Class/HID/Src/usbd_hid.c ****                                 USBD_SetupReqTypedef *req);
- 105:Middlewares/ST/STM32_USB_Device_Library/Class/HID/Src/usbd_hid.c **** 
- 106:Middlewares/ST/STM32_USB_Device_Library/Class/HID/Src/usbd_hid.c **** static uint8_t  *USBD_HID_GetCfgDesc (uint16_t *length);
- 107:Middlewares/ST/STM32_USB_Device_Library/Class/HID/Src/usbd_hid.c **** 
- 108:Middlewares/ST/STM32_USB_Device_Library/Class/HID/Src/usbd_hid.c **** static uint8_t  *USBD_HID_GetDeviceQualifierDesc (uint16_t *length);
- 109:Middlewares/ST/STM32_USB_Device_Library/Class/HID/Src/usbd_hid.c **** 
- 110:Middlewares/ST/STM32_USB_Device_Library/Class/HID/Src/usbd_hid.c **** static uint8_t  USBD_HID_DataIn (USBD_HandleTypeDef *pdev, uint8_t epnum);
- 111:Middlewares/ST/STM32_USB_Device_Library/Class/HID/Src/usbd_hid.c **** /**
- 112:Middlewares/ST/STM32_USB_Device_Library/Class/HID/Src/usbd_hid.c ****   * @}
- 113:Middlewares/ST/STM32_USB_Device_Library/Class/HID/Src/usbd_hid.c ****   */ 
- 114:Middlewares/ST/STM32_USB_Device_Library/Class/HID/Src/usbd_hid.c **** 
- 115:Middlewares/ST/STM32_USB_Device_Library/Class/HID/Src/usbd_hid.c **** /** @defgroup USBD_HID_Private_Variables
- 116:Middlewares/ST/STM32_USB_Device_Library/Class/HID/Src/usbd_hid.c ****   * @{
- 117:Middlewares/ST/STM32_USB_Device_Library/Class/HID/Src/usbd_hid.c ****   */ 
- 118:Middlewares/ST/STM32_USB_Device_Library/Class/HID/Src/usbd_hid.c **** 
- 119:Middlewares/ST/STM32_USB_Device_Library/Class/HID/Src/usbd_hid.c **** USBD_ClassTypeDef  USBD_HID = 
- 120:Middlewares/ST/STM32_USB_Device_Library/Class/HID/Src/usbd_hid.c **** {
- 121:Middlewares/ST/STM32_USB_Device_Library/Class/HID/Src/usbd_hid.c ****   USBD_HID_Init,
- 122:Middlewares/ST/STM32_USB_Device_Library/Class/HID/Src/usbd_hid.c ****   USBD_HID_DeInit,
- 123:Middlewares/ST/STM32_USB_Device_Library/Class/HID/Src/usbd_hid.c ****   USBD_HID_Setup,
- 124:Middlewares/ST/STM32_USB_Device_Library/Class/HID/Src/usbd_hid.c ****   NULL, /*EP0_TxSent*/  
- 125:Middlewares/ST/STM32_USB_Device_Library/Class/HID/Src/usbd_hid.c ****   NULL, /*EP0_RxReady*/
- 126:Middlewares/ST/STM32_USB_Device_Library/Class/HID/Src/usbd_hid.c ****   USBD_HID_DataIn, /*DataIn*/
- 127:Middlewares/ST/STM32_USB_Device_Library/Class/HID/Src/usbd_hid.c ****   NULL, /*DataOut*/
- 128:Middlewares/ST/STM32_USB_Device_Library/Class/HID/Src/usbd_hid.c ****   NULL, /*SOF */
- 129:Middlewares/ST/STM32_USB_Device_Library/Class/HID/Src/usbd_hid.c ****   NULL,
- 130:Middlewares/ST/STM32_USB_Device_Library/Class/HID/Src/usbd_hid.c ****   NULL,      
- 131:Middlewares/ST/STM32_USB_Device_Library/Class/HID/Src/usbd_hid.c ****   USBD_HID_GetCfgDesc,
- 132:Middlewares/ST/STM32_USB_Device_Library/Class/HID/Src/usbd_hid.c ****   USBD_HID_GetCfgDesc, 
- 133:Middlewares/ST/STM32_USB_Device_Library/Class/HID/Src/usbd_hid.c ****   USBD_HID_GetCfgDesc,
- 134:Middlewares/ST/STM32_USB_Device_Library/Class/HID/Src/usbd_hid.c ****   USBD_HID_GetDeviceQualifierDesc,
- 135:Middlewares/ST/STM32_USB_Device_Library/Class/HID/Src/usbd_hid.c **** };
- 136:Middlewares/ST/STM32_USB_Device_Library/Class/HID/Src/usbd_hid.c **** 
- 137:Middlewares/ST/STM32_USB_Device_Library/Class/HID/Src/usbd_hid.c **** /* USB HID device Configuration Descriptor */
- 138:Middlewares/ST/STM32_USB_Device_Library/Class/HID/Src/usbd_hid.c **** __ALIGN_BEGIN static uint8_t USBD_HID_CfgDesc[USB_HID_CONFIG_DESC_SIZ]  __ALIGN_END =
- 139:Middlewares/ST/STM32_USB_Device_Library/Class/HID/Src/usbd_hid.c **** {
- 140:Middlewares/ST/STM32_USB_Device_Library/Class/HID/Src/usbd_hid.c ****   0x09, /* bLength: Configuration Descriptor size */
- 141:Middlewares/ST/STM32_USB_Device_Library/Class/HID/Src/usbd_hid.c ****   USB_DESC_TYPE_CONFIGURATION, /* bDescriptorType: Configuration */
- 142:Middlewares/ST/STM32_USB_Device_Library/Class/HID/Src/usbd_hid.c ****   USB_HID_CONFIG_DESC_SIZ,
- 143:Middlewares/ST/STM32_USB_Device_Library/Class/HID/Src/usbd_hid.c ****   /* wTotalLength: Bytes returned */
- 144:Middlewares/ST/STM32_USB_Device_Library/Class/HID/Src/usbd_hid.c ****   0x00,
- 145:Middlewares/ST/STM32_USB_Device_Library/Class/HID/Src/usbd_hid.c ****   0x01,         /*bNumInterfaces: 1 interface*/
- 146:Middlewares/ST/STM32_USB_Device_Library/Class/HID/Src/usbd_hid.c ****   0x01,         /*bConfigurationValue: Configuration value*/
-ARM GAS  /tmp/cci2fGCQ.s 			page 4
+ 100:Middlewares/ST/STM32_USB_Device_Library/Class/HID/Src/usbd_hid.c **** static uint8_t *USBD_HID_GetDeviceQualifierDesc(uint16_t *length);
+ 101:Middlewares/ST/STM32_USB_Device_Library/Class/HID/Src/usbd_hid.c **** 
+ 102:Middlewares/ST/STM32_USB_Device_Library/Class/HID/Src/usbd_hid.c **** static uint8_t USBD_HID_DataIn(USBD_HandleTypeDef *pdev, uint8_t epnum);
+ 103:Middlewares/ST/STM32_USB_Device_Library/Class/HID/Src/usbd_hid.c **** /**
+ 104:Middlewares/ST/STM32_USB_Device_Library/Class/HID/Src/usbd_hid.c ****  * @}
+ 105:Middlewares/ST/STM32_USB_Device_Library/Class/HID/Src/usbd_hid.c ****  */
+ 106:Middlewares/ST/STM32_USB_Device_Library/Class/HID/Src/usbd_hid.c **** 
+ 107:Middlewares/ST/STM32_USB_Device_Library/Class/HID/Src/usbd_hid.c **** /** @defgroup USBD_HID_Private_Variables
+ 108:Middlewares/ST/STM32_USB_Device_Library/Class/HID/Src/usbd_hid.c ****  * @{
+ 109:Middlewares/ST/STM32_USB_Device_Library/Class/HID/Src/usbd_hid.c ****  */
+ 110:Middlewares/ST/STM32_USB_Device_Library/Class/HID/Src/usbd_hid.c **** 
+ 111:Middlewares/ST/STM32_USB_Device_Library/Class/HID/Src/usbd_hid.c **** USBD_ClassTypeDef USBD_HID = {
+ 112:Middlewares/ST/STM32_USB_Device_Library/Class/HID/Src/usbd_hid.c ****     USBD_HID_Init,
+ 113:Middlewares/ST/STM32_USB_Device_Library/Class/HID/Src/usbd_hid.c ****     USBD_HID_DeInit,
+ 114:Middlewares/ST/STM32_USB_Device_Library/Class/HID/Src/usbd_hid.c ****     USBD_HID_Setup,
+ 115:Middlewares/ST/STM32_USB_Device_Library/Class/HID/Src/usbd_hid.c ****     NULL,            /*EP0_TxSent*/
+ 116:Middlewares/ST/STM32_USB_Device_Library/Class/HID/Src/usbd_hid.c ****     NULL,            /*EP0_RxReady*/
+ 117:Middlewares/ST/STM32_USB_Device_Library/Class/HID/Src/usbd_hid.c ****     USBD_HID_DataIn, /*DataIn*/
+ 118:Middlewares/ST/STM32_USB_Device_Library/Class/HID/Src/usbd_hid.c ****     NULL,            /*DataOut*/
+ 119:Middlewares/ST/STM32_USB_Device_Library/Class/HID/Src/usbd_hid.c ****     NULL,            /*SOF */
+ 120:Middlewares/ST/STM32_USB_Device_Library/Class/HID/Src/usbd_hid.c ****     NULL,
+ 121:Middlewares/ST/STM32_USB_Device_Library/Class/HID/Src/usbd_hid.c ****     NULL,
+ 122:Middlewares/ST/STM32_USB_Device_Library/Class/HID/Src/usbd_hid.c ****     USBD_HID_GetCfgDesc,
+ 123:Middlewares/ST/STM32_USB_Device_Library/Class/HID/Src/usbd_hid.c ****     USBD_HID_GetCfgDesc,
+ 124:Middlewares/ST/STM32_USB_Device_Library/Class/HID/Src/usbd_hid.c ****     USBD_HID_GetCfgDesc,
+ 125:Middlewares/ST/STM32_USB_Device_Library/Class/HID/Src/usbd_hid.c ****     USBD_HID_GetDeviceQualifierDesc,
+ 126:Middlewares/ST/STM32_USB_Device_Library/Class/HID/Src/usbd_hid.c **** };
+ 127:Middlewares/ST/STM32_USB_Device_Library/Class/HID/Src/usbd_hid.c **** 
+ 128:Middlewares/ST/STM32_USB_Device_Library/Class/HID/Src/usbd_hid.c **** /* USB HID device Configuration Descriptor */
+ 129:Middlewares/ST/STM32_USB_Device_Library/Class/HID/Src/usbd_hid.c **** __ALIGN_BEGIN static uint8_t
+ 130:Middlewares/ST/STM32_USB_Device_Library/Class/HID/Src/usbd_hid.c ****     USBD_HID_CfgDesc[USB_HID_CONFIG_DESC_SIZ] __ALIGN_END = {
+ 131:Middlewares/ST/STM32_USB_Device_Library/Class/HID/Src/usbd_hid.c ****         0x09, /* bLength: Configuration Descriptor size */
+ 132:Middlewares/ST/STM32_USB_Device_Library/Class/HID/Src/usbd_hid.c ****         USB_DESC_TYPE_CONFIGURATION, /* bDescriptorType: Configuration */
+ 133:Middlewares/ST/STM32_USB_Device_Library/Class/HID/Src/usbd_hid.c ****         USB_HID_CONFIG_DESC_SIZ,
+ 134:Middlewares/ST/STM32_USB_Device_Library/Class/HID/Src/usbd_hid.c ****         /* wTotalLength: Bytes returned */
+ 135:Middlewares/ST/STM32_USB_Device_Library/Class/HID/Src/usbd_hid.c ****         0x00, 0x01, /*bNumInterfaces: 1 interface*/
+ 136:Middlewares/ST/STM32_USB_Device_Library/Class/HID/Src/usbd_hid.c ****         0x01,       /*bConfigurationValue: Configuration value*/
+ 137:Middlewares/ST/STM32_USB_Device_Library/Class/HID/Src/usbd_hid.c ****         0x00,       /*iConfiguration: Index of string descriptor describing
+ 138:Middlewares/ST/STM32_USB_Device_Library/Class/HID/Src/usbd_hid.c ****       the configuration*/
+ 139:Middlewares/ST/STM32_USB_Device_Library/Class/HID/Src/usbd_hid.c ****         0xE0,       /*bmAttributes: bus powered and Support Remote Wake-up */
+ 140:Middlewares/ST/STM32_USB_Device_Library/Class/HID/Src/usbd_hid.c ****         0x32,       /*MaxPower 100 mA: this current is used for detecting Vbus*/
+ 141:Middlewares/ST/STM32_USB_Device_Library/Class/HID/Src/usbd_hid.c **** 
+ 142:Middlewares/ST/STM32_USB_Device_Library/Class/HID/Src/usbd_hid.c ****         /************** Descriptor of Joystick Mouse interface ****************/
+ 143:Middlewares/ST/STM32_USB_Device_Library/Class/HID/Src/usbd_hid.c ****         /* 09 */
+ 144:Middlewares/ST/STM32_USB_Device_Library/Class/HID/Src/usbd_hid.c ****         0x09,                    /*bLength: Interface Descriptor size*/
+ 145:Middlewares/ST/STM32_USB_Device_Library/Class/HID/Src/usbd_hid.c ****         USB_DESC_TYPE_INTERFACE, /*bDescriptorType: Interface descriptor type*/
+ 146:Middlewares/ST/STM32_USB_Device_Library/Class/HID/Src/usbd_hid.c ****         0x00,                    /*bInterfaceNumber: Number of Interface*/
+ARM GAS  /tmp/ccuXUsEs.s 			page 4
 
 
- 147:Middlewares/ST/STM32_USB_Device_Library/Class/HID/Src/usbd_hid.c ****   0x00,         /*iConfiguration: Index of string descriptor describing
- 148:Middlewares/ST/STM32_USB_Device_Library/Class/HID/Src/usbd_hid.c ****   the configuration*/
- 149:Middlewares/ST/STM32_USB_Device_Library/Class/HID/Src/usbd_hid.c ****   0xE0,         /*bmAttributes: bus powered and Support Remote Wake-up */
- 150:Middlewares/ST/STM32_USB_Device_Library/Class/HID/Src/usbd_hid.c ****   0x32,         /*MaxPower 100 mA: this current is used for detecting Vbus*/
- 151:Middlewares/ST/STM32_USB_Device_Library/Class/HID/Src/usbd_hid.c ****   
- 152:Middlewares/ST/STM32_USB_Device_Library/Class/HID/Src/usbd_hid.c ****   /************** Descriptor of Joystick Mouse interface ****************/
- 153:Middlewares/ST/STM32_USB_Device_Library/Class/HID/Src/usbd_hid.c ****   /* 09 */
- 154:Middlewares/ST/STM32_USB_Device_Library/Class/HID/Src/usbd_hid.c ****   0x09,         /*bLength: Interface Descriptor size*/
- 155:Middlewares/ST/STM32_USB_Device_Library/Class/HID/Src/usbd_hid.c ****   USB_DESC_TYPE_INTERFACE,/*bDescriptorType: Interface descriptor type*/
- 156:Middlewares/ST/STM32_USB_Device_Library/Class/HID/Src/usbd_hid.c ****   0x00,         /*bInterfaceNumber: Number of Interface*/
- 157:Middlewares/ST/STM32_USB_Device_Library/Class/HID/Src/usbd_hid.c ****   0x00,         /*bAlternateSetting: Alternate setting*/
- 158:Middlewares/ST/STM32_USB_Device_Library/Class/HID/Src/usbd_hid.c ****   0x01,         /*bNumEndpoints*/
- 159:Middlewares/ST/STM32_USB_Device_Library/Class/HID/Src/usbd_hid.c ****   0x03,         /*bInterfaceClass: HID*/
- 160:Middlewares/ST/STM32_USB_Device_Library/Class/HID/Src/usbd_hid.c ****   0x01,         /*bInterfaceSubClass : 1=BOOT, 0=no boot*/
- 161:Middlewares/ST/STM32_USB_Device_Library/Class/HID/Src/usbd_hid.c ****   0x02,         /*nInterfaceProtocol : 0=none, 1=keyboard, 2=mouse*/
- 162:Middlewares/ST/STM32_USB_Device_Library/Class/HID/Src/usbd_hid.c ****   0,            /*iInterface: Index of string descriptor*/
- 163:Middlewares/ST/STM32_USB_Device_Library/Class/HID/Src/usbd_hid.c ****   /******************** Descriptor of Joystick Mouse HID ********************/
- 164:Middlewares/ST/STM32_USB_Device_Library/Class/HID/Src/usbd_hid.c ****   /* 18 */
- 165:Middlewares/ST/STM32_USB_Device_Library/Class/HID/Src/usbd_hid.c ****   0x09,         /*bLength: HID Descriptor size*/
- 166:Middlewares/ST/STM32_USB_Device_Library/Class/HID/Src/usbd_hid.c ****   HID_DESCRIPTOR_TYPE, /*bDescriptorType: HID*/
- 167:Middlewares/ST/STM32_USB_Device_Library/Class/HID/Src/usbd_hid.c ****   0x11,         /*bcdHID: HID Class Spec release number*/
- 168:Middlewares/ST/STM32_USB_Device_Library/Class/HID/Src/usbd_hid.c ****   0x01,
- 169:Middlewares/ST/STM32_USB_Device_Library/Class/HID/Src/usbd_hid.c ****   0x00,         /*bCountryCode: Hardware target country*/
- 170:Middlewares/ST/STM32_USB_Device_Library/Class/HID/Src/usbd_hid.c ****   0x01,         /*bNumDescriptors: Number of HID class descriptors to follow*/
- 171:Middlewares/ST/STM32_USB_Device_Library/Class/HID/Src/usbd_hid.c ****   0x22,         /*bDescriptorType*/
- 172:Middlewares/ST/STM32_USB_Device_Library/Class/HID/Src/usbd_hid.c ****   HID_MOUSE_REPORT_DESC_SIZE,/*wItemLength: Total length of Report descriptor*/
- 173:Middlewares/ST/STM32_USB_Device_Library/Class/HID/Src/usbd_hid.c ****   0x00,
- 174:Middlewares/ST/STM32_USB_Device_Library/Class/HID/Src/usbd_hid.c ****   /******************** Descriptor of Mouse endpoint ********************/
- 175:Middlewares/ST/STM32_USB_Device_Library/Class/HID/Src/usbd_hid.c ****   /* 27 */
- 176:Middlewares/ST/STM32_USB_Device_Library/Class/HID/Src/usbd_hid.c ****   0x07,          /*bLength: Endpoint Descriptor size*/
- 177:Middlewares/ST/STM32_USB_Device_Library/Class/HID/Src/usbd_hid.c ****   USB_DESC_TYPE_ENDPOINT, /*bDescriptorType:*/
- 178:Middlewares/ST/STM32_USB_Device_Library/Class/HID/Src/usbd_hid.c ****   
- 179:Middlewares/ST/STM32_USB_Device_Library/Class/HID/Src/usbd_hid.c ****   HID_EPIN_ADDR,     /*bEndpointAddress: Endpoint Address (IN)*/
- 180:Middlewares/ST/STM32_USB_Device_Library/Class/HID/Src/usbd_hid.c ****   0x03,          /*bmAttributes: Interrupt endpoint*/
- 181:Middlewares/ST/STM32_USB_Device_Library/Class/HID/Src/usbd_hid.c ****   HID_EPIN_SIZE, /*wMaxPacketSize: 4 Byte max */
- 182:Middlewares/ST/STM32_USB_Device_Library/Class/HID/Src/usbd_hid.c ****   0x00,
- 183:Middlewares/ST/STM32_USB_Device_Library/Class/HID/Src/usbd_hid.c ****   HID_FS_BINTERVAL,          /*bInterval: Polling Interval (10 ms)*/
- 184:Middlewares/ST/STM32_USB_Device_Library/Class/HID/Src/usbd_hid.c ****   /* 34 */
- 185:Middlewares/ST/STM32_USB_Device_Library/Class/HID/Src/usbd_hid.c **** } ;
- 186:Middlewares/ST/STM32_USB_Device_Library/Class/HID/Src/usbd_hid.c **** 
- 187:Middlewares/ST/STM32_USB_Device_Library/Class/HID/Src/usbd_hid.c **** /* USB HID device Configuration Descriptor */
- 188:Middlewares/ST/STM32_USB_Device_Library/Class/HID/Src/usbd_hid.c **** __ALIGN_BEGIN static uint8_t USBD_HID_Desc[USB_HID_DESC_SIZ]  __ALIGN_END  =
- 189:Middlewares/ST/STM32_USB_Device_Library/Class/HID/Src/usbd_hid.c **** {
- 190:Middlewares/ST/STM32_USB_Device_Library/Class/HID/Src/usbd_hid.c ****   /* 18 */
- 191:Middlewares/ST/STM32_USB_Device_Library/Class/HID/Src/usbd_hid.c ****   0x09,         /*bLength: HID Descriptor size*/
- 192:Middlewares/ST/STM32_USB_Device_Library/Class/HID/Src/usbd_hid.c ****   HID_DESCRIPTOR_TYPE, /*bDescriptorType: HID*/
- 193:Middlewares/ST/STM32_USB_Device_Library/Class/HID/Src/usbd_hid.c ****   0x11,         /*bcdHID: HID Class Spec release number*/
- 194:Middlewares/ST/STM32_USB_Device_Library/Class/HID/Src/usbd_hid.c ****   0x01,
- 195:Middlewares/ST/STM32_USB_Device_Library/Class/HID/Src/usbd_hid.c ****   0x00,         /*bCountryCode: Hardware target country*/
- 196:Middlewares/ST/STM32_USB_Device_Library/Class/HID/Src/usbd_hid.c ****   0x01,         /*bNumDescriptors: Number of HID class descriptors to follow*/
- 197:Middlewares/ST/STM32_USB_Device_Library/Class/HID/Src/usbd_hid.c ****   0x22,         /*bDescriptorType*/
- 198:Middlewares/ST/STM32_USB_Device_Library/Class/HID/Src/usbd_hid.c ****   HID_MOUSE_REPORT_DESC_SIZE,/*wItemLength: Total length of Report descriptor*/
- 199:Middlewares/ST/STM32_USB_Device_Library/Class/HID/Src/usbd_hid.c ****   0x00,
- 200:Middlewares/ST/STM32_USB_Device_Library/Class/HID/Src/usbd_hid.c **** };
- 201:Middlewares/ST/STM32_USB_Device_Library/Class/HID/Src/usbd_hid.c **** 
- 202:Middlewares/ST/STM32_USB_Device_Library/Class/HID/Src/usbd_hid.c **** /* USB Standard Device Descriptor */
- 203:Middlewares/ST/STM32_USB_Device_Library/Class/HID/Src/usbd_hid.c **** __ALIGN_BEGIN static uint8_t USBD_HID_DeviceQualifierDesc[USB_LEN_DEV_QUALIFIER_DESC]  __ALIGN_END 
-ARM GAS  /tmp/cci2fGCQ.s 			page 5
+ 147:Middlewares/ST/STM32_USB_Device_Library/Class/HID/Src/usbd_hid.c ****         0x00,                    /*bAlternateSetting: Alternate setting*/
+ 148:Middlewares/ST/STM32_USB_Device_Library/Class/HID/Src/usbd_hid.c ****         0x01,                    /*bNumEndpoints*/
+ 149:Middlewares/ST/STM32_USB_Device_Library/Class/HID/Src/usbd_hid.c ****         0x03,                    /*bInterfaceClass: HID*/
+ 150:Middlewares/ST/STM32_USB_Device_Library/Class/HID/Src/usbd_hid.c ****         0x01,                    /*bInterfaceSubClass : 1=BOOT, 0=no boot*/
+ 151:Middlewares/ST/STM32_USB_Device_Library/Class/HID/Src/usbd_hid.c ****         0x01, /*nInterfaceProtocol : 0=none, 1=keyboard, 2=mouse*/
+ 152:Middlewares/ST/STM32_USB_Device_Library/Class/HID/Src/usbd_hid.c ****         0,    /*iInterface: Index of string descriptor*/
+ 153:Middlewares/ST/STM32_USB_Device_Library/Class/HID/Src/usbd_hid.c ****         /******************** Descriptor of Joystick Mouse HID
+ 154:Middlewares/ST/STM32_USB_Device_Library/Class/HID/Src/usbd_hid.c ****          ********************/
+ 155:Middlewares/ST/STM32_USB_Device_Library/Class/HID/Src/usbd_hid.c ****         /* 18 */
+ 156:Middlewares/ST/STM32_USB_Device_Library/Class/HID/Src/usbd_hid.c ****         0x09,                /*bLength: HID Descriptor size*/
+ 157:Middlewares/ST/STM32_USB_Device_Library/Class/HID/Src/usbd_hid.c ****         HID_DESCRIPTOR_TYPE, /*bDescriptorType: HID*/
+ 158:Middlewares/ST/STM32_USB_Device_Library/Class/HID/Src/usbd_hid.c ****         0x11,                /*bcdHID: HID Class Spec release number*/
+ 159:Middlewares/ST/STM32_USB_Device_Library/Class/HID/Src/usbd_hid.c ****         0x01, 0x00,          /*bCountryCode: Hardware target country*/
+ 160:Middlewares/ST/STM32_USB_Device_Library/Class/HID/Src/usbd_hid.c ****         0x01, /*bNumDescriptors: Number of HID class descriptors to follow*/
+ 161:Middlewares/ST/STM32_USB_Device_Library/Class/HID/Src/usbd_hid.c ****         0x22, /*bDescriptorType*/
+ 162:Middlewares/ST/STM32_USB_Device_Library/Class/HID/Src/usbd_hid.c ****         HID_MOUSE_REPORT_DESC_SIZE, /*wItemLength: Total length of Report
+ 163:Middlewares/ST/STM32_USB_Device_Library/Class/HID/Src/usbd_hid.c ****                                        descriptor*/
+ 164:Middlewares/ST/STM32_USB_Device_Library/Class/HID/Src/usbd_hid.c ****         0x00,
+ 165:Middlewares/ST/STM32_USB_Device_Library/Class/HID/Src/usbd_hid.c ****         /******************** Descriptor of Mouse endpoint ********************/
+ 166:Middlewares/ST/STM32_USB_Device_Library/Class/HID/Src/usbd_hid.c ****         /* 27 */
+ 167:Middlewares/ST/STM32_USB_Device_Library/Class/HID/Src/usbd_hid.c ****         0x07,                   /*bLength: Endpoint Descriptor size*/
+ 168:Middlewares/ST/STM32_USB_Device_Library/Class/HID/Src/usbd_hid.c ****         USB_DESC_TYPE_ENDPOINT, /*bDescriptorType:*/
+ 169:Middlewares/ST/STM32_USB_Device_Library/Class/HID/Src/usbd_hid.c **** 
+ 170:Middlewares/ST/STM32_USB_Device_Library/Class/HID/Src/usbd_hid.c ****         HID_EPIN_ADDR,          /*bEndpointAddress: Endpoint Address (IN)*/
+ 171:Middlewares/ST/STM32_USB_Device_Library/Class/HID/Src/usbd_hid.c ****         0x03,                   /*bmAttributes: Interrupt endpoint*/
+ 172:Middlewares/ST/STM32_USB_Device_Library/Class/HID/Src/usbd_hid.c ****         HID_EPIN_SIZE,          /*wMaxPacketSize: 4 Byte max */
+ 173:Middlewares/ST/STM32_USB_Device_Library/Class/HID/Src/usbd_hid.c ****         0x00, HID_FS_BINTERVAL, /*bInterval: Polling Interval (10 ms)*/
+ 174:Middlewares/ST/STM32_USB_Device_Library/Class/HID/Src/usbd_hid.c ****                                 /* 34 */
+ 175:Middlewares/ST/STM32_USB_Device_Library/Class/HID/Src/usbd_hid.c **** };
+ 176:Middlewares/ST/STM32_USB_Device_Library/Class/HID/Src/usbd_hid.c **** 
+ 177:Middlewares/ST/STM32_USB_Device_Library/Class/HID/Src/usbd_hid.c **** /* USB HID device Configuration Descriptor */
+ 178:Middlewares/ST/STM32_USB_Device_Library/Class/HID/Src/usbd_hid.c **** __ALIGN_BEGIN static uint8_t USBD_HID_Desc[USB_HID_DESC_SIZ] __ALIGN_END = {
+ 179:Middlewares/ST/STM32_USB_Device_Library/Class/HID/Src/usbd_hid.c ****     /* 18 */
+ 180:Middlewares/ST/STM32_USB_Device_Library/Class/HID/Src/usbd_hid.c ****     0x09,                /*bLength: HID Descriptor size*/
+ 181:Middlewares/ST/STM32_USB_Device_Library/Class/HID/Src/usbd_hid.c ****     HID_DESCRIPTOR_TYPE, /*bDescriptorType: HID*/
+ 182:Middlewares/ST/STM32_USB_Device_Library/Class/HID/Src/usbd_hid.c ****     0x11,                /*bcdHID: HID Class Spec release number*/
+ 183:Middlewares/ST/STM32_USB_Device_Library/Class/HID/Src/usbd_hid.c ****     0x01,
+ 184:Middlewares/ST/STM32_USB_Device_Library/Class/HID/Src/usbd_hid.c ****     0x00, /*bCountryCode: Hardware target country*/
+ 185:Middlewares/ST/STM32_USB_Device_Library/Class/HID/Src/usbd_hid.c ****     0x01, /*bNumDescriptors: Number of HID class descriptors to follow*/
+ 186:Middlewares/ST/STM32_USB_Device_Library/Class/HID/Src/usbd_hid.c ****     0x22, /*bDescriptorType*/
+ 187:Middlewares/ST/STM32_USB_Device_Library/Class/HID/Src/usbd_hid.c ****     HID_MOUSE_REPORT_DESC_SIZE, /*wItemLength: Total length of Report
+ 188:Middlewares/ST/STM32_USB_Device_Library/Class/HID/Src/usbd_hid.c ****                                    descriptor*/
+ 189:Middlewares/ST/STM32_USB_Device_Library/Class/HID/Src/usbd_hid.c ****     0x00,
+ 190:Middlewares/ST/STM32_USB_Device_Library/Class/HID/Src/usbd_hid.c **** };
+ 191:Middlewares/ST/STM32_USB_Device_Library/Class/HID/Src/usbd_hid.c **** 
+ 192:Middlewares/ST/STM32_USB_Device_Library/Class/HID/Src/usbd_hid.c **** /* USB Standard Device Descriptor */
+ 193:Middlewares/ST/STM32_USB_Device_Library/Class/HID/Src/usbd_hid.c **** __ALIGN_BEGIN static uint8_t
+ 194:Middlewares/ST/STM32_USB_Device_Library/Class/HID/Src/usbd_hid.c ****     USBD_HID_DeviceQualifierDesc[USB_LEN_DEV_QUALIFIER_DESC] __ALIGN_END = {
+ 195:Middlewares/ST/STM32_USB_Device_Library/Class/HID/Src/usbd_hid.c ****         USB_LEN_DEV_QUALIFIER_DESC,
+ 196:Middlewares/ST/STM32_USB_Device_Library/Class/HID/Src/usbd_hid.c ****         USB_DESC_TYPE_DEVICE_QUALIFIER,
+ 197:Middlewares/ST/STM32_USB_Device_Library/Class/HID/Src/usbd_hid.c ****         0x00,
+ 198:Middlewares/ST/STM32_USB_Device_Library/Class/HID/Src/usbd_hid.c ****         0x02,
+ 199:Middlewares/ST/STM32_USB_Device_Library/Class/HID/Src/usbd_hid.c ****         0x00,
+ 200:Middlewares/ST/STM32_USB_Device_Library/Class/HID/Src/usbd_hid.c ****         0x00,
+ 201:Middlewares/ST/STM32_USB_Device_Library/Class/HID/Src/usbd_hid.c ****         0x00,
+ 202:Middlewares/ST/STM32_USB_Device_Library/Class/HID/Src/usbd_hid.c ****         0x40,
+ 203:Middlewares/ST/STM32_USB_Device_Library/Class/HID/Src/usbd_hid.c ****         0x01,
+ARM GAS  /tmp/ccuXUsEs.s 			page 5
 
 
- 204:Middlewares/ST/STM32_USB_Device_Library/Class/HID/Src/usbd_hid.c **** {
- 205:Middlewares/ST/STM32_USB_Device_Library/Class/HID/Src/usbd_hid.c ****   USB_LEN_DEV_QUALIFIER_DESC,
- 206:Middlewares/ST/STM32_USB_Device_Library/Class/HID/Src/usbd_hid.c ****   USB_DESC_TYPE_DEVICE_QUALIFIER,
- 207:Middlewares/ST/STM32_USB_Device_Library/Class/HID/Src/usbd_hid.c ****   0x00,
- 208:Middlewares/ST/STM32_USB_Device_Library/Class/HID/Src/usbd_hid.c ****   0x02,
- 209:Middlewares/ST/STM32_USB_Device_Library/Class/HID/Src/usbd_hid.c ****   0x00,
- 210:Middlewares/ST/STM32_USB_Device_Library/Class/HID/Src/usbd_hid.c ****   0x00,
- 211:Middlewares/ST/STM32_USB_Device_Library/Class/HID/Src/usbd_hid.c ****   0x00,
- 212:Middlewares/ST/STM32_USB_Device_Library/Class/HID/Src/usbd_hid.c ****   0x40,
- 213:Middlewares/ST/STM32_USB_Device_Library/Class/HID/Src/usbd_hid.c ****   0x01,
- 214:Middlewares/ST/STM32_USB_Device_Library/Class/HID/Src/usbd_hid.c ****   0x00,
- 215:Middlewares/ST/STM32_USB_Device_Library/Class/HID/Src/usbd_hid.c **** };
- 216:Middlewares/ST/STM32_USB_Device_Library/Class/HID/Src/usbd_hid.c **** 
- 217:Middlewares/ST/STM32_USB_Device_Library/Class/HID/Src/usbd_hid.c **** __ALIGN_BEGIN static uint8_t HID_MOUSE_ReportDesc[HID_MOUSE_REPORT_DESC_SIZE]  __ALIGN_END =
- 218:Middlewares/ST/STM32_USB_Device_Library/Class/HID/Src/usbd_hid.c **** {
- 219:Middlewares/ST/STM32_USB_Device_Library/Class/HID/Src/usbd_hid.c ****   0x05,   0x01,
- 220:Middlewares/ST/STM32_USB_Device_Library/Class/HID/Src/usbd_hid.c ****   0x09,   0x02,
- 221:Middlewares/ST/STM32_USB_Device_Library/Class/HID/Src/usbd_hid.c ****   0xA1,   0x01,
- 222:Middlewares/ST/STM32_USB_Device_Library/Class/HID/Src/usbd_hid.c ****   0x09,   0x01,
- 223:Middlewares/ST/STM32_USB_Device_Library/Class/HID/Src/usbd_hid.c ****   
- 224:Middlewares/ST/STM32_USB_Device_Library/Class/HID/Src/usbd_hid.c ****   0xA1,   0x00,
- 225:Middlewares/ST/STM32_USB_Device_Library/Class/HID/Src/usbd_hid.c ****   0x05,   0x09,
- 226:Middlewares/ST/STM32_USB_Device_Library/Class/HID/Src/usbd_hid.c ****   0x19,   0x01,
- 227:Middlewares/ST/STM32_USB_Device_Library/Class/HID/Src/usbd_hid.c ****   0x29,   0x03,
- 228:Middlewares/ST/STM32_USB_Device_Library/Class/HID/Src/usbd_hid.c ****   
- 229:Middlewares/ST/STM32_USB_Device_Library/Class/HID/Src/usbd_hid.c ****   0x15,   0x00,
- 230:Middlewares/ST/STM32_USB_Device_Library/Class/HID/Src/usbd_hid.c ****   0x25,   0x01,
- 231:Middlewares/ST/STM32_USB_Device_Library/Class/HID/Src/usbd_hid.c ****   0x95,   0x03,
- 232:Middlewares/ST/STM32_USB_Device_Library/Class/HID/Src/usbd_hid.c ****   0x75,   0x01,
- 233:Middlewares/ST/STM32_USB_Device_Library/Class/HID/Src/usbd_hid.c ****   
- 234:Middlewares/ST/STM32_USB_Device_Library/Class/HID/Src/usbd_hid.c ****   0x81,   0x02,
- 235:Middlewares/ST/STM32_USB_Device_Library/Class/HID/Src/usbd_hid.c ****   0x95,   0x01,
- 236:Middlewares/ST/STM32_USB_Device_Library/Class/HID/Src/usbd_hid.c ****   0x75,   0x05,
- 237:Middlewares/ST/STM32_USB_Device_Library/Class/HID/Src/usbd_hid.c ****   0x81,   0x01,
- 238:Middlewares/ST/STM32_USB_Device_Library/Class/HID/Src/usbd_hid.c ****   
- 239:Middlewares/ST/STM32_USB_Device_Library/Class/HID/Src/usbd_hid.c ****   0x05,   0x01,
- 240:Middlewares/ST/STM32_USB_Device_Library/Class/HID/Src/usbd_hid.c ****   0x09,   0x30,
- 241:Middlewares/ST/STM32_USB_Device_Library/Class/HID/Src/usbd_hid.c ****   0x09,   0x31,
- 242:Middlewares/ST/STM32_USB_Device_Library/Class/HID/Src/usbd_hid.c ****   0x09,   0x38,
- 243:Middlewares/ST/STM32_USB_Device_Library/Class/HID/Src/usbd_hid.c ****   
- 244:Middlewares/ST/STM32_USB_Device_Library/Class/HID/Src/usbd_hid.c ****   0x15,   0x81,
- 245:Middlewares/ST/STM32_USB_Device_Library/Class/HID/Src/usbd_hid.c ****   0x25,   0x7F,
- 246:Middlewares/ST/STM32_USB_Device_Library/Class/HID/Src/usbd_hid.c ****   0x75,   0x08,
- 247:Middlewares/ST/STM32_USB_Device_Library/Class/HID/Src/usbd_hid.c ****   0x95,   0x03,
- 248:Middlewares/ST/STM32_USB_Device_Library/Class/HID/Src/usbd_hid.c ****   
- 249:Middlewares/ST/STM32_USB_Device_Library/Class/HID/Src/usbd_hid.c ****   0x81,   0x06,
- 250:Middlewares/ST/STM32_USB_Device_Library/Class/HID/Src/usbd_hid.c ****   0xC0,   0x09,
- 251:Middlewares/ST/STM32_USB_Device_Library/Class/HID/Src/usbd_hid.c ****   0x3c,   0x05,
- 252:Middlewares/ST/STM32_USB_Device_Library/Class/HID/Src/usbd_hid.c ****   0xff,   0x09,
- 253:Middlewares/ST/STM32_USB_Device_Library/Class/HID/Src/usbd_hid.c ****   
- 254:Middlewares/ST/STM32_USB_Device_Library/Class/HID/Src/usbd_hid.c ****   0x01,   0x15,
- 255:Middlewares/ST/STM32_USB_Device_Library/Class/HID/Src/usbd_hid.c ****   0x00,   0x25,
- 256:Middlewares/ST/STM32_USB_Device_Library/Class/HID/Src/usbd_hid.c ****   0x01,   0x75,
- 257:Middlewares/ST/STM32_USB_Device_Library/Class/HID/Src/usbd_hid.c ****   0x01,   0x95,
- 258:Middlewares/ST/STM32_USB_Device_Library/Class/HID/Src/usbd_hid.c ****   
- 259:Middlewares/ST/STM32_USB_Device_Library/Class/HID/Src/usbd_hid.c ****   0x02,   0xb1,
- 260:Middlewares/ST/STM32_USB_Device_Library/Class/HID/Src/usbd_hid.c ****   0x22,   0x75,
-ARM GAS  /tmp/cci2fGCQ.s 			page 6
+ 204:Middlewares/ST/STM32_USB_Device_Library/Class/HID/Src/usbd_hid.c ****         0x00,
+ 205:Middlewares/ST/STM32_USB_Device_Library/Class/HID/Src/usbd_hid.c **** };
+ 206:Middlewares/ST/STM32_USB_Device_Library/Class/HID/Src/usbd_hid.c **** 
+ 207:Middlewares/ST/STM32_USB_Device_Library/Class/HID/Src/usbd_hid.c **** __ALIGN_BEGIN static uint8_t
+ 208:Middlewares/ST/STM32_USB_Device_Library/Class/HID/Src/usbd_hid.c ****     HID_MOUSE_ReportDesc[HID_MOUSE_REPORT_DESC_SIZE] __ALIGN_END = {
+ 209:Middlewares/ST/STM32_USB_Device_Library/Class/HID/Src/usbd_hid.c ****         0x05, 0x01,  // USAGE_PAGE (Generic Desktop)
+ 210:Middlewares/ST/STM32_USB_Device_Library/Class/HID/Src/usbd_hid.c ****         0x09, 0x06,  // USAGE (Keyboard)
+ 211:Middlewares/ST/STM32_USB_Device_Library/Class/HID/Src/usbd_hid.c ****         0xa1, 0x01,  // COLLECTION (Application)
+ 212:Middlewares/ST/STM32_USB_Device_Library/Class/HID/Src/usbd_hid.c ****         0x05, 0x07,  //   USAGE_PAGE (Keyboard)
+ 213:Middlewares/ST/STM32_USB_Device_Library/Class/HID/Src/usbd_hid.c ****         0x19, 0xe0,  //   USAGE_MINIMUM (Keyboard LeftControl)
+ 214:Middlewares/ST/STM32_USB_Device_Library/Class/HID/Src/usbd_hid.c ****         0x29, 0xe7,  //   USAGE_MAXIMUM (Keyboard Right GUI)
+ 215:Middlewares/ST/STM32_USB_Device_Library/Class/HID/Src/usbd_hid.c ****         0x15, 0x00,  //   LOGICAL_MINIMUM (0)
+ 216:Middlewares/ST/STM32_USB_Device_Library/Class/HID/Src/usbd_hid.c ****         0x25, 0x01,  //   LOGICAL_MAXIMUM (1)
+ 217:Middlewares/ST/STM32_USB_Device_Library/Class/HID/Src/usbd_hid.c ****         0x75, 0x01,  //   REPORT_SIZE (1)
+ 218:Middlewares/ST/STM32_USB_Device_Library/Class/HID/Src/usbd_hid.c ****         0x95, 0x08,  //   REPORT_COUNT (8)
+ 219:Middlewares/ST/STM32_USB_Device_Library/Class/HID/Src/usbd_hid.c ****         0x81, 0x02,  //   INPUT (Data,Var,Abs)
+ 220:Middlewares/ST/STM32_USB_Device_Library/Class/HID/Src/usbd_hid.c ****         0x95, 0x01,  //   REPORT_COUNT (1)
+ 221:Middlewares/ST/STM32_USB_Device_Library/Class/HID/Src/usbd_hid.c ****         0x75, 0x08,  //   REPORT_SIZE (8)
+ 222:Middlewares/ST/STM32_USB_Device_Library/Class/HID/Src/usbd_hid.c ****         0x81, 0x03,  //   INPUT (Cnst,Var,Abs)
+ 223:Middlewares/ST/STM32_USB_Device_Library/Class/HID/Src/usbd_hid.c ****         0x95, 0x05,  //   REPORT_COUNT (5)
+ 224:Middlewares/ST/STM32_USB_Device_Library/Class/HID/Src/usbd_hid.c ****         0x75, 0x01,  //   REPORT_SIZE (1)
+ 225:Middlewares/ST/STM32_USB_Device_Library/Class/HID/Src/usbd_hid.c ****         0x05, 0x08,  //   USAGE_PAGE (LEDs)
+ 226:Middlewares/ST/STM32_USB_Device_Library/Class/HID/Src/usbd_hid.c ****         0x19, 0x01,  //   USAGE_MINIMUM (Num Lock)
+ 227:Middlewares/ST/STM32_USB_Device_Library/Class/HID/Src/usbd_hid.c ****         0x29, 0x05,  //   USAGE_MAXIMUM (Kana)
+ 228:Middlewares/ST/STM32_USB_Device_Library/Class/HID/Src/usbd_hid.c ****         0x91, 0x02,  //   OUTPUT (Data,Var,Abs)
+ 229:Middlewares/ST/STM32_USB_Device_Library/Class/HID/Src/usbd_hid.c ****         0x95, 0x01,  //   REPORT_COUNT (1)
+ 230:Middlewares/ST/STM32_USB_Device_Library/Class/HID/Src/usbd_hid.c ****         0x75, 0x03,  //   REPORT_SIZE (3)
+ 231:Middlewares/ST/STM32_USB_Device_Library/Class/HID/Src/usbd_hid.c ****         0x91, 0x03,  //   OUTPUT (Cnst,Var,Abs)
+ 232:Middlewares/ST/STM32_USB_Device_Library/Class/HID/Src/usbd_hid.c ****         0x95, 0x06,  //   REPORT_COUNT (6)
+ 233:Middlewares/ST/STM32_USB_Device_Library/Class/HID/Src/usbd_hid.c ****         0x75, 0x08,  //   REPORT_SIZE (8)
+ 234:Middlewares/ST/STM32_USB_Device_Library/Class/HID/Src/usbd_hid.c ****         0x15, 0x00,  //   LOGICAL_MINIMUM (0)
+ 235:Middlewares/ST/STM32_USB_Device_Library/Class/HID/Src/usbd_hid.c ****         0x25, 0x65,  //   LOGICAL_MAXIMUM (101)
+ 236:Middlewares/ST/STM32_USB_Device_Library/Class/HID/Src/usbd_hid.c ****         0x05, 0x07,  //   USAGE_PAGE (Keyboard)
+ 237:Middlewares/ST/STM32_USB_Device_Library/Class/HID/Src/usbd_hid.c ****         0x19, 0x00,  //   USAGE_MINIMUM (Reserved (no event indicated))
+ 238:Middlewares/ST/STM32_USB_Device_Library/Class/HID/Src/usbd_hid.c ****         0x29, 0x65,  //   USAGE_MAXIMUM (Keyboard Application)
+ 239:Middlewares/ST/STM32_USB_Device_Library/Class/HID/Src/usbd_hid.c ****         0x81, 0x00,  //   INPUT (Data,Ary,Abs)
+ 240:Middlewares/ST/STM32_USB_Device_Library/Class/HID/Src/usbd_hid.c ****         0xc0};
+ 241:Middlewares/ST/STM32_USB_Device_Library/Class/HID/Src/usbd_hid.c **** 
+ 242:Middlewares/ST/STM32_USB_Device_Library/Class/HID/Src/usbd_hid.c **** /**
+ 243:Middlewares/ST/STM32_USB_Device_Library/Class/HID/Src/usbd_hid.c ****  * @}
+ 244:Middlewares/ST/STM32_USB_Device_Library/Class/HID/Src/usbd_hid.c ****  */
+ 245:Middlewares/ST/STM32_USB_Device_Library/Class/HID/Src/usbd_hid.c **** 
+ 246:Middlewares/ST/STM32_USB_Device_Library/Class/HID/Src/usbd_hid.c **** /** @defgroup USBD_HID_Private_Functions
+ 247:Middlewares/ST/STM32_USB_Device_Library/Class/HID/Src/usbd_hid.c ****  * @{
+ 248:Middlewares/ST/STM32_USB_Device_Library/Class/HID/Src/usbd_hid.c ****  */
+ 249:Middlewares/ST/STM32_USB_Device_Library/Class/HID/Src/usbd_hid.c **** 
+ 250:Middlewares/ST/STM32_USB_Device_Library/Class/HID/Src/usbd_hid.c **** /**
+ 251:Middlewares/ST/STM32_USB_Device_Library/Class/HID/Src/usbd_hid.c ****  * @brief  USBD_HID_Init
+ 252:Middlewares/ST/STM32_USB_Device_Library/Class/HID/Src/usbd_hid.c ****  *         Initialize the HID interface
+ 253:Middlewares/ST/STM32_USB_Device_Library/Class/HID/Src/usbd_hid.c ****  * @param  pdev: device instance
+ 254:Middlewares/ST/STM32_USB_Device_Library/Class/HID/Src/usbd_hid.c ****  * @param  cfgidx: Configuration index
+ 255:Middlewares/ST/STM32_USB_Device_Library/Class/HID/Src/usbd_hid.c ****  * @retval status
+ 256:Middlewares/ST/STM32_USB_Device_Library/Class/HID/Src/usbd_hid.c ****  */
+ 257:Middlewares/ST/STM32_USB_Device_Library/Class/HID/Src/usbd_hid.c **** static uint8_t USBD_HID_Init(USBD_HandleTypeDef *pdev, uint8_t cfgidx) {
+ 258:Middlewares/ST/STM32_USB_Device_Library/Class/HID/Src/usbd_hid.c ****     uint8_t ret = 0;
+ 259:Middlewares/ST/STM32_USB_Device_Library/Class/HID/Src/usbd_hid.c **** 
+ 260:Middlewares/ST/STM32_USB_Device_Library/Class/HID/Src/usbd_hid.c ****     /* Open EP IN */
+ARM GAS  /tmp/ccuXUsEs.s 			page 6
 
 
- 261:Middlewares/ST/STM32_USB_Device_Library/Class/HID/Src/usbd_hid.c ****   0x06,   0x95,
- 262:Middlewares/ST/STM32_USB_Device_Library/Class/HID/Src/usbd_hid.c ****   0x01,   0xb1,
- 263:Middlewares/ST/STM32_USB_Device_Library/Class/HID/Src/usbd_hid.c ****   
- 264:Middlewares/ST/STM32_USB_Device_Library/Class/HID/Src/usbd_hid.c ****   0x01,   0xc0
- 265:Middlewares/ST/STM32_USB_Device_Library/Class/HID/Src/usbd_hid.c **** }; 
- 266:Middlewares/ST/STM32_USB_Device_Library/Class/HID/Src/usbd_hid.c **** 
- 267:Middlewares/ST/STM32_USB_Device_Library/Class/HID/Src/usbd_hid.c **** /**
- 268:Middlewares/ST/STM32_USB_Device_Library/Class/HID/Src/usbd_hid.c ****   * @}
- 269:Middlewares/ST/STM32_USB_Device_Library/Class/HID/Src/usbd_hid.c ****   */ 
- 270:Middlewares/ST/STM32_USB_Device_Library/Class/HID/Src/usbd_hid.c **** 
- 271:Middlewares/ST/STM32_USB_Device_Library/Class/HID/Src/usbd_hid.c **** /** @defgroup USBD_HID_Private_Functions
- 272:Middlewares/ST/STM32_USB_Device_Library/Class/HID/Src/usbd_hid.c ****   * @{
- 273:Middlewares/ST/STM32_USB_Device_Library/Class/HID/Src/usbd_hid.c ****   */ 
- 274:Middlewares/ST/STM32_USB_Device_Library/Class/HID/Src/usbd_hid.c **** 
- 275:Middlewares/ST/STM32_USB_Device_Library/Class/HID/Src/usbd_hid.c **** /**
- 276:Middlewares/ST/STM32_USB_Device_Library/Class/HID/Src/usbd_hid.c ****   * @brief  USBD_HID_Init
- 277:Middlewares/ST/STM32_USB_Device_Library/Class/HID/Src/usbd_hid.c ****   *         Initialize the HID interface
- 278:Middlewares/ST/STM32_USB_Device_Library/Class/HID/Src/usbd_hid.c ****   * @param  pdev: device instance
- 279:Middlewares/ST/STM32_USB_Device_Library/Class/HID/Src/usbd_hid.c ****   * @param  cfgidx: Configuration index
- 280:Middlewares/ST/STM32_USB_Device_Library/Class/HID/Src/usbd_hid.c ****   * @retval status
- 281:Middlewares/ST/STM32_USB_Device_Library/Class/HID/Src/usbd_hid.c ****   */
- 282:Middlewares/ST/STM32_USB_Device_Library/Class/HID/Src/usbd_hid.c **** static uint8_t  USBD_HID_Init (USBD_HandleTypeDef *pdev, 
- 283:Middlewares/ST/STM32_USB_Device_Library/Class/HID/Src/usbd_hid.c ****                                uint8_t cfgidx)
- 284:Middlewares/ST/STM32_USB_Device_Library/Class/HID/Src/usbd_hid.c **** {
- 285:Middlewares/ST/STM32_USB_Device_Library/Class/HID/Src/usbd_hid.c ****   uint8_t ret = 0;
- 286:Middlewares/ST/STM32_USB_Device_Library/Class/HID/Src/usbd_hid.c ****   
- 287:Middlewares/ST/STM32_USB_Device_Library/Class/HID/Src/usbd_hid.c ****   /* Open EP IN */
- 288:Middlewares/ST/STM32_USB_Device_Library/Class/HID/Src/usbd_hid.c ****   USBD_LL_OpenEP(pdev,
- 289:Middlewares/ST/STM32_USB_Device_Library/Class/HID/Src/usbd_hid.c ****                  HID_EPIN_ADDR,
- 290:Middlewares/ST/STM32_USB_Device_Library/Class/HID/Src/usbd_hid.c ****                  USBD_EP_TYPE_INTR,
- 291:Middlewares/ST/STM32_USB_Device_Library/Class/HID/Src/usbd_hid.c ****                  HID_EPIN_SIZE);  
- 292:Middlewares/ST/STM32_USB_Device_Library/Class/HID/Src/usbd_hid.c ****   
- 293:Middlewares/ST/STM32_USB_Device_Library/Class/HID/Src/usbd_hid.c ****   pdev->pClassData = USBD_malloc(sizeof (USBD_HID_HandleTypeDef));
- 294:Middlewares/ST/STM32_USB_Device_Library/Class/HID/Src/usbd_hid.c ****   
- 295:Middlewares/ST/STM32_USB_Device_Library/Class/HID/Src/usbd_hid.c ****   if(pdev->pClassData == NULL)
- 296:Middlewares/ST/STM32_USB_Device_Library/Class/HID/Src/usbd_hid.c ****   {
- 297:Middlewares/ST/STM32_USB_Device_Library/Class/HID/Src/usbd_hid.c ****     ret = 1; 
- 298:Middlewares/ST/STM32_USB_Device_Library/Class/HID/Src/usbd_hid.c ****   }
- 299:Middlewares/ST/STM32_USB_Device_Library/Class/HID/Src/usbd_hid.c ****   else
- 300:Middlewares/ST/STM32_USB_Device_Library/Class/HID/Src/usbd_hid.c ****   {
- 301:Middlewares/ST/STM32_USB_Device_Library/Class/HID/Src/usbd_hid.c ****     ((USBD_HID_HandleTypeDef *)pdev->pClassData)->state = HID_IDLE;
- 302:Middlewares/ST/STM32_USB_Device_Library/Class/HID/Src/usbd_hid.c ****   }
- 303:Middlewares/ST/STM32_USB_Device_Library/Class/HID/Src/usbd_hid.c ****   return ret;
- 304:Middlewares/ST/STM32_USB_Device_Library/Class/HID/Src/usbd_hid.c **** }
+ 261:Middlewares/ST/STM32_USB_Device_Library/Class/HID/Src/usbd_hid.c ****     USBD_LL_OpenEP(pdev, HID_EPIN_ADDR, USBD_EP_TYPE_INTR, HID_EPIN_SIZE);
+ 262:Middlewares/ST/STM32_USB_Device_Library/Class/HID/Src/usbd_hid.c **** 
+ 263:Middlewares/ST/STM32_USB_Device_Library/Class/HID/Src/usbd_hid.c ****     pdev->pClassData = USBD_malloc(sizeof(USBD_HID_HandleTypeDef));
+ 264:Middlewares/ST/STM32_USB_Device_Library/Class/HID/Src/usbd_hid.c **** 
+ 265:Middlewares/ST/STM32_USB_Device_Library/Class/HID/Src/usbd_hid.c ****     if (pdev->pClassData == NULL) {
+ 266:Middlewares/ST/STM32_USB_Device_Library/Class/HID/Src/usbd_hid.c ****         ret = 1;
+ 267:Middlewares/ST/STM32_USB_Device_Library/Class/HID/Src/usbd_hid.c ****     } else {
+ 268:Middlewares/ST/STM32_USB_Device_Library/Class/HID/Src/usbd_hid.c ****         ((USBD_HID_HandleTypeDef *)pdev->pClassData)->state = HID_IDLE;
+ 269:Middlewares/ST/STM32_USB_Device_Library/Class/HID/Src/usbd_hid.c ****     }
+ 270:Middlewares/ST/STM32_USB_Device_Library/Class/HID/Src/usbd_hid.c ****     return ret;
+ 271:Middlewares/ST/STM32_USB_Device_Library/Class/HID/Src/usbd_hid.c **** }
+ 272:Middlewares/ST/STM32_USB_Device_Library/Class/HID/Src/usbd_hid.c **** 
+ 273:Middlewares/ST/STM32_USB_Device_Library/Class/HID/Src/usbd_hid.c **** /**
+ 274:Middlewares/ST/STM32_USB_Device_Library/Class/HID/Src/usbd_hid.c ****  * @brief  USBD_HID_Init
+ 275:Middlewares/ST/STM32_USB_Device_Library/Class/HID/Src/usbd_hid.c ****  *         DeInitialize the HID layer
+ 276:Middlewares/ST/STM32_USB_Device_Library/Class/HID/Src/usbd_hid.c ****  * @param  pdev: device instance
+ 277:Middlewares/ST/STM32_USB_Device_Library/Class/HID/Src/usbd_hid.c ****  * @param  cfgidx: Configuration index
+ 278:Middlewares/ST/STM32_USB_Device_Library/Class/HID/Src/usbd_hid.c ****  * @retval status
+ 279:Middlewares/ST/STM32_USB_Device_Library/Class/HID/Src/usbd_hid.c ****  */
+ 280:Middlewares/ST/STM32_USB_Device_Library/Class/HID/Src/usbd_hid.c **** static uint8_t USBD_HID_DeInit(USBD_HandleTypeDef *pdev, uint8_t cfgidx) {
+ 281:Middlewares/ST/STM32_USB_Device_Library/Class/HID/Src/usbd_hid.c ****     /* Close HID EPs */
+ 282:Middlewares/ST/STM32_USB_Device_Library/Class/HID/Src/usbd_hid.c ****     USBD_LL_CloseEP(pdev, HID_EPIN_ADDR);
+ 283:Middlewares/ST/STM32_USB_Device_Library/Class/HID/Src/usbd_hid.c **** 
+ 284:Middlewares/ST/STM32_USB_Device_Library/Class/HID/Src/usbd_hid.c ****     /* FRee allocated memory */
+ 285:Middlewares/ST/STM32_USB_Device_Library/Class/HID/Src/usbd_hid.c ****     if (pdev->pClassData != NULL) {
+ 286:Middlewares/ST/STM32_USB_Device_Library/Class/HID/Src/usbd_hid.c ****         USBD_free(pdev->pClassData);
+ 287:Middlewares/ST/STM32_USB_Device_Library/Class/HID/Src/usbd_hid.c ****         pdev->pClassData = NULL;
+ 288:Middlewares/ST/STM32_USB_Device_Library/Class/HID/Src/usbd_hid.c ****     }
+ 289:Middlewares/ST/STM32_USB_Device_Library/Class/HID/Src/usbd_hid.c **** 
+ 290:Middlewares/ST/STM32_USB_Device_Library/Class/HID/Src/usbd_hid.c ****     return USBD_OK;
+ 291:Middlewares/ST/STM32_USB_Device_Library/Class/HID/Src/usbd_hid.c **** }
+ 292:Middlewares/ST/STM32_USB_Device_Library/Class/HID/Src/usbd_hid.c **** 
+ 293:Middlewares/ST/STM32_USB_Device_Library/Class/HID/Src/usbd_hid.c **** /**
+ 294:Middlewares/ST/STM32_USB_Device_Library/Class/HID/Src/usbd_hid.c ****  * @brief  USBD_HID_Setup
+ 295:Middlewares/ST/STM32_USB_Device_Library/Class/HID/Src/usbd_hid.c ****  *         Handle the HID specific requests
+ 296:Middlewares/ST/STM32_USB_Device_Library/Class/HID/Src/usbd_hid.c ****  * @param  pdev: instance
+ 297:Middlewares/ST/STM32_USB_Device_Library/Class/HID/Src/usbd_hid.c ****  * @param  req: usb requests
+ 298:Middlewares/ST/STM32_USB_Device_Library/Class/HID/Src/usbd_hid.c ****  * @retval status
+ 299:Middlewares/ST/STM32_USB_Device_Library/Class/HID/Src/usbd_hid.c ****  */
+ 300:Middlewares/ST/STM32_USB_Device_Library/Class/HID/Src/usbd_hid.c **** static uint8_t USBD_HID_Setup(USBD_HandleTypeDef *pdev,
+ 301:Middlewares/ST/STM32_USB_Device_Library/Class/HID/Src/usbd_hid.c ****                               USBD_SetupReqTypedef *req) {
+ 302:Middlewares/ST/STM32_USB_Device_Library/Class/HID/Src/usbd_hid.c ****     uint16_t len = 0;
+ 303:Middlewares/ST/STM32_USB_Device_Library/Class/HID/Src/usbd_hid.c ****     uint8_t *pbuf = NULL;
+ 304:Middlewares/ST/STM32_USB_Device_Library/Class/HID/Src/usbd_hid.c ****     USBD_HID_HandleTypeDef *hhid = (USBD_HID_HandleTypeDef *)pdev->pClassData;
  305:Middlewares/ST/STM32_USB_Device_Library/Class/HID/Src/usbd_hid.c **** 
- 306:Middlewares/ST/STM32_USB_Device_Library/Class/HID/Src/usbd_hid.c **** /**
- 307:Middlewares/ST/STM32_USB_Device_Library/Class/HID/Src/usbd_hid.c ****   * @brief  USBD_HID_Init
- 308:Middlewares/ST/STM32_USB_Device_Library/Class/HID/Src/usbd_hid.c ****   *         DeInitialize the HID layer
- 309:Middlewares/ST/STM32_USB_Device_Library/Class/HID/Src/usbd_hid.c ****   * @param  pdev: device instance
- 310:Middlewares/ST/STM32_USB_Device_Library/Class/HID/Src/usbd_hid.c ****   * @param  cfgidx: Configuration index
- 311:Middlewares/ST/STM32_USB_Device_Library/Class/HID/Src/usbd_hid.c ****   * @retval status
- 312:Middlewares/ST/STM32_USB_Device_Library/Class/HID/Src/usbd_hid.c ****   */
- 313:Middlewares/ST/STM32_USB_Device_Library/Class/HID/Src/usbd_hid.c **** static uint8_t  USBD_HID_DeInit (USBD_HandleTypeDef *pdev, 
- 314:Middlewares/ST/STM32_USB_Device_Library/Class/HID/Src/usbd_hid.c ****                                  uint8_t cfgidx)
- 315:Middlewares/ST/STM32_USB_Device_Library/Class/HID/Src/usbd_hid.c **** {
- 316:Middlewares/ST/STM32_USB_Device_Library/Class/HID/Src/usbd_hid.c ****   /* Close HID EPs */
- 317:Middlewares/ST/STM32_USB_Device_Library/Class/HID/Src/usbd_hid.c ****   USBD_LL_CloseEP(pdev,
-ARM GAS  /tmp/cci2fGCQ.s 			page 7
+ 306:Middlewares/ST/STM32_USB_Device_Library/Class/HID/Src/usbd_hid.c ****     switch (req->bmRequest & USB_REQ_TYPE_MASK) {
+ 307:Middlewares/ST/STM32_USB_Device_Library/Class/HID/Src/usbd_hid.c ****         case USB_REQ_TYPE_CLASS:
+ 308:Middlewares/ST/STM32_USB_Device_Library/Class/HID/Src/usbd_hid.c ****             switch (req->bRequest) {
+ 309:Middlewares/ST/STM32_USB_Device_Library/Class/HID/Src/usbd_hid.c ****                 case HID_REQ_SET_PROTOCOL:
+ 310:Middlewares/ST/STM32_USB_Device_Library/Class/HID/Src/usbd_hid.c ****                     hhid->Protocol = (uint8_t)(req->wValue);
+ 311:Middlewares/ST/STM32_USB_Device_Library/Class/HID/Src/usbd_hid.c ****                     break;
+ 312:Middlewares/ST/STM32_USB_Device_Library/Class/HID/Src/usbd_hid.c **** 
+ 313:Middlewares/ST/STM32_USB_Device_Library/Class/HID/Src/usbd_hid.c ****                 case HID_REQ_GET_PROTOCOL:
+ 314:Middlewares/ST/STM32_USB_Device_Library/Class/HID/Src/usbd_hid.c ****                     USBD_CtlSendData(pdev, (uint8_t *)&hhid->Protocol, 1);
+ 315:Middlewares/ST/STM32_USB_Device_Library/Class/HID/Src/usbd_hid.c ****                     break;
+ 316:Middlewares/ST/STM32_USB_Device_Library/Class/HID/Src/usbd_hid.c **** 
+ 317:Middlewares/ST/STM32_USB_Device_Library/Class/HID/Src/usbd_hid.c ****                 case HID_REQ_SET_IDLE:
+ARM GAS  /tmp/ccuXUsEs.s 			page 7
 
 
- 318:Middlewares/ST/STM32_USB_Device_Library/Class/HID/Src/usbd_hid.c ****                   HID_EPIN_ADDR);
- 319:Middlewares/ST/STM32_USB_Device_Library/Class/HID/Src/usbd_hid.c ****   
- 320:Middlewares/ST/STM32_USB_Device_Library/Class/HID/Src/usbd_hid.c ****   /* FRee allocated memory */
- 321:Middlewares/ST/STM32_USB_Device_Library/Class/HID/Src/usbd_hid.c ****   if(pdev->pClassData != NULL)
- 322:Middlewares/ST/STM32_USB_Device_Library/Class/HID/Src/usbd_hid.c ****   {
- 323:Middlewares/ST/STM32_USB_Device_Library/Class/HID/Src/usbd_hid.c ****     USBD_free(pdev->pClassData);
- 324:Middlewares/ST/STM32_USB_Device_Library/Class/HID/Src/usbd_hid.c ****     pdev->pClassData = NULL;
- 325:Middlewares/ST/STM32_USB_Device_Library/Class/HID/Src/usbd_hid.c ****   } 
- 326:Middlewares/ST/STM32_USB_Device_Library/Class/HID/Src/usbd_hid.c ****   
- 327:Middlewares/ST/STM32_USB_Device_Library/Class/HID/Src/usbd_hid.c ****   return USBD_OK;
- 328:Middlewares/ST/STM32_USB_Device_Library/Class/HID/Src/usbd_hid.c **** }
- 329:Middlewares/ST/STM32_USB_Device_Library/Class/HID/Src/usbd_hid.c **** 
- 330:Middlewares/ST/STM32_USB_Device_Library/Class/HID/Src/usbd_hid.c **** /**
- 331:Middlewares/ST/STM32_USB_Device_Library/Class/HID/Src/usbd_hid.c ****   * @brief  USBD_HID_Setup
- 332:Middlewares/ST/STM32_USB_Device_Library/Class/HID/Src/usbd_hid.c ****   *         Handle the HID specific requests
- 333:Middlewares/ST/STM32_USB_Device_Library/Class/HID/Src/usbd_hid.c ****   * @param  pdev: instance
- 334:Middlewares/ST/STM32_USB_Device_Library/Class/HID/Src/usbd_hid.c ****   * @param  req: usb requests
- 335:Middlewares/ST/STM32_USB_Device_Library/Class/HID/Src/usbd_hid.c ****   * @retval status
- 336:Middlewares/ST/STM32_USB_Device_Library/Class/HID/Src/usbd_hid.c ****   */
- 337:Middlewares/ST/STM32_USB_Device_Library/Class/HID/Src/usbd_hid.c **** static uint8_t  USBD_HID_Setup (USBD_HandleTypeDef *pdev, 
- 338:Middlewares/ST/STM32_USB_Device_Library/Class/HID/Src/usbd_hid.c ****                                 USBD_SetupReqTypedef *req)
- 339:Middlewares/ST/STM32_USB_Device_Library/Class/HID/Src/usbd_hid.c **** {
- 340:Middlewares/ST/STM32_USB_Device_Library/Class/HID/Src/usbd_hid.c ****   uint16_t len = 0;
- 341:Middlewares/ST/STM32_USB_Device_Library/Class/HID/Src/usbd_hid.c ****   uint8_t  *pbuf = NULL;
- 342:Middlewares/ST/STM32_USB_Device_Library/Class/HID/Src/usbd_hid.c ****   USBD_HID_HandleTypeDef     *hhid = (USBD_HID_HandleTypeDef*) pdev->pClassData;
- 343:Middlewares/ST/STM32_USB_Device_Library/Class/HID/Src/usbd_hid.c ****   
- 344:Middlewares/ST/STM32_USB_Device_Library/Class/HID/Src/usbd_hid.c ****   switch (req->bmRequest & USB_REQ_TYPE_MASK)
- 345:Middlewares/ST/STM32_USB_Device_Library/Class/HID/Src/usbd_hid.c ****   {
- 346:Middlewares/ST/STM32_USB_Device_Library/Class/HID/Src/usbd_hid.c ****   case USB_REQ_TYPE_CLASS :  
- 347:Middlewares/ST/STM32_USB_Device_Library/Class/HID/Src/usbd_hid.c ****     switch (req->bRequest)
- 348:Middlewares/ST/STM32_USB_Device_Library/Class/HID/Src/usbd_hid.c ****     {
- 349:Middlewares/ST/STM32_USB_Device_Library/Class/HID/Src/usbd_hid.c ****       
- 350:Middlewares/ST/STM32_USB_Device_Library/Class/HID/Src/usbd_hid.c ****       
- 351:Middlewares/ST/STM32_USB_Device_Library/Class/HID/Src/usbd_hid.c ****     case HID_REQ_SET_PROTOCOL:
- 352:Middlewares/ST/STM32_USB_Device_Library/Class/HID/Src/usbd_hid.c ****       hhid->Protocol = (uint8_t)(req->wValue);
- 353:Middlewares/ST/STM32_USB_Device_Library/Class/HID/Src/usbd_hid.c ****       break;
- 354:Middlewares/ST/STM32_USB_Device_Library/Class/HID/Src/usbd_hid.c ****       
- 355:Middlewares/ST/STM32_USB_Device_Library/Class/HID/Src/usbd_hid.c ****     case HID_REQ_GET_PROTOCOL:
- 356:Middlewares/ST/STM32_USB_Device_Library/Class/HID/Src/usbd_hid.c ****       USBD_CtlSendData (pdev, 
- 357:Middlewares/ST/STM32_USB_Device_Library/Class/HID/Src/usbd_hid.c ****                         (uint8_t *)&hhid->Protocol,
- 358:Middlewares/ST/STM32_USB_Device_Library/Class/HID/Src/usbd_hid.c ****                         1);    
- 359:Middlewares/ST/STM32_USB_Device_Library/Class/HID/Src/usbd_hid.c ****       break;
- 360:Middlewares/ST/STM32_USB_Device_Library/Class/HID/Src/usbd_hid.c ****       
- 361:Middlewares/ST/STM32_USB_Device_Library/Class/HID/Src/usbd_hid.c ****     case HID_REQ_SET_IDLE:
- 362:Middlewares/ST/STM32_USB_Device_Library/Class/HID/Src/usbd_hid.c ****       hhid->IdleState = (uint8_t)(req->wValue >> 8);
- 363:Middlewares/ST/STM32_USB_Device_Library/Class/HID/Src/usbd_hid.c ****       break;
- 364:Middlewares/ST/STM32_USB_Device_Library/Class/HID/Src/usbd_hid.c ****       
- 365:Middlewares/ST/STM32_USB_Device_Library/Class/HID/Src/usbd_hid.c ****     case HID_REQ_GET_IDLE:
- 366:Middlewares/ST/STM32_USB_Device_Library/Class/HID/Src/usbd_hid.c ****       USBD_CtlSendData (pdev, 
- 367:Middlewares/ST/STM32_USB_Device_Library/Class/HID/Src/usbd_hid.c ****                         (uint8_t *)&hhid->IdleState,
- 368:Middlewares/ST/STM32_USB_Device_Library/Class/HID/Src/usbd_hid.c ****                         1);        
- 369:Middlewares/ST/STM32_USB_Device_Library/Class/HID/Src/usbd_hid.c ****       break;      
- 370:Middlewares/ST/STM32_USB_Device_Library/Class/HID/Src/usbd_hid.c ****       
- 371:Middlewares/ST/STM32_USB_Device_Library/Class/HID/Src/usbd_hid.c ****     default:
- 372:Middlewares/ST/STM32_USB_Device_Library/Class/HID/Src/usbd_hid.c ****       USBD_CtlError (pdev, req);
- 373:Middlewares/ST/STM32_USB_Device_Library/Class/HID/Src/usbd_hid.c ****       return USBD_FAIL; 
+ 318:Middlewares/ST/STM32_USB_Device_Library/Class/HID/Src/usbd_hid.c ****                     hhid->IdleState = (uint8_t)(req->wValue >> 8);
+ 319:Middlewares/ST/STM32_USB_Device_Library/Class/HID/Src/usbd_hid.c ****                     break;
+ 320:Middlewares/ST/STM32_USB_Device_Library/Class/HID/Src/usbd_hid.c **** 
+ 321:Middlewares/ST/STM32_USB_Device_Library/Class/HID/Src/usbd_hid.c ****                 case HID_REQ_GET_IDLE:
+ 322:Middlewares/ST/STM32_USB_Device_Library/Class/HID/Src/usbd_hid.c ****                     USBD_CtlSendData(pdev, (uint8_t *)&hhid->IdleState, 1);
+ 323:Middlewares/ST/STM32_USB_Device_Library/Class/HID/Src/usbd_hid.c ****                     break;
+ 324:Middlewares/ST/STM32_USB_Device_Library/Class/HID/Src/usbd_hid.c **** 
+ 325:Middlewares/ST/STM32_USB_Device_Library/Class/HID/Src/usbd_hid.c ****                 default:
+ 326:Middlewares/ST/STM32_USB_Device_Library/Class/HID/Src/usbd_hid.c ****                     USBD_CtlError(pdev, req);
+ 327:Middlewares/ST/STM32_USB_Device_Library/Class/HID/Src/usbd_hid.c ****                     return USBD_FAIL;
+ 328:Middlewares/ST/STM32_USB_Device_Library/Class/HID/Src/usbd_hid.c ****             }
+ 329:Middlewares/ST/STM32_USB_Device_Library/Class/HID/Src/usbd_hid.c ****             break;
+ 330:Middlewares/ST/STM32_USB_Device_Library/Class/HID/Src/usbd_hid.c **** 
+ 331:Middlewares/ST/STM32_USB_Device_Library/Class/HID/Src/usbd_hid.c ****         case USB_REQ_TYPE_STANDARD:
+ 332:Middlewares/ST/STM32_USB_Device_Library/Class/HID/Src/usbd_hid.c ****             switch (req->bRequest) {
+ 333:Middlewares/ST/STM32_USB_Device_Library/Class/HID/Src/usbd_hid.c ****                 case USB_REQ_GET_DESCRIPTOR:
+ 334:Middlewares/ST/STM32_USB_Device_Library/Class/HID/Src/usbd_hid.c ****                     if (req->wValue >> 8 == HID_REPORT_DESC) {
+ 335:Middlewares/ST/STM32_USB_Device_Library/Class/HID/Src/usbd_hid.c ****                         len = MIN(HID_MOUSE_REPORT_DESC_SIZE, req->wLength);
+ 336:Middlewares/ST/STM32_USB_Device_Library/Class/HID/Src/usbd_hid.c ****                         pbuf = HID_MOUSE_ReportDesc;
+ 337:Middlewares/ST/STM32_USB_Device_Library/Class/HID/Src/usbd_hid.c ****                     } else if (req->wValue >> 8 == HID_DESCRIPTOR_TYPE) {
+ 338:Middlewares/ST/STM32_USB_Device_Library/Class/HID/Src/usbd_hid.c ****                         pbuf = USBD_HID_Desc;
+ 339:Middlewares/ST/STM32_USB_Device_Library/Class/HID/Src/usbd_hid.c ****                         len = MIN(USB_HID_DESC_SIZ, req->wLength);
+ 340:Middlewares/ST/STM32_USB_Device_Library/Class/HID/Src/usbd_hid.c ****                     }
+ 341:Middlewares/ST/STM32_USB_Device_Library/Class/HID/Src/usbd_hid.c **** 
+ 342:Middlewares/ST/STM32_USB_Device_Library/Class/HID/Src/usbd_hid.c ****                     USBD_CtlSendData(pdev, pbuf, len);
+ 343:Middlewares/ST/STM32_USB_Device_Library/Class/HID/Src/usbd_hid.c **** 
+ 344:Middlewares/ST/STM32_USB_Device_Library/Class/HID/Src/usbd_hid.c ****                     break;
+ 345:Middlewares/ST/STM32_USB_Device_Library/Class/HID/Src/usbd_hid.c **** 
+ 346:Middlewares/ST/STM32_USB_Device_Library/Class/HID/Src/usbd_hid.c ****                 case USB_REQ_GET_INTERFACE:
+ 347:Middlewares/ST/STM32_USB_Device_Library/Class/HID/Src/usbd_hid.c ****                     USBD_CtlSendData(pdev, (uint8_t *)&hhid->AltSetting, 1);
+ 348:Middlewares/ST/STM32_USB_Device_Library/Class/HID/Src/usbd_hid.c ****                     break;
+ 349:Middlewares/ST/STM32_USB_Device_Library/Class/HID/Src/usbd_hid.c **** 
+ 350:Middlewares/ST/STM32_USB_Device_Library/Class/HID/Src/usbd_hid.c ****                 case USB_REQ_SET_INTERFACE:
+ 351:Middlewares/ST/STM32_USB_Device_Library/Class/HID/Src/usbd_hid.c ****                     hhid->AltSetting = (uint8_t)(req->wValue);
+ 352:Middlewares/ST/STM32_USB_Device_Library/Class/HID/Src/usbd_hid.c ****                     break;
+ 353:Middlewares/ST/STM32_USB_Device_Library/Class/HID/Src/usbd_hid.c ****             }
+ 354:Middlewares/ST/STM32_USB_Device_Library/Class/HID/Src/usbd_hid.c ****     }
+ 355:Middlewares/ST/STM32_USB_Device_Library/Class/HID/Src/usbd_hid.c ****     return USBD_OK;
+ 356:Middlewares/ST/STM32_USB_Device_Library/Class/HID/Src/usbd_hid.c **** }
+ 357:Middlewares/ST/STM32_USB_Device_Library/Class/HID/Src/usbd_hid.c **** 
+ 358:Middlewares/ST/STM32_USB_Device_Library/Class/HID/Src/usbd_hid.c **** /**
+ 359:Middlewares/ST/STM32_USB_Device_Library/Class/HID/Src/usbd_hid.c ****  * @brief  USBD_HID_SendReport
+ 360:Middlewares/ST/STM32_USB_Device_Library/Class/HID/Src/usbd_hid.c ****  *         Send HID Report
+ 361:Middlewares/ST/STM32_USB_Device_Library/Class/HID/Src/usbd_hid.c ****  * @param  pdev: device instance
+ 362:Middlewares/ST/STM32_USB_Device_Library/Class/HID/Src/usbd_hid.c ****  * @param  buff: pointer to report
+ 363:Middlewares/ST/STM32_USB_Device_Library/Class/HID/Src/usbd_hid.c ****  * @retval status
+ 364:Middlewares/ST/STM32_USB_Device_Library/Class/HID/Src/usbd_hid.c ****  */
+ 365:Middlewares/ST/STM32_USB_Device_Library/Class/HID/Src/usbd_hid.c **** uint8_t USBD_HID_SendReport(USBD_HandleTypeDef *pdev, uint8_t *report,
+ 366:Middlewares/ST/STM32_USB_Device_Library/Class/HID/Src/usbd_hid.c ****                             uint16_t len) {
+ 367:Middlewares/ST/STM32_USB_Device_Library/Class/HID/Src/usbd_hid.c ****     USBD_HID_HandleTypeDef *hhid = (USBD_HID_HandleTypeDef *)pdev->pClassData;
+ 368:Middlewares/ST/STM32_USB_Device_Library/Class/HID/Src/usbd_hid.c **** 
+ 369:Middlewares/ST/STM32_USB_Device_Library/Class/HID/Src/usbd_hid.c ****     if (pdev->dev_state == USBD_STATE_CONFIGURED) {
+ 370:Middlewares/ST/STM32_USB_Device_Library/Class/HID/Src/usbd_hid.c ****         if (hhid->state == HID_IDLE) {
+ 371:Middlewares/ST/STM32_USB_Device_Library/Class/HID/Src/usbd_hid.c ****             hhid->state = HID_BUSY;
+ 372:Middlewares/ST/STM32_USB_Device_Library/Class/HID/Src/usbd_hid.c ****             USBD_LL_Transmit(pdev, HID_EPIN_ADDR, report, len);
+ 373:Middlewares/ST/STM32_USB_Device_Library/Class/HID/Src/usbd_hid.c ****         }
  374:Middlewares/ST/STM32_USB_Device_Library/Class/HID/Src/usbd_hid.c ****     }
-ARM GAS  /tmp/cci2fGCQ.s 			page 8
+ARM GAS  /tmp/ccuXUsEs.s 			page 8
 
 
- 375:Middlewares/ST/STM32_USB_Device_Library/Class/HID/Src/usbd_hid.c ****     break;
- 376:Middlewares/ST/STM32_USB_Device_Library/Class/HID/Src/usbd_hid.c ****     
- 377:Middlewares/ST/STM32_USB_Device_Library/Class/HID/Src/usbd_hid.c ****   case USB_REQ_TYPE_STANDARD:
- 378:Middlewares/ST/STM32_USB_Device_Library/Class/HID/Src/usbd_hid.c ****     switch (req->bRequest)
- 379:Middlewares/ST/STM32_USB_Device_Library/Class/HID/Src/usbd_hid.c ****     {
- 380:Middlewares/ST/STM32_USB_Device_Library/Class/HID/Src/usbd_hid.c ****     case USB_REQ_GET_DESCRIPTOR: 
- 381:Middlewares/ST/STM32_USB_Device_Library/Class/HID/Src/usbd_hid.c ****       if( req->wValue >> 8 == HID_REPORT_DESC)
- 382:Middlewares/ST/STM32_USB_Device_Library/Class/HID/Src/usbd_hid.c ****       {
- 383:Middlewares/ST/STM32_USB_Device_Library/Class/HID/Src/usbd_hid.c ****         len = MIN(HID_MOUSE_REPORT_DESC_SIZE , req->wLength);
- 384:Middlewares/ST/STM32_USB_Device_Library/Class/HID/Src/usbd_hid.c ****         pbuf = HID_MOUSE_ReportDesc;
- 385:Middlewares/ST/STM32_USB_Device_Library/Class/HID/Src/usbd_hid.c ****       }
- 386:Middlewares/ST/STM32_USB_Device_Library/Class/HID/Src/usbd_hid.c ****       else if( req->wValue >> 8 == HID_DESCRIPTOR_TYPE)
- 387:Middlewares/ST/STM32_USB_Device_Library/Class/HID/Src/usbd_hid.c ****       {
- 388:Middlewares/ST/STM32_USB_Device_Library/Class/HID/Src/usbd_hid.c ****         pbuf = USBD_HID_Desc;   
- 389:Middlewares/ST/STM32_USB_Device_Library/Class/HID/Src/usbd_hid.c ****         len = MIN(USB_HID_DESC_SIZ , req->wLength);
- 390:Middlewares/ST/STM32_USB_Device_Library/Class/HID/Src/usbd_hid.c ****       }
- 391:Middlewares/ST/STM32_USB_Device_Library/Class/HID/Src/usbd_hid.c ****       
- 392:Middlewares/ST/STM32_USB_Device_Library/Class/HID/Src/usbd_hid.c ****       USBD_CtlSendData (pdev, 
- 393:Middlewares/ST/STM32_USB_Device_Library/Class/HID/Src/usbd_hid.c ****                         pbuf,
- 394:Middlewares/ST/STM32_USB_Device_Library/Class/HID/Src/usbd_hid.c ****                         len);
- 395:Middlewares/ST/STM32_USB_Device_Library/Class/HID/Src/usbd_hid.c ****       
- 396:Middlewares/ST/STM32_USB_Device_Library/Class/HID/Src/usbd_hid.c ****       break;
- 397:Middlewares/ST/STM32_USB_Device_Library/Class/HID/Src/usbd_hid.c ****       
- 398:Middlewares/ST/STM32_USB_Device_Library/Class/HID/Src/usbd_hid.c ****     case USB_REQ_GET_INTERFACE :
- 399:Middlewares/ST/STM32_USB_Device_Library/Class/HID/Src/usbd_hid.c ****       USBD_CtlSendData (pdev,
- 400:Middlewares/ST/STM32_USB_Device_Library/Class/HID/Src/usbd_hid.c ****                         (uint8_t *)&hhid->AltSetting,
- 401:Middlewares/ST/STM32_USB_Device_Library/Class/HID/Src/usbd_hid.c ****                         1);
- 402:Middlewares/ST/STM32_USB_Device_Library/Class/HID/Src/usbd_hid.c ****       break;
- 403:Middlewares/ST/STM32_USB_Device_Library/Class/HID/Src/usbd_hid.c ****       
- 404:Middlewares/ST/STM32_USB_Device_Library/Class/HID/Src/usbd_hid.c ****     case USB_REQ_SET_INTERFACE :
- 405:Middlewares/ST/STM32_USB_Device_Library/Class/HID/Src/usbd_hid.c ****       hhid->AltSetting = (uint8_t)(req->wValue);
- 406:Middlewares/ST/STM32_USB_Device_Library/Class/HID/Src/usbd_hid.c ****       break;
- 407:Middlewares/ST/STM32_USB_Device_Library/Class/HID/Src/usbd_hid.c ****     }
- 408:Middlewares/ST/STM32_USB_Device_Library/Class/HID/Src/usbd_hid.c ****   }
- 409:Middlewares/ST/STM32_USB_Device_Library/Class/HID/Src/usbd_hid.c ****   return USBD_OK;
- 410:Middlewares/ST/STM32_USB_Device_Library/Class/HID/Src/usbd_hid.c **** }
- 411:Middlewares/ST/STM32_USB_Device_Library/Class/HID/Src/usbd_hid.c **** 
- 412:Middlewares/ST/STM32_USB_Device_Library/Class/HID/Src/usbd_hid.c **** /**
- 413:Middlewares/ST/STM32_USB_Device_Library/Class/HID/Src/usbd_hid.c ****   * @brief  USBD_HID_SendReport 
- 414:Middlewares/ST/STM32_USB_Device_Library/Class/HID/Src/usbd_hid.c ****   *         Send HID Report
- 415:Middlewares/ST/STM32_USB_Device_Library/Class/HID/Src/usbd_hid.c ****   * @param  pdev: device instance
- 416:Middlewares/ST/STM32_USB_Device_Library/Class/HID/Src/usbd_hid.c ****   * @param  buff: pointer to report
- 417:Middlewares/ST/STM32_USB_Device_Library/Class/HID/Src/usbd_hid.c ****   * @retval status
- 418:Middlewares/ST/STM32_USB_Device_Library/Class/HID/Src/usbd_hid.c ****   */
- 419:Middlewares/ST/STM32_USB_Device_Library/Class/HID/Src/usbd_hid.c **** uint8_t USBD_HID_SendReport     (USBD_HandleTypeDef  *pdev, 
- 420:Middlewares/ST/STM32_USB_Device_Library/Class/HID/Src/usbd_hid.c ****                                  uint8_t *report,
- 421:Middlewares/ST/STM32_USB_Device_Library/Class/HID/Src/usbd_hid.c ****                                  uint16_t len)
- 422:Middlewares/ST/STM32_USB_Device_Library/Class/HID/Src/usbd_hid.c **** {
- 423:Middlewares/ST/STM32_USB_Device_Library/Class/HID/Src/usbd_hid.c ****   USBD_HID_HandleTypeDef     *hhid = (USBD_HID_HandleTypeDef*)pdev->pClassData;
- 424:Middlewares/ST/STM32_USB_Device_Library/Class/HID/Src/usbd_hid.c ****   
- 425:Middlewares/ST/STM32_USB_Device_Library/Class/HID/Src/usbd_hid.c ****   if (pdev->dev_state == USBD_STATE_CONFIGURED )
- 426:Middlewares/ST/STM32_USB_Device_Library/Class/HID/Src/usbd_hid.c ****   {
- 427:Middlewares/ST/STM32_USB_Device_Library/Class/HID/Src/usbd_hid.c ****     if(hhid->state == HID_IDLE)
- 428:Middlewares/ST/STM32_USB_Device_Library/Class/HID/Src/usbd_hid.c ****     {
- 429:Middlewares/ST/STM32_USB_Device_Library/Class/HID/Src/usbd_hid.c ****       hhid->state = HID_BUSY;
- 430:Middlewares/ST/STM32_USB_Device_Library/Class/HID/Src/usbd_hid.c ****       USBD_LL_Transmit (pdev, 
- 431:Middlewares/ST/STM32_USB_Device_Library/Class/HID/Src/usbd_hid.c ****                         HID_EPIN_ADDR,                                      
-ARM GAS  /tmp/cci2fGCQ.s 			page 9
-
-
- 432:Middlewares/ST/STM32_USB_Device_Library/Class/HID/Src/usbd_hid.c ****                         report,
- 433:Middlewares/ST/STM32_USB_Device_Library/Class/HID/Src/usbd_hid.c ****                         len);
- 434:Middlewares/ST/STM32_USB_Device_Library/Class/HID/Src/usbd_hid.c ****     }
- 435:Middlewares/ST/STM32_USB_Device_Library/Class/HID/Src/usbd_hid.c ****   }
- 436:Middlewares/ST/STM32_USB_Device_Library/Class/HID/Src/usbd_hid.c ****   return USBD_OK;
- 437:Middlewares/ST/STM32_USB_Device_Library/Class/HID/Src/usbd_hid.c **** }
- 438:Middlewares/ST/STM32_USB_Device_Library/Class/HID/Src/usbd_hid.c **** 
- 439:Middlewares/ST/STM32_USB_Device_Library/Class/HID/Src/usbd_hid.c **** /**
- 440:Middlewares/ST/STM32_USB_Device_Library/Class/HID/Src/usbd_hid.c ****   * @brief  USBD_HID_GetPollingInterval 
- 441:Middlewares/ST/STM32_USB_Device_Library/Class/HID/Src/usbd_hid.c ****   *         return polling interval from endpoint descriptor
- 442:Middlewares/ST/STM32_USB_Device_Library/Class/HID/Src/usbd_hid.c ****   * @param  pdev: device instance
- 443:Middlewares/ST/STM32_USB_Device_Library/Class/HID/Src/usbd_hid.c ****   * @retval polling interval
- 444:Middlewares/ST/STM32_USB_Device_Library/Class/HID/Src/usbd_hid.c ****   */
- 445:Middlewares/ST/STM32_USB_Device_Library/Class/HID/Src/usbd_hid.c **** uint32_t USBD_HID_GetPollingInterval (USBD_HandleTypeDef *pdev)
- 446:Middlewares/ST/STM32_USB_Device_Library/Class/HID/Src/usbd_hid.c **** {
- 447:Middlewares/ST/STM32_USB_Device_Library/Class/HID/Src/usbd_hid.c ****   uint32_t polling_interval = 0;
- 448:Middlewares/ST/STM32_USB_Device_Library/Class/HID/Src/usbd_hid.c **** 
- 449:Middlewares/ST/STM32_USB_Device_Library/Class/HID/Src/usbd_hid.c ****   /* HIGH-speed endpoints */
- 450:Middlewares/ST/STM32_USB_Device_Library/Class/HID/Src/usbd_hid.c ****   if(pdev->dev_speed == USBD_SPEED_HIGH)
- 451:Middlewares/ST/STM32_USB_Device_Library/Class/HID/Src/usbd_hid.c ****   {
- 452:Middlewares/ST/STM32_USB_Device_Library/Class/HID/Src/usbd_hid.c ****    /* Sets the data transfer polling interval for high speed transfers. 
- 453:Middlewares/ST/STM32_USB_Device_Library/Class/HID/Src/usbd_hid.c ****     Values between 1..16 are allowed. Values correspond to interval 
- 454:Middlewares/ST/STM32_USB_Device_Library/Class/HID/Src/usbd_hid.c ****     of 2 ^ (bInterval-1). This option (8 ms, corresponds to HID_HS_BINTERVAL */
- 455:Middlewares/ST/STM32_USB_Device_Library/Class/HID/Src/usbd_hid.c ****     polling_interval = (((1 <<(HID_HS_BINTERVAL - 1)))/8);
- 456:Middlewares/ST/STM32_USB_Device_Library/Class/HID/Src/usbd_hid.c ****   }
- 457:Middlewares/ST/STM32_USB_Device_Library/Class/HID/Src/usbd_hid.c ****   else   /* LOW and FULL-speed endpoints */
- 458:Middlewares/ST/STM32_USB_Device_Library/Class/HID/Src/usbd_hid.c ****   {
- 459:Middlewares/ST/STM32_USB_Device_Library/Class/HID/Src/usbd_hid.c ****     /* Sets the data transfer polling interval for low and full 
- 460:Middlewares/ST/STM32_USB_Device_Library/Class/HID/Src/usbd_hid.c ****     speed transfers */
- 461:Middlewares/ST/STM32_USB_Device_Library/Class/HID/Src/usbd_hid.c ****     polling_interval =  HID_FS_BINTERVAL;
- 462:Middlewares/ST/STM32_USB_Device_Library/Class/HID/Src/usbd_hid.c ****   }
- 463:Middlewares/ST/STM32_USB_Device_Library/Class/HID/Src/usbd_hid.c ****   
- 464:Middlewares/ST/STM32_USB_Device_Library/Class/HID/Src/usbd_hid.c ****   return ((uint32_t)(polling_interval));
- 465:Middlewares/ST/STM32_USB_Device_Library/Class/HID/Src/usbd_hid.c **** }
- 466:Middlewares/ST/STM32_USB_Device_Library/Class/HID/Src/usbd_hid.c **** 
- 467:Middlewares/ST/STM32_USB_Device_Library/Class/HID/Src/usbd_hid.c **** /**
- 468:Middlewares/ST/STM32_USB_Device_Library/Class/HID/Src/usbd_hid.c ****   * @brief  USBD_HID_GetCfgDesc 
- 469:Middlewares/ST/STM32_USB_Device_Library/Class/HID/Src/usbd_hid.c ****   *         return configuration descriptor
- 470:Middlewares/ST/STM32_USB_Device_Library/Class/HID/Src/usbd_hid.c ****   * @param  speed : current device speed
- 471:Middlewares/ST/STM32_USB_Device_Library/Class/HID/Src/usbd_hid.c ****   * @param  length : pointer data length
- 472:Middlewares/ST/STM32_USB_Device_Library/Class/HID/Src/usbd_hid.c ****   * @retval pointer to descriptor buffer
- 473:Middlewares/ST/STM32_USB_Device_Library/Class/HID/Src/usbd_hid.c ****   */
- 474:Middlewares/ST/STM32_USB_Device_Library/Class/HID/Src/usbd_hid.c **** static uint8_t  *USBD_HID_GetCfgDesc (uint16_t *length)
- 475:Middlewares/ST/STM32_USB_Device_Library/Class/HID/Src/usbd_hid.c **** {
-  27              		.loc 1 475 1 view -0
+ 375:Middlewares/ST/STM32_USB_Device_Library/Class/HID/Src/usbd_hid.c ****     return USBD_OK;
+ 376:Middlewares/ST/STM32_USB_Device_Library/Class/HID/Src/usbd_hid.c **** }
+ 377:Middlewares/ST/STM32_USB_Device_Library/Class/HID/Src/usbd_hid.c **** 
+ 378:Middlewares/ST/STM32_USB_Device_Library/Class/HID/Src/usbd_hid.c **** /**
+ 379:Middlewares/ST/STM32_USB_Device_Library/Class/HID/Src/usbd_hid.c ****  * @brief  USBD_HID_GetPollingInterval
+ 380:Middlewares/ST/STM32_USB_Device_Library/Class/HID/Src/usbd_hid.c ****  *         return polling interval from endpoint descriptor
+ 381:Middlewares/ST/STM32_USB_Device_Library/Class/HID/Src/usbd_hid.c ****  * @param  pdev: device instance
+ 382:Middlewares/ST/STM32_USB_Device_Library/Class/HID/Src/usbd_hid.c ****  * @retval polling interval
+ 383:Middlewares/ST/STM32_USB_Device_Library/Class/HID/Src/usbd_hid.c ****  */
+ 384:Middlewares/ST/STM32_USB_Device_Library/Class/HID/Src/usbd_hid.c **** uint32_t USBD_HID_GetPollingInterval(USBD_HandleTypeDef *pdev) {
+ 385:Middlewares/ST/STM32_USB_Device_Library/Class/HID/Src/usbd_hid.c ****     uint32_t polling_interval = 0;
+ 386:Middlewares/ST/STM32_USB_Device_Library/Class/HID/Src/usbd_hid.c **** 
+ 387:Middlewares/ST/STM32_USB_Device_Library/Class/HID/Src/usbd_hid.c ****     /* HIGH-speed endpoints */
+ 388:Middlewares/ST/STM32_USB_Device_Library/Class/HID/Src/usbd_hid.c ****     if (pdev->dev_speed == USBD_SPEED_HIGH) {
+ 389:Middlewares/ST/STM32_USB_Device_Library/Class/HID/Src/usbd_hid.c ****         /* Sets the data transfer polling interval for high speed transfers.
+ 390:Middlewares/ST/STM32_USB_Device_Library/Class/HID/Src/usbd_hid.c ****          Values between 1..16 are allowed. Values correspond to interval
+ 391:Middlewares/ST/STM32_USB_Device_Library/Class/HID/Src/usbd_hid.c ****          of 2 ^ (bInterval-1). This option (8 ms, corresponds to
+ 392:Middlewares/ST/STM32_USB_Device_Library/Class/HID/Src/usbd_hid.c ****          HID_HS_BINTERVAL */
+ 393:Middlewares/ST/STM32_USB_Device_Library/Class/HID/Src/usbd_hid.c ****         polling_interval = (((1 << (HID_HS_BINTERVAL - 1))) / 8);
+ 394:Middlewares/ST/STM32_USB_Device_Library/Class/HID/Src/usbd_hid.c ****     } else /* LOW and FULL-speed endpoints */
+ 395:Middlewares/ST/STM32_USB_Device_Library/Class/HID/Src/usbd_hid.c ****     {
+ 396:Middlewares/ST/STM32_USB_Device_Library/Class/HID/Src/usbd_hid.c ****         /* Sets the data transfer polling interval for low and full
+ 397:Middlewares/ST/STM32_USB_Device_Library/Class/HID/Src/usbd_hid.c ****         speed transfers */
+ 398:Middlewares/ST/STM32_USB_Device_Library/Class/HID/Src/usbd_hid.c ****         polling_interval = HID_FS_BINTERVAL;
+ 399:Middlewares/ST/STM32_USB_Device_Library/Class/HID/Src/usbd_hid.c ****     }
+ 400:Middlewares/ST/STM32_USB_Device_Library/Class/HID/Src/usbd_hid.c **** 
+ 401:Middlewares/ST/STM32_USB_Device_Library/Class/HID/Src/usbd_hid.c ****     return ((uint32_t)(polling_interval));
+ 402:Middlewares/ST/STM32_USB_Device_Library/Class/HID/Src/usbd_hid.c **** }
+ 403:Middlewares/ST/STM32_USB_Device_Library/Class/HID/Src/usbd_hid.c **** 
+ 404:Middlewares/ST/STM32_USB_Device_Library/Class/HID/Src/usbd_hid.c **** /**
+ 405:Middlewares/ST/STM32_USB_Device_Library/Class/HID/Src/usbd_hid.c ****  * @brief  USBD_HID_GetCfgDesc
+ 406:Middlewares/ST/STM32_USB_Device_Library/Class/HID/Src/usbd_hid.c ****  *         return configuration descriptor
+ 407:Middlewares/ST/STM32_USB_Device_Library/Class/HID/Src/usbd_hid.c ****  * @param  speed : current device speed
+ 408:Middlewares/ST/STM32_USB_Device_Library/Class/HID/Src/usbd_hid.c ****  * @param  length : pointer data length
+ 409:Middlewares/ST/STM32_USB_Device_Library/Class/HID/Src/usbd_hid.c ****  * @retval pointer to descriptor buffer
+ 410:Middlewares/ST/STM32_USB_Device_Library/Class/HID/Src/usbd_hid.c ****  */
+ 411:Middlewares/ST/STM32_USB_Device_Library/Class/HID/Src/usbd_hid.c **** static uint8_t *USBD_HID_GetCfgDesc(uint16_t *length) {
+  27              		.loc 1 411 55 view -0
   28              		.cfi_startproc
   29              		@ args = 0, pretend = 0, frame = 0
   30              		@ frame_needed = 0, uses_anonymous_args = 0
   31              		@ link register save eliminated.
- 476:Middlewares/ST/STM32_USB_Device_Library/Class/HID/Src/usbd_hid.c ****   *length = sizeof (USBD_HID_CfgDesc);
-  32              		.loc 1 476 3 view .LVU1
-  33              		.loc 1 476 11 is_stmt 0 view .LVU2
+ 412:Middlewares/ST/STM32_USB_Device_Library/Class/HID/Src/usbd_hid.c ****     *length = sizeof(USBD_HID_CfgDesc);
+  32              		.loc 1 412 5 view .LVU1
+  33              		.loc 1 412 13 is_stmt 0 view .LVU2
   34 0000 2223     		movs	r3, #34
   35 0002 0380     		strh	r3, [r0]	@ movhi
- 477:Middlewares/ST/STM32_USB_Device_Library/Class/HID/Src/usbd_hid.c ****   return USBD_HID_CfgDesc;
-  36              		.loc 1 477 3 is_stmt 1 view .LVU3
- 478:Middlewares/ST/STM32_USB_Device_Library/Class/HID/Src/usbd_hid.c **** }
-ARM GAS  /tmp/cci2fGCQ.s 			page 10
-
-
-  37              		.loc 1 478 1 is_stmt 0 view .LVU4
+ 413:Middlewares/ST/STM32_USB_Device_Library/Class/HID/Src/usbd_hid.c ****     return USBD_HID_CfgDesc;
+  36              		.loc 1 413 5 is_stmt 1 view .LVU3
+ 414:Middlewares/ST/STM32_USB_Device_Library/Class/HID/Src/usbd_hid.c **** }
+  37              		.loc 1 414 1 is_stmt 0 view .LVU4
   38 0004 0048     		ldr	r0, .L2
   39              	.LVL1:
-  40              		.loc 1 478 1 view .LVU5
+  40              		.loc 1 414 1 view .LVU5
   41 0006 7047     		bx	lr
   42              	.L3:
   43              		.align	2
+ARM GAS  /tmp/ccuXUsEs.s 			page 9
+
+
   44              	.L2:
   45 0008 00000000 		.word	.LANCHOR0
   46              		.cfi_endproc
@@ -561,46 +494,39 @@ ARM GAS  /tmp/cci2fGCQ.s 			page 1
   56              	USBD_HID_DataIn:
   57              	.LVL2:
   58              	.LFB72:
- 479:Middlewares/ST/STM32_USB_Device_Library/Class/HID/Src/usbd_hid.c **** 
- 480:Middlewares/ST/STM32_USB_Device_Library/Class/HID/Src/usbd_hid.c **** 
- 481:Middlewares/ST/STM32_USB_Device_Library/Class/HID/Src/usbd_hid.c **** /**
- 482:Middlewares/ST/STM32_USB_Device_Library/Class/HID/Src/usbd_hid.c ****   * @brief  USBD_HID_DataIn
- 483:Middlewares/ST/STM32_USB_Device_Library/Class/HID/Src/usbd_hid.c ****   *         handle data IN Stage
- 484:Middlewares/ST/STM32_USB_Device_Library/Class/HID/Src/usbd_hid.c ****   * @param  pdev: device instance
- 485:Middlewares/ST/STM32_USB_Device_Library/Class/HID/Src/usbd_hid.c ****   * @param  epnum: endpoint index
- 486:Middlewares/ST/STM32_USB_Device_Library/Class/HID/Src/usbd_hid.c ****   * @retval status
- 487:Middlewares/ST/STM32_USB_Device_Library/Class/HID/Src/usbd_hid.c ****   */
- 488:Middlewares/ST/STM32_USB_Device_Library/Class/HID/Src/usbd_hid.c **** static uint8_t  USBD_HID_DataIn (USBD_HandleTypeDef *pdev, 
- 489:Middlewares/ST/STM32_USB_Device_Library/Class/HID/Src/usbd_hid.c ****                               uint8_t epnum)
- 490:Middlewares/ST/STM32_USB_Device_Library/Class/HID/Src/usbd_hid.c **** {
-  59              		.loc 1 490 1 is_stmt 1 view -0
+ 415:Middlewares/ST/STM32_USB_Device_Library/Class/HID/Src/usbd_hid.c **** 
+ 416:Middlewares/ST/STM32_USB_Device_Library/Class/HID/Src/usbd_hid.c **** /**
+ 417:Middlewares/ST/STM32_USB_Device_Library/Class/HID/Src/usbd_hid.c ****  * @brief  USBD_HID_DataIn
+ 418:Middlewares/ST/STM32_USB_Device_Library/Class/HID/Src/usbd_hid.c ****  *         handle data IN Stage
+ 419:Middlewares/ST/STM32_USB_Device_Library/Class/HID/Src/usbd_hid.c ****  * @param  pdev: device instance
+ 420:Middlewares/ST/STM32_USB_Device_Library/Class/HID/Src/usbd_hid.c ****  * @param  epnum: endpoint index
+ 421:Middlewares/ST/STM32_USB_Device_Library/Class/HID/Src/usbd_hid.c ****  * @retval status
+ 422:Middlewares/ST/STM32_USB_Device_Library/Class/HID/Src/usbd_hid.c ****  */
+ 423:Middlewares/ST/STM32_USB_Device_Library/Class/HID/Src/usbd_hid.c **** static uint8_t USBD_HID_DataIn(USBD_HandleTypeDef *pdev, uint8_t epnum) {
+  59              		.loc 1 423 73 is_stmt 1 view -0
   60              		.cfi_startproc
   61              		@ args = 0, pretend = 0, frame = 0
   62              		@ frame_needed = 0, uses_anonymous_args = 0
   63              		@ link register save eliminated.
- 491:Middlewares/ST/STM32_USB_Device_Library/Class/HID/Src/usbd_hid.c ****   
- 492:Middlewares/ST/STM32_USB_Device_Library/Class/HID/Src/usbd_hid.c ****   /* Ensure that the FIFO is empty before a new transfer, this condition could 
- 493:Middlewares/ST/STM32_USB_Device_Library/Class/HID/Src/usbd_hid.c ****   be caused by  a new transfer before the end of the previous transfer */
- 494:Middlewares/ST/STM32_USB_Device_Library/Class/HID/Src/usbd_hid.c ****   ((USBD_HID_HandleTypeDef *)pdev->pClassData)->state = HID_IDLE;
-  64              		.loc 1 494 3 view .LVU7
-  65              		.loc 1 494 34 is_stmt 0 view .LVU8
+ 424:Middlewares/ST/STM32_USB_Device_Library/Class/HID/Src/usbd_hid.c ****     /* Ensure that the FIFO is empty before a new transfer, this condition could
+ 425:Middlewares/ST/STM32_USB_Device_Library/Class/HID/Src/usbd_hid.c ****     be caused by  a new transfer before the end of the previous transfer */
+ 426:Middlewares/ST/STM32_USB_Device_Library/Class/HID/Src/usbd_hid.c ****     ((USBD_HID_HandleTypeDef *)pdev->pClassData)->state = HID_IDLE;
+  64              		.loc 1 426 5 view .LVU7
+  65              		.loc 1 426 36 is_stmt 0 view .LVU8
   66 0000 D0F81832 		ldr	r3, [r0, #536]
-  67              		.loc 1 494 55 view .LVU9
+  67              		.loc 1 426 57 view .LVU9
   68 0004 0020     		movs	r0, #0
   69              	.LVL3:
-  70              		.loc 1 494 55 view .LVU10
+  70              		.loc 1 426 57 view .LVU10
   71 0006 1873     		strb	r0, [r3, #12]
- 495:Middlewares/ST/STM32_USB_Device_Library/Class/HID/Src/usbd_hid.c ****   return USBD_OK;
-  72              		.loc 1 495 3 is_stmt 1 view .LVU11
- 496:Middlewares/ST/STM32_USB_Device_Library/Class/HID/Src/usbd_hid.c **** }
-  73              		.loc 1 496 1 is_stmt 0 view .LVU12
+ 427:Middlewares/ST/STM32_USB_Device_Library/Class/HID/Src/usbd_hid.c ****     return USBD_OK;
+  72              		.loc 1 427 5 is_stmt 1 view .LVU11
+ 428:Middlewares/ST/STM32_USB_Device_Library/Class/HID/Src/usbd_hid.c **** }
+  73              		.loc 1 428 1 is_stmt 0 view .LVU12
   74 0008 7047     		bx	lr
   75              		.cfi_endproc
   76              	.LFE72:
   78              		.section	.text.USBD_HID_GetDeviceQualifierDesc,"ax",%progbits
-ARM GAS  /tmp/cci2fGCQ.s 			page 11
-
-
   79              		.align	1
   80              		.syntax unified
   81              		.thumb
@@ -609,33 +535,34 @@ ARM GAS  /tmp/cci2fGCQ.s 			page 1
   85              	USBD_HID_GetDeviceQualifierDesc:
   86              	.LVL4:
   87              	.LFB73:
- 497:Middlewares/ST/STM32_USB_Device_Library/Class/HID/Src/usbd_hid.c **** 
- 498:Middlewares/ST/STM32_USB_Device_Library/Class/HID/Src/usbd_hid.c **** 
- 499:Middlewares/ST/STM32_USB_Device_Library/Class/HID/Src/usbd_hid.c **** /**
- 500:Middlewares/ST/STM32_USB_Device_Library/Class/HID/Src/usbd_hid.c **** * @brief  DeviceQualifierDescriptor 
- 501:Middlewares/ST/STM32_USB_Device_Library/Class/HID/Src/usbd_hid.c **** *         return Device Qualifier descriptor
- 502:Middlewares/ST/STM32_USB_Device_Library/Class/HID/Src/usbd_hid.c **** * @param  length : pointer data length
- 503:Middlewares/ST/STM32_USB_Device_Library/Class/HID/Src/usbd_hid.c **** * @retval pointer to descriptor buffer
- 504:Middlewares/ST/STM32_USB_Device_Library/Class/HID/Src/usbd_hid.c **** */
- 505:Middlewares/ST/STM32_USB_Device_Library/Class/HID/Src/usbd_hid.c **** static uint8_t  *USBD_HID_GetDeviceQualifierDesc (uint16_t *length)
- 506:Middlewares/ST/STM32_USB_Device_Library/Class/HID/Src/usbd_hid.c **** {
-  88              		.loc 1 506 1 is_stmt 1 view -0
+ 429:Middlewares/ST/STM32_USB_Device_Library/Class/HID/Src/usbd_hid.c **** 
+ 430:Middlewares/ST/STM32_USB_Device_Library/Class/HID/Src/usbd_hid.c **** /**
+ 431:Middlewares/ST/STM32_USB_Device_Library/Class/HID/Src/usbd_hid.c ****  * @brief  DeviceQualifierDescriptor
+ARM GAS  /tmp/ccuXUsEs.s 			page 10
+
+
+ 432:Middlewares/ST/STM32_USB_Device_Library/Class/HID/Src/usbd_hid.c ****  *         return Device Qualifier descriptor
+ 433:Middlewares/ST/STM32_USB_Device_Library/Class/HID/Src/usbd_hid.c ****  * @param  length : pointer data length
+ 434:Middlewares/ST/STM32_USB_Device_Library/Class/HID/Src/usbd_hid.c ****  * @retval pointer to descriptor buffer
+ 435:Middlewares/ST/STM32_USB_Device_Library/Class/HID/Src/usbd_hid.c ****  */
+ 436:Middlewares/ST/STM32_USB_Device_Library/Class/HID/Src/usbd_hid.c **** static uint8_t *USBD_HID_GetDeviceQualifierDesc(uint16_t *length) {
+  88              		.loc 1 436 67 is_stmt 1 view -0
   89              		.cfi_startproc
   90              		@ args = 0, pretend = 0, frame = 0
   91              		@ frame_needed = 0, uses_anonymous_args = 0
   92              		@ link register save eliminated.
- 507:Middlewares/ST/STM32_USB_Device_Library/Class/HID/Src/usbd_hid.c ****   *length = sizeof (USBD_HID_DeviceQualifierDesc);
-  93              		.loc 1 507 3 view .LVU14
-  94              		.loc 1 507 11 is_stmt 0 view .LVU15
+ 437:Middlewares/ST/STM32_USB_Device_Library/Class/HID/Src/usbd_hid.c ****     *length = sizeof(USBD_HID_DeviceQualifierDesc);
+  93              		.loc 1 437 5 view .LVU14
+  94              		.loc 1 437 13 is_stmt 0 view .LVU15
   95 0000 0A23     		movs	r3, #10
   96 0002 0380     		strh	r3, [r0]	@ movhi
- 508:Middlewares/ST/STM32_USB_Device_Library/Class/HID/Src/usbd_hid.c ****   return USBD_HID_DeviceQualifierDesc;
-  97              		.loc 1 508 3 is_stmt 1 view .LVU16
- 509:Middlewares/ST/STM32_USB_Device_Library/Class/HID/Src/usbd_hid.c **** }
-  98              		.loc 1 509 1 is_stmt 0 view .LVU17
+ 438:Middlewares/ST/STM32_USB_Device_Library/Class/HID/Src/usbd_hid.c ****     return USBD_HID_DeviceQualifierDesc;
+  97              		.loc 1 438 5 is_stmt 1 view .LVU16
+ 439:Middlewares/ST/STM32_USB_Device_Library/Class/HID/Src/usbd_hid.c **** }
+  98              		.loc 1 439 1 is_stmt 0 view .LVU17
   99 0004 0048     		ldr	r0, .L6
  100              	.LVL5:
- 101              		.loc 1 509 1 view .LVU18
+ 101              		.loc 1 439 1 view .LVU18
  102 0006 7047     		bx	lr
  103              	.L7:
  104              		.align	2
@@ -652,16 +579,13 @@ ARM GAS  /tmp/cci2fGCQ.s 			page 1
  117              	USBD_HID_Setup:
  118              	.LVL6:
  119              	.LFB68:
- 339:Middlewares/ST/STM32_USB_Device_Library/Class/HID/Src/usbd_hid.c ****   uint16_t len = 0;
- 120              		.loc 1 339 1 is_stmt 1 view -0
+ 301:Middlewares/ST/STM32_USB_Device_Library/Class/HID/Src/usbd_hid.c ****     uint16_t len = 0;
+ 120              		.loc 1 301 58 is_stmt 1 view -0
  121              		.cfi_startproc
  122              		@ args = 0, pretend = 0, frame = 0
  123              		@ frame_needed = 0, uses_anonymous_args = 0
- 339:Middlewares/ST/STM32_USB_Device_Library/Class/HID/Src/usbd_hid.c ****   uint16_t len = 0;
-ARM GAS  /tmp/cci2fGCQ.s 			page 12
-
-
- 124              		.loc 1 339 1 is_stmt 0 view .LVU20
+ 301:Middlewares/ST/STM32_USB_Device_Library/Class/HID/Src/usbd_hid.c ****     uint16_t len = 0;
+ 124              		.loc 1 301 58 is_stmt 0 view .LVU20
  125 0000 38B5     		push	{r3, r4, r5, lr}
  126              	.LCFI0:
  127              		.cfi_def_cfa_offset 16
@@ -669,32 +593,35 @@ ARM GAS  /tmp/cci2fGCQ.s 			page 1
  129              		.cfi_offset 4, -12
  130              		.cfi_offset 5, -8
  131              		.cfi_offset 14, -4
- 340:Middlewares/ST/STM32_USB_Device_Library/Class/HID/Src/usbd_hid.c ****   uint8_t  *pbuf = NULL;
- 132              		.loc 1 340 3 is_stmt 1 view .LVU21
+ 302:Middlewares/ST/STM32_USB_Device_Library/Class/HID/Src/usbd_hid.c ****     uint8_t *pbuf = NULL;
+ 132              		.loc 1 302 5 is_stmt 1 view .LVU21
  133              	.LVL7:
- 341:Middlewares/ST/STM32_USB_Device_Library/Class/HID/Src/usbd_hid.c ****   USBD_HID_HandleTypeDef     *hhid = (USBD_HID_HandleTypeDef*) pdev->pClassData;
- 134              		.loc 1 341 3 view .LVU22
- 342:Middlewares/ST/STM32_USB_Device_Library/Class/HID/Src/usbd_hid.c ****   
- 135              		.loc 1 342 3 view .LVU23
- 342:Middlewares/ST/STM32_USB_Device_Library/Class/HID/Src/usbd_hid.c ****   
- 136              		.loc 1 342 31 is_stmt 0 view .LVU24
+ 303:Middlewares/ST/STM32_USB_Device_Library/Class/HID/Src/usbd_hid.c ****     USBD_HID_HandleTypeDef *hhid = (USBD_HID_HandleTypeDef *)pdev->pClassData;
+ 134              		.loc 1 303 5 view .LVU22
+ARM GAS  /tmp/ccuXUsEs.s 			page 11
+
+
+ 304:Middlewares/ST/STM32_USB_Device_Library/Class/HID/Src/usbd_hid.c **** 
+ 135              		.loc 1 304 5 view .LVU23
+ 304:Middlewares/ST/STM32_USB_Device_Library/Class/HID/Src/usbd_hid.c **** 
+ 136              		.loc 1 304 29 is_stmt 0 view .LVU24
  137 0002 D0F81852 		ldr	r5, [r0, #536]
  138              	.LVL8:
- 344:Middlewares/ST/STM32_USB_Device_Library/Class/HID/Src/usbd_hid.c ****   {
- 139              		.loc 1 344 3 is_stmt 1 view .LVU25
- 344:Middlewares/ST/STM32_USB_Device_Library/Class/HID/Src/usbd_hid.c ****   {
- 140              		.loc 1 344 14 is_stmt 0 view .LVU26
+ 306:Middlewares/ST/STM32_USB_Device_Library/Class/HID/Src/usbd_hid.c ****         case USB_REQ_TYPE_CLASS:
+ 139              		.loc 1 306 5 is_stmt 1 view .LVU25
+ 306:Middlewares/ST/STM32_USB_Device_Library/Class/HID/Src/usbd_hid.c ****         case USB_REQ_TYPE_CLASS:
+ 140              		.loc 1 306 16 is_stmt 0 view .LVU26
  141 0006 0C78     		ldrb	r4, [r1]	@ zero_extendqisi2
- 344:Middlewares/ST/STM32_USB_Device_Library/Class/HID/Src/usbd_hid.c ****   {
- 142              		.loc 1 344 3 view .LVU27
+ 306:Middlewares/ST/STM32_USB_Device_Library/Class/HID/Src/usbd_hid.c ****         case USB_REQ_TYPE_CLASS:
+ 142              		.loc 1 306 5 view .LVU27
  143 0008 14F06004 		ands	r4, r4, #96
  144 000c 25D0     		beq	.L9
  145 000e 202C     		cmp	r4, #32
  146 0010 4AD1     		bne	.L21
- 347:Middlewares/ST/STM32_USB_Device_Library/Class/HID/Src/usbd_hid.c ****     {
- 147              		.loc 1 347 5 is_stmt 1 view .LVU28
- 347:Middlewares/ST/STM32_USB_Device_Library/Class/HID/Src/usbd_hid.c ****     {
- 148              		.loc 1 347 16 is_stmt 0 view .LVU29
+ 308:Middlewares/ST/STM32_USB_Device_Library/Class/HID/Src/usbd_hid.c ****                 case HID_REQ_SET_PROTOCOL:
+ 147              		.loc 1 308 13 is_stmt 1 view .LVU28
+ 308:Middlewares/ST/STM32_USB_Device_Library/Class/HID/Src/usbd_hid.c ****                 case HID_REQ_SET_PROTOCOL:
+ 148              		.loc 1 308 24 is_stmt 0 view .LVU29
  149 0012 4B78     		ldrb	r3, [r1, #1]	@ zero_extendqisi2
  150 0014 023B     		subs	r3, r3, #2
  151 0016 092B     		cmp	r3, #9
@@ -713,103 +640,103 @@ ARM GAS  /tmp/cci2fGCQ.s 			page 1
  164 0027 05       		.byte	(.L12-.L13)/2
  165              		.p2align 1
  166              	.L12:
- 352:Middlewares/ST/STM32_USB_Device_Library/Class/HID/Src/usbd_hid.c ****       break;
- 167              		.loc 1 352 7 is_stmt 1 view .LVU30
- 352:Middlewares/ST/STM32_USB_Device_Library/Class/HID/Src/usbd_hid.c ****       break;
- 168              		.loc 1 352 24 is_stmt 0 view .LVU31
+ 310:Middlewares/ST/STM32_USB_Device_Library/Class/HID/Src/usbd_hid.c ****                     break;
+ 167              		.loc 1 310 21 is_stmt 1 view .LVU30
+ 310:Middlewares/ST/STM32_USB_Device_Library/Class/HID/Src/usbd_hid.c ****                     break;
+ 168              		.loc 1 310 38 is_stmt 0 view .LVU31
  169 0028 8B78     		ldrb	r3, [r1, #2]	@ zero_extendqisi2
-ARM GAS  /tmp/cci2fGCQ.s 			page 13
-
-
- 352:Middlewares/ST/STM32_USB_Device_Library/Class/HID/Src/usbd_hid.c ****       break;
- 170              		.loc 1 352 22 view .LVU32
+ 310:Middlewares/ST/STM32_USB_Device_Library/Class/HID/Src/usbd_hid.c ****                     break;
+ 170              		.loc 1 310 36 view .LVU32
  171 002a 2B60     		str	r3, [r5]
- 353:Middlewares/ST/STM32_USB_Device_Library/Class/HID/Src/usbd_hid.c ****       
- 172              		.loc 1 353 7 is_stmt 1 view .LVU33
- 409:Middlewares/ST/STM32_USB_Device_Library/Class/HID/Src/usbd_hid.c **** }
- 173              		.loc 1 409 10 is_stmt 0 view .LVU34
+ 311:Middlewares/ST/STM32_USB_Device_Library/Class/HID/Src/usbd_hid.c **** 
+ 172              		.loc 1 311 21 is_stmt 1 view .LVU33
+ 355:Middlewares/ST/STM32_USB_Device_Library/Class/HID/Src/usbd_hid.c **** }
+ 173              		.loc 1 355 12 is_stmt 0 view .LVU34
  174 002c 0024     		movs	r4, #0
- 353:Middlewares/ST/STM32_USB_Device_Library/Class/HID/Src/usbd_hid.c ****       
- 175              		.loc 1 353 7 view .LVU35
+ 311:Middlewares/ST/STM32_USB_Device_Library/Class/HID/Src/usbd_hid.c **** 
+ 175              		.loc 1 311 21 view .LVU35
  176 002e 3CE0     		b	.L10
  177              	.L15:
- 356:Middlewares/ST/STM32_USB_Device_Library/Class/HID/Src/usbd_hid.c ****                         (uint8_t *)&hhid->Protocol,
- 178              		.loc 1 356 7 is_stmt 1 view .LVU36
+ 314:Middlewares/ST/STM32_USB_Device_Library/Class/HID/Src/usbd_hid.c ****                     break;
+ARM GAS  /tmp/ccuXUsEs.s 			page 12
+
+
+ 178              		.loc 1 314 21 is_stmt 1 view .LVU36
  179 0030 0122     		movs	r2, #1
  180 0032 2946     		mov	r1, r5
  181              	.LVL9:
- 356:Middlewares/ST/STM32_USB_Device_Library/Class/HID/Src/usbd_hid.c ****                         (uint8_t *)&hhid->Protocol,
- 182              		.loc 1 356 7 is_stmt 0 view .LVU37
+ 314:Middlewares/ST/STM32_USB_Device_Library/Class/HID/Src/usbd_hid.c ****                     break;
+ 182              		.loc 1 314 21 is_stmt 0 view .LVU37
  183 0034 FFF7FEFF 		bl	USBD_CtlSendData
  184              	.LVL10:
- 359:Middlewares/ST/STM32_USB_Device_Library/Class/HID/Src/usbd_hid.c ****       
- 185              		.loc 1 359 7 is_stmt 1 view .LVU38
- 409:Middlewares/ST/STM32_USB_Device_Library/Class/HID/Src/usbd_hid.c **** }
- 186              		.loc 1 409 10 is_stmt 0 view .LVU39
+ 315:Middlewares/ST/STM32_USB_Device_Library/Class/HID/Src/usbd_hid.c **** 
+ 185              		.loc 1 315 21 is_stmt 1 view .LVU38
+ 355:Middlewares/ST/STM32_USB_Device_Library/Class/HID/Src/usbd_hid.c **** }
+ 186              		.loc 1 355 12 is_stmt 0 view .LVU39
  187 0038 0024     		movs	r4, #0
- 359:Middlewares/ST/STM32_USB_Device_Library/Class/HID/Src/usbd_hid.c ****       
- 188              		.loc 1 359 7 view .LVU40
+ 315:Middlewares/ST/STM32_USB_Device_Library/Class/HID/Src/usbd_hid.c **** 
+ 188              		.loc 1 315 21 view .LVU40
  189 003a 36E0     		b	.L10
  190              	.LVL11:
  191              	.L14:
- 362:Middlewares/ST/STM32_USB_Device_Library/Class/HID/Src/usbd_hid.c ****       break;
- 192              		.loc 1 362 7 is_stmt 1 view .LVU41
- 362:Middlewares/ST/STM32_USB_Device_Library/Class/HID/Src/usbd_hid.c ****       break;
- 193              		.loc 1 362 38 is_stmt 0 view .LVU42
+ 318:Middlewares/ST/STM32_USB_Device_Library/Class/HID/Src/usbd_hid.c ****                     break;
+ 192              		.loc 1 318 21 is_stmt 1 view .LVU41
+ 318:Middlewares/ST/STM32_USB_Device_Library/Class/HID/Src/usbd_hid.c ****                     break;
+ 193              		.loc 1 318 52 is_stmt 0 view .LVU42
  194 003c 4B88     		ldrh	r3, [r1, #2]
- 362:Middlewares/ST/STM32_USB_Device_Library/Class/HID/Src/usbd_hid.c ****       break;
- 195              		.loc 1 362 25 view .LVU43
+ 318:Middlewares/ST/STM32_USB_Device_Library/Class/HID/Src/usbd_hid.c ****                     break;
+ 195              		.loc 1 318 39 view .LVU43
  196 003e 1B0A     		lsrs	r3, r3, #8
- 362:Middlewares/ST/STM32_USB_Device_Library/Class/HID/Src/usbd_hid.c ****       break;
- 197              		.loc 1 362 23 view .LVU44
+ 318:Middlewares/ST/STM32_USB_Device_Library/Class/HID/Src/usbd_hid.c ****                     break;
+ 197              		.loc 1 318 37 view .LVU44
  198 0040 6B60     		str	r3, [r5, #4]
- 363:Middlewares/ST/STM32_USB_Device_Library/Class/HID/Src/usbd_hid.c ****       
- 199              		.loc 1 363 7 is_stmt 1 view .LVU45
- 409:Middlewares/ST/STM32_USB_Device_Library/Class/HID/Src/usbd_hid.c **** }
- 200              		.loc 1 409 10 is_stmt 0 view .LVU46
+ 319:Middlewares/ST/STM32_USB_Device_Library/Class/HID/Src/usbd_hid.c **** 
+ 199              		.loc 1 319 21 is_stmt 1 view .LVU45
+ 355:Middlewares/ST/STM32_USB_Device_Library/Class/HID/Src/usbd_hid.c **** }
+ 200              		.loc 1 355 12 is_stmt 0 view .LVU46
  201 0042 0024     		movs	r4, #0
- 363:Middlewares/ST/STM32_USB_Device_Library/Class/HID/Src/usbd_hid.c ****       
- 202              		.loc 1 363 7 view .LVU47
+ 319:Middlewares/ST/STM32_USB_Device_Library/Class/HID/Src/usbd_hid.c **** 
+ 202              		.loc 1 319 21 view .LVU47
  203 0044 31E0     		b	.L10
  204              	.L16:
- 366:Middlewares/ST/STM32_USB_Device_Library/Class/HID/Src/usbd_hid.c ****                         (uint8_t *)&hhid->IdleState,
- 205              		.loc 1 366 7 is_stmt 1 view .LVU48
+ 322:Middlewares/ST/STM32_USB_Device_Library/Class/HID/Src/usbd_hid.c ****                     break;
+ 205              		.loc 1 322 21 is_stmt 1 view .LVU48
  206 0046 0122     		movs	r2, #1
  207 0048 291D     		adds	r1, r5, #4
  208              	.LVL12:
- 366:Middlewares/ST/STM32_USB_Device_Library/Class/HID/Src/usbd_hid.c ****                         (uint8_t *)&hhid->IdleState,
-ARM GAS  /tmp/cci2fGCQ.s 			page 14
-
-
- 209              		.loc 1 366 7 is_stmt 0 view .LVU49
+ 322:Middlewares/ST/STM32_USB_Device_Library/Class/HID/Src/usbd_hid.c ****                     break;
+ 209              		.loc 1 322 21 is_stmt 0 view .LVU49
  210 004a FFF7FEFF 		bl	USBD_CtlSendData
  211              	.LVL13:
- 369:Middlewares/ST/STM32_USB_Device_Library/Class/HID/Src/usbd_hid.c ****       
- 212              		.loc 1 369 7 is_stmt 1 view .LVU50
- 409:Middlewares/ST/STM32_USB_Device_Library/Class/HID/Src/usbd_hid.c **** }
- 213              		.loc 1 409 10 is_stmt 0 view .LVU51
+ 323:Middlewares/ST/STM32_USB_Device_Library/Class/HID/Src/usbd_hid.c **** 
+ 212              		.loc 1 323 21 is_stmt 1 view .LVU50
+ 355:Middlewares/ST/STM32_USB_Device_Library/Class/HID/Src/usbd_hid.c **** }
+ 213              		.loc 1 355 12 is_stmt 0 view .LVU51
  214 004e 0024     		movs	r4, #0
- 369:Middlewares/ST/STM32_USB_Device_Library/Class/HID/Src/usbd_hid.c ****       
- 215              		.loc 1 369 7 view .LVU52
+ 323:Middlewares/ST/STM32_USB_Device_Library/Class/HID/Src/usbd_hid.c **** 
+ 215              		.loc 1 323 21 view .LVU52
  216 0050 2BE0     		b	.L10
  217              	.LVL14:
  218              	.L11:
- 372:Middlewares/ST/STM32_USB_Device_Library/Class/HID/Src/usbd_hid.c ****       return USBD_FAIL; 
- 219              		.loc 1 372 7 is_stmt 1 view .LVU53
+ARM GAS  /tmp/ccuXUsEs.s 			page 13
+
+
+ 326:Middlewares/ST/STM32_USB_Device_Library/Class/HID/Src/usbd_hid.c ****                     return USBD_FAIL;
+ 219              		.loc 1 326 21 is_stmt 1 view .LVU53
  220 0052 FFF7FEFF 		bl	USBD_CtlError
  221              	.LVL15:
- 373:Middlewares/ST/STM32_USB_Device_Library/Class/HID/Src/usbd_hid.c ****     }
- 222              		.loc 1 373 7 view .LVU54
- 373:Middlewares/ST/STM32_USB_Device_Library/Class/HID/Src/usbd_hid.c ****     }
- 223              		.loc 1 373 14 is_stmt 0 view .LVU55
+ 327:Middlewares/ST/STM32_USB_Device_Library/Class/HID/Src/usbd_hid.c ****             }
+ 222              		.loc 1 327 21 view .LVU54
+ 327:Middlewares/ST/STM32_USB_Device_Library/Class/HID/Src/usbd_hid.c ****             }
+ 223              		.loc 1 327 28 is_stmt 0 view .LVU55
  224 0056 0224     		movs	r4, #2
  225 0058 27E0     		b	.L10
  226              	.LVL16:
  227              	.L9:
- 378:Middlewares/ST/STM32_USB_Device_Library/Class/HID/Src/usbd_hid.c ****     {
- 228              		.loc 1 378 5 is_stmt 1 view .LVU56
- 378:Middlewares/ST/STM32_USB_Device_Library/Class/HID/Src/usbd_hid.c ****     {
- 229              		.loc 1 378 16 is_stmt 0 view .LVU57
+ 332:Middlewares/ST/STM32_USB_Device_Library/Class/HID/Src/usbd_hid.c ****                 case USB_REQ_GET_DESCRIPTOR:
+ 228              		.loc 1 332 13 is_stmt 1 view .LVU56
+ 332:Middlewares/ST/STM32_USB_Device_Library/Class/HID/Src/usbd_hid.c ****                 case USB_REQ_GET_DESCRIPTOR:
+ 229              		.loc 1 332 24 is_stmt 0 view .LVU57
  230 005a 4B78     		ldrb	r3, [r1, #1]	@ zero_extendqisi2
  231 005c 0A2B     		cmp	r3, #10
  232 005e 1AD0     		beq	.L17
@@ -817,131 +744,131 @@ ARM GAS  /tmp/cci2fGCQ.s 			page 1
  234 0062 1ED0     		beq	.L18
  235 0064 062B     		cmp	r3, #6
  236 0066 20D1     		bne	.L10
- 381:Middlewares/ST/STM32_USB_Device_Library/Class/HID/Src/usbd_hid.c ****       {
- 237              		.loc 1 381 7 is_stmt 1 view .LVU58
- 381:Middlewares/ST/STM32_USB_Device_Library/Class/HID/Src/usbd_hid.c ****       {
- 238              		.loc 1 381 14 is_stmt 0 view .LVU59
+ 334:Middlewares/ST/STM32_USB_Device_Library/Class/HID/Src/usbd_hid.c ****                         len = MIN(HID_MOUSE_REPORT_DESC_SIZE, req->wLength);
+ 237              		.loc 1 334 21 is_stmt 1 view .LVU58
+ 334:Middlewares/ST/STM32_USB_Device_Library/Class/HID/Src/usbd_hid.c ****                         len = MIN(HID_MOUSE_REPORT_DESC_SIZE, req->wLength);
+ 238              		.loc 1 334 28 is_stmt 0 view .LVU59
  239 0068 4B88     		ldrh	r3, [r1, #2]
- 381:Middlewares/ST/STM32_USB_Device_Library/Class/HID/Src/usbd_hid.c ****       {
- 240              		.loc 1 381 28 view .LVU60
+ 334:Middlewares/ST/STM32_USB_Device_Library/Class/HID/Src/usbd_hid.c ****                         len = MIN(HID_MOUSE_REPORT_DESC_SIZE, req->wLength);
+ 240              		.loc 1 334 42 view .LVU60
  241 006a 1B0A     		lsrs	r3, r3, #8
- 381:Middlewares/ST/STM32_USB_Device_Library/Class/HID/Src/usbd_hid.c ****       {
- 242              		.loc 1 381 9 view .LVU61
+ 334:Middlewares/ST/STM32_USB_Device_Library/Class/HID/Src/usbd_hid.c ****                         len = MIN(HID_MOUSE_REPORT_DESC_SIZE, req->wLength);
+ 242              		.loc 1 334 24 view .LVU61
  243 006c 222B     		cmp	r3, #34
  244 006e 06D0     		beq	.L24
- 386:Middlewares/ST/STM32_USB_Device_Library/Class/HID/Src/usbd_hid.c ****       {
- 245              		.loc 1 386 12 is_stmt 1 view .LVU62
- 386:Middlewares/ST/STM32_USB_Device_Library/Class/HID/Src/usbd_hid.c ****       {
- 246              		.loc 1 386 14 is_stmt 0 view .LVU63
+ 337:Middlewares/ST/STM32_USB_Device_Library/Class/HID/Src/usbd_hid.c ****                         pbuf = USBD_HID_Desc;
+ 245              		.loc 1 337 28 is_stmt 1 view .LVU62
+ 337:Middlewares/ST/STM32_USB_Device_Library/Class/HID/Src/usbd_hid.c ****                         pbuf = USBD_HID_Desc;
+ 246              		.loc 1 337 31 is_stmt 0 view .LVU63
  247 0070 212B     		cmp	r3, #33
  248 0072 0AD0     		beq	.L25
- 341:Middlewares/ST/STM32_USB_Device_Library/Class/HID/Src/usbd_hid.c ****   USBD_HID_HandleTypeDef     *hhid = (USBD_HID_HandleTypeDef*) pdev->pClassData;
- 249              		.loc 1 341 13 view .LVU64
+ 303:Middlewares/ST/STM32_USB_Device_Library/Class/HID/Src/usbd_hid.c ****     USBD_HID_HandleTypeDef *hhid = (USBD_HID_HandleTypeDef *)pdev->pClassData;
+ 249              		.loc 1 303 14 view .LVU64
  250 0074 0021     		movs	r1, #0
-ARM GAS  /tmp/cci2fGCQ.s 			page 15
-
-
  251              	.LVL17:
- 340:Middlewares/ST/STM32_USB_Device_Library/Class/HID/Src/usbd_hid.c ****   uint8_t  *pbuf = NULL;
- 252              		.loc 1 340 12 view .LVU65
+ 302:Middlewares/ST/STM32_USB_Device_Library/Class/HID/Src/usbd_hid.c ****     uint8_t *pbuf = NULL;
+ 252              		.loc 1 302 14 view .LVU65
  253 0076 0A46     		mov	r2, r1
  254              	.LVL18:
  255              	.L20:
- 392:Middlewares/ST/STM32_USB_Device_Library/Class/HID/Src/usbd_hid.c ****                         pbuf,
- 256              		.loc 1 392 7 is_stmt 1 view .LVU66
+ 342:Middlewares/ST/STM32_USB_Device_Library/Class/HID/Src/usbd_hid.c **** 
+ 256              		.loc 1 342 21 is_stmt 1 view .LVU66
  257 0078 FFF7FEFF 		bl	USBD_CtlSendData
  258              	.LVL19:
- 396:Middlewares/ST/STM32_USB_Device_Library/Class/HID/Src/usbd_hid.c ****       
- 259              		.loc 1 396 7 view .LVU67
+ 344:Middlewares/ST/STM32_USB_Device_Library/Class/HID/Src/usbd_hid.c **** 
+ 259              		.loc 1 344 21 view .LVU67
  260 007c 15E0     		b	.L10
+ARM GAS  /tmp/ccuXUsEs.s 			page 14
+
+
  261              	.LVL20:
  262              	.L24:
- 383:Middlewares/ST/STM32_USB_Device_Library/Class/HID/Src/usbd_hid.c ****         pbuf = HID_MOUSE_ReportDesc;
- 263              		.loc 1 383 9 view .LVU68
- 383:Middlewares/ST/STM32_USB_Device_Library/Class/HID/Src/usbd_hid.c ****         pbuf = HID_MOUSE_ReportDesc;
- 264              		.loc 1 383 15 is_stmt 0 view .LVU69
+ 335:Middlewares/ST/STM32_USB_Device_Library/Class/HID/Src/usbd_hid.c ****                         pbuf = HID_MOUSE_ReportDesc;
+ 263              		.loc 1 335 25 view .LVU68
+ 335:Middlewares/ST/STM32_USB_Device_Library/Class/HID/Src/usbd_hid.c ****                         pbuf = HID_MOUSE_ReportDesc;
+ 264              		.loc 1 335 31 is_stmt 0 view .LVU69
  265 007e CA88     		ldrh	r2, [r1, #6]
- 383:Middlewares/ST/STM32_USB_Device_Library/Class/HID/Src/usbd_hid.c ****         pbuf = HID_MOUSE_ReportDesc;
- 266              		.loc 1 383 13 view .LVU70
- 267 0080 4A2A     		cmp	r2, #74
+ 335:Middlewares/ST/STM32_USB_Device_Library/Class/HID/Src/usbd_hid.c ****                         pbuf = HID_MOUSE_ReportDesc;
+ 266              		.loc 1 335 29 view .LVU70
+ 267 0080 3F2A     		cmp	r2, #63
  268 0082 28BF     		it	cs
- 269 0084 4A22     		movcs	r2, #74
+ 269 0084 3F22     		movcs	r2, #63
  270              	.LVL21:
- 384:Middlewares/ST/STM32_USB_Device_Library/Class/HID/Src/usbd_hid.c ****       }
- 271              		.loc 1 384 9 is_stmt 1 view .LVU71
- 384:Middlewares/ST/STM32_USB_Device_Library/Class/HID/Src/usbd_hid.c ****       }
- 272              		.loc 1 384 14 is_stmt 0 view .LVU72
+ 336:Middlewares/ST/STM32_USB_Device_Library/Class/HID/Src/usbd_hid.c ****                     } else if (req->wValue >> 8 == HID_DESCRIPTOR_TYPE) {
+ 271              		.loc 1 336 25 is_stmt 1 view .LVU71
+ 336:Middlewares/ST/STM32_USB_Device_Library/Class/HID/Src/usbd_hid.c ****                     } else if (req->wValue >> 8 == HID_DESCRIPTOR_TYPE) {
+ 272              		.loc 1 336 30 is_stmt 0 view .LVU72
  273 0086 0A49     		ldr	r1, .L26
  274              	.LVL22:
- 384:Middlewares/ST/STM32_USB_Device_Library/Class/HID/Src/usbd_hid.c ****       }
- 275              		.loc 1 384 14 view .LVU73
+ 336:Middlewares/ST/STM32_USB_Device_Library/Class/HID/Src/usbd_hid.c ****                     } else if (req->wValue >> 8 == HID_DESCRIPTOR_TYPE) {
+ 275              		.loc 1 336 30 view .LVU73
  276 0088 F6E7     		b	.L20
  277              	.LVL23:
  278              	.L25:
- 388:Middlewares/ST/STM32_USB_Device_Library/Class/HID/Src/usbd_hid.c ****         len = MIN(USB_HID_DESC_SIZ , req->wLength);
- 279              		.loc 1 388 9 is_stmt 1 view .LVU74
- 389:Middlewares/ST/STM32_USB_Device_Library/Class/HID/Src/usbd_hid.c ****       }
- 280              		.loc 1 389 9 view .LVU75
- 389:Middlewares/ST/STM32_USB_Device_Library/Class/HID/Src/usbd_hid.c ****       }
- 281              		.loc 1 389 15 is_stmt 0 view .LVU76
+ 338:Middlewares/ST/STM32_USB_Device_Library/Class/HID/Src/usbd_hid.c ****                         len = MIN(USB_HID_DESC_SIZ, req->wLength);
+ 279              		.loc 1 338 25 is_stmt 1 view .LVU74
+ 339:Middlewares/ST/STM32_USB_Device_Library/Class/HID/Src/usbd_hid.c ****                     }
+ 280              		.loc 1 339 25 view .LVU75
+ 339:Middlewares/ST/STM32_USB_Device_Library/Class/HID/Src/usbd_hid.c ****                     }
+ 281              		.loc 1 339 31 is_stmt 0 view .LVU76
  282 008a CA88     		ldrh	r2, [r1, #6]
- 389:Middlewares/ST/STM32_USB_Device_Library/Class/HID/Src/usbd_hid.c ****       }
- 283              		.loc 1 389 13 view .LVU77
+ 339:Middlewares/ST/STM32_USB_Device_Library/Class/HID/Src/usbd_hid.c ****                     }
+ 283              		.loc 1 339 29 view .LVU77
  284 008c 092A     		cmp	r2, #9
  285 008e 28BF     		it	cs
  286 0090 0922     		movcs	r2, #9
  287              	.LVL24:
- 388:Middlewares/ST/STM32_USB_Device_Library/Class/HID/Src/usbd_hid.c ****         len = MIN(USB_HID_DESC_SIZ , req->wLength);
- 288              		.loc 1 388 14 view .LVU78
+ 338:Middlewares/ST/STM32_USB_Device_Library/Class/HID/Src/usbd_hid.c ****                         len = MIN(USB_HID_DESC_SIZ, req->wLength);
+ 288              		.loc 1 338 30 view .LVU78
  289 0092 0849     		ldr	r1, .L26+4
  290              	.LVL25:
- 388:Middlewares/ST/STM32_USB_Device_Library/Class/HID/Src/usbd_hid.c ****         len = MIN(USB_HID_DESC_SIZ , req->wLength);
- 291              		.loc 1 388 14 view .LVU79
+ 338:Middlewares/ST/STM32_USB_Device_Library/Class/HID/Src/usbd_hid.c ****                         len = MIN(USB_HID_DESC_SIZ, req->wLength);
+ 291              		.loc 1 338 30 view .LVU79
  292 0094 F0E7     		b	.L20
-ARM GAS  /tmp/cci2fGCQ.s 			page 16
-
-
  293              	.LVL26:
  294              	.L17:
- 399:Middlewares/ST/STM32_USB_Device_Library/Class/HID/Src/usbd_hid.c ****                         (uint8_t *)&hhid->AltSetting,
- 295              		.loc 1 399 7 is_stmt 1 view .LVU80
+ 347:Middlewares/ST/STM32_USB_Device_Library/Class/HID/Src/usbd_hid.c ****                     break;
+ 295              		.loc 1 347 21 is_stmt 1 view .LVU80
  296 0096 0122     		movs	r2, #1
  297 0098 05F10801 		add	r1, r5, #8
  298              	.LVL27:
- 399:Middlewares/ST/STM32_USB_Device_Library/Class/HID/Src/usbd_hid.c ****                         (uint8_t *)&hhid->AltSetting,
- 299              		.loc 1 399 7 is_stmt 0 view .LVU81
+ 347:Middlewares/ST/STM32_USB_Device_Library/Class/HID/Src/usbd_hid.c ****                     break;
+ 299              		.loc 1 347 21 is_stmt 0 view .LVU81
  300 009c FFF7FEFF 		bl	USBD_CtlSendData
  301              	.LVL28:
- 402:Middlewares/ST/STM32_USB_Device_Library/Class/HID/Src/usbd_hid.c ****       
- 302              		.loc 1 402 7 is_stmt 1 view .LVU82
+ 348:Middlewares/ST/STM32_USB_Device_Library/Class/HID/Src/usbd_hid.c **** 
+ 302              		.loc 1 348 21 is_stmt 1 view .LVU82
+ARM GAS  /tmp/ccuXUsEs.s 			page 15
+
+
  303 00a0 03E0     		b	.L10
  304              	.LVL29:
  305              	.L18:
- 405:Middlewares/ST/STM32_USB_Device_Library/Class/HID/Src/usbd_hid.c ****       break;
- 306              		.loc 1 405 7 view .LVU83
- 405:Middlewares/ST/STM32_USB_Device_Library/Class/HID/Src/usbd_hid.c ****       break;
- 307              		.loc 1 405 26 is_stmt 0 view .LVU84
+ 351:Middlewares/ST/STM32_USB_Device_Library/Class/HID/Src/usbd_hid.c ****                     break;
+ 306              		.loc 1 351 21 view .LVU83
+ 351:Middlewares/ST/STM32_USB_Device_Library/Class/HID/Src/usbd_hid.c ****                     break;
+ 307              		.loc 1 351 40 is_stmt 0 view .LVU84
  308 00a2 8B78     		ldrb	r3, [r1, #2]	@ zero_extendqisi2
- 405:Middlewares/ST/STM32_USB_Device_Library/Class/HID/Src/usbd_hid.c ****       break;
- 309              		.loc 1 405 24 view .LVU85
+ 351:Middlewares/ST/STM32_USB_Device_Library/Class/HID/Src/usbd_hid.c ****                     break;
+ 309              		.loc 1 351 38 view .LVU85
  310 00a4 AB60     		str	r3, [r5, #8]
- 406:Middlewares/ST/STM32_USB_Device_Library/Class/HID/Src/usbd_hid.c ****     }
- 311              		.loc 1 406 7 is_stmt 1 view .LVU86
+ 352:Middlewares/ST/STM32_USB_Device_Library/Class/HID/Src/usbd_hid.c ****             }
+ 311              		.loc 1 352 21 is_stmt 1 view .LVU86
  312 00a6 00E0     		b	.L10
  313              	.L21:
- 344:Middlewares/ST/STM32_USB_Device_Library/Class/HID/Src/usbd_hid.c ****   {
- 314              		.loc 1 344 3 is_stmt 0 view .LVU87
+ 306:Middlewares/ST/STM32_USB_Device_Library/Class/HID/Src/usbd_hid.c ****         case USB_REQ_TYPE_CLASS:
+ 314              		.loc 1 306 5 is_stmt 0 view .LVU87
  315 00a8 0024     		movs	r4, #0
  316              	.LVL30:
  317              	.L10:
- 410:Middlewares/ST/STM32_USB_Device_Library/Class/HID/Src/usbd_hid.c **** 
- 318              		.loc 1 410 1 view .LVU88
+ 356:Middlewares/ST/STM32_USB_Device_Library/Class/HID/Src/usbd_hid.c **** 
+ 318              		.loc 1 356 1 view .LVU88
  319 00aa 2046     		mov	r0, r4
  320 00ac 38BD     		pop	{r3, r4, r5, pc}
  321              	.LVL31:
  322              	.L27:
- 410:Middlewares/ST/STM32_USB_Device_Library/Class/HID/Src/usbd_hid.c **** 
- 323              		.loc 1 410 1 view .LVU89
+ 356:Middlewares/ST/STM32_USB_Device_Library/Class/HID/Src/usbd_hid.c **** 
+ 323              		.loc 1 356 1 view .LVU89
  324 00ae 00BF     		.align	2
  325              	.L26:
  326 00b0 00000000 		.word	.LANCHOR2
@@ -957,57 +884,57 @@ ARM GAS  /tmp/cci2fGCQ.s 			page 1
  338              	USBD_HID_DeInit:
  339              	.LVL32:
  340              	.LFB67:
- 315:Middlewares/ST/STM32_USB_Device_Library/Class/HID/Src/usbd_hid.c ****   /* Close HID EPs */
-ARM GAS  /tmp/cci2fGCQ.s 			page 17
-
-
- 341              		.loc 1 315 1 is_stmt 1 view -0
+ 280:Middlewares/ST/STM32_USB_Device_Library/Class/HID/Src/usbd_hid.c ****     /* Close HID EPs */
+ 341              		.loc 1 280 74 is_stmt 1 view -0
  342              		.cfi_startproc
  343              		@ args = 0, pretend = 0, frame = 0
  344              		@ frame_needed = 0, uses_anonymous_args = 0
- 315:Middlewares/ST/STM32_USB_Device_Library/Class/HID/Src/usbd_hid.c ****   /* Close HID EPs */
- 345              		.loc 1 315 1 is_stmt 0 view .LVU91
+ 280:Middlewares/ST/STM32_USB_Device_Library/Class/HID/Src/usbd_hid.c ****     /* Close HID EPs */
+ 345              		.loc 1 280 74 is_stmt 0 view .LVU91
  346 0000 10B5     		push	{r4, lr}
  347              	.LCFI1:
  348              		.cfi_def_cfa_offset 8
  349              		.cfi_offset 4, -8
  350              		.cfi_offset 14, -4
  351 0002 0446     		mov	r4, r0
- 317:Middlewares/ST/STM32_USB_Device_Library/Class/HID/Src/usbd_hid.c ****                   HID_EPIN_ADDR);
- 352              		.loc 1 317 3 is_stmt 1 view .LVU92
+ 282:Middlewares/ST/STM32_USB_Device_Library/Class/HID/Src/usbd_hid.c **** 
+ARM GAS  /tmp/ccuXUsEs.s 			page 16
+
+
+ 352              		.loc 1 282 5 is_stmt 1 view .LVU92
  353 0004 8121     		movs	r1, #129
  354              	.LVL33:
- 317:Middlewares/ST/STM32_USB_Device_Library/Class/HID/Src/usbd_hid.c ****                   HID_EPIN_ADDR);
- 355              		.loc 1 317 3 is_stmt 0 view .LVU93
+ 282:Middlewares/ST/STM32_USB_Device_Library/Class/HID/Src/usbd_hid.c **** 
+ 355              		.loc 1 282 5 is_stmt 0 view .LVU93
  356 0006 FFF7FEFF 		bl	USBD_LL_CloseEP
  357              	.LVL34:
- 321:Middlewares/ST/STM32_USB_Device_Library/Class/HID/Src/usbd_hid.c ****   {
- 358              		.loc 1 321 3 is_stmt 1 view .LVU94
- 321:Middlewares/ST/STM32_USB_Device_Library/Class/HID/Src/usbd_hid.c ****   {
- 359              		.loc 1 321 10 is_stmt 0 view .LVU95
+ 285:Middlewares/ST/STM32_USB_Device_Library/Class/HID/Src/usbd_hid.c ****         USBD_free(pdev->pClassData);
+ 358              		.loc 1 285 5 is_stmt 1 view .LVU94
+ 285:Middlewares/ST/STM32_USB_Device_Library/Class/HID/Src/usbd_hid.c ****         USBD_free(pdev->pClassData);
+ 359              		.loc 1 285 13 is_stmt 0 view .LVU95
  360 000a D4F81802 		ldr	r0, [r4, #536]
- 321:Middlewares/ST/STM32_USB_Device_Library/Class/HID/Src/usbd_hid.c ****   {
- 361              		.loc 1 321 5 view .LVU96
+ 285:Middlewares/ST/STM32_USB_Device_Library/Class/HID/Src/usbd_hid.c ****         USBD_free(pdev->pClassData);
+ 361              		.loc 1 285 8 view .LVU96
  362 000e 20B1     		cbz	r0, .L29
- 323:Middlewares/ST/STM32_USB_Device_Library/Class/HID/Src/usbd_hid.c ****     pdev->pClassData = NULL;
- 363              		.loc 1 323 5 is_stmt 1 view .LVU97
+ 286:Middlewares/ST/STM32_USB_Device_Library/Class/HID/Src/usbd_hid.c ****         pdev->pClassData = NULL;
+ 363              		.loc 1 286 9 is_stmt 1 view .LVU97
  364 0010 FFF7FEFF 		bl	USBD_static_free
  365              	.LVL35:
- 324:Middlewares/ST/STM32_USB_Device_Library/Class/HID/Src/usbd_hid.c ****   } 
- 366              		.loc 1 324 5 view .LVU98
- 324:Middlewares/ST/STM32_USB_Device_Library/Class/HID/Src/usbd_hid.c ****   } 
- 367              		.loc 1 324 22 is_stmt 0 view .LVU99
+ 287:Middlewares/ST/STM32_USB_Device_Library/Class/HID/Src/usbd_hid.c ****     }
+ 366              		.loc 1 287 9 view .LVU98
+ 287:Middlewares/ST/STM32_USB_Device_Library/Class/HID/Src/usbd_hid.c ****     }
+ 367              		.loc 1 287 26 is_stmt 0 view .LVU99
  368 0014 0023     		movs	r3, #0
  369 0016 C4F81832 		str	r3, [r4, #536]
  370              	.L29:
- 327:Middlewares/ST/STM32_USB_Device_Library/Class/HID/Src/usbd_hid.c **** }
- 371              		.loc 1 327 3 is_stmt 1 view .LVU100
- 328:Middlewares/ST/STM32_USB_Device_Library/Class/HID/Src/usbd_hid.c **** 
- 372              		.loc 1 328 1 is_stmt 0 view .LVU101
+ 290:Middlewares/ST/STM32_USB_Device_Library/Class/HID/Src/usbd_hid.c **** }
+ 371              		.loc 1 290 5 is_stmt 1 view .LVU100
+ 291:Middlewares/ST/STM32_USB_Device_Library/Class/HID/Src/usbd_hid.c **** 
+ 372              		.loc 1 291 1 is_stmt 0 view .LVU101
  373 001a 0020     		movs	r0, #0
  374 001c 10BD     		pop	{r4, pc}
- 328:Middlewares/ST/STM32_USB_Device_Library/Class/HID/Src/usbd_hid.c **** 
- 375              		.loc 1 328 1 view .LVU102
+ 291:Middlewares/ST/STM32_USB_Device_Library/Class/HID/Src/usbd_hid.c **** 
+ 375              		.loc 1 291 1 view .LVU102
  376              		.cfi_endproc
  377              	.LFE67:
  379              		.section	.text.USBD_HID_Init,"ax",%progbits
@@ -1018,74 +945,71 @@ ARM GAS  /tmp/cci2fGCQ.s 			page 1
  384              		.fpu softvfp
  386              	USBD_HID_Init:
  387              	.LVL36:
-ARM GAS  /tmp/cci2fGCQ.s 			page 18
-
-
  388              	.LFB66:
- 284:Middlewares/ST/STM32_USB_Device_Library/Class/HID/Src/usbd_hid.c ****   uint8_t ret = 0;
- 389              		.loc 1 284 1 is_stmt 1 view -0
+ 257:Middlewares/ST/STM32_USB_Device_Library/Class/HID/Src/usbd_hid.c ****     uint8_t ret = 0;
+ 389              		.loc 1 257 72 is_stmt 1 view -0
  390              		.cfi_startproc
  391              		@ args = 0, pretend = 0, frame = 0
  392              		@ frame_needed = 0, uses_anonymous_args = 0
- 284:Middlewares/ST/STM32_USB_Device_Library/Class/HID/Src/usbd_hid.c ****   uint8_t ret = 0;
- 393              		.loc 1 284 1 is_stmt 0 view .LVU104
+ 257:Middlewares/ST/STM32_USB_Device_Library/Class/HID/Src/usbd_hid.c ****     uint8_t ret = 0;
+ 393              		.loc 1 257 72 is_stmt 0 view .LVU104
  394 0000 10B5     		push	{r4, lr}
  395              	.LCFI2:
  396              		.cfi_def_cfa_offset 8
  397              		.cfi_offset 4, -8
  398              		.cfi_offset 14, -4
+ARM GAS  /tmp/ccuXUsEs.s 			page 17
+
+
  399 0002 0446     		mov	r4, r0
- 285:Middlewares/ST/STM32_USB_Device_Library/Class/HID/Src/usbd_hid.c ****   
- 400              		.loc 1 285 3 is_stmt 1 view .LVU105
+ 258:Middlewares/ST/STM32_USB_Device_Library/Class/HID/Src/usbd_hid.c **** 
+ 400              		.loc 1 258 5 is_stmt 1 view .LVU105
  401              	.LVL37:
- 288:Middlewares/ST/STM32_USB_Device_Library/Class/HID/Src/usbd_hid.c ****                  HID_EPIN_ADDR,
- 402              		.loc 1 288 3 view .LVU106
+ 261:Middlewares/ST/STM32_USB_Device_Library/Class/HID/Src/usbd_hid.c **** 
+ 402              		.loc 1 261 5 view .LVU106
  403 0004 0423     		movs	r3, #4
  404 0006 0322     		movs	r2, #3
  405 0008 8121     		movs	r1, #129
  406              	.LVL38:
- 288:Middlewares/ST/STM32_USB_Device_Library/Class/HID/Src/usbd_hid.c ****                  HID_EPIN_ADDR,
- 407              		.loc 1 288 3 is_stmt 0 view .LVU107
+ 261:Middlewares/ST/STM32_USB_Device_Library/Class/HID/Src/usbd_hid.c **** 
+ 407              		.loc 1 261 5 is_stmt 0 view .LVU107
  408 000a FFF7FEFF 		bl	USBD_LL_OpenEP
  409              	.LVL39:
- 293:Middlewares/ST/STM32_USB_Device_Library/Class/HID/Src/usbd_hid.c ****   
- 410              		.loc 1 293 3 is_stmt 1 view .LVU108
- 293:Middlewares/ST/STM32_USB_Device_Library/Class/HID/Src/usbd_hid.c ****   
- 411              		.loc 1 293 22 is_stmt 0 view .LVU109
+ 263:Middlewares/ST/STM32_USB_Device_Library/Class/HID/Src/usbd_hid.c **** 
+ 410              		.loc 1 263 5 is_stmt 1 view .LVU108
+ 263:Middlewares/ST/STM32_USB_Device_Library/Class/HID/Src/usbd_hid.c **** 
+ 411              		.loc 1 263 24 is_stmt 0 view .LVU109
  412 000e 1020     		movs	r0, #16
  413 0010 FFF7FEFF 		bl	USBD_static_malloc
  414              	.LVL40:
- 293:Middlewares/ST/STM32_USB_Device_Library/Class/HID/Src/usbd_hid.c ****   
- 415              		.loc 1 293 20 view .LVU110
+ 263:Middlewares/ST/STM32_USB_Device_Library/Class/HID/Src/usbd_hid.c **** 
+ 415              		.loc 1 263 22 view .LVU110
  416 0014 C4F81802 		str	r0, [r4, #536]
- 295:Middlewares/ST/STM32_USB_Device_Library/Class/HID/Src/usbd_hid.c ****   {
- 417              		.loc 1 295 3 is_stmt 1 view .LVU111
- 295:Middlewares/ST/STM32_USB_Device_Library/Class/HID/Src/usbd_hid.c ****   {
- 418              		.loc 1 295 5 is_stmt 0 view .LVU112
+ 265:Middlewares/ST/STM32_USB_Device_Library/Class/HID/Src/usbd_hid.c ****         ret = 1;
+ 417              		.loc 1 265 5 is_stmt 1 view .LVU111
+ 265:Middlewares/ST/STM32_USB_Device_Library/Class/HID/Src/usbd_hid.c ****         ret = 1;
+ 418              		.loc 1 265 8 is_stmt 0 view .LVU112
  419 0018 18B1     		cbz	r0, .L33
- 301:Middlewares/ST/STM32_USB_Device_Library/Class/HID/Src/usbd_hid.c ****   }
- 420              		.loc 1 301 5 is_stmt 1 view .LVU113
- 301:Middlewares/ST/STM32_USB_Device_Library/Class/HID/Src/usbd_hid.c ****   }
- 421              		.loc 1 301 57 is_stmt 0 view .LVU114
+ 268:Middlewares/ST/STM32_USB_Device_Library/Class/HID/Src/usbd_hid.c ****     }
+ 420              		.loc 1 268 9 is_stmt 1 view .LVU113
+ 268:Middlewares/ST/STM32_USB_Device_Library/Class/HID/Src/usbd_hid.c ****     }
+ 421              		.loc 1 268 61 is_stmt 0 view .LVU114
  422 001a 0023     		movs	r3, #0
  423 001c 0373     		strb	r3, [r0, #12]
- 285:Middlewares/ST/STM32_USB_Device_Library/Class/HID/Src/usbd_hid.c ****   
- 424              		.loc 1 285 11 view .LVU115
+ 258:Middlewares/ST/STM32_USB_Device_Library/Class/HID/Src/usbd_hid.c **** 
+ 424              		.loc 1 258 13 view .LVU115
  425 001e 1846     		mov	r0, r3
  426              	.L32:
  427              	.LVL41:
- 303:Middlewares/ST/STM32_USB_Device_Library/Class/HID/Src/usbd_hid.c **** }
- 428              		.loc 1 303 3 is_stmt 1 view .LVU116
- 304:Middlewares/ST/STM32_USB_Device_Library/Class/HID/Src/usbd_hid.c **** 
- 429              		.loc 1 304 1 is_stmt 0 view .LVU117
-ARM GAS  /tmp/cci2fGCQ.s 			page 19
-
-
+ 270:Middlewares/ST/STM32_USB_Device_Library/Class/HID/Src/usbd_hid.c **** }
+ 428              		.loc 1 270 5 is_stmt 1 view .LVU116
+ 271:Middlewares/ST/STM32_USB_Device_Library/Class/HID/Src/usbd_hid.c **** 
+ 429              		.loc 1 271 1 is_stmt 0 view .LVU117
  430 0020 10BD     		pop	{r4, pc}
  431              	.LVL42:
  432              	.L33:
- 297:Middlewares/ST/STM32_USB_Device_Library/Class/HID/Src/usbd_hid.c ****   }
- 433              		.loc 1 297 9 view .LVU118
+ 266:Middlewares/ST/STM32_USB_Device_Library/Class/HID/Src/usbd_hid.c ****     } else {
+ 433              		.loc 1 266 13 view .LVU118
  434 0022 0120     		movs	r0, #1
  435 0024 FCE7     		b	.L32
  436              		.cfi_endproc
@@ -1094,82 +1018,85 @@ ARM GAS  /tmp/cci2fGCQ.s 			page 1
  440              		.align	1
  441              		.global	USBD_HID_SendReport
  442              		.syntax unified
+ARM GAS  /tmp/ccuXUsEs.s 			page 18
+
+
  443              		.thumb
  444              		.thumb_func
  445              		.fpu softvfp
  447              	USBD_HID_SendReport:
  448              	.LVL43:
  449              	.LFB69:
- 422:Middlewares/ST/STM32_USB_Device_Library/Class/HID/Src/usbd_hid.c ****   USBD_HID_HandleTypeDef     *hhid = (USBD_HID_HandleTypeDef*)pdev->pClassData;
- 450              		.loc 1 422 1 is_stmt 1 view -0
+ 366:Middlewares/ST/STM32_USB_Device_Library/Class/HID/Src/usbd_hid.c ****     USBD_HID_HandleTypeDef *hhid = (USBD_HID_HandleTypeDef *)pdev->pClassData;
+ 450              		.loc 1 366 43 is_stmt 1 view -0
  451              		.cfi_startproc
  452              		@ args = 0, pretend = 0, frame = 0
  453              		@ frame_needed = 0, uses_anonymous_args = 0
- 422:Middlewares/ST/STM32_USB_Device_Library/Class/HID/Src/usbd_hid.c ****   USBD_HID_HandleTypeDef     *hhid = (USBD_HID_HandleTypeDef*)pdev->pClassData;
- 454              		.loc 1 422 1 is_stmt 0 view .LVU120
+ 366:Middlewares/ST/STM32_USB_Device_Library/Class/HID/Src/usbd_hid.c ****     USBD_HID_HandleTypeDef *hhid = (USBD_HID_HandleTypeDef *)pdev->pClassData;
+ 454              		.loc 1 366 43 is_stmt 0 view .LVU120
  455 0000 10B5     		push	{r4, lr}
  456              	.LCFI3:
  457              		.cfi_def_cfa_offset 8
  458              		.cfi_offset 4, -8
  459              		.cfi_offset 14, -4
- 423:Middlewares/ST/STM32_USB_Device_Library/Class/HID/Src/usbd_hid.c ****   
- 460              		.loc 1 423 3 is_stmt 1 view .LVU121
- 423:Middlewares/ST/STM32_USB_Device_Library/Class/HID/Src/usbd_hid.c ****   
- 461              		.loc 1 423 31 is_stmt 0 view .LVU122
+ 367:Middlewares/ST/STM32_USB_Device_Library/Class/HID/Src/usbd_hid.c **** 
+ 460              		.loc 1 367 5 is_stmt 1 view .LVU121
+ 367:Middlewares/ST/STM32_USB_Device_Library/Class/HID/Src/usbd_hid.c **** 
+ 461              		.loc 1 367 29 is_stmt 0 view .LVU122
  462 0002 D0F81842 		ldr	r4, [r0, #536]
  463              	.LVL44:
- 425:Middlewares/ST/STM32_USB_Device_Library/Class/HID/Src/usbd_hid.c ****   {
- 464              		.loc 1 425 3 is_stmt 1 view .LVU123
- 425:Middlewares/ST/STM32_USB_Device_Library/Class/HID/Src/usbd_hid.c ****   {
- 465              		.loc 1 425 11 is_stmt 0 view .LVU124
+ 369:Middlewares/ST/STM32_USB_Device_Library/Class/HID/Src/usbd_hid.c ****         if (hhid->state == HID_IDLE) {
+ 464              		.loc 1 369 5 is_stmt 1 view .LVU123
+ 369:Middlewares/ST/STM32_USB_Device_Library/Class/HID/Src/usbd_hid.c ****         if (hhid->state == HID_IDLE) {
+ 465              		.loc 1 369 13 is_stmt 0 view .LVU124
  466 0006 90F8FC31 		ldrb	r3, [r0, #508]	@ zero_extendqisi2
- 425:Middlewares/ST/STM32_USB_Device_Library/Class/HID/Src/usbd_hid.c ****   {
- 467              		.loc 1 425 6 view .LVU125
+ 369:Middlewares/ST/STM32_USB_Device_Library/Class/HID/Src/usbd_hid.c ****         if (hhid->state == HID_IDLE) {
+ 467              		.loc 1 369 8 view .LVU125
  468 000a 032B     		cmp	r3, #3
  469 000c 01D0     		beq	.L38
  470              	.LVL45:
  471              	.L36:
- 436:Middlewares/ST/STM32_USB_Device_Library/Class/HID/Src/usbd_hid.c **** }
- 472              		.loc 1 436 3 is_stmt 1 view .LVU126
- 437:Middlewares/ST/STM32_USB_Device_Library/Class/HID/Src/usbd_hid.c **** 
- 473              		.loc 1 437 1 is_stmt 0 view .LVU127
+ 375:Middlewares/ST/STM32_USB_Device_Library/Class/HID/Src/usbd_hid.c **** }
+ 472              		.loc 1 375 5 is_stmt 1 view .LVU126
+ 376:Middlewares/ST/STM32_USB_Device_Library/Class/HID/Src/usbd_hid.c **** 
+ 473              		.loc 1 376 1 is_stmt 0 view .LVU127
  474 000e 0020     		movs	r0, #0
  475 0010 10BD     		pop	{r4, pc}
  476              	.LVL46:
  477              	.L38:
- 427:Middlewares/ST/STM32_USB_Device_Library/Class/HID/Src/usbd_hid.c ****     {
-ARM GAS  /tmp/cci2fGCQ.s 			page 20
-
-
- 478              		.loc 1 427 5 is_stmt 1 view .LVU128
- 427:Middlewares/ST/STM32_USB_Device_Library/Class/HID/Src/usbd_hid.c ****     {
- 479              		.loc 1 427 12 is_stmt 0 view .LVU129
+ 370:Middlewares/ST/STM32_USB_Device_Library/Class/HID/Src/usbd_hid.c ****             hhid->state = HID_BUSY;
+ 478              		.loc 1 370 9 is_stmt 1 view .LVU128
+ 370:Middlewares/ST/STM32_USB_Device_Library/Class/HID/Src/usbd_hid.c ****             hhid->state = HID_BUSY;
+ 479              		.loc 1 370 17 is_stmt 0 view .LVU129
  480 0012 237B     		ldrb	r3, [r4, #12]	@ zero_extendqisi2
- 427:Middlewares/ST/STM32_USB_Device_Library/Class/HID/Src/usbd_hid.c ****     {
- 481              		.loc 1 427 7 view .LVU130
+ 370:Middlewares/ST/STM32_USB_Device_Library/Class/HID/Src/usbd_hid.c ****             hhid->state = HID_BUSY;
+ 481              		.loc 1 370 12 view .LVU130
  482 0014 002B     		cmp	r3, #0
  483 0016 FAD1     		bne	.L36
- 429:Middlewares/ST/STM32_USB_Device_Library/Class/HID/Src/usbd_hid.c ****       USBD_LL_Transmit (pdev, 
- 484              		.loc 1 429 7 is_stmt 1 view .LVU131
- 429:Middlewares/ST/STM32_USB_Device_Library/Class/HID/Src/usbd_hid.c ****       USBD_LL_Transmit (pdev, 
- 485              		.loc 1 429 19 is_stmt 0 view .LVU132
+ 371:Middlewares/ST/STM32_USB_Device_Library/Class/HID/Src/usbd_hid.c ****             USBD_LL_Transmit(pdev, HID_EPIN_ADDR, report, len);
+ 484              		.loc 1 371 13 is_stmt 1 view .LVU131
+ 371:Middlewares/ST/STM32_USB_Device_Library/Class/HID/Src/usbd_hid.c ****             USBD_LL_Transmit(pdev, HID_EPIN_ADDR, report, len);
+ 485              		.loc 1 371 25 is_stmt 0 view .LVU132
  486 0018 0123     		movs	r3, #1
+ARM GAS  /tmp/ccuXUsEs.s 			page 19
+
+
  487 001a 2373     		strb	r3, [r4, #12]
- 430:Middlewares/ST/STM32_USB_Device_Library/Class/HID/Src/usbd_hid.c ****                         HID_EPIN_ADDR,                                      
- 488              		.loc 1 430 7 is_stmt 1 view .LVU133
+ 372:Middlewares/ST/STM32_USB_Device_Library/Class/HID/Src/usbd_hid.c ****         }
+ 488              		.loc 1 372 13 is_stmt 1 view .LVU133
  489 001c 1346     		mov	r3, r2
  490 001e 0A46     		mov	r2, r1
  491              	.LVL47:
- 430:Middlewares/ST/STM32_USB_Device_Library/Class/HID/Src/usbd_hid.c ****                         HID_EPIN_ADDR,                                      
- 492              		.loc 1 430 7 is_stmt 0 view .LVU134
+ 372:Middlewares/ST/STM32_USB_Device_Library/Class/HID/Src/usbd_hid.c ****         }
+ 492              		.loc 1 372 13 is_stmt 0 view .LVU134
  493 0020 8121     		movs	r1, #129
  494              	.LVL48:
- 430:Middlewares/ST/STM32_USB_Device_Library/Class/HID/Src/usbd_hid.c ****                         HID_EPIN_ADDR,                                      
- 495              		.loc 1 430 7 view .LVU135
+ 372:Middlewares/ST/STM32_USB_Device_Library/Class/HID/Src/usbd_hid.c ****         }
+ 495              		.loc 1 372 13 view .LVU135
  496 0022 FFF7FEFF 		bl	USBD_LL_Transmit
  497              	.LVL49:
- 430:Middlewares/ST/STM32_USB_Device_Library/Class/HID/Src/usbd_hid.c ****                         HID_EPIN_ADDR,                                      
- 498              		.loc 1 430 7 view .LVU136
+ 372:Middlewares/ST/STM32_USB_Device_Library/Class/HID/Src/usbd_hid.c ****         }
+ 498              		.loc 1 372 13 view .LVU136
  499 0026 F2E7     		b	.L36
  500              		.cfi_endproc
  501              	.LFE69:
@@ -1183,42 +1110,42 @@ ARM GAS  /tmp/cci2fGCQ.s 			page 1
  511              	USBD_HID_GetPollingInterval:
  512              	.LVL50:
  513              	.LFB70:
- 446:Middlewares/ST/STM32_USB_Device_Library/Class/HID/Src/usbd_hid.c ****   uint32_t polling_interval = 0;
- 514              		.loc 1 446 1 is_stmt 1 view -0
+ 384:Middlewares/ST/STM32_USB_Device_Library/Class/HID/Src/usbd_hid.c ****     uint32_t polling_interval = 0;
+ 514              		.loc 1 384 64 is_stmt 1 view -0
  515              		.cfi_startproc
  516              		@ args = 0, pretend = 0, frame = 0
  517              		@ frame_needed = 0, uses_anonymous_args = 0
  518              		@ link register save eliminated.
- 447:Middlewares/ST/STM32_USB_Device_Library/Class/HID/Src/usbd_hid.c **** 
- 519              		.loc 1 447 3 view .LVU138
- 450:Middlewares/ST/STM32_USB_Device_Library/Class/HID/Src/usbd_hid.c ****   {
- 520              		.loc 1 450 3 view .LVU139
- 450:Middlewares/ST/STM32_USB_Device_Library/Class/HID/Src/usbd_hid.c ****   {
- 521              		.loc 1 450 10 is_stmt 0 view .LVU140
+ 385:Middlewares/ST/STM32_USB_Device_Library/Class/HID/Src/usbd_hid.c **** 
+ 519              		.loc 1 385 5 view .LVU138
+ 388:Middlewares/ST/STM32_USB_Device_Library/Class/HID/Src/usbd_hid.c ****         /* Sets the data transfer polling interval for high speed transfers.
+ 520              		.loc 1 388 5 view .LVU139
+ 388:Middlewares/ST/STM32_USB_Device_Library/Class/HID/Src/usbd_hid.c ****         /* Sets the data transfer polling interval for high speed transfers.
+ 521              		.loc 1 388 13 is_stmt 0 view .LVU140
  522 0000 037C     		ldrb	r3, [r0, #16]	@ zero_extendqisi2
- 450:Middlewares/ST/STM32_USB_Device_Library/Class/HID/Src/usbd_hid.c ****   {
- 523              		.loc 1 450 5 view .LVU141
-ARM GAS  /tmp/cci2fGCQ.s 			page 21
-
-
+ 388:Middlewares/ST/STM32_USB_Device_Library/Class/HID/Src/usbd_hid.c ****         /* Sets the data transfer polling interval for high speed transfers.
+ 523              		.loc 1 388 8 view .LVU141
  524 0002 0BB9     		cbnz	r3, .L41
- 455:Middlewares/ST/STM32_USB_Device_Library/Class/HID/Src/usbd_hid.c ****   }
- 525              		.loc 1 455 22 view .LVU142
+ 393:Middlewares/ST/STM32_USB_Device_Library/Class/HID/Src/usbd_hid.c ****     } else /* LOW and FULL-speed endpoints */
+ 525              		.loc 1 393 26 view .LVU142
  526 0004 0820     		movs	r0, #8
  527              	.LVL51:
- 455:Middlewares/ST/STM32_USB_Device_Library/Class/HID/Src/usbd_hid.c ****   }
- 528              		.loc 1 455 22 view .LVU143
+ 393:Middlewares/ST/STM32_USB_Device_Library/Class/HID/Src/usbd_hid.c ****     } else /* LOW and FULL-speed endpoints */
+ 528              		.loc 1 393 26 view .LVU143
  529 0006 7047     		bx	lr
  530              	.LVL52:
  531              	.L41:
- 461:Middlewares/ST/STM32_USB_Device_Library/Class/HID/Src/usbd_hid.c ****   }
- 532              		.loc 1 461 22 view .LVU144
+ 398:Middlewares/ST/STM32_USB_Device_Library/Class/HID/Src/usbd_hid.c ****     }
+ 532              		.loc 1 398 26 view .LVU144
  533 0008 0A20     		movs	r0, #10
+ARM GAS  /tmp/ccuXUsEs.s 			page 20
+
+
  534              	.LVL53:
- 464:Middlewares/ST/STM32_USB_Device_Library/Class/HID/Src/usbd_hid.c **** }
- 535              		.loc 1 464 3 is_stmt 1 view .LVU145
- 465:Middlewares/ST/STM32_USB_Device_Library/Class/HID/Src/usbd_hid.c **** 
- 536              		.loc 1 465 1 is_stmt 0 view .LVU146
+ 401:Middlewares/ST/STM32_USB_Device_Library/Class/HID/Src/usbd_hid.c **** }
+ 535              		.loc 1 401 5 is_stmt 1 view .LVU145
+ 402:Middlewares/ST/STM32_USB_Device_Library/Class/HID/Src/usbd_hid.c **** 
+ 536              		.loc 1 402 1 is_stmt 0 view .LVU146
  537 000a 7047     		bx	lr
  538              		.cfi_endproc
  539              	.LFE70:
@@ -1227,27 +1154,24 @@ ARM GAS  /tmp/cci2fGCQ.s 			page 1
  543              		.align	2
  544              		.set	.LANCHOR2,. + 0
  547              	HID_MOUSE_ReportDesc:
- 548 0000 05010902 		.ascii	"\005\001\011\002\241\001\011\001\241\000\005\011\031"
- 548      A1010901 
- 548      A1000509 
- 548      19
- 549 000d 01290315 		.ascii	"\001)\003\025\000%\001\225\003u\001\201\002\225\001"
- 549      00250195 
- 549      03750181 
- 549      029501
- 550 001c 75058101 		.ascii	"u\005\201\001\005\001\0110\0111\0118\025\201%\177u\010"
- 550      05010930 
- 550      09310938 
- 550      1581257F 
- 550      7508
- 551 002e 95038106 		.ascii	"\225\003\201\006\300\011<\005\377\011\001\025\000%\001"
- 551      C0093C05 
- 551      FF090115 
- 551      002501
- 552 003d 75019502 		.ascii	"u\001\225\002\261\"u\006\225\001\261\001\300"
- 552      B1227506 
- 552      9501B101 
- 552      C0
+ 548 0000 05010906 		.ascii	"\005\001\011\006\241\001\005\007\031\340)\347\025\000"
+ 548      A1010507 
+ 548      19E029E7 
+ 548      1500
+ 549 000e 25017501 		.ascii	"%\001u\001\225\010\201\002\225\001u\010\201\003\225"
+ 549      95088102 
+ 549      95017508 
+ 549      810395
+ 550 001d 05750105 		.ascii	"\005u\001\005\010\031\001)\005\221\002\225\001u\003"
+ 550      08190129 
+ 550      05910295 
+ 550      017503
+ 551 002c 91039506 		.ascii	"\221\003\225\006u\010\025\000%e\005\007\031\000)e\201"
+ 551      75081500 
+ 551      25650507 
+ 551      19002965 
+ 551      81
+ 552 003d 00C0     		.ascii	"\000\300"
  553              		.section	.data.USBD_HID,"aw"
  554              		.align	2
  557              	USBD_HID:
@@ -1258,9 +1182,6 @@ ARM GAS  /tmp/cci2fGCQ.s 			page 1
  562 0010 00000000 		.word	0
  563 0014 00000000 		.word	USBD_HID_DataIn
  564 0018 00000000 		.word	0
-ARM GAS  /tmp/cci2fGCQ.s 			page 22
-
-
  565 001c 00000000 		.word	0
  566 0020 00000000 		.word	0
  567 0024 00000000 		.word	0
@@ -1276,9 +1197,12 @@ ARM GAS  /tmp/cci2fGCQ.s 			page 1
  578      010100E0 
  578      32090400 
  578      0001
- 579 000e 03010200 		.ascii	"\003\001\002\000\011!\021\001\000\001\"J\000\007\005"
+ 579 000e 03010100 		.ascii	"\003\001\001\000\011!\021\001\000\001\"?\000\007\005"
+ARM GAS  /tmp/ccuXUsEs.s 			page 21
+
+
  579      09211101 
- 579      0001224A 
+ 579      0001223F 
  579      000705
  580 001d 81030400 		.ascii	"\201\003\004\000\012"
  580      0A
@@ -1286,8 +1210,8 @@ ARM GAS  /tmp/cci2fGCQ.s 			page 1
  582              		.align	2
  583              		.set	.LANCHOR3,. + 0
  586              	USBD_HID_Desc:
- 587 0000 09211101 		.ascii	"\011!\021\001\000\001\"J\000"
- 587      0001224A 
+ 587 0000 09211101 		.ascii	"\011!\021\001\000\001\"?\000"
+ 587      0001223F 
  587      00
  588              		.section	.data.USBD_HID_DeviceQualifierDesc,"aw"
  589              		.align	2
@@ -1315,42 +1239,42 @@ ARM GAS  /tmp/cci2fGCQ.s 			page 1
  611              		.file 16 "Middlewares/ST/STM32_USB_Device_Library/Core/Inc/usbd_ioreq.h"
  612              		.file 17 "Middlewares/ST/STM32_USB_Device_Library/Core/Inc/usbd_ctlreq.h"
  613              		.file 18 "USB_DEVICE/Target/usbd_conf.h"
-ARM GAS  /tmp/cci2fGCQ.s 			page 23
+ARM GAS  /tmp/ccuXUsEs.s 			page 22
 
 
 DEFINED SYMBOLS
                             *ABS*:0000000000000000 usbd_hid.c
-     /tmp/cci2fGCQ.s:16     .text.USBD_HID_GetCfgDesc:0000000000000000 $t
-     /tmp/cci2fGCQ.s:23     .text.USBD_HID_GetCfgDesc:0000000000000000 USBD_HID_GetCfgDesc
-     /tmp/cci2fGCQ.s:45     .text.USBD_HID_GetCfgDesc:0000000000000008 $d
-     /tmp/cci2fGCQ.s:50     .text.USBD_HID_DataIn:0000000000000000 $t
-     /tmp/cci2fGCQ.s:56     .text.USBD_HID_DataIn:0000000000000000 USBD_HID_DataIn
-     /tmp/cci2fGCQ.s:79     .text.USBD_HID_GetDeviceQualifierDesc:0000000000000000 $t
-     /tmp/cci2fGCQ.s:85     .text.USBD_HID_GetDeviceQualifierDesc:0000000000000000 USBD_HID_GetDeviceQualifierDesc
-     /tmp/cci2fGCQ.s:106    .text.USBD_HID_GetDeviceQualifierDesc:0000000000000008 $d
-     /tmp/cci2fGCQ.s:111    .text.USBD_HID_Setup:0000000000000000 $t
-     /tmp/cci2fGCQ.s:117    .text.USBD_HID_Setup:0000000000000000 USBD_HID_Setup
-     /tmp/cci2fGCQ.s:155    .text.USBD_HID_Setup:000000000000001e $d
-     /tmp/cci2fGCQ.s:165    .text.USBD_HID_Setup:0000000000000028 $t
-     /tmp/cci2fGCQ.s:326    .text.USBD_HID_Setup:00000000000000b0 $d
-     /tmp/cci2fGCQ.s:332    .text.USBD_HID_DeInit:0000000000000000 $t
-     /tmp/cci2fGCQ.s:338    .text.USBD_HID_DeInit:0000000000000000 USBD_HID_DeInit
-     /tmp/cci2fGCQ.s:380    .text.USBD_HID_Init:0000000000000000 $t
-     /tmp/cci2fGCQ.s:386    .text.USBD_HID_Init:0000000000000000 USBD_HID_Init
-     /tmp/cci2fGCQ.s:440    .text.USBD_HID_SendReport:0000000000000000 $t
-     /tmp/cci2fGCQ.s:447    .text.USBD_HID_SendReport:0000000000000000 USBD_HID_SendReport
-     /tmp/cci2fGCQ.s:504    .text.USBD_HID_GetPollingInterval:0000000000000000 $t
-     /tmp/cci2fGCQ.s:511    .text.USBD_HID_GetPollingInterval:0000000000000000 USBD_HID_GetPollingInterval
-     /tmp/cci2fGCQ.s:557    .data.USBD_HID:0000000000000000 USBD_HID
-     /tmp/cci2fGCQ.s:543    .data.HID_MOUSE_ReportDesc:0000000000000000 $d
-     /tmp/cci2fGCQ.s:547    .data.HID_MOUSE_ReportDesc:0000000000000000 HID_MOUSE_ReportDesc
-     /tmp/cci2fGCQ.s:554    .data.USBD_HID:0000000000000000 $d
-     /tmp/cci2fGCQ.s:573    .data.USBD_HID_CfgDesc:0000000000000000 $d
-     /tmp/cci2fGCQ.s:577    .data.USBD_HID_CfgDesc:0000000000000000 USBD_HID_CfgDesc
-     /tmp/cci2fGCQ.s:582    .data.USBD_HID_Desc:0000000000000000 $d
-     /tmp/cci2fGCQ.s:586    .data.USBD_HID_Desc:0000000000000000 USBD_HID_Desc
-     /tmp/cci2fGCQ.s:589    .data.USBD_HID_DeviceQualifierDesc:0000000000000000 $d
-     /tmp/cci2fGCQ.s:593    .data.USBD_HID_DeviceQualifierDesc:0000000000000000 USBD_HID_DeviceQualifierDesc
+     /tmp/ccuXUsEs.s:16     .text.USBD_HID_GetCfgDesc:0000000000000000 $t
+     /tmp/ccuXUsEs.s:23     .text.USBD_HID_GetCfgDesc:0000000000000000 USBD_HID_GetCfgDesc
+     /tmp/ccuXUsEs.s:45     .text.USBD_HID_GetCfgDesc:0000000000000008 $d
+     /tmp/ccuXUsEs.s:50     .text.USBD_HID_DataIn:0000000000000000 $t
+     /tmp/ccuXUsEs.s:56     .text.USBD_HID_DataIn:0000000000000000 USBD_HID_DataIn
+     /tmp/ccuXUsEs.s:79     .text.USBD_HID_GetDeviceQualifierDesc:0000000000000000 $t
+     /tmp/ccuXUsEs.s:85     .text.USBD_HID_GetDeviceQualifierDesc:0000000000000000 USBD_HID_GetDeviceQualifierDesc
+     /tmp/ccuXUsEs.s:106    .text.USBD_HID_GetDeviceQualifierDesc:0000000000000008 $d
+     /tmp/ccuXUsEs.s:111    .text.USBD_HID_Setup:0000000000000000 $t
+     /tmp/ccuXUsEs.s:117    .text.USBD_HID_Setup:0000000000000000 USBD_HID_Setup
+     /tmp/ccuXUsEs.s:155    .text.USBD_HID_Setup:000000000000001e $d
+     /tmp/ccuXUsEs.s:165    .text.USBD_HID_Setup:0000000000000028 $t
+     /tmp/ccuXUsEs.s:326    .text.USBD_HID_Setup:00000000000000b0 $d
+     /tmp/ccuXUsEs.s:332    .text.USBD_HID_DeInit:0000000000000000 $t
+     /tmp/ccuXUsEs.s:338    .text.USBD_HID_DeInit:0000000000000000 USBD_HID_DeInit
+     /tmp/ccuXUsEs.s:380    .text.USBD_HID_Init:0000000000000000 $t
+     /tmp/ccuXUsEs.s:386    .text.USBD_HID_Init:0000000000000000 USBD_HID_Init
+     /tmp/ccuXUsEs.s:440    .text.USBD_HID_SendReport:0000000000000000 $t
+     /tmp/ccuXUsEs.s:447    .text.USBD_HID_SendReport:0000000000000000 USBD_HID_SendReport
+     /tmp/ccuXUsEs.s:504    .text.USBD_HID_GetPollingInterval:0000000000000000 $t
+     /tmp/ccuXUsEs.s:511    .text.USBD_HID_GetPollingInterval:0000000000000000 USBD_HID_GetPollingInterval
+     /tmp/ccuXUsEs.s:557    .data.USBD_HID:0000000000000000 USBD_HID
+     /tmp/ccuXUsEs.s:543    .data.HID_MOUSE_ReportDesc:0000000000000000 $d
+     /tmp/ccuXUsEs.s:547    .data.HID_MOUSE_ReportDesc:0000000000000000 HID_MOUSE_ReportDesc
+     /tmp/ccuXUsEs.s:554    .data.USBD_HID:0000000000000000 $d
+     /tmp/ccuXUsEs.s:573    .data.USBD_HID_CfgDesc:0000000000000000 $d
+     /tmp/ccuXUsEs.s:577    .data.USBD_HID_CfgDesc:0000000000000000 USBD_HID_CfgDesc
+     /tmp/ccuXUsEs.s:582    .data.USBD_HID_Desc:0000000000000000 $d
+     /tmp/ccuXUsEs.s:586    .data.USBD_HID_Desc:0000000000000000 USBD_HID_Desc
+     /tmp/ccuXUsEs.s:589    .data.USBD_HID_DeviceQualifierDesc:0000000000000000 $d
+     /tmp/ccuXUsEs.s:593    .data.USBD_HID_DeviceQualifierDesc:0000000000000000 USBD_HID_DeviceQualifierDesc
 
 UNDEFINED SYMBOLS
 USBD_CtlSendData

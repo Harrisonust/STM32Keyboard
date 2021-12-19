@@ -1,4 +1,4 @@
-ARM GAS  /tmp/ccKBFisX.s 			page 1
+ARM GAS  /tmp/cciLDJxf.s 			page 1
 
 
    1              		.cpu cortex-m3
@@ -58,7 +58,7 @@ ARM GAS  /tmp/ccKBFisX.s 			page 1
   30:Drivers/STM32F1xx_HAL_Driver/Src/stm32f1xx_hal.c ****   *   2. Redistributions in binary form must reproduce the above copyright notice,
   31:Drivers/STM32F1xx_HAL_Driver/Src/stm32f1xx_hal.c ****   *      this list of conditions and the following disclaimer in the documentation
   32:Drivers/STM32F1xx_HAL_Driver/Src/stm32f1xx_hal.c ****   *      and/or other materials provided with the distribution.
-ARM GAS  /tmp/ccKBFisX.s 			page 2
+ARM GAS  /tmp/cciLDJxf.s 			page 2
 
 
   33:Drivers/STM32F1xx_HAL_Driver/Src/stm32f1xx_hal.c ****   *   3. Neither the name of STMicroelectronics nor the names of its contributors
@@ -118,7 +118,7 @@ ARM GAS  /tmp/ccKBFisX.s 			page 1
   87:Drivers/STM32F1xx_HAL_Driver/Src/stm32f1xx_hal.c ****   */
   88:Drivers/STM32F1xx_HAL_Driver/Src/stm32f1xx_hal.c **** 
   89:Drivers/STM32F1xx_HAL_Driver/Src/stm32f1xx_hal.c **** /* Private macro -------------------------------------------------------------*/
-ARM GAS  /tmp/ccKBFisX.s 			page 3
+ARM GAS  /tmp/cciLDJxf.s 			page 3
 
 
   90:Drivers/STM32F1xx_HAL_Driver/Src/stm32f1xx_hal.c **** /* Private variables ---------------------------------------------------------*/
@@ -178,7 +178,7 @@ ARM GAS  /tmp/ccKBFisX.s 			page 1
  144:Drivers/STM32F1xx_HAL_Driver/Src/stm32f1xx_hal.c ****   *         HAL function), it performs the following:
  145:Drivers/STM32F1xx_HAL_Driver/Src/stm32f1xx_hal.c ****   *           Configure the Flash prefetch.
  146:Drivers/STM32F1xx_HAL_Driver/Src/stm32f1xx_hal.c ****   *           Configures the SysTick to generate an interrupt each 1 millisecond,
-ARM GAS  /tmp/ccKBFisX.s 			page 4
+ARM GAS  /tmp/cciLDJxf.s 			page 4
 
 
  147:Drivers/STM32F1xx_HAL_Driver/Src/stm32f1xx_hal.c ****   *           which is clocked by the HSI (at this stage, the clock is not yet
@@ -238,7 +238,7 @@ ARM GAS  /tmp/ccKBFisX.s 			page 1
  201:Drivers/STM32F1xx_HAL_Driver/Src/stm32f1xx_hal.c ****   __HAL_RCC_AHB_FORCE_RESET();
  202:Drivers/STM32F1xx_HAL_Driver/Src/stm32f1xx_hal.c ****   __HAL_RCC_AHB_RELEASE_RESET();
  203:Drivers/STM32F1xx_HAL_Driver/Src/stm32f1xx_hal.c **** #endif
-ARM GAS  /tmp/ccKBFisX.s 			page 5
+ARM GAS  /tmp/cciLDJxf.s 			page 5
 
 
  204:Drivers/STM32F1xx_HAL_Driver/Src/stm32f1xx_hal.c **** 
@@ -298,7 +298,7 @@ ARM GAS  /tmp/ccKBFisX.s 			page 1
   54              		.cfi_endproc
   55              	.LFE69:
   57              		.section	.text.HAL_DeInit,"ax",%progbits
-ARM GAS  /tmp/ccKBFisX.s 			page 6
+ARM GAS  /tmp/cciLDJxf.s 			page 6
 
 
   58              		.align	1
@@ -358,7 +358,7 @@ ARM GAS  /tmp/ccKBFisX.s 			page 1
  106              		.thumb_func
  107              		.fpu softvfp
  109              	HAL_InitTick:
-ARM GAS  /tmp/ccKBFisX.s 			page 7
+ARM GAS  /tmp/cciLDJxf.s 			page 7
 
 
  110              	.LVL1:
@@ -418,7 +418,7 @@ ARM GAS  /tmp/ccKBFisX.s 			page 1
  258:Drivers/STM32F1xx_HAL_Driver/Src/stm32f1xx_hal.c ****   /* Configure the SysTick IRQ priority */
  259:Drivers/STM32F1xx_HAL_Driver/Src/stm32f1xx_hal.c ****   if (TickPriority < (1UL << __NVIC_PRIO_BITS))
  139              		.loc 1 259 3 is_stmt 1 view .LVU19
-ARM GAS  /tmp/ccKBFisX.s 			page 8
+ARM GAS  /tmp/cciLDJxf.s 			page 8
 
 
  140              		.loc 1 259 6 is_stmt 0 view .LVU20
@@ -478,7 +478,7 @@ ARM GAS  /tmp/ccKBFisX.s 			page 1
  179              		.align	1
  180              		.global	HAL_Init
  181              		.syntax unified
-ARM GAS  /tmp/ccKBFisX.s 			page 9
+ARM GAS  /tmp/cciLDJxf.s 			page 9
 
 
  182              		.thumb
@@ -538,7 +538,7 @@ ARM GAS  /tmp/ccKBFisX.s 			page 1
  232              	HAL_IncTick:
  233              	.LFB71:
  272:Drivers/STM32F1xx_HAL_Driver/Src/stm32f1xx_hal.c **** 
-ARM GAS  /tmp/ccKBFisX.s 			page 10
+ARM GAS  /tmp/cciLDJxf.s 			page 10
 
 
  273:Drivers/STM32F1xx_HAL_Driver/Src/stm32f1xx_hal.c **** /**
@@ -598,7 +598,7 @@ ARM GAS  /tmp/ccKBFisX.s 			page 1
  248 000c 7047     		bx	lr
  249              	.L21:
  250 000e 00BF     		.align	2
-ARM GAS  /tmp/ccKBFisX.s 			page 11
+ARM GAS  /tmp/cciLDJxf.s 			page 11
 
 
  251              	.L20:
@@ -658,7 +658,7 @@ ARM GAS  /tmp/ccKBFisX.s 			page 1
  327:Drivers/STM32F1xx_HAL_Driver/Src/stm32f1xx_hal.c ****   * @retval tick priority
  328:Drivers/STM32F1xx_HAL_Driver/Src/stm32f1xx_hal.c ****   */
  329:Drivers/STM32F1xx_HAL_Driver/Src/stm32f1xx_hal.c **** uint32_t HAL_GetTickPrio(void)
-ARM GAS  /tmp/ccKBFisX.s 			page 12
+ARM GAS  /tmp/cciLDJxf.s 			page 12
 
 
  330:Drivers/STM32F1xx_HAL_Driver/Src/stm32f1xx_hal.c **** {
@@ -718,7 +718,7 @@ ARM GAS  /tmp/ccKBFisX.s 			page 1
  337              		.loc 1 343 18 is_stmt 0 view .LVU53
  338 0002 064B     		ldr	r3, .L33
  339 0004 1B78     		ldrb	r3, [r3]	@ zero_extendqisi2
-ARM GAS  /tmp/ccKBFisX.s 			page 13
+ARM GAS  /tmp/cciLDJxf.s 			page 13
 
 
  340              		.loc 1 343 6 view .LVU54
@@ -778,7 +778,7 @@ ARM GAS  /tmp/ccKBFisX.s 			page 1
  379              		.thumb_func
  380              		.fpu softvfp
  382              	HAL_GetTickFreq:
-ARM GAS  /tmp/ccKBFisX.s 			page 14
+ARM GAS  /tmp/cciLDJxf.s 			page 14
 
 
  383              	.LFB75:
@@ -838,7 +838,7 @@ ARM GAS  /tmp/ccKBFisX.s 			page 1
  416              		.loc 1 375 1 is_stmt 0 view .LVU68
  417 0000 38B5     		push	{r3, r4, r5, lr}
  418              	.LCFI4:
-ARM GAS  /tmp/ccKBFisX.s 			page 15
+ARM GAS  /tmp/cciLDJxf.s 			page 15
 
 
  419              		.cfi_def_cfa_offset 16
@@ -898,7 +898,7 @@ ARM GAS  /tmp/ccKBFisX.s 			page 1
  456 0020 38BD     		pop	{r3, r4, r5, pc}
  457              	.LVL20:
  458              	.L43:
-ARM GAS  /tmp/ccKBFisX.s 			page 16
+ARM GAS  /tmp/cciLDJxf.s 			page 16
 
 
  459              		.loc 1 388 1 view .LVU84
@@ -958,7 +958,7 @@ ARM GAS  /tmp/ccKBFisX.s 			page 1
  500              		.thumb_func
  501              		.fpu softvfp
  503              	HAL_ResumeTick:
-ARM GAS  /tmp/ccKBFisX.s 			page 17
+ARM GAS  /tmp/cciLDJxf.s 			page 17
 
 
  504              	.LFB78:
@@ -1018,7 +1018,7 @@ ARM GAS  /tmp/ccKBFisX.s 			page 1
  537              		@ frame_needed = 0, uses_anonymous_args = 0
  538              		@ link register save eliminated.
  428:Drivers/STM32F1xx_HAL_Driver/Src/stm32f1xx_hal.c ****   return __STM32F1xx_HAL_VERSION;
-ARM GAS  /tmp/ccKBFisX.s 			page 18
+ARM GAS  /tmp/cciLDJxf.s 			page 18
 
 
  539              		.loc 1 428 3 view .LVU92
@@ -1078,7 +1078,7 @@ ARM GAS  /tmp/ccKBFisX.s 			page 1
  579              		.section	.text.HAL_GetDEVID,"ax",%progbits
  580              		.align	1
  581              		.global	HAL_GetDEVID
-ARM GAS  /tmp/ccKBFisX.s 			page 19
+ARM GAS  /tmp/cciLDJxf.s 			page 19
 
 
  582              		.syntax unified
@@ -1138,7 +1138,7 @@ ARM GAS  /tmp/ccKBFisX.s 			page 1
  467:Drivers/STM32F1xx_HAL_Driver/Src/stm32f1xx_hal.c **** void HAL_DBGMCU_EnableDBGSleepMode(void)
  468:Drivers/STM32F1xx_HAL_Driver/Src/stm32f1xx_hal.c **** {
  618              		.loc 1 468 1 is_stmt 1 view -0
-ARM GAS  /tmp/ccKBFisX.s 			page 20
+ARM GAS  /tmp/cciLDJxf.s 			page 20
 
 
  619              		.cfi_startproc
@@ -1198,7 +1198,7 @@ ARM GAS  /tmp/ccKBFisX.s 			page 1
  657              		.loc 1 486 1 is_stmt 0 view .LVU107
  658 000a 7047     		bx	lr
  659              	.L64:
-ARM GAS  /tmp/ccKBFisX.s 			page 21
+ARM GAS  /tmp/cciLDJxf.s 			page 21
 
 
  660              		.align	2
@@ -1258,7 +1258,7 @@ ARM GAS  /tmp/ccKBFisX.s 			page 1
  686              		.loc 1 516 1 is_stmt 0 view .LVU110
  687 000a 7047     		bx	lr
  688              	.L67:
-ARM GAS  /tmp/ccKBFisX.s 			page 22
+ARM GAS  /tmp/cciLDJxf.s 			page 22
 
 
  689              		.align	2
@@ -1318,7 +1318,7 @@ ARM GAS  /tmp/ccKBFisX.s 			page 1
  730              		.fpu softvfp
  732              	HAL_DBGMCU_EnableDBGStandbyMode:
  733              	.LFB86:
-ARM GAS  /tmp/ccKBFisX.s 			page 23
+ARM GAS  /tmp/cciLDJxf.s 			page 23
 
 
  533:Drivers/STM32F1xx_HAL_Driver/Src/stm32f1xx_hal.c **** 
@@ -1378,7 +1378,7 @@ ARM GAS  /tmp/ccKBFisX.s 			page 1
  560:Drivers/STM32F1xx_HAL_Driver/Src/stm32f1xx_hal.c ****   */
  561:Drivers/STM32F1xx_HAL_Driver/Src/stm32f1xx_hal.c **** void HAL_DBGMCU_DisableDBGStandbyMode(void)
  562:Drivers/STM32F1xx_HAL_Driver/Src/stm32f1xx_hal.c **** {
-ARM GAS  /tmp/ccKBFisX.s 			page 24
+ARM GAS  /tmp/cciLDJxf.s 			page 24
 
 
  763              		.loc 1 562 1 is_stmt 1 view -0
@@ -1438,7 +1438,7 @@ ARM GAS  /tmp/ccKBFisX.s 			page 1
  807 0008 1B68     		ldr	r3, [r3]
  808              		.loc 1 574 10 view .LVU126
  809 000a 4360     		str	r3, [r0, #4]
-ARM GAS  /tmp/ccKBFisX.s 			page 25
+ARM GAS  /tmp/cciLDJxf.s 			page 25
 
 
  575:Drivers/STM32F1xx_HAL_Driver/Src/stm32f1xx_hal.c ****   UID[2] = (uint32_t)(READ_REG(*((uint32_t *)(UID_BASE + 8U))));
@@ -1484,85 +1484,85 @@ ARM GAS  /tmp/ccKBFisX.s 			page 1
  853              		.file 10 "Drivers/STM32F1xx_HAL_Driver/Inc/stm32f1xx_hal_def.h"
  854              		.file 11 "Drivers/STM32F1xx_HAL_Driver/Inc/stm32f1xx_hal.h"
  855              		.file 12 "Drivers/STM32F1xx_HAL_Driver/Inc/stm32f1xx_hal_cortex.h"
-ARM GAS  /tmp/ccKBFisX.s 			page 26
+ARM GAS  /tmp/cciLDJxf.s 			page 26
 
 
 DEFINED SYMBOLS
                             *ABS*:0000000000000000 stm32f1xx_hal.c
-     /tmp/ccKBFisX.s:16     .text.HAL_MspInit:0000000000000000 $t
-     /tmp/ccKBFisX.s:24     .text.HAL_MspInit:0000000000000000 HAL_MspInit
-     /tmp/ccKBFisX.s:38     .text.HAL_MspDeInit:0000000000000000 $t
-     /tmp/ccKBFisX.s:45     .text.HAL_MspDeInit:0000000000000000 HAL_MspDeInit
-     /tmp/ccKBFisX.s:58     .text.HAL_DeInit:0000000000000000 $t
-     /tmp/ccKBFisX.s:65     .text.HAL_DeInit:0000000000000000 HAL_DeInit
-     /tmp/ccKBFisX.s:97     .text.HAL_DeInit:000000000000001c $d
-     /tmp/ccKBFisX.s:102    .text.HAL_InitTick:0000000000000000 $t
-     /tmp/ccKBFisX.s:109    .text.HAL_InitTick:0000000000000000 HAL_InitTick
-     /tmp/ccKBFisX.s:172    .text.HAL_InitTick:0000000000000040 $d
-     /tmp/ccKBFisX.s:179    .text.HAL_Init:0000000000000000 $t
-     /tmp/ccKBFisX.s:186    .text.HAL_Init:0000000000000000 HAL_Init
-     /tmp/ccKBFisX.s:220    .text.HAL_Init:0000000000000020 $d
-     /tmp/ccKBFisX.s:225    .text.HAL_IncTick:0000000000000000 $t
-     /tmp/ccKBFisX.s:232    .text.HAL_IncTick:0000000000000000 HAL_IncTick
-     /tmp/ccKBFisX.s:252    .text.HAL_IncTick:0000000000000010 $d
+     /tmp/cciLDJxf.s:16     .text.HAL_MspInit:0000000000000000 $t
+     /tmp/cciLDJxf.s:24     .text.HAL_MspInit:0000000000000000 HAL_MspInit
+     /tmp/cciLDJxf.s:38     .text.HAL_MspDeInit:0000000000000000 $t
+     /tmp/cciLDJxf.s:45     .text.HAL_MspDeInit:0000000000000000 HAL_MspDeInit
+     /tmp/cciLDJxf.s:58     .text.HAL_DeInit:0000000000000000 $t
+     /tmp/cciLDJxf.s:65     .text.HAL_DeInit:0000000000000000 HAL_DeInit
+     /tmp/cciLDJxf.s:97     .text.HAL_DeInit:000000000000001c $d
+     /tmp/cciLDJxf.s:102    .text.HAL_InitTick:0000000000000000 $t
+     /tmp/cciLDJxf.s:109    .text.HAL_InitTick:0000000000000000 HAL_InitTick
+     /tmp/cciLDJxf.s:172    .text.HAL_InitTick:0000000000000040 $d
+     /tmp/cciLDJxf.s:179    .text.HAL_Init:0000000000000000 $t
+     /tmp/cciLDJxf.s:186    .text.HAL_Init:0000000000000000 HAL_Init
+     /tmp/cciLDJxf.s:220    .text.HAL_Init:0000000000000020 $d
+     /tmp/cciLDJxf.s:225    .text.HAL_IncTick:0000000000000000 $t
+     /tmp/cciLDJxf.s:232    .text.HAL_IncTick:0000000000000000 HAL_IncTick
+     /tmp/cciLDJxf.s:252    .text.HAL_IncTick:0000000000000010 $d
                             *COM*:0000000000000004 uwTick
-     /tmp/ccKBFisX.s:258    .text.HAL_GetTick:0000000000000000 $t
-     /tmp/ccKBFisX.s:265    .text.HAL_GetTick:0000000000000000 HAL_GetTick
-     /tmp/ccKBFisX.s:281    .text.HAL_GetTick:0000000000000008 $d
-     /tmp/ccKBFisX.s:286    .text.HAL_GetTickPrio:0000000000000000 $t
-     /tmp/ccKBFisX.s:293    .text.HAL_GetTickPrio:0000000000000000 HAL_GetTickPrio
-     /tmp/ccKBFisX.s:308    .text.HAL_GetTickPrio:0000000000000008 $d
-     /tmp/ccKBFisX.s:313    .text.HAL_SetTickFreq:0000000000000000 $t
-     /tmp/ccKBFisX.s:320    .text.HAL_SetTickFreq:0000000000000000 HAL_SetTickFreq
-     /tmp/ccKBFisX.s:369    .text.HAL_SetTickFreq:000000000000001c $d
-     /tmp/ccKBFisX.s:375    .text.HAL_GetTickFreq:0000000000000000 $t
-     /tmp/ccKBFisX.s:382    .text.HAL_GetTickFreq:0000000000000000 HAL_GetTickFreq
-     /tmp/ccKBFisX.s:397    .text.HAL_GetTickFreq:0000000000000008 $d
-     /tmp/ccKBFisX.s:402    .text.HAL_Delay:0000000000000000 $t
-     /tmp/ccKBFisX.s:409    .text.HAL_Delay:0000000000000000 HAL_Delay
-     /tmp/ccKBFisX.s:462    .text.HAL_Delay:0000000000000024 $d
-     /tmp/ccKBFisX.s:467    .text.HAL_SuspendTick:0000000000000000 $t
-     /tmp/ccKBFisX.s:474    .text.HAL_SuspendTick:0000000000000000 HAL_SuspendTick
-     /tmp/ccKBFisX.s:491    .text.HAL_SuspendTick:000000000000000c $d
-     /tmp/ccKBFisX.s:496    .text.HAL_ResumeTick:0000000000000000 $t
-     /tmp/ccKBFisX.s:503    .text.HAL_ResumeTick:0000000000000000 HAL_ResumeTick
-     /tmp/ccKBFisX.s:520    .text.HAL_ResumeTick:000000000000000c $d
-     /tmp/ccKBFisX.s:525    .text.HAL_GetHalVersion:0000000000000000 $t
-     /tmp/ccKBFisX.s:532    .text.HAL_GetHalVersion:0000000000000000 HAL_GetHalVersion
-     /tmp/ccKBFisX.s:546    .text.HAL_GetHalVersion:0000000000000004 $d
-     /tmp/ccKBFisX.s:551    .text.HAL_GetREVID:0000000000000000 $t
-     /tmp/ccKBFisX.s:558    .text.HAL_GetREVID:0000000000000000 HAL_GetREVID
-     /tmp/ccKBFisX.s:575    .text.HAL_GetREVID:0000000000000008 $d
-     /tmp/ccKBFisX.s:580    .text.HAL_GetDEVID:0000000000000000 $t
-     /tmp/ccKBFisX.s:587    .text.HAL_GetDEVID:0000000000000000 HAL_GetDEVID
-     /tmp/ccKBFisX.s:604    .text.HAL_GetDEVID:000000000000000c $d
-     /tmp/ccKBFisX.s:609    .text.HAL_DBGMCU_EnableDBGSleepMode:0000000000000000 $t
-     /tmp/ccKBFisX.s:616    .text.HAL_DBGMCU_EnableDBGSleepMode:0000000000000000 HAL_DBGMCU_EnableDBGSleepMode
-     /tmp/ccKBFisX.s:633    .text.HAL_DBGMCU_EnableDBGSleepMode:000000000000000c $d
-     /tmp/ccKBFisX.s:638    .text.HAL_DBGMCU_DisableDBGSleepMode:0000000000000000 $t
-     /tmp/ccKBFisX.s:645    .text.HAL_DBGMCU_DisableDBGSleepMode:0000000000000000 HAL_DBGMCU_DisableDBGSleepMode
-     /tmp/ccKBFisX.s:662    .text.HAL_DBGMCU_DisableDBGSleepMode:000000000000000c $d
-     /tmp/ccKBFisX.s:667    .text.HAL_DBGMCU_EnableDBGStopMode:0000000000000000 $t
-     /tmp/ccKBFisX.s:674    .text.HAL_DBGMCU_EnableDBGStopMode:0000000000000000 HAL_DBGMCU_EnableDBGStopMode
-ARM GAS  /tmp/ccKBFisX.s 			page 27
+     /tmp/cciLDJxf.s:258    .text.HAL_GetTick:0000000000000000 $t
+     /tmp/cciLDJxf.s:265    .text.HAL_GetTick:0000000000000000 HAL_GetTick
+     /tmp/cciLDJxf.s:281    .text.HAL_GetTick:0000000000000008 $d
+     /tmp/cciLDJxf.s:286    .text.HAL_GetTickPrio:0000000000000000 $t
+     /tmp/cciLDJxf.s:293    .text.HAL_GetTickPrio:0000000000000000 HAL_GetTickPrio
+     /tmp/cciLDJxf.s:308    .text.HAL_GetTickPrio:0000000000000008 $d
+     /tmp/cciLDJxf.s:313    .text.HAL_SetTickFreq:0000000000000000 $t
+     /tmp/cciLDJxf.s:320    .text.HAL_SetTickFreq:0000000000000000 HAL_SetTickFreq
+     /tmp/cciLDJxf.s:369    .text.HAL_SetTickFreq:000000000000001c $d
+     /tmp/cciLDJxf.s:375    .text.HAL_GetTickFreq:0000000000000000 $t
+     /tmp/cciLDJxf.s:382    .text.HAL_GetTickFreq:0000000000000000 HAL_GetTickFreq
+     /tmp/cciLDJxf.s:397    .text.HAL_GetTickFreq:0000000000000008 $d
+     /tmp/cciLDJxf.s:402    .text.HAL_Delay:0000000000000000 $t
+     /tmp/cciLDJxf.s:409    .text.HAL_Delay:0000000000000000 HAL_Delay
+     /tmp/cciLDJxf.s:462    .text.HAL_Delay:0000000000000024 $d
+     /tmp/cciLDJxf.s:467    .text.HAL_SuspendTick:0000000000000000 $t
+     /tmp/cciLDJxf.s:474    .text.HAL_SuspendTick:0000000000000000 HAL_SuspendTick
+     /tmp/cciLDJxf.s:491    .text.HAL_SuspendTick:000000000000000c $d
+     /tmp/cciLDJxf.s:496    .text.HAL_ResumeTick:0000000000000000 $t
+     /tmp/cciLDJxf.s:503    .text.HAL_ResumeTick:0000000000000000 HAL_ResumeTick
+     /tmp/cciLDJxf.s:520    .text.HAL_ResumeTick:000000000000000c $d
+     /tmp/cciLDJxf.s:525    .text.HAL_GetHalVersion:0000000000000000 $t
+     /tmp/cciLDJxf.s:532    .text.HAL_GetHalVersion:0000000000000000 HAL_GetHalVersion
+     /tmp/cciLDJxf.s:546    .text.HAL_GetHalVersion:0000000000000004 $d
+     /tmp/cciLDJxf.s:551    .text.HAL_GetREVID:0000000000000000 $t
+     /tmp/cciLDJxf.s:558    .text.HAL_GetREVID:0000000000000000 HAL_GetREVID
+     /tmp/cciLDJxf.s:575    .text.HAL_GetREVID:0000000000000008 $d
+     /tmp/cciLDJxf.s:580    .text.HAL_GetDEVID:0000000000000000 $t
+     /tmp/cciLDJxf.s:587    .text.HAL_GetDEVID:0000000000000000 HAL_GetDEVID
+     /tmp/cciLDJxf.s:604    .text.HAL_GetDEVID:000000000000000c $d
+     /tmp/cciLDJxf.s:609    .text.HAL_DBGMCU_EnableDBGSleepMode:0000000000000000 $t
+     /tmp/cciLDJxf.s:616    .text.HAL_DBGMCU_EnableDBGSleepMode:0000000000000000 HAL_DBGMCU_EnableDBGSleepMode
+     /tmp/cciLDJxf.s:633    .text.HAL_DBGMCU_EnableDBGSleepMode:000000000000000c $d
+     /tmp/cciLDJxf.s:638    .text.HAL_DBGMCU_DisableDBGSleepMode:0000000000000000 $t
+     /tmp/cciLDJxf.s:645    .text.HAL_DBGMCU_DisableDBGSleepMode:0000000000000000 HAL_DBGMCU_DisableDBGSleepMode
+     /tmp/cciLDJxf.s:662    .text.HAL_DBGMCU_DisableDBGSleepMode:000000000000000c $d
+     /tmp/cciLDJxf.s:667    .text.HAL_DBGMCU_EnableDBGStopMode:0000000000000000 $t
+     /tmp/cciLDJxf.s:674    .text.HAL_DBGMCU_EnableDBGStopMode:0000000000000000 HAL_DBGMCU_EnableDBGStopMode
+ARM GAS  /tmp/cciLDJxf.s 			page 27
 
 
-     /tmp/ccKBFisX.s:691    .text.HAL_DBGMCU_EnableDBGStopMode:000000000000000c $d
-     /tmp/ccKBFisX.s:696    .text.HAL_DBGMCU_DisableDBGStopMode:0000000000000000 $t
-     /tmp/ccKBFisX.s:703    .text.HAL_DBGMCU_DisableDBGStopMode:0000000000000000 HAL_DBGMCU_DisableDBGStopMode
-     /tmp/ccKBFisX.s:720    .text.HAL_DBGMCU_DisableDBGStopMode:000000000000000c $d
-     /tmp/ccKBFisX.s:725    .text.HAL_DBGMCU_EnableDBGStandbyMode:0000000000000000 $t
-     /tmp/ccKBFisX.s:732    .text.HAL_DBGMCU_EnableDBGStandbyMode:0000000000000000 HAL_DBGMCU_EnableDBGStandbyMode
-     /tmp/ccKBFisX.s:749    .text.HAL_DBGMCU_EnableDBGStandbyMode:000000000000000c $d
-     /tmp/ccKBFisX.s:754    .text.HAL_DBGMCU_DisableDBGStandbyMode:0000000000000000 $t
-     /tmp/ccKBFisX.s:761    .text.HAL_DBGMCU_DisableDBGStandbyMode:0000000000000000 HAL_DBGMCU_DisableDBGStandbyMode
-     /tmp/ccKBFisX.s:778    .text.HAL_DBGMCU_DisableDBGStandbyMode:000000000000000c $d
-     /tmp/ccKBFisX.s:783    .text.HAL_GetUID:0000000000000000 $t
-     /tmp/ccKBFisX.s:790    .text.HAL_GetUID:0000000000000000 HAL_GetUID
-     /tmp/ccKBFisX.s:821    .text.HAL_GetUID:0000000000000014 $d
-     /tmp/ccKBFisX.s:834    .data.uwTickFreq:0000000000000000 uwTickFreq
-     /tmp/ccKBFisX.s:841    .data.uwTickPrio:0000000000000000 uwTickPrio
-     /tmp/ccKBFisX.s:837    .data.uwTickPrio:0000000000000000 $d
+     /tmp/cciLDJxf.s:691    .text.HAL_DBGMCU_EnableDBGStopMode:000000000000000c $d
+     /tmp/cciLDJxf.s:696    .text.HAL_DBGMCU_DisableDBGStopMode:0000000000000000 $t
+     /tmp/cciLDJxf.s:703    .text.HAL_DBGMCU_DisableDBGStopMode:0000000000000000 HAL_DBGMCU_DisableDBGStopMode
+     /tmp/cciLDJxf.s:720    .text.HAL_DBGMCU_DisableDBGStopMode:000000000000000c $d
+     /tmp/cciLDJxf.s:725    .text.HAL_DBGMCU_EnableDBGStandbyMode:0000000000000000 $t
+     /tmp/cciLDJxf.s:732    .text.HAL_DBGMCU_EnableDBGStandbyMode:0000000000000000 HAL_DBGMCU_EnableDBGStandbyMode
+     /tmp/cciLDJxf.s:749    .text.HAL_DBGMCU_EnableDBGStandbyMode:000000000000000c $d
+     /tmp/cciLDJxf.s:754    .text.HAL_DBGMCU_DisableDBGStandbyMode:0000000000000000 $t
+     /tmp/cciLDJxf.s:761    .text.HAL_DBGMCU_DisableDBGStandbyMode:0000000000000000 HAL_DBGMCU_DisableDBGStandbyMode
+     /tmp/cciLDJxf.s:778    .text.HAL_DBGMCU_DisableDBGStandbyMode:000000000000000c $d
+     /tmp/cciLDJxf.s:783    .text.HAL_GetUID:0000000000000000 $t
+     /tmp/cciLDJxf.s:790    .text.HAL_GetUID:0000000000000000 HAL_GetUID
+     /tmp/cciLDJxf.s:821    .text.HAL_GetUID:0000000000000014 $d
+     /tmp/cciLDJxf.s:834    .data.uwTickFreq:0000000000000000 uwTickFreq
+     /tmp/cciLDJxf.s:841    .data.uwTickPrio:0000000000000000 uwTickPrio
+     /tmp/cciLDJxf.s:837    .data.uwTickPrio:0000000000000000 $d
 
 UNDEFINED SYMBOLS
 HAL_SYSTICK_Config

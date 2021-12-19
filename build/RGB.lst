@@ -1,4 +1,4 @@
-ARM GAS  /tmp/ccpOQIXv.s 			page 1
+ARM GAS  /tmp/ccB91Jp9.s 			page 1
 
 
    1              		.cpu cortex-m3
@@ -58,7 +58,7 @@ ARM GAS  /tmp/ccpOQIXv.s 			page 1
   37 0002 4360     		str	r3, [r0, #4]
   20:Core/Src/RGB.c **** 	ws->channel 	= stuc->channel;
   38              		.loc 1 20 2 is_stmt 1 view .LVU4
-ARM GAS  /tmp/ccpOQIXv.s 			page 2
+ARM GAS  /tmp/ccB91Jp9.s 			page 2
 
 
   39              		.loc 1 20 21 is_stmt 0 view .LVU5
@@ -118,7 +118,7 @@ ARM GAS  /tmp/ccpOQIXv.s 			page 1
   29:Core/Src/RGB.c **** void WS2812_LED_SetBrightness(WS2812* ws, const uint8_t brightness){
   89              		.loc 1 29 68 view -0
   90              		.cfi_startproc
-ARM GAS  /tmp/ccpOQIXv.s 			page 3
+ARM GAS  /tmp/ccB91Jp9.s 			page 3
 
 
   91              		@ args = 0, pretend = 0, frame = 0
@@ -178,7 +178,7 @@ ARM GAS  /tmp/ccpOQIXv.s 			page 1
  140              		.loc 1 36 25 view .LVU29
  141 001a B3FBF4F3 		udiv	r3, r3, r4
  142              	.LVL5:
-ARM GAS  /tmp/ccpOQIXv.s 			page 4
+ARM GAS  /tmp/ccB91Jp9.s 			page 4
 
 
  143              		.loc 1 36 25 view .LVU30
@@ -238,7 +238,7 @@ ARM GAS  /tmp/ccpOQIXv.s 			page 1
  193 0004 C2F30744 		ubfx	r4, r2, #16, #8
  194 0008 0094     		str	r4, [sp]
  195 000a C2F30723 		ubfx	r3, r2, #8, #8
-ARM GAS  /tmp/ccpOQIXv.s 			page 5
+ARM GAS  /tmp/ccB91Jp9.s 			page 5
 
 
  196 000e D2B2     		uxtb	r2, r2
@@ -298,7 +298,7 @@ ARM GAS  /tmp/ccpOQIXv.s 			page 1
  246 001a 5DF804FB 		ldr	pc, [sp], #4
  247              		.cfi_endproc
  248              	.LFE76:
-ARM GAS  /tmp/ccpOQIXv.s 			page 6
+ARM GAS  /tmp/ccB91Jp9.s 			page 6
 
 
  250              		.section	.text.HAL_TIM_PWM_PulseFinishedCallback,"ax",%progbits
@@ -358,7 +358,7 @@ ARM GAS  /tmp/ccpOQIXv.s 			page 1
  302              	.LVL15:
  303              	.LFB78:
   54:Core/Src/RGB.c **** 
-ARM GAS  /tmp/ccpOQIXv.s 			page 7
+ARM GAS  /tmp/ccB91Jp9.s 			page 7
 
 
   55:Core/Src/RGB.c **** void WS2812_sendData(WS2812* ws){
@@ -418,7 +418,7 @@ ARM GAS  /tmp/ccpOQIXv.s 			page 1
  346              	.LVL19:
   61:Core/Src/RGB.c **** 			if(color & (1 << offset)) ws->pwmData[index] = WS2812_ONECODE;
  347              		.loc 1 61 47 discriminator 2 view .LVU68
-ARM GAS  /tmp/ccpOQIXv.s 			page 8
+ARM GAS  /tmp/ccB91Jp9.s 			page 8
 
 
  348 0016 49B2     		sxtb	r1, r1
@@ -478,7 +478,7 @@ ARM GAS  /tmp/ccpOQIXv.s 			page 1
  388              	.LBB6:
   59:Core/Src/RGB.c **** 
  389              		.loc 1 59 3 is_stmt 1 view .LVU83
-ARM GAS  /tmp/ccpOQIXv.s 			page 9
+ARM GAS  /tmp/ccB91Jp9.s 			page 9
 
 
   59:Core/Src/RGB.c **** 
@@ -538,7 +538,7 @@ ARM GAS  /tmp/ccpOQIXv.s 			page 1
  428 0062 4460     		str	r4, [r0, #4]
   67:Core/Src/RGB.c **** 		ws->pwmData[index] = 0;
  429              		.loc 1 67 41 is_stmt 1 discriminator 3 view .LVU98
-ARM GAS  /tmp/ccpOQIXv.s 			page 10
+ARM GAS  /tmp/ccB91Jp9.s 			page 10
 
 
   67:Core/Src/RGB.c **** 		ws->pwmData[index] = 0;
@@ -598,7 +598,7 @@ ARM GAS  /tmp/ccpOQIXv.s 			page 1
  474 0086 1A70     		strb	r2, [r3]
   73:Core/Src/RGB.c **** }
  475              		.loc 1 73 1 discriminator 2 view .LVU117
-ARM GAS  /tmp/ccpOQIXv.s 			page 11
+ARM GAS  /tmp/ccB91Jp9.s 			page 11
 
 
  476 0088 70BD     		pop	{r4, r5, r6, pc}
@@ -658,7 +658,7 @@ ARM GAS  /tmp/ccpOQIXv.s 			page 1
  521 000e 1368     		ldr	r3, [r2]
  522 0010 0133     		adds	r3, r3, #1
  523 0012 1360     		str	r3, [r2]
-ARM GAS  /tmp/ccpOQIXv.s 			page 12
+ARM GAS  /tmp/ccB91Jp9.s 			page 12
 
 
   85:Core/Src/RGB.c **** 			led_index = 0;
@@ -718,7 +718,7 @@ ARM GAS  /tmp/ccpOQIXv.s 			page 1
  565 0052 1368     		ldr	r3, [r2]
  566 0054 591C     		adds	r1, r3, #1
  567 0056 1160     		str	r1, [r2]
-ARM GAS  /tmp/ccpOQIXv.s 			page 13
+ARM GAS  /tmp/ccB91Jp9.s 			page 13
 
 
   82:Core/Src/RGB.c **** 		if(led_index == ws->LED_num) {
@@ -778,7 +778,7 @@ ARM GAS  /tmp/ccpOQIXv.s 			page 1
   97:Core/Src/RGB.c **** void WS2812_BreathTask(WS2812* ws){
  612              		.loc 1 97 35 is_stmt 1 view -0
  613              		.cfi_startproc
-ARM GAS  /tmp/ccpOQIXv.s 			page 14
+ARM GAS  /tmp/ccB91Jp9.s 			page 14
 
 
  614              		@ Volatile: function does not return.
@@ -838,7 +838,7 @@ ARM GAS  /tmp/ccpOQIXv.s 			page 1
  658 0036 9342     		cmp	r3, r2
  659 0038 26D2     		bcs	.L39
  660              		.loc 1 107 34 is_stmt 1 discriminator 1 view .LVU160
-ARM GAS  /tmp/ccpOQIXv.s 			page 15
+ARM GAS  /tmp/ccB91Jp9.s 			page 15
 
 
  661              		.loc 1 107 39 is_stmt 0 discriminator 1 view .LVU161
@@ -898,7 +898,7 @@ ARM GAS  /tmp/ccpOQIXv.s 			page 1
  702              	.LVL43:
  103:Core/Src/RGB.c **** 
  703              		.loc 1 103 7 view .LVU172
-ARM GAS  /tmp/ccpOQIXv.s 			page 16
+ARM GAS  /tmp/ccB91Jp9.s 			page 16
 
 
  704              	.L41:
@@ -958,7 +958,7 @@ ARM GAS  /tmp/ccpOQIXv.s 			page 1
  748              		.syntax unified
  749              		.thumb
  750              		.thumb_func
-ARM GAS  /tmp/ccpOQIXv.s 			page 17
+ARM GAS  /tmp/ccB91Jp9.s 			page 17
 
 
  751              		.fpu softvfp
@@ -1018,7 +1018,7 @@ ARM GAS  /tmp/ccpOQIXv.s 			page 1
  795              		.loc 1 131 43 discriminator 3 view .LVU195
  796 001c 25FA01F1 		lsr	r1, r5, r1
  797              		.loc 1 131 23 discriminator 3 view .LVU196
-ARM GAS  /tmp/ccpOQIXv.s 			page 18
+ARM GAS  /tmp/ccB91Jp9.s 			page 18
 
 
  798 0020 04EB8002 		add	r2, r4, r0, lsl #2
@@ -1078,7 +1078,7 @@ ARM GAS  /tmp/ccpOQIXv.s 			page 1
  838              	.LBE11:
  839              	.LBE9:
  132:Core/Src/RGB.c **** 		}
-ARM GAS  /tmp/ccpOQIXv.s 			page 19
+ARM GAS  /tmp/ccB91Jp9.s 			page 19
 
 
  133:Core/Src/RGB.c **** 	}
@@ -1138,7 +1138,7 @@ ARM GAS  /tmp/ccpOQIXv.s 			page 1
  886              		.loc 1 141 10 is_stmt 0 view .LVU219
  887 0004 0024     		movs	r4, #0
  888              	.LVL57:
-ARM GAS  /tmp/ccpOQIXv.s 			page 20
+ARM GAS  /tmp/ccB91Jp9.s 			page 20
 
 
  889              	.L58:
@@ -1198,7 +1198,7 @@ ARM GAS  /tmp/ccpOQIXv.s 			page 1
  929              		.loc 1 153 39 is_stmt 0 view .LVU230
  930 0000 70B5     		push	{r4, r5, r6, lr}
  931              	.LCFI15:
-ARM GAS  /tmp/ccpOQIXv.s 			page 21
+ARM GAS  /tmp/ccB91Jp9.s 			page 21
 
 
  932              		.cfi_def_cfa_offset 16
@@ -1258,7 +1258,7 @@ ARM GAS  /tmp/ccpOQIXv.s 			page 1
  967 001c 544A     		ldr	r2, .L86+8
  968 001e 1368     		ldr	r3, [r2]
  969 0020 591C     		adds	r1, r3, #1
-ARM GAS  /tmp/ccpOQIXv.s 			page 22
+ARM GAS  /tmp/ccB91Jp9.s 			page 22
 
 
  970 0022 1160     		str	r1, [r2]
@@ -1318,7 +1318,7 @@ ARM GAS  /tmp/ccpOQIXv.s 			page 1
  190:Core/Src/RGB.c **** 						step = 1;
  191:Core/Src/RGB.c **** 						color_index++;
  192:Core/Src/RGB.c **** 						color_index %= 10;
-ARM GAS  /tmp/ccpOQIXv.s 			page 23
+ARM GAS  /tmp/ccB91Jp9.s 			page 23
 
 
  193:Core/Src/RGB.c **** 					}
@@ -1378,7 +1378,7 @@ ARM GAS  /tmp/ccpOQIXv.s 			page 1
  1029              		.loc 1 166 3 is_stmt 1 view .LVU261
  1030 0068 454B     		ldr	r3, .L86+24
  1031 006a 1978     		ldrb	r1, [r3]	@ zero_extendqisi2
-ARM GAS  /tmp/ccpOQIXv.s 			page 24
+ARM GAS  /tmp/ccB91Jp9.s 			page 24
 
 
  1032 006c 3F48     		ldr	r0, .L86+4
@@ -1438,7 +1438,7 @@ ARM GAS  /tmp/ccpOQIXv.s 			page 1
  183:Core/Src/RGB.c **** 					WS2812_LED_SetRGB(&ws2812, led_index, defaultColorList[color_index]);
  1075              		.loc 1 183 13 is_stmt 0 view .LVU273
  1076 009e 394B     		ldr	r3, .L86+28
-ARM GAS  /tmp/ccpOQIXv.s 			page 25
+ARM GAS  /tmp/ccB91Jp9.s 			page 25
 
 
  1077 00a0 93F90030 		ldrsb	r3, [r3]
@@ -1498,7 +1498,7 @@ ARM GAS  /tmp/ccpOQIXv.s 			page 1
  1119 00e2 9C42     		cmp	r4, r3
  1120 00e4 E0D9     		bls	.L72
  185:Core/Src/RGB.c **** 				}
-ARM GAS  /tmp/ccpOQIXv.s 			page 26
+ARM GAS  /tmp/ccB91Jp9.s 			page 26
 
 
  1121              		.loc 1 185 39 is_stmt 1 discriminator 1 view .LVU286
@@ -1558,7 +1558,7 @@ ARM GAS  /tmp/ccpOQIXv.s 			page 1
  199:Core/Src/RGB.c **** 					Flash_Read_Data (LED_START_ADDR, &data, MAX_LED);
  1161              		.loc 1 199 8 is_stmt 0 view .LVU301
  1162 0114 1D4B     		ldr	r3, .L86+36
-ARM GAS  /tmp/ccpOQIXv.s 			page 27
+ARM GAS  /tmp/ccB91Jp9.s 			page 27
 
 
  1163 0116 1B78     		ldrb	r3, [r3]	@ zero_extendqisi2
@@ -1618,7 +1618,7 @@ ARM GAS  /tmp/ccpOQIXv.s 			page 1
  204:Core/Src/RGB.c **** 							ws2812.LED_Data[i][j] = (uint8_t)(data[i] >> (8 * j));
  1203              		.loc 1 204 7 is_stmt 0 discriminator 1 view .LVU316
  1204 0142 032A     		cmp	r2, #3
-ARM GAS  /tmp/ccpOQIXv.s 			page 28
+ARM GAS  /tmp/ccB91Jp9.s 			page 28
 
 
  1205 0144 F3DD     		ble	.L77
@@ -1678,7 +1678,7 @@ ARM GAS  /tmp/ccpOQIXv.s 			page 1
  1247 0170 00000000 		.word	.LANCHOR11
  1248 0174 00000000 		.word	.LANCHOR4
  1249 0178 00000000 		.word	sleep_mode
-ARM GAS  /tmp/ccpOQIXv.s 			page 29
+ARM GAS  /tmp/ccB91Jp9.s 			page 29
 
 
  1250 017c 00000000 		.word	.LANCHOR9
@@ -1738,7 +1738,7 @@ ARM GAS  /tmp/ccpOQIXv.s 			page 1
  1317              		.set	.LANCHOR7,. + 0
  1320              	led_index.9628:
  1321 0000 00000000 		.space	4
-ARM GAS  /tmp/ccpOQIXv.s 			page 30
+ARM GAS  /tmp/ccB91Jp9.s 			page 30
 
 
  1322              		.section	.data.brightness,"aw"
@@ -1798,7 +1798,7 @@ ARM GAS  /tmp/ccpOQIXv.s 			page 1
  1388              		.section	.data.step.9668,"aw"
  1389              		.set	.LANCHOR12,. + 0
  1392              	step.9668:
-ARM GAS  /tmp/ccpOQIXv.s 			page 31
+ARM GAS  /tmp/ccB91Jp9.s 			page 31
 
 
  1393 0000 01       		.byte	1
@@ -1825,73 +1825,73 @@ ARM GAS  /tmp/ccpOQIXv.s 			page 1
  1414              		.file 20 "Core/Inc/oled/led_page.h"
  1415              		.file 21 "Core/Inc/flash.h"
  1416              		.file 22 "Middlewares/Third_Party/FreeRTOS/Source/CMSIS_RTOS/cmsis_os.h"
-ARM GAS  /tmp/ccpOQIXv.s 			page 32
+ARM GAS  /tmp/ccB91Jp9.s 			page 32
 
 
 DEFINED SYMBOLS
                             *ABS*:0000000000000000 RGB.c
-     /tmp/ccpOQIXv.s:16     .text.WS2812_init:0000000000000000 $t
-     /tmp/ccpOQIXv.s:24     .text.WS2812_init:0000000000000000 WS2812_init
-     /tmp/ccpOQIXv.s:58     .text.WS2812_Deinit:0000000000000000 $t
-     /tmp/ccpOQIXv.s:65     .text.WS2812_Deinit:0000000000000000 WS2812_Deinit
-     /tmp/ccpOQIXv.s:79     .text.WS2812_LED_SetBrightness:0000000000000000 $t
-     /tmp/ccpOQIXv.s:86     .text.WS2812_LED_SetBrightness:0000000000000000 WS2812_LED_SetBrightness
-     /tmp/ccpOQIXv.s:103    .text.WS2812_LED_Set:0000000000000000 $t
-     /tmp/ccpOQIXv.s:110    .text.WS2812_LED_Set:0000000000000000 WS2812_LED_Set
-     /tmp/ccpOQIXv.s:169    .text.WS2812_LED_SetRGB:0000000000000000 $t
-     /tmp/ccpOQIXv.s:176    .text.WS2812_LED_SetRGB:0000000000000000 WS2812_LED_SetRGB
-     /tmp/ccpOQIXv.s:209    .text.WS2812_LED_ClearRGB:0000000000000000 $t
-     /tmp/ccpOQIXv.s:216    .text.WS2812_LED_ClearRGB:0000000000000000 WS2812_LED_ClearRGB
-     /tmp/ccpOQIXv.s:251    .text.HAL_TIM_PWM_PulseFinishedCallback:0000000000000000 $t
-     /tmp/ccpOQIXv.s:258    .text.HAL_TIM_PWM_PulseFinishedCallback:0000000000000000 HAL_TIM_PWM_PulseFinishedCallback
-     /tmp/ccpOQIXv.s:288    .text.HAL_TIM_PWM_PulseFinishedCallback:0000000000000014 $d
-     /tmp/ccpOQIXv.s:294    .text.WS2812_sendData:0000000000000000 $t
-     /tmp/ccpOQIXv.s:301    .text.WS2812_sendData:0000000000000000 WS2812_sendData
-     /tmp/ccpOQIXv.s:480    .text.WS2812_sendData:000000000000008c $d
-     /tmp/ccpOQIXv.s:486    .text.WS2812_LoopTask:0000000000000000 $t
-     /tmp/ccpOQIXv.s:493    .text.WS2812_LoopTask:0000000000000000 WS2812_LoopTask
-     /tmp/ccpOQIXv.s:594    .text.WS2812_LoopTask:0000000000000074 $d
-     /tmp/ccpOQIXv.s:602    .text.WS2812_BreathTask:0000000000000000 $t
-     /tmp/ccpOQIXv.s:609    .text.WS2812_BreathTask:0000000000000000 WS2812_BreathTask
-     /tmp/ccpOQIXv.s:737    .text.WS2812_BreathTask:00000000000000a8 $d
-     /tmp/ccpOQIXv.s:746    .text.WS2812_StaticTask:0000000000000000 $t
-     /tmp/ccpOQIXv.s:753    .text.WS2812_StaticTask:0000000000000000 WS2812_StaticTask
-     /tmp/ccpOQIXv.s:854    .text.WS2812_StaticTask:0000000000000058 $d
-     /tmp/ccpOQIXv.s:859    .text.WS2812_Disable:0000000000000000 $t
-     /tmp/ccpOQIXv.s:866    .text.WS2812_Disable:0000000000000000 WS2812_Disable
-     /tmp/ccpOQIXv.s:915    .text.WS2812_LED_Task:0000000000000000 $t
-     /tmp/ccpOQIXv.s:922    .text.WS2812_LED_Task:0000000000000000 WS2812_LED_Task
-     /tmp/ccpOQIXv.s:1044   .text.WS2812_LED_Task:0000000000000080 $d
-     /tmp/ccpOQIXv.s:1049   .text.WS2812_LED_Task:0000000000000090 $t
-     /tmp/ccpOQIXv.s:1245   .text.WS2812_LED_Task:0000000000000168 $d
+     /tmp/ccB91Jp9.s:16     .text.WS2812_init:0000000000000000 $t
+     /tmp/ccB91Jp9.s:24     .text.WS2812_init:0000000000000000 WS2812_init
+     /tmp/ccB91Jp9.s:58     .text.WS2812_Deinit:0000000000000000 $t
+     /tmp/ccB91Jp9.s:65     .text.WS2812_Deinit:0000000000000000 WS2812_Deinit
+     /tmp/ccB91Jp9.s:79     .text.WS2812_LED_SetBrightness:0000000000000000 $t
+     /tmp/ccB91Jp9.s:86     .text.WS2812_LED_SetBrightness:0000000000000000 WS2812_LED_SetBrightness
+     /tmp/ccB91Jp9.s:103    .text.WS2812_LED_Set:0000000000000000 $t
+     /tmp/ccB91Jp9.s:110    .text.WS2812_LED_Set:0000000000000000 WS2812_LED_Set
+     /tmp/ccB91Jp9.s:169    .text.WS2812_LED_SetRGB:0000000000000000 $t
+     /tmp/ccB91Jp9.s:176    .text.WS2812_LED_SetRGB:0000000000000000 WS2812_LED_SetRGB
+     /tmp/ccB91Jp9.s:209    .text.WS2812_LED_ClearRGB:0000000000000000 $t
+     /tmp/ccB91Jp9.s:216    .text.WS2812_LED_ClearRGB:0000000000000000 WS2812_LED_ClearRGB
+     /tmp/ccB91Jp9.s:251    .text.HAL_TIM_PWM_PulseFinishedCallback:0000000000000000 $t
+     /tmp/ccB91Jp9.s:258    .text.HAL_TIM_PWM_PulseFinishedCallback:0000000000000000 HAL_TIM_PWM_PulseFinishedCallback
+     /tmp/ccB91Jp9.s:288    .text.HAL_TIM_PWM_PulseFinishedCallback:0000000000000014 $d
+     /tmp/ccB91Jp9.s:294    .text.WS2812_sendData:0000000000000000 $t
+     /tmp/ccB91Jp9.s:301    .text.WS2812_sendData:0000000000000000 WS2812_sendData
+     /tmp/ccB91Jp9.s:480    .text.WS2812_sendData:000000000000008c $d
+     /tmp/ccB91Jp9.s:486    .text.WS2812_LoopTask:0000000000000000 $t
+     /tmp/ccB91Jp9.s:493    .text.WS2812_LoopTask:0000000000000000 WS2812_LoopTask
+     /tmp/ccB91Jp9.s:594    .text.WS2812_LoopTask:0000000000000074 $d
+     /tmp/ccB91Jp9.s:602    .text.WS2812_BreathTask:0000000000000000 $t
+     /tmp/ccB91Jp9.s:609    .text.WS2812_BreathTask:0000000000000000 WS2812_BreathTask
+     /tmp/ccB91Jp9.s:737    .text.WS2812_BreathTask:00000000000000a8 $d
+     /tmp/ccB91Jp9.s:746    .text.WS2812_StaticTask:0000000000000000 $t
+     /tmp/ccB91Jp9.s:753    .text.WS2812_StaticTask:0000000000000000 WS2812_StaticTask
+     /tmp/ccB91Jp9.s:854    .text.WS2812_StaticTask:0000000000000058 $d
+     /tmp/ccB91Jp9.s:859    .text.WS2812_Disable:0000000000000000 $t
+     /tmp/ccB91Jp9.s:866    .text.WS2812_Disable:0000000000000000 WS2812_Disable
+     /tmp/ccB91Jp9.s:915    .text.WS2812_LED_Task:0000000000000000 $t
+     /tmp/ccB91Jp9.s:922    .text.WS2812_LED_Task:0000000000000000 WS2812_LED_Task
+     /tmp/ccB91Jp9.s:1044   .text.WS2812_LED_Task:0000000000000080 $d
+     /tmp/ccB91Jp9.s:1049   .text.WS2812_LED_Task:0000000000000090 $t
+     /tmp/ccB91Jp9.s:1245   .text.WS2812_LED_Task:0000000000000168 $d
                             *COM*:0000000000000718 ws2812
-     /tmp/ccpOQIXv.s:1374   .data.last_rgb_mode:0000000000000000 last_rgb_mode
-     /tmp/ccpOQIXv.s:1380   .data.rgb_mode:0000000000000000 rgb_mode
-     /tmp/ccpOQIXv.s:1369   .data.do_once_flag:0000000000000000 do_once_flag
-     /tmp/ccpOQIXv.s:1327   .data.brightness:0000000000000000 brightness
-     /tmp/ccpOQIXv.s:1334   .data.defaultColorList:0000000000000000 defaultColorList
-     /tmp/ccpOQIXv.s:1306   .bss.datasentflag:0000000000000000 datasentflag
-     /tmp/ccpOQIXv.s:1268   .rodata:0000000000000000 $d
-     /tmp/ccpOQIXv.s:1275   .bss.color_index.9621:0000000000000000 $d
-     /tmp/ccpOQIXv.s:1279   .bss.color_index.9621:0000000000000000 color_index.9621
-     /tmp/ccpOQIXv.s:1282   .bss.color_index.9630:0000000000000000 $d
-     /tmp/ccpOQIXv.s:1286   .bss.color_index.9630:0000000000000000 color_index.9630
-     /tmp/ccpOQIXv.s:1289   .bss.counter.9622:0000000000000000 $d
-     /tmp/ccpOQIXv.s:1293   .bss.counter.9622:0000000000000000 counter.9622
-     /tmp/ccpOQIXv.s:1296   .bss.counter.9665:0000000000000000 $d
-     /tmp/ccpOQIXv.s:1300   .bss.counter.9665:0000000000000000 counter.9665
-     /tmp/ccpOQIXv.s:1307   .bss.datasentflag:0000000000000000 $d
-     /tmp/ccpOQIXv.s:1309   .bss.led_index.9623:0000000000000000 $d
-     /tmp/ccpOQIXv.s:1313   .bss.led_index.9623:0000000000000000 led_index.9623
-     /tmp/ccpOQIXv.s:1316   .bss.led_index.9628:0000000000000000 $d
-     /tmp/ccpOQIXv.s:1320   .bss.led_index.9628:0000000000000000 led_index.9628
-ARM GAS  /tmp/ccpOQIXv.s 			page 33
+     /tmp/ccB91Jp9.s:1374   .data.last_rgb_mode:0000000000000000 last_rgb_mode
+     /tmp/ccB91Jp9.s:1380   .data.rgb_mode:0000000000000000 rgb_mode
+     /tmp/ccB91Jp9.s:1369   .data.do_once_flag:0000000000000000 do_once_flag
+     /tmp/ccB91Jp9.s:1327   .data.brightness:0000000000000000 brightness
+     /tmp/ccB91Jp9.s:1334   .data.defaultColorList:0000000000000000 defaultColorList
+     /tmp/ccB91Jp9.s:1306   .bss.datasentflag:0000000000000000 datasentflag
+     /tmp/ccB91Jp9.s:1268   .rodata:0000000000000000 $d
+     /tmp/ccB91Jp9.s:1275   .bss.color_index.9621:0000000000000000 $d
+     /tmp/ccB91Jp9.s:1279   .bss.color_index.9621:0000000000000000 color_index.9621
+     /tmp/ccB91Jp9.s:1282   .bss.color_index.9630:0000000000000000 $d
+     /tmp/ccB91Jp9.s:1286   .bss.color_index.9630:0000000000000000 color_index.9630
+     /tmp/ccB91Jp9.s:1289   .bss.counter.9622:0000000000000000 $d
+     /tmp/ccB91Jp9.s:1293   .bss.counter.9622:0000000000000000 counter.9622
+     /tmp/ccB91Jp9.s:1296   .bss.counter.9665:0000000000000000 $d
+     /tmp/ccB91Jp9.s:1300   .bss.counter.9665:0000000000000000 counter.9665
+     /tmp/ccB91Jp9.s:1307   .bss.datasentflag:0000000000000000 $d
+     /tmp/ccB91Jp9.s:1309   .bss.led_index.9623:0000000000000000 $d
+     /tmp/ccB91Jp9.s:1313   .bss.led_index.9623:0000000000000000 led_index.9623
+     /tmp/ccB91Jp9.s:1316   .bss.led_index.9628:0000000000000000 $d
+     /tmp/ccB91Jp9.s:1320   .bss.led_index.9628:0000000000000000 led_index.9628
+ARM GAS  /tmp/ccB91Jp9.s 			page 33
 
 
-     /tmp/ccpOQIXv.s:1323   .data.brightness:0000000000000000 $d
-     /tmp/ccpOQIXv.s:1330   .data.defaultColorList:0000000000000000 $d
-     /tmp/ccpOQIXv.s:1386   .data.step.9629:0000000000000000 step.9629
-     /tmp/ccpOQIXv.s:1392   .data.step.9668:0000000000000000 step.9668
+     /tmp/ccB91Jp9.s:1323   .data.brightness:0000000000000000 $d
+     /tmp/ccB91Jp9.s:1330   .data.defaultColorList:0000000000000000 $d
+     /tmp/ccB91Jp9.s:1386   .data.step.9629:0000000000000000 step.9629
+     /tmp/ccB91Jp9.s:1392   .data.step.9668:0000000000000000 step.9668
 
 UNDEFINED SYMBOLS
 HAL_TIM_PWM_Stop_DMA

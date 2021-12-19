@@ -1,4 +1,4 @@
-ARM GAS  /tmp/ccYmvDfn.s 			page 1
+ARM GAS  /tmp/ccNW3NHN.s 			page 1
 
 
    1              		.cpu cortex-m3
@@ -58,7 +58,7 @@ ARM GAS  /tmp/ccYmvDfn.s 			page 1
   27              		.loc 1 29 24 view -0
   28              		.cfi_startproc
   29              		@ args = 0, pretend = 0, frame = 0
-ARM GAS  /tmp/ccYmvDfn.s 			page 2
+ARM GAS  /tmp/ccNW3NHN.s 			page 2
 
 
   30              		@ frame_needed = 0, uses_anonymous_args = 0
@@ -118,7 +118,7 @@ ARM GAS  /tmp/ccYmvDfn.s 			page 1
   74              		.loc 1 35 1 view .LVU12
   75              		.cfi_endproc
   76              	.LFE67:
-ARM GAS  /tmp/ccYmvDfn.s 			page 3
+ARM GAS  /tmp/ccNW3NHN.s 			page 3
 
 
   78              		.section	.text.oled_clear_menu,"ax",%progbits
@@ -178,7 +178,7 @@ ARM GAS  /tmp/ccYmvDfn.s 			page 1
  125 0018 3F2C     		cmp	r4, #63
  126 001a F5DD     		ble	.L8
  127              	.LBE3:
-ARM GAS  /tmp/ccYmvDfn.s 			page 4
+ARM GAS  /tmp/ccNW3NHN.s 			page 4
 
 
   40:Core/Src/oled/oled_manager.c **** 	}
@@ -238,7 +238,7 @@ ARM GAS  /tmp/ccYmvDfn.s 			page 1
  173 0016 FFF7FEFF 		bl	ssd1306_SetCursor
  174              	.LVL11:
   51:Core/Src/oled/oled_manager.c **** 	ssd1306_WriteString((page_array[currentPage])->title, Font_7x10, White);
-ARM GAS  /tmp/ccYmvDfn.s 			page 5
+ARM GAS  /tmp/ccNW3NHN.s 			page 5
 
 
  175              		.loc 1 51 2 view .LVU30
@@ -298,7 +298,7 @@ ARM GAS  /tmp/ccYmvDfn.s 			page 1
  226              		.cfi_offset 3, -8
  227              		.cfi_offset 14, -4
   57:Core/Src/oled/oled_manager.c **** 	currentPage = (currentPage + 1) % (sizeof(page_array)/sizeof(*page_array));
-ARM GAS  /tmp/ccYmvDfn.s 			page 6
+ARM GAS  /tmp/ccNW3NHN.s 			page 6
 
 
  228              		.loc 1 57 2 view .LVU39
@@ -358,7 +358,7 @@ ARM GAS  /tmp/ccYmvDfn.s 			page 1
  279              		.loc 1 62 2 is_stmt 1 view .LVU47
  280 0006 FFF7FEFF 		bl	oled_clear_menu
  281              	.LVL17:
-ARM GAS  /tmp/ccYmvDfn.s 			page 7
+ARM GAS  /tmp/ccNW3NHN.s 			page 7
 
 
   63:Core/Src/oled/oled_manager.c **** 	(page_array[currentPage]->on_click)(array, arrayNum);
@@ -418,7 +418,7 @@ ARM GAS  /tmp/ccYmvDfn.s 			page 1
  332              		.loc 1 68 10 is_stmt 0 view .LVU57
  333 0002 0024     		movs	r4, #0
  334              		.loc 1 68 2 view .LVU58
-ARM GAS  /tmp/ccYmvDfn.s 			page 8
+ARM GAS  /tmp/ccNW3NHN.s 			page 8
 
 
  335 0004 00E0     		b	.L23
@@ -478,7 +478,7 @@ ARM GAS  /tmp/ccYmvDfn.s 			page 1
  386              		@ args = 0, pretend = 0, frame = 0
  387              		@ frame_needed = 0, uses_anonymous_args = 0
  388 0000 10B5     		push	{r4, lr}
-ARM GAS  /tmp/ccYmvDfn.s 			page 9
+ARM GAS  /tmp/ccNW3NHN.s 			page 9
 
 
  389              	.LCFI10:
@@ -538,7 +538,7 @@ ARM GAS  /tmp/ccYmvDfn.s 			page 1
   26:Core/Src/oled/oled_manager.c **** }
  431              		.loc 1 26 2 is_stmt 1 view .LVU84
  432 0026 FFF7FEFF 		bl	oled_update_page
-ARM GAS  /tmp/ccYmvDfn.s 			page 10
+ARM GAS  /tmp/ccNW3NHN.s 			page 10
 
 
  433              	.LVL31:
@@ -587,33 +587,33 @@ ARM GAS  /tmp/ccYmvDfn.s 			page 1
  479              		.file 15 "Core/Src/oled/../../Inc/oled/ssd1306.h"
  480              		.file 16 "Core/Src/oled/../../Inc/oled/page_template.h"
  481              		.file 17 "Core/Src/oled/../../Inc/oled/oled_manager.h"
-ARM GAS  /tmp/ccYmvDfn.s 			page 11
+ARM GAS  /tmp/ccNW3NHN.s 			page 11
 
 
 DEFINED SYMBOLS
                             *ABS*:0000000000000000 oled_manager.c
-     /tmp/ccYmvDfn.s:16     .text.oled_clear_title:0000000000000000 $t
-     /tmp/ccYmvDfn.s:24     .text.oled_clear_title:0000000000000000 oled_clear_title
-     /tmp/ccYmvDfn.s:79     .text.oled_clear_menu:0000000000000000 $t
-     /tmp/ccYmvDfn.s:86     .text.oled_clear_menu:0000000000000000 oled_clear_menu
-     /tmp/ccYmvDfn.s:139    .text.oled_update_page:0000000000000000 $t
-     /tmp/ccYmvDfn.s:146    .text.oled_update_page:0000000000000000 oled_update_page
-     /tmp/ccYmvDfn.s:203    .text.oled_update_page:0000000000000040 $d
-     /tmp/ccYmvDfn.s:210    .text.oled_next_page:0000000000000000 $t
-     /tmp/ccYmvDfn.s:217    .text.oled_next_page:0000000000000000 oled_next_page
-     /tmp/ccYmvDfn.s:249    .text.oled_next_page:0000000000000020 $d
-     /tmp/ccYmvDfn.s:255    .text.oled_on_click_page:0000000000000000 $t
-     /tmp/ccYmvDfn.s:262    .text.oled_on_click_page:0000000000000000 oled_on_click_page
-     /tmp/ccYmvDfn.s:304    .text.oled_on_click_page:0000000000000024 $d
-     /tmp/ccYmvDfn.s:310    .text.oled_page_init:0000000000000000 $t
-     /tmp/ccYmvDfn.s:317    .text.oled_page_init:0000000000000000 oled_page_init
-     /tmp/ccYmvDfn.s:370    .text.oled_page_init:0000000000000020 $d
-     /tmp/ccYmvDfn.s:375    .text.oled_ui_init:0000000000000000 $t
-     /tmp/ccYmvDfn.s:382    .text.oled_ui_init:0000000000000000 oled_ui_init
-     /tmp/ccYmvDfn.s:458    .data.page_array:0000000000000000 page_array
-     /tmp/ccYmvDfn.s:451    .bss.currentPage:0000000000000000 currentPage
-     /tmp/ccYmvDfn.s:447    .bss.currentPage:0000000000000000 $d
-     /tmp/ccYmvDfn.s:454    .data.page_array:0000000000000000 $d
+     /tmp/ccNW3NHN.s:16     .text.oled_clear_title:0000000000000000 $t
+     /tmp/ccNW3NHN.s:24     .text.oled_clear_title:0000000000000000 oled_clear_title
+     /tmp/ccNW3NHN.s:79     .text.oled_clear_menu:0000000000000000 $t
+     /tmp/ccNW3NHN.s:86     .text.oled_clear_menu:0000000000000000 oled_clear_menu
+     /tmp/ccNW3NHN.s:139    .text.oled_update_page:0000000000000000 $t
+     /tmp/ccNW3NHN.s:146    .text.oled_update_page:0000000000000000 oled_update_page
+     /tmp/ccNW3NHN.s:203    .text.oled_update_page:0000000000000040 $d
+     /tmp/ccNW3NHN.s:210    .text.oled_next_page:0000000000000000 $t
+     /tmp/ccNW3NHN.s:217    .text.oled_next_page:0000000000000000 oled_next_page
+     /tmp/ccNW3NHN.s:249    .text.oled_next_page:0000000000000020 $d
+     /tmp/ccNW3NHN.s:255    .text.oled_on_click_page:0000000000000000 $t
+     /tmp/ccNW3NHN.s:262    .text.oled_on_click_page:0000000000000000 oled_on_click_page
+     /tmp/ccNW3NHN.s:304    .text.oled_on_click_page:0000000000000024 $d
+     /tmp/ccNW3NHN.s:310    .text.oled_page_init:0000000000000000 $t
+     /tmp/ccNW3NHN.s:317    .text.oled_page_init:0000000000000000 oled_page_init
+     /tmp/ccNW3NHN.s:370    .text.oled_page_init:0000000000000020 $d
+     /tmp/ccNW3NHN.s:375    .text.oled_ui_init:0000000000000000 $t
+     /tmp/ccNW3NHN.s:382    .text.oled_ui_init:0000000000000000 oled_ui_init
+     /tmp/ccNW3NHN.s:458    .data.page_array:0000000000000000 page_array
+     /tmp/ccNW3NHN.s:451    .bss.currentPage:0000000000000000 currentPage
+     /tmp/ccNW3NHN.s:447    .bss.currentPage:0000000000000000 $d
+     /tmp/ccNW3NHN.s:454    .data.page_array:0000000000000000 $d
 
 UNDEFINED SYMBOLS
 ssd1306_Line

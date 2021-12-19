@@ -1,4 +1,4 @@
-ARM GAS  /tmp/cc0q0Vjh.s 			page 1
+ARM GAS  /tmp/ccih8JoV.s 			page 1
 
 
    1              		.cpu cortex-m3
@@ -58,7 +58,7 @@ ARM GAS  /tmp/cc0q0Vjh.s 			page 1
   26:Core/Src/oled/ssd1306.c **** void ssd1306_Reset(void) {
   27:Core/Src/oled/ssd1306.c ****     // CS = High (not selected)
   28:Core/Src/oled/ssd1306.c ****     HAL_GPIO_WritePin(SSD1306_CS_Port, SSD1306_CS_Pin, GPIO_PIN_SET);
-ARM GAS  /tmp/cc0q0Vjh.s 			page 2
+ARM GAS  /tmp/ccih8JoV.s 			page 2
 
 
   29:Core/Src/oled/ssd1306.c **** 
@@ -118,7 +118,7 @@ ARM GAS  /tmp/cc0q0Vjh.s 			page 1
   83:Core/Src/oled/ssd1306.c ****     // Init OLED
   84:Core/Src/oled/ssd1306.c ****     ssd1306_SetDisplayOn(0); //display off
   85:Core/Src/oled/ssd1306.c **** 
-ARM GAS  /tmp/cc0q0Vjh.s 			page 3
+ARM GAS  /tmp/ccih8JoV.s 			page 3
 
 
   86:Core/Src/oled/ssd1306.c ****     ssd1306_WriteCommand(0x20); //Set Memory Addressing Mode
@@ -178,7 +178,7 @@ ARM GAS  /tmp/cc0q0Vjh.s 			page 1
  140:Core/Src/oled/ssd1306.c ****     ssd1306_WriteCommand(0xD5); //--set display clock divide ratio/oscillator frequency
  141:Core/Src/oled/ssd1306.c ****     ssd1306_WriteCommand(0xF0); //--set divide ratio
  142:Core/Src/oled/ssd1306.c **** 
-ARM GAS  /tmp/cc0q0Vjh.s 			page 4
+ARM GAS  /tmp/ccih8JoV.s 			page 4
 
 
  143:Core/Src/oled/ssd1306.c ****     ssd1306_WriteCommand(0xD9); //--set pre-charge period
@@ -238,7 +238,7 @@ ARM GAS  /tmp/cc0q0Vjh.s 			page 1
  197:Core/Src/oled/ssd1306.c ****         ssd1306_WriteCommand(0x00);
  198:Core/Src/oled/ssd1306.c ****         ssd1306_WriteCommand(0x10);
  199:Core/Src/oled/ssd1306.c ****         ssd1306_WriteData(&SSD1306_Buffer[SSD1306_WIDTH*i],SSD1306_WIDTH);
-ARM GAS  /tmp/cc0q0Vjh.s 			page 5
+ARM GAS  /tmp/ccih8JoV.s 			page 5
 
 
  200:Core/Src/oled/ssd1306.c ****     }
@@ -298,7 +298,7 @@ ARM GAS  /tmp/cc0q0Vjh.s 			page 1
  254:Core/Src/oled/ssd1306.c ****     
  255:Core/Src/oled/ssd1306.c ****     // Return written char for validation
  256:Core/Src/oled/ssd1306.c ****     return ch;
-ARM GAS  /tmp/cc0q0Vjh.s 			page 6
+ARM GAS  /tmp/ccih8JoV.s 			page 6
 
 
  257:Core/Src/oled/ssd1306.c **** }
@@ -358,7 +358,7 @@ ARM GAS  /tmp/cc0q0Vjh.s 			page 1
  311:Core/Src/oled/ssd1306.c ****     else
  312:Core/Src/oled/ssd1306.c ****     {
  313:Core/Src/oled/ssd1306.c ****     /*nothing to do*/
-ARM GAS  /tmp/cc0q0Vjh.s 			page 7
+ARM GAS  /tmp/ccih8JoV.s 			page 7
 
 
  314:Core/Src/oled/ssd1306.c ****     }
@@ -418,7 +418,7 @@ ARM GAS  /tmp/cc0q0Vjh.s 			page 1
   63 0024 B81E0940 		.word	1074339512
   64 0028 00806640 		.word	1080459264
   65              		.cfi_endproc
-ARM GAS  /tmp/cc0q0Vjh.s 			page 8
+ARM GAS  /tmp/ccih8JoV.s 			page 8
 
 
   66              	.LFE79:
@@ -478,7 +478,7 @@ ARM GAS  /tmp/cc0q0Vjh.s 			page 1
  106              	.LFE80:
  108              		.section	.text.ssd1306_Reset,"ax",%progbits
  109              		.align	1
-ARM GAS  /tmp/cc0q0Vjh.s 			page 9
+ARM GAS  /tmp/ccih8JoV.s 			page 9
 
 
  110              		.global	ssd1306_Reset
@@ -538,7 +538,7 @@ ARM GAS  /tmp/cc0q0Vjh.s 			page 1
  160 0012 6423     		movs	r3, #100
  161 0014 0293     		str	r3, [sp, #8]
  162 0016 0123     		movs	r3, #1
-ARM GAS  /tmp/cc0q0Vjh.s 			page 10
+ARM GAS  /tmp/ccih8JoV.s 			page 10
 
 
  163 0018 0193     		str	r3, [sp, #4]
@@ -598,7 +598,7 @@ ARM GAS  /tmp/cc0q0Vjh.s 			page 1
   20:Core/Src/oled/ssd1306.c ****     HAL_I2C_Mem_Write(&SSD1306_I2C_PORT, SSD1306_I2C_ADDR, 0x40, 1, buffer, buff_size, 100);
  215              		.loc 1 20 2 is_stmt 0 view .LVU29
  216 000c 0748     		ldr	r0, .L16
-ARM GAS  /tmp/cc0q0Vjh.s 			page 11
+ARM GAS  /tmp/ccih8JoV.s 			page 11
 
 
  217              	.LVL16:
@@ -658,7 +658,7 @@ ARM GAS  /tmp/cc0q0Vjh.s 			page 1
  266              		.loc 1 67 5 view .LVU36
   68:Core/Src/oled/ssd1306.c ****         memcpy(SSD1306_Buffer,buf,len);
  267              		.loc 1 68 5 view .LVU37
-ARM GAS  /tmp/cc0q0Vjh.s 			page 12
+ARM GAS  /tmp/ccih8JoV.s 			page 12
 
 
   68:Core/Src/oled/ssd1306.c ****         memcpy(SSD1306_Buffer,buf,len);
@@ -718,7 +718,7 @@ ARM GAS  /tmp/cc0q0Vjh.s 			page 1
  311              		.global	ssd1306_Fill
  312              		.syntax unified
  313              		.thumb
-ARM GAS  /tmp/cc0q0Vjh.s 			page 13
+ARM GAS  /tmp/ccih8JoV.s 			page 13
 
 
  314              		.thumb_func
@@ -778,7 +778,7 @@ ARM GAS  /tmp/cc0q0Vjh.s 			page 1
  355              		.loc 1 185 1 view .LVU63
  356 001a 7047     		bx	lr
  357              	.L35:
-ARM GAS  /tmp/cc0q0Vjh.s 			page 14
+ARM GAS  /tmp/ccih8JoV.s 			page 14
 
 
  358              		.align	2
@@ -838,7 +838,7 @@ ARM GAS  /tmp/cc0q0Vjh.s 			page 1
  199:Core/Src/oled/ssd1306.c ****     }
  406              		.loc 1 199 9 discriminator 3 view .LVU72
  407 001c 8021     		movs	r1, #128
-ARM GAS  /tmp/cc0q0Vjh.s 			page 15
+ARM GAS  /tmp/ccih8JoV.s 			page 15
 
 
  408 001e 0548     		ldr	r0, .L40
@@ -898,7 +898,7 @@ ARM GAS  /tmp/cc0q0Vjh.s 			page 1
  454 0000 10F0800F 		tst	r0, #128
  455 0004 0FD1     		bne	.L42
  208:Core/Src/oled/ssd1306.c ****         // Don't write outside the buffer
-ARM GAS  /tmp/cc0q0Vjh.s 			page 16
+ARM GAS  /tmp/ccih8JoV.s 			page 16
 
 
  456              		.loc 1 208 27 discriminator 1 view .LVU83
@@ -958,7 +958,7 @@ ARM GAS  /tmp/cc0q0Vjh.s 			page 1
  215:Core/Src/oled/ssd1306.c ****     } else { 
  497              		.loc 1 215 53 view .LVU97
  498 0036 024A     		ldr	r2, .L46
-ARM GAS  /tmp/cc0q0Vjh.s 			page 17
+ARM GAS  /tmp/ccih8JoV.s 			page 17
 
 
  499              	.LVL47:
@@ -1018,7 +1018,7 @@ ARM GAS  /tmp/cc0q0Vjh.s 			page 1
  229:Core/Src/oled/ssd1306.c ****         return 0;
  550              		.loc 1 229 5 view .LVU103
  229:Core/Src/oled/ssd1306.c ****         return 0;
-ARM GAS  /tmp/cc0q0Vjh.s 			page 18
+ARM GAS  /tmp/ccih8JoV.s 			page 18
 
 
  551              		.loc 1 229 17 is_stmt 0 view .LVU104
@@ -1078,7 +1078,7 @@ ARM GAS  /tmp/cc0q0Vjh.s 			page 1
  590              		.loc 1 247 65 view .LVU119
  591 0040 5988     		ldrh	r1, [r3, #2]
  247:Core/Src/oled/ssd1306.c ****             }
-ARM GAS  /tmp/cc0q0Vjh.s 			page 19
+ARM GAS  /tmp/ccih8JoV.s 			page 19
 
 
  592              		.loc 1 247 17 view .LVU120
@@ -1138,7 +1138,7 @@ ARM GAS  /tmp/cc0q0Vjh.s 			page 1
  241:Core/Src/oled/ssd1306.c ****         b = Font.data[(ch - 32) * Font.FontHeight + i];
  634              		.loc 1 241 38 is_stmt 0 discriminator 2 view .LVU133
  635 007a 0135     		adds	r5, r5, #1
-ARM GAS  /tmp/cc0q0Vjh.s 			page 20
+ARM GAS  /tmp/ccih8JoV.s 			page 20
 
 
  636              	.LVL55:
@@ -1198,7 +1198,7 @@ ARM GAS  /tmp/cc0q0Vjh.s 			page 1
  675              	.LCFI11:
  676              		.cfi_remember_state
  677              		.cfi_def_cfa_offset 36
-ARM GAS  /tmp/cc0q0Vjh.s 			page 21
+ARM GAS  /tmp/ccih8JoV.s 			page 21
 
 
  678              		@ sp needed
@@ -1258,7 +1258,7 @@ ARM GAS  /tmp/cc0q0Vjh.s 			page 1
  729              	.L65:
  262:Core/Src/oled/ssd1306.c ****         if (ssd1306_WriteChar(*str, Font, color) != *str) {
  730              		.loc 1 262 11 view .LVU154
-ARM GAS  /tmp/cc0q0Vjh.s 			page 22
+ARM GAS  /tmp/ccih8JoV.s 			page 22
 
 
  262:Core/Src/oled/ssd1306.c ****         if (ssd1306_WriteChar(*str, Font, color) != *str) {
@@ -1318,7 +1318,7 @@ ARM GAS  /tmp/cc0q0Vjh.s 			page 1
  277:Core/Src/oled/ssd1306.c ****     SSD1306.CurrentX = x;
  776              		.loc 1 277 46 is_stmt 1 view -0
  777              		.cfi_startproc
-ARM GAS  /tmp/cc0q0Vjh.s 			page 23
+ARM GAS  /tmp/ccih8JoV.s 			page 23
 
 
  778              		@ args = 0, pretend = 0, frame = 0
@@ -1378,7 +1378,7 @@ ARM GAS  /tmp/cc0q0Vjh.s 			page 1
  827              		.cfi_def_cfa_offset 48
  828 0006 0446     		mov	r4, r0
  829 0008 0E46     		mov	r6, r1
-ARM GAS  /tmp/cc0q0Vjh.s 			page 24
+ARM GAS  /tmp/ccih8JoV.s 			page 24
 
 
  830 000a 9146     		mov	r9, r2
@@ -1438,7 +1438,7 @@ ARM GAS  /tmp/cc0q0Vjh.s 			page 1
  870 0038 A8EB0705 		sub	r5, r8, r7
  871              	.LVL71:
  289:Core/Src/oled/ssd1306.c ****     
-ARM GAS  /tmp/cc0q0Vjh.s 			page 25
+ARM GAS  /tmp/ccih8JoV.s 			page 25
 
 
  872              		.loc 1 289 3 is_stmt 1 discriminator 4 view .LVU188
@@ -1498,7 +1498,7 @@ ARM GAS  /tmp/cc0q0Vjh.s 			page 1
  296:Core/Src/oled/ssd1306.c ****     {
  914              		.loc 1 296 5 is_stmt 1 view .LVU201
  296:Core/Src/oled/ssd1306.c ****     {
-ARM GAS  /tmp/cc0q0Vjh.s 			page 26
+ARM GAS  /tmp/ccih8JoV.s 			page 26
 
 
  915              		.loc 1 296 17 is_stmt 0 view .LVU202
@@ -1558,7 +1558,7 @@ ARM GAS  /tmp/cc0q0Vjh.s 			page 1
  953              		.loc 1 314 5 is_stmt 1 view .LVU218
  292:Core/Src/oled/ssd1306.c ****     {
  954              		.loc 1 292 10 view .LVU219
-ARM GAS  /tmp/cc0q0Vjh.s 			page 27
+ARM GAS  /tmp/ccih8JoV.s 			page 27
 
 
  955 0080 4C45     		cmp	r4, r9
@@ -1618,7 +1618,7 @@ ARM GAS  /tmp/cc0q0Vjh.s 			page 1
  1002              	.LCFI20:
  1003              		.cfi_def_cfa_offset 32
  1004 0008 0F46     		mov	r7, r1
-ARM GAS  /tmp/cc0q0Vjh.s 			page 28
+ARM GAS  /tmp/ccih8JoV.s 			page 28
 
 
  1005 000a 9046     		mov	r8, r2
@@ -1678,7 +1678,7 @@ ARM GAS  /tmp/cc0q0Vjh.s 			page 1
  1050              		.loc 1 322 31 discriminator 3 view .LVU237
  1051 0038 A4B2     		uxth	r4, r4
  1052              	.LVL94:
-ARM GAS  /tmp/cc0q0Vjh.s 			page 29
+ARM GAS  /tmp/ccih8JoV.s 			page 29
 
 
  1053              	.L83:
@@ -1738,7 +1738,7 @@ ARM GAS  /tmp/cc0q0Vjh.s 			page 1
  1100              		.cfi_offset 14, -4
  1101 0004 8BB0     		sub	sp, sp, #44
  1102              	.LCFI25:
-ARM GAS  /tmp/cc0q0Vjh.s 			page 30
+ARM GAS  /tmp/ccih8JoV.s 			page 30
 
 
  1103              		.cfi_def_cfa_offset 80
@@ -1798,7 +1798,7 @@ ARM GAS  /tmp/cc0q0Vjh.s 			page 1
  1144              		.loc 1 367 34 is_stmt 0 view .LVU261
  1145 0030 04EBC403 		add	r3, r4, r4, lsl #3
  1146              		.loc 1 367 21 view .LVU262
-ARM GAS  /tmp/cc0q0Vjh.s 			page 31
+ARM GAS  /tmp/ccih8JoV.s 			page 31
 
 
  1147 0034 C3F35C03 		ubfx	r3, r3, #1, #29
@@ -1858,7 +1858,7 @@ ARM GAS  /tmp/cc0q0Vjh.s 			page 1
  1185              		.loc 1 383 28 is_stmt 0 view .LVU273
  1186 0064 FFF7FEFF 		bl	__aeabi_f2d
  1187              	.LVL112:
-ARM GAS  /tmp/cc0q0Vjh.s 			page 32
+ARM GAS  /tmp/ccih8JoV.s 			page 32
 
 
  1188              		.loc 1 383 28 view .LVU274
@@ -1918,7 +1918,7 @@ ARM GAS  /tmp/cc0q0Vjh.s 			page 1
  1239 00b8 3BD2     		bcs	.L97
  371:Core/Src/oled/ssd1306.c ****         xp1 = x + (int8_t)(sin(rad)*radius);
  1240              		.loc 1 371 9 view .LVU286
-ARM GAS  /tmp/cc0q0Vjh.s 			page 33
+ARM GAS  /tmp/ccih8JoV.s 			page 33
 
 
  371:Core/Src/oled/ssd1306.c ****         xp1 = x + (int8_t)(sin(rad)*radius);
@@ -1978,7 +1978,7 @@ ARM GAS  /tmp/cc0q0Vjh.s 			page 1
  373:Core/Src/oled/ssd1306.c ****         count++;
  1286              		.loc 1 373 36 view .LVU296
  1287 0106 DDE90201 		ldrd	r0, [sp, #8]
-ARM GAS  /tmp/cc0q0Vjh.s 			page 34
+ARM GAS  /tmp/ccih8JoV.s 			page 34
 
 
  1288 010a FFF7FEFF 		bl	__aeabi_dmul
@@ -2038,7 +2038,7 @@ ARM GAS  /tmp/cc0q0Vjh.s 			page 1
  1329              		.align	2
  1330              	.L98:
  1331 0138 67666666 		.word	1717986919
-ARM GAS  /tmp/cc0q0Vjh.s 			page 35
+ARM GAS  /tmp/ccih8JoV.s 			page 35
 
 
  1332 013c 176CC116 		.word	381774871
@@ -2098,7 +2098,7 @@ ARM GAS  /tmp/cc0q0Vjh.s 			page 1
  1380              	.LVL143:
  1381              		.loc 1 397 6 view .LVU316
  1382 0014 C2F10102 		rsb	r2, r2, #1
-ARM GAS  /tmp/cc0q0Vjh.s 			page 36
+ARM GAS  /tmp/ccih8JoV.s 			page 36
 
 
  1383              	.LVL144:
@@ -2158,7 +2158,7 @@ ARM GAS  /tmp/cc0q0Vjh.s 			page 1
  1408              		.loc 1 424 26 is_stmt 0 view .LVU327
  1409 002c 7C00     		lsls	r4, r7, #1
  1410              	.LVL148:
-ARM GAS  /tmp/cc0q0Vjh.s 			page 37
+ARM GAS  /tmp/ccih8JoV.s 			page 37
 
 
  1411              		.loc 1 424 30 view .LVU328
@@ -2218,7 +2218,7 @@ ARM GAS  /tmp/cc0q0Vjh.s 			page 1
  1455 0076 FFF7FEFF 		bl	ssd1306_DrawPixel
  1456              	.LVL153:
  405:Core/Src/oled/ssd1306.c ****         e2 = err;
-ARM GAS  /tmp/cc0q0Vjh.s 			page 38
+ARM GAS  /tmp/ccih8JoV.s 			page 38
 
 
  1457              		.loc 1 405 7 view .LVU337
@@ -2278,7 +2278,7 @@ ARM GAS  /tmp/cc0q0Vjh.s 			page 1
  1496              	.LVL159:
  411:Core/Src/oled/ssd1306.c ****             }
  1497              		.loc 1 411 18 view .LVU353
-ARM GAS  /tmp/cc0q0Vjh.s 			page 39
+ARM GAS  /tmp/ccih8JoV.s 			page 39
 
 
  1498 00a4 C5E7     		b	.L103
@@ -2338,7 +2338,7 @@ ARM GAS  /tmp/cc0q0Vjh.s 			page 1
  1547              		.loc 1 437 3 is_stmt 0 view .LVU358
  1548 0018 FFF7FEFF 		bl	ssd1306_Line
  1549              	.LVL163:
-ARM GAS  /tmp/cc0q0Vjh.s 			page 40
+ARM GAS  /tmp/ccih8JoV.s 			page 40
 
 
  438:Core/Src/oled/ssd1306.c ****   ssd1306_Line(x2,y1,x2,y2,color);
@@ -2398,7 +2398,7 @@ ARM GAS  /tmp/cc0q0Vjh.s 			page 1
  1598              		@ args = 0, pretend = 0, frame = 0
  1599              		@ frame_needed = 0, uses_anonymous_args = 0
  1600              		.loc 1 445 47 is_stmt 0 view .LVU366
-ARM GAS  /tmp/cc0q0Vjh.s 			page 41
+ARM GAS  /tmp/ccih8JoV.s 			page 41
 
 
  1601 0000 10B5     		push	{r4, lr}
@@ -2458,7 +2458,7 @@ ARM GAS  /tmp/cc0q0Vjh.s 			page 1
  454:Core/Src/oled/ssd1306.c ****         value = 0xAF;   // Display on
  1649              		.loc 1 454 9 is_stmt 1 view .LVU377
  1650              	.LVL173:
-ARM GAS  /tmp/cc0q0Vjh.s 			page 42
+ARM GAS  /tmp/ccih8JoV.s 			page 42
 
 
  455:Core/Src/oled/ssd1306.c ****         SSD1306.DisplayOn = 1;
@@ -2518,7 +2518,7 @@ ARM GAS  /tmp/cc0q0Vjh.s 			page 1
  1694              	.LFB70:
   76:Core/Src/oled/ssd1306.c ****     // Reset OLED
  1695              		.loc 1 76 25 is_stmt 1 view -0
-ARM GAS  /tmp/cc0q0Vjh.s 			page 43
+ARM GAS  /tmp/ccih8JoV.s 			page 43
 
 
  1696              		.cfi_startproc
@@ -2578,7 +2578,7 @@ ARM GAS  /tmp/cc0q0Vjh.s 			page 1
  1740              	.LVL186:
  103:Core/Src/oled/ssd1306.c **** 
  1741              		.loc 1 103 5 view .LVU399
-ARM GAS  /tmp/cc0q0Vjh.s 			page 44
+ARM GAS  /tmp/ccih8JoV.s 			page 44
 
 
  1742 0038 FF20     		movs	r0, #255
@@ -2638,7 +2638,7 @@ ARM GAS  /tmp/cc0q0Vjh.s 			page 1
  1785              		.loc 1 144 5 view .LVU410
  1786 007a 2220     		movs	r0, #34
  1787 007c FFF7FEFF 		bl	ssd1306_WriteCommand
-ARM GAS  /tmp/cc0q0Vjh.s 			page 45
+ARM GAS  /tmp/ccih8JoV.s 			page 45
 
 
  1788              	.LVL198:
@@ -2698,7 +2698,7 @@ ARM GAS  /tmp/cc0q0Vjh.s 			page 1
  172:Core/Src/oled/ssd1306.c ****     
  1830              		.loc 1 172 22 is_stmt 0 view .LVU423
  1831 00ba 5A80     		strh	r2, [r3, #2]	@ movhi
-ARM GAS  /tmp/cc0q0Vjh.s 			page 46
+ARM GAS  /tmp/ccih8JoV.s 			page 46
 
 
  174:Core/Src/oled/ssd1306.c **** }
@@ -2758,7 +2758,7 @@ ARM GAS  /tmp/cc0q0Vjh.s 			page 1
  1885 0000 00000000 		.space	1024
  1885      00000000 
  1885      00000000 
-ARM GAS  /tmp/cc0q0Vjh.s 			page 47
+ARM GAS  /tmp/ccih8JoV.s 			page 47
 
 
  1885      00000000 
@@ -2783,73 +2783,73 @@ ARM GAS  /tmp/cc0q0Vjh.s 			page 1
  1903              		.file 17 "/usr/include/newlib/stdlib.h"
  1904              		.file 18 "Drivers/STM32F1xx_HAL_Driver/Inc/stm32f1xx_hal_gpio.h"
  1905              		.file 19 "<built-in>"
-ARM GAS  /tmp/cc0q0Vjh.s 			page 48
+ARM GAS  /tmp/ccih8JoV.s 			page 48
 
 
 DEFINED SYMBOLS
                             *ABS*:0000000000000000 ssd1306.c
-     /tmp/cc0q0Vjh.s:20     .text.ssd1306_DegToRad:0000000000000000 $t
-     /tmp/cc0q0Vjh.s:27     .text.ssd1306_DegToRad:0000000000000000 ssd1306_DegToRad
-     /tmp/cc0q0Vjh.s:62     .text.ssd1306_DegToRad:0000000000000020 $d
-     /tmp/cc0q0Vjh.s:69     .text.ssd1306_NormalizeTo0_360:0000000000000000 $t
-     /tmp/cc0q0Vjh.s:75     .text.ssd1306_NormalizeTo0_360:0000000000000000 ssd1306_NormalizeTo0_360
-     /tmp/cc0q0Vjh.s:109    .text.ssd1306_Reset:0000000000000000 $t
-     /tmp/cc0q0Vjh.s:116    .text.ssd1306_Reset:0000000000000000 ssd1306_Reset
-     /tmp/cc0q0Vjh.s:129    .text.ssd1306_WriteCommand:0000000000000000 $t
-     /tmp/cc0q0Vjh.s:136    .text.ssd1306_WriteCommand:0000000000000000 ssd1306_WriteCommand
-     /tmp/cc0q0Vjh.s:180    .text.ssd1306_WriteCommand:0000000000000030 $d
-     /tmp/cc0q0Vjh.s:186    .text.ssd1306_WriteData:0000000000000000 $t
-     /tmp/cc0q0Vjh.s:193    .text.ssd1306_WriteData:0000000000000000 ssd1306_WriteData
-     /tmp/cc0q0Vjh.s:246    .text.ssd1306_WriteData:000000000000002c $d
-     /tmp/cc0q0Vjh.s:252    .text.ssd1306_FillBuffer:0000000000000000 $t
-     /tmp/cc0q0Vjh.s:259    .text.ssd1306_FillBuffer:0000000000000000 ssd1306_FillBuffer
-     /tmp/cc0q0Vjh.s:305    .text.ssd1306_FillBuffer:000000000000001c $d
-     /tmp/cc0q0Vjh.s:310    .text.ssd1306_Fill:0000000000000000 $t
-     /tmp/cc0q0Vjh.s:317    .text.ssd1306_Fill:0000000000000000 ssd1306_Fill
-     /tmp/cc0q0Vjh.s:360    .text.ssd1306_Fill:000000000000001c $d
-     /tmp/cc0q0Vjh.s:365    .text.ssd1306_UpdateScreen:0000000000000000 $t
-     /tmp/cc0q0Vjh.s:372    .text.ssd1306_UpdateScreen:0000000000000000 ssd1306_UpdateScreen
-     /tmp/cc0q0Vjh.s:432    .text.ssd1306_UpdateScreen:0000000000000034 $d
-     /tmp/cc0q0Vjh.s:437    .text.ssd1306_DrawPixel:0000000000000000 $t
-     /tmp/cc0q0Vjh.s:444    .text.ssd1306_DrawPixel:0000000000000000 ssd1306_DrawPixel
-     /tmp/cc0q0Vjh.s:508    .text.ssd1306_DrawPixel:0000000000000040 $d
-     /tmp/cc0q0Vjh.s:513    .text.ssd1306_WriteChar:0000000000000000 $t
-     /tmp/cc0q0Vjh.s:520    .text.ssd1306_WriteChar:0000000000000000 ssd1306_WriteChar
-     /tmp/cc0q0Vjh.s:692    .text.ssd1306_WriteChar:00000000000000b0 $d
-     /tmp/cc0q0Vjh.s:697    .text.ssd1306_WriteString:0000000000000000 $t
-     /tmp/cc0q0Vjh.s:704    .text.ssd1306_WriteString:0000000000000000 ssd1306_WriteString
-     /tmp/cc0q0Vjh.s:766    .text.ssd1306_SetCursor:0000000000000000 $t
-     /tmp/cc0q0Vjh.s:773    .text.ssd1306_SetCursor:0000000000000000 ssd1306_SetCursor
-     /tmp/cc0q0Vjh.s:793    .text.ssd1306_SetCursor:0000000000000008 $d
-     /tmp/cc0q0Vjh.s:798    .text.ssd1306_Line:0000000000000000 $t
-     /tmp/cc0q0Vjh.s:805    .text.ssd1306_Line:0000000000000000 ssd1306_Line
-     /tmp/cc0q0Vjh.s:973    .text.ssd1306_Polyline:0000000000000000 $t
-     /tmp/cc0q0Vjh.s:980    .text.ssd1306_Polyline:0000000000000000 ssd1306_Polyline
-     /tmp/cc0q0Vjh.s:1074   .text.ssd1306_DrawArc:0000000000000000 $t
-     /tmp/cc0q0Vjh.s:1081   .text.ssd1306_DrawArc:0000000000000000 ssd1306_DrawArc
-     /tmp/cc0q0Vjh.s:1331   .text.ssd1306_DrawArc:0000000000000138 $d
-     /tmp/cc0q0Vjh.s:1337   .text.ssd1306_DrawCircle:0000000000000000 $t
-     /tmp/cc0q0Vjh.s:1344   .text.ssd1306_DrawCircle:0000000000000000 ssd1306_DrawCircle
-     /tmp/cc0q0Vjh.s:1511   .text.ssd1306_DrawRectangle:0000000000000000 $t
-     /tmp/cc0q0Vjh.s:1518   .text.ssd1306_DrawRectangle:0000000000000000 ssd1306_DrawRectangle
-     /tmp/cc0q0Vjh.s:1586   .text.ssd1306_SetContrast:0000000000000000 $t
-     /tmp/cc0q0Vjh.s:1593   .text.ssd1306_SetContrast:0000000000000000 ssd1306_SetContrast
-     /tmp/cc0q0Vjh.s:1625   .text.ssd1306_SetDisplayOn:0000000000000000 $t
-     /tmp/cc0q0Vjh.s:1632   .text.ssd1306_SetDisplayOn:0000000000000000 ssd1306_SetDisplayOn
-     /tmp/cc0q0Vjh.s:1681   .text.ssd1306_SetDisplayOn:000000000000001c $d
-     /tmp/cc0q0Vjh.s:1686   .text.ssd1306_Init:0000000000000000 $t
-     /tmp/cc0q0Vjh.s:1693   .text.ssd1306_Init:0000000000000000 ssd1306_Init
-     /tmp/cc0q0Vjh.s:1841   .text.ssd1306_Init:00000000000000c4 $d
-     /tmp/cc0q0Vjh.s:1846   .text.ssd1306_GetDisplayOn:0000000000000000 $t
-     /tmp/cc0q0Vjh.s:1853   .text.ssd1306_GetDisplayOn:0000000000000000 ssd1306_GetDisplayOn
-     /tmp/cc0q0Vjh.s:1868   .text.ssd1306_GetDisplayOn:0000000000000008 $d
-ARM GAS  /tmp/cc0q0Vjh.s 			page 49
+     /tmp/ccih8JoV.s:20     .text.ssd1306_DegToRad:0000000000000000 $t
+     /tmp/ccih8JoV.s:27     .text.ssd1306_DegToRad:0000000000000000 ssd1306_DegToRad
+     /tmp/ccih8JoV.s:62     .text.ssd1306_DegToRad:0000000000000020 $d
+     /tmp/ccih8JoV.s:69     .text.ssd1306_NormalizeTo0_360:0000000000000000 $t
+     /tmp/ccih8JoV.s:75     .text.ssd1306_NormalizeTo0_360:0000000000000000 ssd1306_NormalizeTo0_360
+     /tmp/ccih8JoV.s:109    .text.ssd1306_Reset:0000000000000000 $t
+     /tmp/ccih8JoV.s:116    .text.ssd1306_Reset:0000000000000000 ssd1306_Reset
+     /tmp/ccih8JoV.s:129    .text.ssd1306_WriteCommand:0000000000000000 $t
+     /tmp/ccih8JoV.s:136    .text.ssd1306_WriteCommand:0000000000000000 ssd1306_WriteCommand
+     /tmp/ccih8JoV.s:180    .text.ssd1306_WriteCommand:0000000000000030 $d
+     /tmp/ccih8JoV.s:186    .text.ssd1306_WriteData:0000000000000000 $t
+     /tmp/ccih8JoV.s:193    .text.ssd1306_WriteData:0000000000000000 ssd1306_WriteData
+     /tmp/ccih8JoV.s:246    .text.ssd1306_WriteData:000000000000002c $d
+     /tmp/ccih8JoV.s:252    .text.ssd1306_FillBuffer:0000000000000000 $t
+     /tmp/ccih8JoV.s:259    .text.ssd1306_FillBuffer:0000000000000000 ssd1306_FillBuffer
+     /tmp/ccih8JoV.s:305    .text.ssd1306_FillBuffer:000000000000001c $d
+     /tmp/ccih8JoV.s:310    .text.ssd1306_Fill:0000000000000000 $t
+     /tmp/ccih8JoV.s:317    .text.ssd1306_Fill:0000000000000000 ssd1306_Fill
+     /tmp/ccih8JoV.s:360    .text.ssd1306_Fill:000000000000001c $d
+     /tmp/ccih8JoV.s:365    .text.ssd1306_UpdateScreen:0000000000000000 $t
+     /tmp/ccih8JoV.s:372    .text.ssd1306_UpdateScreen:0000000000000000 ssd1306_UpdateScreen
+     /tmp/ccih8JoV.s:432    .text.ssd1306_UpdateScreen:0000000000000034 $d
+     /tmp/ccih8JoV.s:437    .text.ssd1306_DrawPixel:0000000000000000 $t
+     /tmp/ccih8JoV.s:444    .text.ssd1306_DrawPixel:0000000000000000 ssd1306_DrawPixel
+     /tmp/ccih8JoV.s:508    .text.ssd1306_DrawPixel:0000000000000040 $d
+     /tmp/ccih8JoV.s:513    .text.ssd1306_WriteChar:0000000000000000 $t
+     /tmp/ccih8JoV.s:520    .text.ssd1306_WriteChar:0000000000000000 ssd1306_WriteChar
+     /tmp/ccih8JoV.s:692    .text.ssd1306_WriteChar:00000000000000b0 $d
+     /tmp/ccih8JoV.s:697    .text.ssd1306_WriteString:0000000000000000 $t
+     /tmp/ccih8JoV.s:704    .text.ssd1306_WriteString:0000000000000000 ssd1306_WriteString
+     /tmp/ccih8JoV.s:766    .text.ssd1306_SetCursor:0000000000000000 $t
+     /tmp/ccih8JoV.s:773    .text.ssd1306_SetCursor:0000000000000000 ssd1306_SetCursor
+     /tmp/ccih8JoV.s:793    .text.ssd1306_SetCursor:0000000000000008 $d
+     /tmp/ccih8JoV.s:798    .text.ssd1306_Line:0000000000000000 $t
+     /tmp/ccih8JoV.s:805    .text.ssd1306_Line:0000000000000000 ssd1306_Line
+     /tmp/ccih8JoV.s:973    .text.ssd1306_Polyline:0000000000000000 $t
+     /tmp/ccih8JoV.s:980    .text.ssd1306_Polyline:0000000000000000 ssd1306_Polyline
+     /tmp/ccih8JoV.s:1074   .text.ssd1306_DrawArc:0000000000000000 $t
+     /tmp/ccih8JoV.s:1081   .text.ssd1306_DrawArc:0000000000000000 ssd1306_DrawArc
+     /tmp/ccih8JoV.s:1331   .text.ssd1306_DrawArc:0000000000000138 $d
+     /tmp/ccih8JoV.s:1337   .text.ssd1306_DrawCircle:0000000000000000 $t
+     /tmp/ccih8JoV.s:1344   .text.ssd1306_DrawCircle:0000000000000000 ssd1306_DrawCircle
+     /tmp/ccih8JoV.s:1511   .text.ssd1306_DrawRectangle:0000000000000000 $t
+     /tmp/ccih8JoV.s:1518   .text.ssd1306_DrawRectangle:0000000000000000 ssd1306_DrawRectangle
+     /tmp/ccih8JoV.s:1586   .text.ssd1306_SetContrast:0000000000000000 $t
+     /tmp/ccih8JoV.s:1593   .text.ssd1306_SetContrast:0000000000000000 ssd1306_SetContrast
+     /tmp/ccih8JoV.s:1625   .text.ssd1306_SetDisplayOn:0000000000000000 $t
+     /tmp/ccih8JoV.s:1632   .text.ssd1306_SetDisplayOn:0000000000000000 ssd1306_SetDisplayOn
+     /tmp/ccih8JoV.s:1681   .text.ssd1306_SetDisplayOn:000000000000001c $d
+     /tmp/ccih8JoV.s:1686   .text.ssd1306_Init:0000000000000000 $t
+     /tmp/ccih8JoV.s:1693   .text.ssd1306_Init:0000000000000000 ssd1306_Init
+     /tmp/ccih8JoV.s:1841   .text.ssd1306_Init:00000000000000c4 $d
+     /tmp/ccih8JoV.s:1846   .text.ssd1306_GetDisplayOn:0000000000000000 $t
+     /tmp/ccih8JoV.s:1853   .text.ssd1306_GetDisplayOn:0000000000000000 ssd1306_GetDisplayOn
+     /tmp/ccih8JoV.s:1868   .text.ssd1306_GetDisplayOn:0000000000000008 $d
+ARM GAS  /tmp/ccih8JoV.s 			page 49
 
 
-     /tmp/cc0q0Vjh.s:1873   .bss.SSD1306:0000000000000000 $d
-     /tmp/cc0q0Vjh.s:1877   .bss.SSD1306:0000000000000000 SSD1306
-     /tmp/cc0q0Vjh.s:1880   .bss.SSD1306_Buffer:0000000000000000 $d
-     /tmp/cc0q0Vjh.s:1884   .bss.SSD1306_Buffer:0000000000000000 SSD1306_Buffer
+     /tmp/ccih8JoV.s:1873   .bss.SSD1306:0000000000000000 $d
+     /tmp/ccih8JoV.s:1877   .bss.SSD1306:0000000000000000 SSD1306
+     /tmp/ccih8JoV.s:1880   .bss.SSD1306_Buffer:0000000000000000 $d
+     /tmp/ccih8JoV.s:1884   .bss.SSD1306_Buffer:0000000000000000 SSD1306_Buffer
 
 UNDEFINED SYMBOLS
 __aeabi_f2d

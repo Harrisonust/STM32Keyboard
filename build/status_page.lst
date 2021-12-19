@@ -1,4 +1,4 @@
-ARM GAS  /tmp/ccIbTdet.s 			page 1
+ARM GAS  /tmp/ccyh8CSz.s 			page 1
 
 
    1              		.cpu cortex-m3
@@ -58,7 +58,7 @@ ARM GAS  /tmp/ccIbTdet.s 			page 1
   12:Core/Src/oled/status_page.c **** extern KEYBOARD_CONNECTION_MODE keyboard_connection_mode;
   13:Core/Src/oled/status_page.c **** 
   14:Core/Src/oled/status_page.c **** void status_update(){
-ARM GAS  /tmp/ccIbTdet.s 			page 2
+ARM GAS  /tmp/ccyh8CSz.s 			page 2
 
 
   37              		.loc 1 14 21 view -0
@@ -118,7 +118,7 @@ ARM GAS  /tmp/ccIbTdet.s 			page 1
   78              		.loc 1 27 2 is_stmt 1 view .LVU11
   79              		.loc 1 27 46 is_stmt 0 view .LVU12
   80 002a 6423     		movs	r3, #100
-ARM GAS  /tmp/ccIbTdet.s 			page 3
+ARM GAS  /tmp/ccyh8CSz.s 			page 3
 
 
   81 002c 03FB00F3 		mul	r3, r3, r0
@@ -178,7 +178,7 @@ ARM GAS  /tmp/ccIbTdet.s 			page 1
  127 0076 00BF     		.align	2
  128              	.L7:
  129 0078 00000000 		.word	keyboard_connection_mode
-ARM GAS  /tmp/ccIbTdet.s 			page 4
+ARM GAS  /tmp/ccyh8CSz.s 			page 4
 
 
  130 007c 00000000 		.word	Font_7x10
@@ -238,7 +238,7 @@ ARM GAS  /tmp/ccIbTdet.s 			page 1
   38:Core/Src/oled/status_page.c **** 		if(keyboard_connection_mode == KEYBOARD_CONNECTION_MODE_CABLE)
  175              		.loc 1 38 3 is_stmt 1 view .LVU29
   38:Core/Src/oled/status_page.c **** 		if(keyboard_connection_mode == KEYBOARD_CONNECTION_MODE_CABLE)
-ARM GAS  /tmp/ccIbTdet.s 			page 5
+ARM GAS  /tmp/ccyh8CSz.s 			page 5
 
 
  176              		.loc 1 38 31 is_stmt 0 view .LVU30
@@ -298,7 +298,7 @@ ARM GAS  /tmp/ccIbTdet.s 			page 1
  219      00000000 
  220 001e 0000     		.space	2
  221 0020 00000000 		.word	status_update
-ARM GAS  /tmp/ccIbTdet.s 			page 6
+ARM GAS  /tmp/ccyh8CSz.s 			page 6
 
 
  222 0024 00000000 		.word	status_onclick
@@ -324,22 +324,22 @@ ARM GAS  /tmp/ccIbTdet.s 			page 1
  242              		.file 18 "Core/Inc/keyInterface.h"
  243              		.file 19 "Core/Src/oled/../../Inc/oled/status_page.h"
  244              		.file 20 "/usr/include/newlib/stdio.h"
-ARM GAS  /tmp/ccIbTdet.s 			page 7
+ARM GAS  /tmp/ccyh8CSz.s 			page 7
 
 
 DEFINED SYMBOLS
                             *ABS*:0000000000000000 status_page.c
-     /tmp/ccIbTdet.s:16     .rodata.status_update.str1.4:0000000000000000 $d
-     /tmp/ccIbTdet.s:26     .text.status_update:0000000000000000 $t
-     /tmp/ccIbTdet.s:34     .text.status_update:0000000000000000 status_update
-     /tmp/ccIbTdet.s:129    .text.status_update:0000000000000078 $d
-     /tmp/ccIbTdet.s:141    .text.status_onclick:0000000000000000 $t
-     /tmp/ccIbTdet.s:148    .text.status_onclick:0000000000000000 status_onclick
-     /tmp/ccIbTdet.s:201    .text.status_onclick:0000000000000028 $d
-     /tmp/ccIbTdet.s:217    .data.status:0000000000000000 status
-     /tmp/ccIbTdet.s:207    .bss.temp.7842:0000000000000000 $d
-     /tmp/ccIbTdet.s:211    .bss.temp.7842:0000000000000000 temp.7842
-     /tmp/ccIbTdet.s:214    .data.status:0000000000000000 $d
+     /tmp/ccyh8CSz.s:16     .rodata.status_update.str1.4:0000000000000000 $d
+     /tmp/ccyh8CSz.s:26     .text.status_update:0000000000000000 $t
+     /tmp/ccyh8CSz.s:34     .text.status_update:0000000000000000 status_update
+     /tmp/ccyh8CSz.s:129    .text.status_update:0000000000000078 $d
+     /tmp/ccyh8CSz.s:141    .text.status_onclick:0000000000000000 $t
+     /tmp/ccyh8CSz.s:148    .text.status_onclick:0000000000000000 status_onclick
+     /tmp/ccyh8CSz.s:201    .text.status_onclick:0000000000000028 $d
+     /tmp/ccyh8CSz.s:217    .data.status:0000000000000000 status
+     /tmp/ccyh8CSz.s:207    .bss.temp.7842:0000000000000000 $d
+     /tmp/ccyh8CSz.s:211    .bss.temp.7842:0000000000000000 temp.7842
+     /tmp/ccyh8CSz.s:214    .data.status:0000000000000000 $d
 
 UNDEFINED SYMBOLS
 ssd1306_SetCursor

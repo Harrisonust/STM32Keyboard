@@ -1,4 +1,4 @@
-ARM GAS  /tmp/cclgQRsY.s 			page 1
+ARM GAS  /tmp/ccASGpDE.s 			page 1
 
 
    1              		.cpu cortex-m3
@@ -58,7 +58,7 @@ ARM GAS  /tmp/cclgQRsY.s 			page 1
   35              		.cfi_startproc
   36              		@ args = 0, pretend = 0, frame = 24
   37              		@ frame_needed = 0, uses_anonymous_args = 0
-ARM GAS  /tmp/cclgQRsY.s 			page 2
+ARM GAS  /tmp/ccASGpDE.s 			page 2
 
 
   38 0000 10B5     		push	{r4, lr}
@@ -118,7 +118,7 @@ ARM GAS  /tmp/cclgQRsY.s 			page 1
   84 0038 0123     		movs	r3, #1
   85 003a 06CA     		ldm	r2, {r1, r2}
   86 003c 01A8     		add	r0, sp, #4
-ARM GAS  /tmp/cclgQRsY.s 			page 3
+ARM GAS  /tmp/ccASGpDE.s 			page 3
 
 
   87 003e FFF7FEFF 		bl	ssd1306_WriteString
@@ -178,7 +178,7 @@ ARM GAS  /tmp/cclgQRsY.s 			page 1
   30:Core/Src/oled/layout_page.c **** 
   31:Core/Src/oled/layout_page.c **** void layout_onclick(char *combination, int charNum){
  136              		.loc 1 31 52 is_stmt 1 view -0
-ARM GAS  /tmp/cclgQRsY.s 			page 4
+ARM GAS  /tmp/ccASGpDE.s 			page 4
 
 
  137              		.cfi_startproc
@@ -238,7 +238,7 @@ ARM GAS  /tmp/cclgQRsY.s 			page 1
  186 000e 0000     		.align	2
  187              	.LC4:
  188 0010 74657374 		.ascii	"test3\000"
-ARM GAS  /tmp/cclgQRsY.s 			page 5
+ARM GAS  /tmp/ccASGpDE.s 			page 5
 
 
  188      3300
@@ -298,7 +298,7 @@ ARM GAS  /tmp/cclgQRsY.s 			page 1
  239              		.file 7 "/usr/include/newlib/sys/_types.h"
  240              		.file 8 "/usr/include/newlib/sys/reent.h"
  241              		.file 9 "/usr/include/newlib/sys/lock.h"
-ARM GAS  /tmp/cclgQRsY.s 			page 6
+ARM GAS  /tmp/ccASGpDE.s 			page 6
 
 
  242              		.file 10 "Drivers/STM32F1xx_HAL_Driver/Inc/stm32f1xx_hal_def.h"
@@ -310,27 +310,27 @@ ARM GAS  /tmp/cclgQRsY.s 			page 1
  248              		.file 16 "Core/Inc/oled/page_template.h"
  249              		.file 17 "Core/Inc/oled/layout_page.h"
  250              		.file 18 "/usr/include/newlib/stdio.h"
-ARM GAS  /tmp/cclgQRsY.s 			page 7
+ARM GAS  /tmp/ccASGpDE.s 			page 7
 
 
 DEFINED SYMBOLS
                             *ABS*:0000000000000000 layout_page.c
-     /tmp/cclgQRsY.s:16     .rodata.layout_update.str1.4:0000000000000000 $d
-     /tmp/cclgQRsY.s:23     .text.layout_update:0000000000000000 $t
-     /tmp/cclgQRsY.s:31     .text.layout_update:0000000000000000 layout_update
-     /tmp/cclgQRsY.s:116    .text.layout_update:0000000000000054 $d
-     /tmp/cclgQRsY.s:126    .text.layout_onclick:0000000000000000 $t
-     /tmp/cclgQRsY.s:133    .text.layout_onclick:0000000000000000 layout_onclick
-     /tmp/cclgQRsY.s:170    .text.layout_onclick:000000000000001c $d
-     /tmp/cclgQRsY.s:206    .data.layout:0000000000000000 layout
-     /tmp/cclgQRsY.s:200    .bss.curr_layout_selection:0000000000000000 curr_layout_selection
-     /tmp/cclgQRsY.s:218    .data.layout_selection:0000000000000000 layout_selection
-     /tmp/cclgQRsY.s:225    .data.selection:0000000000000000 selection
-     /tmp/cclgQRsY.s:180    .rodata.str1.4:0000000000000000 $d
-     /tmp/cclgQRsY.s:196    .bss.curr_layout_selection:0000000000000000 $d
-     /tmp/cclgQRsY.s:203    .data.layout:0000000000000000 $d
-     /tmp/cclgQRsY.s:214    .data.layout_selection:0000000000000000 $d
-     /tmp/cclgQRsY.s:221    .data.selection:0000000000000000 $d
+     /tmp/ccASGpDE.s:16     .rodata.layout_update.str1.4:0000000000000000 $d
+     /tmp/ccASGpDE.s:23     .text.layout_update:0000000000000000 $t
+     /tmp/ccASGpDE.s:31     .text.layout_update:0000000000000000 layout_update
+     /tmp/ccASGpDE.s:116    .text.layout_update:0000000000000054 $d
+     /tmp/ccASGpDE.s:126    .text.layout_onclick:0000000000000000 $t
+     /tmp/ccASGpDE.s:133    .text.layout_onclick:0000000000000000 layout_onclick
+     /tmp/ccASGpDE.s:170    .text.layout_onclick:000000000000001c $d
+     /tmp/ccASGpDE.s:206    .data.layout:0000000000000000 layout
+     /tmp/ccASGpDE.s:200    .bss.curr_layout_selection:0000000000000000 curr_layout_selection
+     /tmp/ccASGpDE.s:218    .data.layout_selection:0000000000000000 layout_selection
+     /tmp/ccASGpDE.s:225    .data.selection:0000000000000000 selection
+     /tmp/ccASGpDE.s:180    .rodata.str1.4:0000000000000000 $d
+     /tmp/ccASGpDE.s:196    .bss.curr_layout_selection:0000000000000000 $d
+     /tmp/ccASGpDE.s:203    .data.layout:0000000000000000 $d
+     /tmp/ccASGpDE.s:214    .data.layout_selection:0000000000000000 $d
+     /tmp/ccASGpDE.s:221    .data.selection:0000000000000000 $d
 
 UNDEFINED SYMBOLS
 sprintf
