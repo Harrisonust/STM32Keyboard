@@ -32,9 +32,9 @@ int current_selection = 0;
 uint8_t led_init_value = 0;
 
 void led_init(){
-	uint32_t data[MAX_LED];
+	uint32_t data[MAX_LED] = {0};
 	//get the data value
-	Flash_Read_Data (LED_START_ADDR, &data, MAX_LED);
+	// Flash_Read_Data (LED_START_ADDR, &data, MAX_LED);
 
 	for(int i = 0; i < MAX_LED; i++){
 		if(data[i] == 0xFFFFFFFF) continue;
@@ -52,12 +52,12 @@ void led_init(){
 }
 
 void led_flash(){
-	uint32_t temp[MAX_LED];
+	uint32_t temp[MAX_LED] = {0};
 	for(int i = 0; i < MAX_LED; i++){
 		for(int j = 3; j >= 0; j--){
 			temp[i] = (temp[i] << 8) | ws2812.LED_Data[i][j];
 		}
-		Flash_Write_Data(LED_START_ADDR, &temp, MAX_LED);
+		// Flash_Write_Data(LED_START_ADDR, &temp, MAX_LED);
 	}
 
 	uint32_t mode = rgb_mode;

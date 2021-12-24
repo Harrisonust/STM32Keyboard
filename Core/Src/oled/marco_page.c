@@ -29,7 +29,7 @@ Macro combination[MAX_MACRO];
 void macro_init(){
 	uint32_t data[MAX_MACRO_TEMPLATE/4]={0};
 	for(int i = 0; i < MAX_MACRO; i++){
-		Flash_Read_Data(START_ADDR + MAX_MACRO_TEMPLATE*i, &data, MAX_MACRO_TEMPLATE/4);
+		// Flash_Read_Data(START_ADDR + MAX_MACRO_TEMPLATE*i, &data, MAX_MACRO_TEMPLATE/4);
 		if(data[0] != 0XFFFFFFFF){
 
 			uint8_t internal_i = 0;

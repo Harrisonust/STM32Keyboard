@@ -634,7 +634,7 @@ const List_t *pxTasksWaitingForBits = &( pxEventBits->xTasksWaitingForBits );
 		{
 			/* Unblock the task, returning 0 as the event list is being deleted
 			and	cannot therefore have any bits set. */
-			configASSERT( pxTasksWaitingForBits->xListEnd.pxNext != ( ListItem_t * ) &( pxTasksWaitingForBits->xListEnd ) );
+			configASSERT( pxTasksWaitingForBits->xListEnd.pxNext != (const ListItem_t * ) &( pxTasksWaitingForBits->xListEnd ) );
 			( void ) xTaskRemoveFromUnorderedEventList( pxTasksWaitingForBits->xListEnd.pxNext, eventUNBLOCKED_DUE_TO_BIT_SET );
 		}
 

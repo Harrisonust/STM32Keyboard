@@ -123,8 +123,8 @@ void WS2812_BreathTask(WS2812* ws){
 
 void WS2812_StaticTask(WS2812* ws){
 	WS2812_LED_SetBrightness(ws, 30);
-	uint32_t data[MAX_LED];
-	Flash_Read_Data (LED_START_ADDR, &data, MAX_LED);	
+	uint32_t data[MAX_LED] ={0};
+	// Flash_Read_Data (LED_START_ADDR, &data, MAX_LED);	
 	for(int i = 0; i < MAX_LED; i++){
 		if(data[i] == 0xFFFFFFFF) continue;
 		for(int j = 0; j < SELECTION; j++){
@@ -195,9 +195,9 @@ void WS2812_LED_Task(void const * par){
 				led_index += step;
 			break;
 			case STATICMODE:;
-				uint32_t data[MAX_LED];
+				uint32_t data[MAX_LED] = {0};
 				if(do_once_flag){
-					Flash_Read_Data (LED_START_ADDR, &data, MAX_LED);
+					// Flash_Read_Data (LED_START_ADDR, &data, MAX_LED);
 					do_once_flag = 0;
 					for(int i = 0; i < MAX_LED; i++){
 						if(data[i] == 0xFFFFFFFF) continue;
