@@ -512,7 +512,7 @@ static void MX_GPIO_Init(void) {
 /* USER CODE END Header_StartUSBTask */
 void StartUSBTask(void const *argument) {
     /* init code for USB_DEVICE */
-    MX_USB_DEVICE_Init();  //it is blocking i dont know why
+    MX_USB_DEVICE_Init();
 
     /* USER CODE BEGIN 5 */
     /* Infinite loop */
@@ -581,7 +581,7 @@ void StartDebugTask02(void const *argument) {
         // }
         HAL_GPIO_TogglePin(LED3_GPIO_Port, LED3_Pin);
 
-        osDelay(2000);
+        osDelay(200);
     }
     /* USER CODE END StartDebugTask02 */
 }
