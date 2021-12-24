@@ -394,7 +394,7 @@ add_executable(${PROJECT_NAME} ${MCU_STARTUP_FILE} ${SOURCE_FILES})
 
 	# -Werror=cast-qual
 	SET(GCC_WARN_FLAGS_C -Werror=discarded-qualifiers -Werror=incompatible-pointer-types -Werror=implicit-int -Werror=int-conversion -Werror=implicit-function-declaration)
-	SET(GCC_WARN_FLAGS -Wall -Werror=restrict -Werror=maybe-uninitialized -Wno-comment -Werror=return-type -Werror=cast-qual -Wno-unused-parameter -Wno-attributes -Wno-unused-function -Wno-unknown-pragmas)
+	SET(GCC_WARN_FLAGS -Wall -Werror=restrict -Werror=maybe-uninitialized -Wno-comment -Werror=return-type  -Wno-unused-parameter -Wno-attributes -Wno-unused-function -Wno-unknown-pragmas)
 	if (DEFINED STFU_GCC AND STFU_GCC EQUAL 1)
 		SET(GCC_WARN_FLAGS ${GCC_WARN_FLAGS} -w)
 	elseif(DEFINED WHINE_GCC AND WHINE_GCC EQUAL 1)

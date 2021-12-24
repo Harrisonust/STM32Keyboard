@@ -12,7 +12,6 @@
                 "${workspaceFolder}/Middlewares/Third_Party/FreeRTOS/Source/CMSIS_RTOS",
                 "${workspaceFolder}/Middlewares/Third_Party/FreeRTOS/Source/portable/GCC/ARM_CM3",
                 "${workspaceFolder}/Core/Inc/oled",
-                "/usr/include/newlib",
                 "${workspaceFolder}/USB_DEVICE/App",
                 "${workspaceFolder}/Middlewares/ST/STM32_USB_Device_Library/Core/Inc",
                 "${workspaceFolder}/USB_DEVICE/Target",
