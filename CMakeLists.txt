@@ -186,7 +186,7 @@ if (NOT DEFINED MCU_STARTUP_FILE)
 	endif()
 endif()
 
-set(MCU_STARTUP_FILE startup_stm32f103xb.s)
+set(MCU_STARTUP_FILE startup_stm32f103xe.s)
 
 if (MCU_STARTUP_FILE)
 	message("MCU_STARTUP_FILE: ${MCU_STARTUP_FILE}")
