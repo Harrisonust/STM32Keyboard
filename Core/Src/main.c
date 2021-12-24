@@ -512,7 +512,7 @@ static void MX_GPIO_Init(void) {
 /* USER CODE END Header_StartUSBTask */
 void StartUSBTask(void const *argument) {
     /* init code for USB_DEVICE */
-    //   MX_USB_DEVICE_Init();
+    MX_USB_DEVICE_Init();  //it is blocking i dont know why
 
     /* USER CODE BEGIN 5 */
     /* Infinite loop */

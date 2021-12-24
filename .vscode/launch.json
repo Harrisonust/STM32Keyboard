@@ -1,0 +1,25 @@
+{
+    // Use IntelliSense to learn about possible attributes.
+    // Hover to view descriptions of existing attributes.
+    // For more information, visit: https://go.microsoft.com/fwlink/?linkid=830387
+    "version": "0.2.0",
+    "configurations": [
+        {
+            "name": "Cortex Debug",
+            "cwd": "${workspaceRoot}",
+            // Change this so it integrates with cmake and build
+            "executable": "${command:cmake.launchTargetPath}",
+            "request": "launch",
+            "type": "cortex-debug",
+            "servertype": "openocd", // Change this to openocd
+            // Add below lines
+            // point to the correct config file (f1/f4)
+            "configFiles": [
+                "../stm32f1.cfg"
+            ],
+            // point to the svd file (optional)
+            "svdFile": "./STM32F103xx.svd",
+            "rtos": "FreeRTOS" // If you are using a project with FreeRTOS
+        }
+    ]
+}
