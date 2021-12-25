@@ -12,6 +12,7 @@
 #include "RGB.h"
 #include "fingerprint.h"
 #include "keyInterface.h"
+#include "matrix_button.h"
 #include "oled_manager.h"
 #include "volume.h"
 /* USER CODE END Includes */
@@ -512,7 +513,7 @@ static void MX_GPIO_Init(void) {
 /* USER CODE END Header_StartUSBTask */
 void StartUSBTask(void const *argument) {
     /* init code for USB_DEVICE */
-    MX_USB_DEVICE_Init();  //it is blocking i dont know why
+    MX_USB_DEVICE_Init();
 
     /* USER CODE BEGIN 5 */
     /* Infinite loop */
@@ -554,9 +555,11 @@ void HAL_GPIO_EXTI_Callback(uint16_t GPIO_Pin) {
     }
 }
 /* USER CODE END Header_StartDebugTask02 */
+
 void StartDebugTask02(void const *argument) {
     /* USER CODE BEGIN StartDebugTask02 */
     /* Infinite loop */
+
     for (;;) {
         // if (sendPasswordFlag) {
         //     sendPassword();
@@ -579,9 +582,12 @@ void StartDebugTask02(void const *argument) {
         //         oled_tick = HAL_GetTick();
         //     }
         // }
-        HAL_GPIO_TogglePin(LED3_GPIO_Port, LED3_Pin);
-
-        osDelay(2000);
+        // if (button_read(&b))
+        //     b.button_clicked_listener(&b, BUTTON_CLICKED);
+        // else
+        //     b.button_released_listener(&b, BUTTON_RELEASED);
+        HAL_GPIO_TogglePin(LED2_GPIO_Port, LED2_Pin);
+        osDelay(200);
     }
     /* USER CODE END StartDebugTask02 */
 }
