@@ -99,10 +99,10 @@ int main(void) {
     MX_UART4_Init();
     MX_TIM2_Init();
     MX_USART1_UART_Init();
+    /* USER CODE BEGIN 2 */
     HAL_ADCEx_Calibration_Start(&hadc1);
     HAL_ADC_Start(&hadc1);
     HAL_TIM_Encoder_Start_IT(&htim2, TIM_CHANNEL_ALL);
-    /* USER CODE BEGIN 2 */
     /* USER CODE END 2 */
 
     /* USER CODE BEGIN RTOS_MUTEX */
@@ -127,7 +127,7 @@ int main(void) {
     debugTask02Handle = osThreadCreate(osThread(debugTask02), NULL);
 
     /* definition and creation of RGBTask */
-    osThreadDef(RGBTask, StartRGBTask, osPriorityIdle, 0, 128);
+    osThreadDef(RGBTask, WS2812_LED_Task, osPriorityIdle, 0, 128);
     RGBTaskHandle = osThreadCreate(osThread(RGBTask), NULL);
 
     /* USER CODE BEGIN RTOS_THREADS */
@@ -591,7 +591,7 @@ void StartDebugTask02(void const *argument) {
 void StartRGBTask(void const *argument) {
     /* USER CODE BEGIN StartRGBTask */
     /* Infinite loop */
-    WS2812_LED_Task(NULL);
+    // WS2812_LED_Task(NULL);
 
     /* USER CODE END StartRGBTask */
 }
