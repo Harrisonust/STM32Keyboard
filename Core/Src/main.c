@@ -12,6 +12,7 @@
 #include "RGB.h"
 #include "fingerprint.h"
 #include "keyInterface.h"
+#include "matrix_button.h"
 #include "oled_manager.h"
 #include "volume.h"
 /* USER CODE END Includes */
@@ -554,9 +555,11 @@ void HAL_GPIO_EXTI_Callback(uint16_t GPIO_Pin) {
     }
 }
 /* USER CODE END Header_StartDebugTask02 */
+
 void StartDebugTask02(void const *argument) {
     /* USER CODE BEGIN StartDebugTask02 */
     /* Infinite loop */
+
     for (;;) {
         // if (sendPasswordFlag) {
         //     sendPassword();
@@ -579,8 +582,11 @@ void StartDebugTask02(void const *argument) {
         //         oled_tick = HAL_GetTick();
         //     }
         // }
-        HAL_GPIO_TogglePin(LED3_GPIO_Port, LED3_Pin);
-
+        // if (button_read(&b))
+        //     b.button_clicked_listener(&b, BUTTON_CLICKED);
+        // else
+        //     b.button_released_listener(&b, BUTTON_RELEASED);
+        HAL_GPIO_TogglePin(LED2_GPIO_Port, LED2_Pin);
         osDelay(200);
     }
     /* USER CODE END StartDebugTask02 */

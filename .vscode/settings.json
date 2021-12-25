@@ -6,6 +6,11 @@
         "led_page.h": "c",
         "cmsis_os.h": "c",
         "stdio.h": "c",
-        "volume.h": "c"
+        "volume.h": "c",
+        "matrix_button.h": "c",
+        "stm32f1xx_hal_uart.h": "c",
+        "keyid.h": "c",
+        "stm32f1xx_hal.h": "c",
+        "main.h": "c"
     }
 }
