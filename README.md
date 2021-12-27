@@ -19,16 +19,16 @@ HKUST Elec3300 project
     * Battery(with USB charging)
 
 ## Final View
-<img src = "images/view.jpg" width="250">
+<img src = "doc/images/view.jpg" width="250">
 
 ## PCB
 PCB View
 
-<img src = "images/pcb-front.png" height="250"><img src = "images/pcb-back.png" height="250">
+<img src = "doc/images/pcb-front.png" height="250"><img src = "doc/images/pcb-back.png" height="250">
 
 3D View
 
-<img src = "images/kicad-3dview-front.png" height="250"> <img src = "images/kicad-3dview-back.png" height="250">
+<img src = "doc/images/kicad-3dview-front.png" height="250"> <img src = "doc/images/kicad-3dview-back.png" height="250">
 
 ## Progress record and future plan
 https://github.com/Harrisonust/STM32Keyboard/projects/1
