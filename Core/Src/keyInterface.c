@@ -13,8 +13,10 @@
 #include "volume.h"
 #include "matrix_button.h"
 #include "KeyID.h"
+#include "keyboard_system.h"
 // clang-format on
 
+extern OS_TYPE OS_type;
 extern USBD_HandleTypeDef hUsbDeviceFS;
 keyboardStruct keyboardStct;
 extern UART_HandleTypeDef huart4;
@@ -191,9 +193,15 @@ void VolumeHandler() {
     Volume_State vol_state = updateVolume();
     KeyModifier m = {0};
     if (vol_state == VOLUMEDOWN) {
-        sendKey(0x80, m);  //volume up
+        if (OS_type == OS_MAC)
+            sendKey(0x80, m);
+        if (OS_type == OS_LINUX)
+            sendKey(KEY_F12, m);  //volume up
     } else if (vol_state == VOLUMEUP) {
-        sendKey(0x81, m);  //volume down
+        if (OS_type == OS_MAC)
+            sendKey(0x81, m);
+        if (OS_type == OS_LINUX)
+            sendKey(KEY_F11, m);  //volume down
     } else if (vol_state == VOLUMENOACTION) {
     }
 }
@@ -224,6 +232,7 @@ void keyThread(void) {
         } else if (keyboard_operation_mode == KEYBOARD_OPERATION_MODE_NORMAL) {
             buttons_update(buttons, NUM_OF_KEYS);
             VolumeHandler();
+            OS_handler();
         }
         osDelay(1);
     }
