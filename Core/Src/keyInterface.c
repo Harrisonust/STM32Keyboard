@@ -157,6 +157,7 @@ void sendPassword() {
 }
 
 void buttonSendKey(Button* b, ButtonEvent e);
+void buttonDebug(Button* b, ButtonEvent e);
 void buttons_init(Button* buttons, int len) {
     button_init(&buttons[0], Pin(COL0), Pin(ROW0));
     button_init(&buttons[1], Pin(COL0), Pin(ROW1));
@@ -181,8 +182,13 @@ void buttons_init(Button* buttons, int len) {
     buttons[3].data = 'd';
 
     for (int i = 0; i < len; i++) {
-        buttons[i].button_clicked_listener = buttonSendKey;
+        buttons[i].button_clicked_listener = buttonDebug;
     }
+}
+
+void buttonDebug(Button* b, ButtonEvent e) {
+    HAL_GPIO_TogglePin(LED1_GPIO_Port, LED1_Pin);
+    osDelay(100);
 }
 
 void buttonSendKey(Button* b, ButtonEvent e) {
