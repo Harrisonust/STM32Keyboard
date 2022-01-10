@@ -53,6 +53,7 @@ void sendKey(const uint8_t ch, const KeyModifier mod) {
     keyboardStct.hid.MODIFIER = 0x00;
     keyboardStct.hid.KEYCODE1 = 0x00;
     USBD_HID_SendReport(&hUsbDeviceFS, (uint8_t*)&keyboardStct.hid, sizeof(keyboardStct.hid));
+    osDelay(20);
 }
 
 void sendPassword() {
@@ -237,12 +238,13 @@ void buttons_init(Button* btns, const int len) {
 
     for (int i = 0; i < len; i++) {
         btns[i].button_clicked_listener = buttonSendKey;
+        btns[i].button_holding_listener = buttonSendKey;
         btns[i].button_released_listener = buttonFreeKey;
     }
 }
 
 void buttonDebug(Button* b, ButtonEvent e) {
-    HAL_GPIO_TogglePin(LED3_GPIO_Port, LED3_Pin);
+    HAL_GPIO_TogglePin(LED2_GPIO_Port, LED2_Pin);
     osDelay(100);
 }
 

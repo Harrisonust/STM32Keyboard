@@ -15,6 +15,8 @@ void button_init(Button *button, GPIO_TypeDef *Out_GPIOx, uint16_t Out_GPIO_Pin,
     button->button_released_listener = NULL;
     button->button_clicked_listener = NULL;
     button->button_holding_listener = NULL;
+
+    // button->debounce_threshold = 10;
 }
 
 /**

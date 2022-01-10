@@ -599,7 +599,7 @@ void StartDebugTask02(void const *argument) {
         // else
         //     b.button_released_listener(&b, BUTTON_RELEASED);
         HAL_GPIO_TogglePin(LED1_GPIO_Port, LED1_Pin);
-        osDelay(20);
+        osDelay(200);
     }
     /* USER CODE END StartDebugTask02 */
 }
