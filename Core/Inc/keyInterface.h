@@ -5,7 +5,7 @@
 //
 // #include "matrix_button.h"
 
-#define KEYBOARD_LAYOUT_16
+#define KEYBOARD_LAYOUT_84
 
 #if defined(KEYBOARD_LAYOUT_84)
 #define ROW_NUM 6
@@ -14,7 +14,10 @@
 #define ROW_NUM 4
 #define COL_NUM 4
 #endif
-#define NUM_OF_KEYS ROW_NUM *COL_NUM
+
+// clang-format off
+#define NUM_OF_KEYS ROW_NUM * COL_NUM
+// clang-format on
 
 typedef enum {
     KEY16,

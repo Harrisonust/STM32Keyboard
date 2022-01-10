@@ -158,23 +158,96 @@ void sendPassword() {
 
 void buttonSendKey(Button* b, ButtonEvent e);
 void buttonDebug(Button* b, ButtonEvent e);
-void buttons_init(Button* buttons, int len) {
+void buttons_init(Button* buttons, const int len) {
     button_init(&buttons[0], Pin(COL0), Pin(ROW0));
-    button_init(&buttons[1], Pin(COL0), Pin(ROW1));
-    button_init(&buttons[2], Pin(COL0), Pin(ROW2));
-    button_init(&buttons[3], Pin(COL0), Pin(ROW3));
-    button_init(&buttons[4], Pin(COL1), Pin(ROW0));
-    button_init(&buttons[5], Pin(COL1), Pin(ROW1));
-    button_init(&buttons[6], Pin(COL1), Pin(ROW2));
-    button_init(&buttons[7], Pin(COL1), Pin(ROW3));
-    button_init(&buttons[8], Pin(COL2), Pin(ROW0));
-    button_init(&buttons[9], Pin(COL2), Pin(ROW1));
-    button_init(&buttons[10], Pin(COL2), Pin(ROW2));
-    button_init(&buttons[11], Pin(COL2), Pin(ROW3));
-    button_init(&buttons[12], Pin(COL3), Pin(ROW0));
-    button_init(&buttons[13], Pin(COL3), Pin(ROW1));
-    button_init(&buttons[14], Pin(COL3), Pin(ROW2));
-    button_init(&buttons[15], Pin(COL3), Pin(ROW3));
+    button_init(&buttons[1], Pin(COL1), Pin(ROW0));
+    button_init(&buttons[2], Pin(COL2), Pin(ROW0));
+    button_init(&buttons[3], Pin(COL3), Pin(ROW0));
+    button_init(&buttons[4], Pin(COL4), Pin(ROW0));
+    button_init(&buttons[5], Pin(COL5), Pin(ROW0));
+    button_init(&buttons[6], Pin(COL6), Pin(ROW0));
+    button_init(&buttons[7], Pin(COL7), Pin(ROW0));
+    button_init(&buttons[8], Pin(COL8), Pin(ROW0));
+    button_init(&buttons[9], Pin(COL9), Pin(ROW0));
+    button_init(&buttons[10], Pin(COL10), Pin(ROW0));
+    button_init(&buttons[11], Pin(COL11), Pin(ROW0));
+    button_init(&buttons[12], Pin(COL12), Pin(ROW0));
+    button_init(&buttons[13], Pin(COL13), Pin(ROW0));
+
+    button_init(&buttons[14], Pin(COL0), Pin(ROW1));
+    button_init(&buttons[15], Pin(COL1), Pin(ROW1));
+    button_init(&buttons[16], Pin(COL2), Pin(ROW1));
+    button_init(&buttons[17], Pin(COL3), Pin(ROW1));
+    button_init(&buttons[18], Pin(COL4), Pin(ROW1));
+    button_init(&buttons[19], Pin(COL5), Pin(ROW1));
+    button_init(&buttons[20], Pin(COL6), Pin(ROW1));
+    button_init(&buttons[21], Pin(COL7), Pin(ROW1));
+    button_init(&buttons[22], Pin(COL8), Pin(ROW1));
+    button_init(&buttons[23], Pin(COL9), Pin(ROW1));
+    button_init(&buttons[24], Pin(COL10), Pin(ROW1));
+    button_init(&buttons[25], Pin(COL11), Pin(ROW1));
+    button_init(&buttons[26], Pin(COL12), Pin(ROW1));
+    button_init(&buttons[27], Pin(COL13), Pin(ROW1));
+
+    button_init(&buttons[28], Pin(COL0), Pin(ROW2));
+    button_init(&buttons[29], Pin(COL1), Pin(ROW2));
+    button_init(&buttons[30], Pin(COL2), Pin(ROW2));
+    button_init(&buttons[31], Pin(COL3), Pin(ROW2));
+    button_init(&buttons[32], Pin(COL4), Pin(ROW2));
+    button_init(&buttons[33], Pin(COL5), Pin(ROW2));
+    button_init(&buttons[34], Pin(COL6), Pin(ROW2));
+    button_init(&buttons[35], Pin(COL7), Pin(ROW2));
+    button_init(&buttons[36], Pin(COL8), Pin(ROW2));
+    button_init(&buttons[37], Pin(COL9), Pin(ROW2));
+    button_init(&buttons[38], Pin(COL10), Pin(ROW2));
+    button_init(&buttons[39], Pin(COL11), Pin(ROW2));
+    button_init(&buttons[40], Pin(COL12), Pin(ROW2));
+    button_init(&buttons[41], Pin(COL13), Pin(ROW2));
+
+    button_init(&buttons[42], Pin(COL0), Pin(ROW3));
+    button_init(&buttons[43], Pin(COL1), Pin(ROW3));
+    button_init(&buttons[44], Pin(COL2), Pin(ROW3));
+    button_init(&buttons[45], Pin(COL3), Pin(ROW3));
+    button_init(&buttons[46], Pin(COL4), Pin(ROW3));
+    button_init(&buttons[47], Pin(COL5), Pin(ROW3));
+    button_init(&buttons[48], Pin(COL6), Pin(ROW3));
+    button_init(&buttons[49], Pin(COL7), Pin(ROW3));
+    button_init(&buttons[50], Pin(COL8), Pin(ROW3));
+    button_init(&buttons[51], Pin(COL9), Pin(ROW3));
+    button_init(&buttons[52], Pin(COL10), Pin(ROW3));
+    button_init(&buttons[53], Pin(COL11), Pin(ROW3));
+    button_init(&buttons[54], Pin(COL12), Pin(ROW3));
+    button_init(&buttons[55], Pin(COL13), Pin(ROW3));
+
+    button_init(&buttons[56], Pin(COL0), Pin(ROW4));
+    button_init(&buttons[57], Pin(COL1), Pin(ROW4));
+    button_init(&buttons[58], Pin(COL2), Pin(ROW4));
+    button_init(&buttons[59], Pin(COL3), Pin(ROW4));
+    button_init(&buttons[60], Pin(COL4), Pin(ROW4));
+    button_init(&buttons[61], Pin(COL5), Pin(ROW4));
+    button_init(&buttons[62], Pin(COL6), Pin(ROW4));
+    button_init(&buttons[63], Pin(COL7), Pin(ROW4));
+    button_init(&buttons[64], Pin(COL8), Pin(ROW4));
+    button_init(&buttons[65], Pin(COL9), Pin(ROW4));
+    button_init(&buttons[66], Pin(COL10), Pin(ROW4));
+    button_init(&buttons[67], Pin(COL11), Pin(ROW4));
+    button_init(&buttons[68], Pin(COL12), Pin(ROW4));
+    button_init(&buttons[69], Pin(COL13), Pin(ROW4));
+
+    button_init(&buttons[70], Pin(COL0), Pin(ROW5));
+    button_init(&buttons[71], Pin(COL1), Pin(ROW5));
+    button_init(&buttons[72], Pin(COL2), Pin(ROW5));
+    button_init(&buttons[73], Pin(COL3), Pin(ROW5));
+    button_init(&buttons[74], Pin(COL4), Pin(ROW5));
+    button_init(&buttons[75], Pin(COL5), Pin(ROW5));
+    button_init(&buttons[76], Pin(COL6), Pin(ROW5));
+    button_init(&buttons[77], Pin(COL7), Pin(ROW5));
+    button_init(&buttons[78], Pin(COL8), Pin(ROW5));
+    button_init(&buttons[79], Pin(COL9), Pin(ROW5));
+    button_init(&buttons[80], Pin(COL10), Pin(ROW5));
+    button_init(&buttons[81], Pin(COL11), Pin(ROW5));
+    button_init(&buttons[82], Pin(COL12), Pin(ROW5));
+    button_init(&buttons[83], Pin(COL13), Pin(ROW5));
 
     buttons[0].data = 'a';
     buttons[1].data = 'b';
@@ -187,7 +260,7 @@ void buttons_init(Button* buttons, int len) {
 }
 
 void buttonDebug(Button* b, ButtonEvent e) {
-    HAL_GPIO_TogglePin(LED1_GPIO_Port, LED1_Pin);
+    HAL_GPIO_TogglePin(LED3_GPIO_Port, LED3_Pin);
     osDelay(100);
 }
 
@@ -226,9 +299,10 @@ void KeyboardModeHandler() {
     // }
 }
 
+Button buttons[NUM_OF_KEYS];
+
 void keyThread(void) {
     keyInterfaceInit();
-    Button buttons[NUM_OF_KEYS];
     buttons_init(buttons, NUM_OF_KEYS);
 
     for (;;) {
