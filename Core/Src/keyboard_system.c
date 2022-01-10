@@ -3,7 +3,7 @@
 #include "cmsis_os.h"
 #include "main.h"
 
-OS_TYPE OS_type = OS_LINUX;
+OS_TYPE OS_type = OS_MAC;
 
 void OS_handler(void) {
     static int cnt = 0;
