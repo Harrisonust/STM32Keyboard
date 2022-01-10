@@ -15,11 +15,11 @@
             // Add below lines
             // point to the correct config file (f1/f4)
             "configFiles": [
-                "../stm32f1.cfg"
+                "./stm32f1.cfg"
             ],
             // point to the svd file (optional)
             "svdFile": "./STM32F103xx.svd",
-            "rtos": "FreeRTOS" // If you are using a project with FreeRTOS
+            // "rtos": "FreeRTOS" // If you are using a project with FreeRTOS
         }
     ]
 }

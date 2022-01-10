@@ -16,13 +16,14 @@
 #include "keyboard_system.h"
 // clang-format on
 
-extern OS_TYPE OS_type;
 extern USBD_HandleTypeDef hUsbDeviceFS;
 keyboardStruct keyboardStct;
 extern UART_HandleTypeDef huart4;
 extern TIM_HandleTypeDef htim2;
+
 KEYBOARD_CONNECTION_MODE keyboard_connection_mode = KEYBOARD_CONNECTION_MODE_CABLE;
 KEYBOARD_OPERATION_MODE keyboard_operation_mode = KEYBOARD_OPERATION_MODE_NORMAL;
+extern OS_TYPE OS_type;
 Button buttons[NUM_OF_KEYS];
 KeyModifier keyModifier;
 
@@ -210,19 +211,19 @@ void buttons_init(Button* btns, const int len) {
     btns[67].keycode = KEY_UP;
 
     button_init(&btns[68], Pin(COL0), Pin(ROW5));
-    btns[68].keycode = KEY_LEFTCTRL;
+    // btns[68].keycode = KEY_LEFTCTRL;  //buggy on mac
     button_init(&btns[69], Pin(COL1), Pin(ROW5));
-    btns[69].keycode = KEY_LEFTMETA;
+    // btns[69].keycode = KEY_LEFTMETA;  //buggy on mac
     button_init(&btns[70], Pin(COL2), Pin(ROW5));
-    btns[70].keycode = KEY_LEFTALT;
+    // btns[70].keycode = KEY_LEFTALT;  //buggy on mac
     button_init(&btns[71], Pin(COL3), Pin(ROW5));
     btns[71].keycode = KEY_SPACE;
     button_init(&btns[72], Pin(COL4), Pin(ROW5));
-    btns[72].keycode = KEY_RIGHTALT;
+    // btns[72].keycode = KEY_RIGHTALT;  //buggy on mac
     button_init(&btns[73], Pin(COL5), Pin(ROW5));
     btns[73].keycode = KEY_NONE;  //fn
     button_init(&btns[74], Pin(COL6), Pin(ROW5));
-    btns[74].keycode = KEY_RIGHTCTRL;
+    // btns[74].keycode = KEY_RIGHTCTRL;  //buggy on mac
     button_init(&btns[75], Pin(COL7), Pin(ROW5));
     btns[75].keycode = KEY_LEFT;
     button_init(&btns[76], Pin(COL8), Pin(ROW5));
@@ -280,6 +281,7 @@ void buttonSendKey(Button* b, ButtonEvent e) {
         HAL_GPIO_WritePin(LED2_GPIO_Port, LED2_Pin, GPIO_PIN_SET);
         break;
     default:
+        HAL_GPIO_WritePin(LED3_GPIO_Port, LED3_Pin, GPIO_PIN_SET);
         sendKey(b->keycode, keyModifier);
     }
 }
@@ -319,6 +321,7 @@ void buttonFreeKey(Button* b, ButtonEvent e) {
         HAL_GPIO_WritePin(LED2_GPIO_Port, LED2_Pin, GPIO_PIN_RESET);
         break;
     default:
+        HAL_GPIO_WritePin(LED3_GPIO_Port, LED3_Pin, GPIO_PIN_RESET);
         break;
     }
 }
