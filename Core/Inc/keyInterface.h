@@ -16,7 +16,7 @@
 #endif
 
 // clang-format off
-#define NUM_OF_KEYS ROW_NUM * COL_NUM
+#define NUM_OF_KEYS ROW_NUM * COL_NUM - 4
 // clang-format on
 
 typedef enum {
@@ -39,11 +39,11 @@ typedef struct {
     uint8_t LEFT_CTRL;
     uint8_t LEFT_SHIFT;
     uint8_t LEFT_ALT;
-    uint8_t LEFT_GUI;
+    uint8_t LEFT_META;
     uint8_t RIGHT_CTRL;
     uint8_t RIGHT_SHIFT;
     uint8_t RIGHT_ALT;
-    uint8_t RIGHT_GUI;
+    uint8_t RIGHT_META;
 } KeyModifier;
 
 typedef struct {

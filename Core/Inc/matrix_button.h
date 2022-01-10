@@ -38,8 +38,7 @@ typedef struct BUTTON_DEF {
     ButtonListener button_clicked_listener;
     ButtonListener button_holding_listener;
 
-    char data;
-    KeyModifier modifier;
+    uint8_t keycode;
 
 } Button;
 
