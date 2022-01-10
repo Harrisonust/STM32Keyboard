@@ -53,12 +53,14 @@ void button_update(Button *button) {
     }
 
     if (pressed) {
+        button->holding_cnt++;
         if (button->button_clicked_listener && !button->pressed) {
             button->button_clicked_listener(button, BUTTON_CLICKED);
-        } else if (button->button_holding_listener && button->pressed) {
+        } else if (button->button_holding_listener && button->pressed && button->holding_cnt > HOLDING_COUNT_THRESHOLD) {
             button->button_holding_listener(button, BUTTON_HOLDING);
         }
     } else {
+        button->holding_cnt = 0;
         if (button->button_released_listener && button->pressed) {
             button->button_released_listener(button, BUTTON_RELEASED);
         }

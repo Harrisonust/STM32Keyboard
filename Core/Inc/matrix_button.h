@@ -12,6 +12,7 @@
 //
 #include "keyInterface.h"
 
+#define HOLDING_COUNT_THRESHOLD 1000
 typedef enum {
     BUTTON_CLICKED,
     BUTTON_RELEASED,
@@ -32,6 +33,8 @@ typedef struct BUTTON_DEF {
     uint16_t debouncer;
     // Public state
     uint8_t pressed;
+    uint32_t holding_cnt;
+
     // Public Writable configuration
     uint16_t debounce_threshold;
     ButtonListener button_released_listener;
