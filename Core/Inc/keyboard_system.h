@@ -1,7 +1,9 @@
 #ifndef _OS_H
 #define _OS_H
 
-typedef enum{
+#include "matrix_button.h"
+
+typedef enum {
     OS_UNKNOWN,
     OS_WINDOWS,
     OS_LINUX,
@@ -11,4 +13,7 @@ typedef enum{
 } OS_TYPE;
 
 void OS_handler(void);
+
+void switch_OS(Button* b, ButtonEvent e);
+
 #endif

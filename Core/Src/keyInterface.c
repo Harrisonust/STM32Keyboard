@@ -122,9 +122,9 @@ void buttons_init(Button* btns, const int len) {
     button_init(&btns[24], Pin(COL10), Pin(ROW1));
     btns[24].keycode = KEY_0;
     button_init(&btns[25], Pin(COL11), Pin(ROW1));
-    btns[25].keycode = KEY_KPMINUS;
+    btns[25].keycode = KEY_MINUS;
     button_init(&btns[26], Pin(COL12), Pin(ROW1));
-    btns[26].keycode = KEY_KPPLUS;
+    btns[26].keycode = KEY_EQUAL;
     button_init(&btns[27], Pin(COL13), Pin(ROW1));
     btns[27].keycode = KEY_BACKSPACE;
 

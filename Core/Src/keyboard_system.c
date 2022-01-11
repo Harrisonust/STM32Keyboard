@@ -4,15 +4,21 @@
 #include "main.h"
 
 OS_TYPE OS_type = OS_MAC;
+static int cnt = 0;
 
 void OS_handler(void) {
-    static int cnt = 0;
-    if (read(BTN2)) {
-        cnt++;
-        if (cnt % 2)
-            OS_type = OS_LINUX;
-        else
-            OS_type = OS_MAC;
-        osDelay(50);  // use better method like falling edge
+    if (read(BTN2))
+        switch_OS(NULL, BUTTON_CLICKED);
+}
+
+void switch_OS(Button* b, ButtonEvent e) {
+    cnt++;
+    if (cnt % 2) {
+        HAL_GPIO_WritePin(LED2_GPIO_Port, LED2_Pin, GPIO_PIN_SET);
+        OS_type = OS_MAC;
+    } else {
+        HAL_GPIO_WritePin(LED2_GPIO_Port, LED2_Pin, GPIO_PIN_RESET);
+        OS_type = OS_LINUX;
     }
+    osDelay(50);
 }
