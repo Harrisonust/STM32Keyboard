@@ -5,8 +5,8 @@
  *      Author: Harrison
  */
 
-#ifndef INC_KEYID_H_
-#define INC_KEYID_H_
+#ifndef INC_HID_CODE_H_
+#define INC_HID_CODE_H_
 
 /**
  * USB HID Keyboard scan codes as per USB spec 1.11

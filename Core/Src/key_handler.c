@@ -1,5 +1,5 @@
 // clang-format off
-#include "keyInterface.h"
+#include "key_handler.h"
 
 #include "main.h"
 #include "cmsis_os.h"
@@ -12,7 +12,7 @@
 #include "oled_manager.h"
 #include "volume.h"
 #include "matrix_button.h"
-#include "KeyID.h"
+#include "HID_code.h"
 #include "host_OS.h"
 // clang-format on
 
@@ -27,7 +27,7 @@ extern OS_TYPE OS_type;
 Button buttons[NUM_OF_KEYS];
 KeyModifier keyModifier;
 
-void keyInterfaceInit(void) {
+void keyboardStructInit(void) {
     keyboardStct.hid.KEYCODE1 = 0x00;
     keyboardStct.hid.KEYCODE2 = 0x00;
     keyboardStct.hid.KEYCODE3 = 0x00;
@@ -361,7 +361,7 @@ void KeyboardModeHandler() {
 }
 
 void keyThread(void) {
-    keyInterfaceInit();
+    keyboardStructInit();
     buttons_init(buttons, NUM_OF_KEYS);
     for (;;) {
         KeyboardModeHandler();

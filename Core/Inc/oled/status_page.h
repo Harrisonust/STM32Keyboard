@@ -11,12 +11,12 @@
 #define MAX_BATT 2048
 #define MIN_BATT 1639
 
+#include "key_handler.h"
 #include "page_template.h"
 #include "stm32f1xx_hal.h"
-#include "keyInterface.h"
 
-
-enum connection {NONE, BLUETOOTH};
+enum connection { NONE,
+                  BLUETOOTH };
 
 extern ADC_HandleTypeDef hadc1;
 

@@ -11,7 +11,7 @@
 /* USER CODE BEGIN Includes */
 #include "RGB.h"
 #include "fingerprint.h"
-#include "keyInterface.h"
+#include "key_handler.h"
 #include "matrix_button.h"
 #include "oled_manager.h"
 #include "volume.h"
@@ -599,7 +599,7 @@ void StartDebugTask02(void const *argument) {
         // else
         //     b.button_released_listener(&b, BUTTON_RELEASED);
         HAL_GPIO_TogglePin(LED1_GPIO_Port, LED1_Pin);
-        osDelay(200);
+        osDelay(1000);
     }
     /* USER CODE END StartDebugTask02 */
 }

@@ -1,7 +1,7 @@
 {
     "C_Cpp.default.configurationProvider": "ms-vscode.cmake-tools",
     "files.associations": {
-        "keyinterface.h": "c",
+        "key_handler.h": "c",
         "rgb.h": "c",
         "led_page.h": "c",
         "cmsis_os.h": "c",
@@ -9,7 +9,7 @@
         "volume.h": "c",
         "matrix_button.h": "c",
         "stm32f1xx_hal_uart.h": "c",
-        "keyid.h": "c",
+        "HID_code.h": "c",
         "stm32f1xx_hal.h": "c",
         "main.h": "c"
     }

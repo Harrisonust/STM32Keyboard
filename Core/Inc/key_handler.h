@@ -1,5 +1,5 @@
-#ifndef KEYINTERFACE_H
-#define KEYINTERFACE_H
+#ifndef KEY_HANDLER_H
+#define KEY_HANDLER_H
 
 #include "main.h"
 //
