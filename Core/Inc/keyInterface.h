@@ -64,15 +64,9 @@ typedef enum {
 
 void keyThread(void);
 
-void keyInterfaceInit(void);
-
 void sendKey(const uint8_t ch, const KeyModifier mod);
 
 void sendPassword();
-
-// void buttons_init(Button *buttons, int len);
-
-// void buttonSendKey(Button *b, ButtonEvent e);
 
 void VolumeHandler();
 

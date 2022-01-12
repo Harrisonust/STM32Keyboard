@@ -13,7 +13,7 @@
 #include "volume.h"
 #include "matrix_button.h"
 #include "KeyID.h"
-#include "keyboard_system.h"
+#include "host_OS.h"
 // clang-format on
 
 extern USBD_HandleTypeDef hUsbDeviceFS;
@@ -212,19 +212,19 @@ void buttons_init(Button* btns, const int len) {
     btns[67].keycode = KEY_UP;
 
     button_init(&btns[68], Pin(COL0), Pin(ROW5));
-    btns[68].keycode = KEY_LEFTCTRL;  //buggy on mac
+    btns[68].keycode = KEY_LEFTCTRL;
     button_init(&btns[69], Pin(COL1), Pin(ROW5));
-    btns[69].keycode = KEY_LEFTMETA;  //buggy on mac
+    btns[69].keycode = KEY_LEFTMETA;
     button_init(&btns[70], Pin(COL2), Pin(ROW5));
-    btns[70].keycode = KEY_LEFTALT;  //buggy on mac
+    btns[70].keycode = KEY_LEFTALT;
     button_init(&btns[71], Pin(COL3), Pin(ROW5));
     btns[71].keycode = KEY_SPACE;
     button_init(&btns[72], Pin(COL4), Pin(ROW5));
-    btns[72].keycode = KEY_RIGHTALT;  //buggy on mac
+    btns[72].keycode = KEY_RIGHTALT;
     button_init(&btns[73], Pin(COL5), Pin(ROW5));
-    btns[73].keycode = KEY_NONE;  //fn
+    btns[73].keycode = KEY_FN;  //fn
     button_init(&btns[74], Pin(COL6), Pin(ROW5));
-    btns[74].keycode = KEY_RIGHTCTRL;  //buggy on mac
+    btns[74].keycode = KEY_RIGHTCTRL;
     button_init(&btns[75], Pin(COL7), Pin(ROW5));
     btns[75].keycode = KEY_LEFT;
     button_init(&btns[76], Pin(COL8), Pin(ROW5));
@@ -241,6 +241,7 @@ void buttons_init(Button* btns, const int len) {
         btns[i].button_holding_listener = buttonSendKey;
         btns[i].button_released_listener = buttonFreeKey;
     }
+    btns[73].button_clicked_listener = switch_OS;
 }
 
 void buttonDebug(Button* b, ButtonEvent e) {
@@ -284,8 +285,8 @@ void buttonSendKey(Button* b, ButtonEvent e) {
         break;
     default:
         HAL_GPIO_WritePin(LED3_GPIO_Port, LED3_Pin, GPIO_PIN_SET);
-        sendKey(b->keycode, keyModifier);
     }
+    sendKey(b->keycode, keyModifier);
 }
 
 void buttonFreeKey(Button* b, ButtonEvent e) {

@@ -101,6 +101,7 @@
 #define KEY_SLASH 0x38       // Keyboard / and ?
 #define KEY_CAPSLOCK 0x39    // Keyboard Caps Lock
 
+#define KEY_FN 0xfc   // Fake fn keycode
 #define KEY_F1 0x3a   // Keyboard F1
 #define KEY_F2 0x3b   // Keyboard F2
 #define KEY_F3 0x3c   // Keyboard F3

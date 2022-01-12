@@ -29,7 +29,6 @@ void button_init(Button *button, GPIO_TypeDef *Out_GPIOx, uint16_t Out_GPIO_Pin,
  * @return     Logical Binary value of the state of the Button
  */
 uint8_t button_read(Button *button) {
-    // return ((*button->state_register ^ -button->state_flip) & button->state_mask) != 0;
     HAL_GPIO_WritePin(button->Button_Output_Port, button->Button_Output_Pin, GPIO_PIN_SET);
     uint8_t status = HAL_GPIO_ReadPin(button->Button_Input_Port, button->Button_Input_Pin);
     HAL_GPIO_WritePin(button->Button_Output_Port, button->Button_Output_Pin, GPIO_PIN_RESET);
