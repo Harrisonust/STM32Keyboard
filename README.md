@@ -4,9 +4,9 @@
 HKUST Elec3300 project
 
 ## Features
-* 4x4 keypad
-* Programmable 4x4 RGB matrix
-* On-board OLED display
+* 6*14 key matrix
+* Programmable 6*14 RGB matrix
+* On-board OLED display(SSD1306)
 * Volume control by Rotary encoder
 * Fingerprint sensor
 * Programmable Macro
@@ -19,17 +19,10 @@ HKUST Elec3300 project
     * Battery(with USB charging)
 
 ## Final View
-<img src = "doc/images/view.jpg" width="250">
+<img src = "doc/images/keyboard_view.jpg" height="250">
 
 ## PCB
-PCB View
-
-<img src = "doc/images/pcb-front.png" height="250"><img src = "doc/images/pcb-back.png" height="250">
-
-3D View
-
-<img src = "doc/images/kicad-3dview-front.png" height="250"> <img src = "doc/images/kicad-3dview-back.png" height="250">
-
+TODO
 ## Progress record and future plan
 https://github.com/Harrisonust/STM32Keyboard/projects/1
 
