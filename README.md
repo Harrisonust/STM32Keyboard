@@ -19,7 +19,7 @@ HKUST Elec3300 project
     * Battery(with USB charging)
 
 ## Final View
-<img src = "doc/images/keyboard_view.jpg" height="250">
+<img src = "doc/images/view.jpg" height="250">
 
 ## PCB
 TODO
