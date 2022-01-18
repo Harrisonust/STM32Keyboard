@@ -253,38 +253,39 @@ void buttonSendKey(Button* b, ButtonEvent e) {
     switch (b->keycode) {
     case KEY_LEFTCTRL:
         keyModifier.LEFT_CTRL = 1;
-        HAL_GPIO_WritePin(LED2_GPIO_Port, LED2_Pin, GPIO_PIN_SET);
+        // HAL_GPIO_WritePin(LED2_GPIO_Port, LED2_Pin, GPIO_PIN_SET);
         break;
     case KEY_LEFTSHIFT:
         keyModifier.LEFT_SHIFT = 1;
-        HAL_GPIO_WritePin(LED2_GPIO_Port, LED2_Pin, GPIO_PIN_SET);
+        // HAL_GPIO_WritePin(LED2_GPIO_Port, LED2_Pin, GPIO_PIN_SET);
         break;
     case KEY_LEFTALT:
         keyModifier.LEFT_ALT = 1;
-        HAL_GPIO_WritePin(LED2_GPIO_Port, LED2_Pin, GPIO_PIN_SET);
+        // HAL_GPIO_WritePin(LED2_GPIO_Port, LED2_Pin, GPIO_PIN_SET);
         break;
     case KEY_LEFTMETA:
         keyModifier.LEFT_META = 1;
-        HAL_GPIO_WritePin(LED2_GPIO_Port, LED2_Pin, GPIO_PIN_SET);
+        // HAL_GPIO_WritePin(LED2_GPIO_Port, LED2_Pin, GPIO_PIN_SET);
         break;
     case KEY_RIGHTCTRL:
         keyModifier.RIGHT_CTRL = 1;
-        HAL_GPIO_WritePin(LED2_GPIO_Port, LED2_Pin, GPIO_PIN_SET);
+        // HAL_GPIO_WritePin(LED2_GPIO_Port, LED2_Pin, GPIO_PIN_SET);
         break;
     case KEY_RIGHTSHIFT:
         keyModifier.RIGHT_SHIFT = 1;
-        HAL_GPIO_WritePin(LED2_GPIO_Port, LED2_Pin, GPIO_PIN_SET);
+        // HAL_GPIO_WritePin(LED2_GPIO_Port, LED2_Pin, GPIO_PIN_SET);
         break;
     case KEY_RIGHTALT:
         keyModifier.RIGHT_ALT = 1;
-        HAL_GPIO_WritePin(LED2_GPIO_Port, LED2_Pin, GPIO_PIN_SET);
+        // HAL_GPIO_WritePin(LED2_GPIO_Port, LED2_Pin, GPIO_PIN_SET);
         break;
     case KEY_RIGHTMETA:
         keyModifier.RIGHT_META = 1;
-        HAL_GPIO_WritePin(LED2_GPIO_Port, LED2_Pin, GPIO_PIN_SET);
+        // HAL_GPIO_WritePin(LED2_GPIO_Port, LED2_Pin, GPIO_PIN_SET);
         break;
     default:
-        HAL_GPIO_WritePin(LED3_GPIO_Port, LED3_Pin, GPIO_PIN_SET);
+        // HAL_GPIO_WritePin(LED3_GPIO_Port, LED3_Pin, GPIO_PIN_SET);
+        break;
     }
     sendKey(b->keycode, keyModifier);
 }
