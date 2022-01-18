@@ -572,7 +572,9 @@ void StartDebugTask02(void const *argument) {
     /* USER CODE BEGIN StartDebugTask02 */
     /* Infinite loop */
 
+    ssd1306_Init();
     for (;;) {
+        // ssd1306_WriteChar('A', Font_16x26, 0x01);
         // if (sendPasswordFlag) {
         //     sendPassword();
         //     sendPasswordFlag = 0;
@@ -598,6 +600,9 @@ void StartDebugTask02(void const *argument) {
         //     b.button_clicked_listener(&b, BUTTON_CLICKED);
         // else
         //     b.button_released_listener(&b, BUTTON_RELEASED);
+        // ssd1306_WriteString("Hello", Font_6x8, 0x01);
+        ssd1306_DrawPic(0, 5, 5);
+        ssd1306_UpdateScreen();
         HAL_GPIO_TogglePin(LED1_GPIO_Port, LED1_Pin);
         osDelay(1000);
     }
