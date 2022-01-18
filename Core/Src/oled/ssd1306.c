@@ -419,29 +419,11 @@ void ssd1306_DrawRectangle(uint8_t x1, uint8_t y1, uint8_t x2, uint8_t y2, SSD13
     return;
 }
 
-const uint16_t BLE_ICON[] = {
-    0x0000,
-    0x0000,
-    0x0000,
-    0x0000,
-    0x0320,
-    0x0140,
-    0x3ffc,
-    0x31c4,
-    0x1b6c,
-    0x0e38,
-    0x0410,
-    0x0000,
-    0x0000,
-    0x0000,
-    0x0000,
-    0x0000};
-
-void ssd1306_DrawPic(uint8_t pic, uint8_t x, uint8_t y) {
-    for (int j = 0; j < 16; j++) {
-        for (int i = 0; i < 16; i++) {
-            uint8_t d = BLE_ICON[j] >> (15 - i) & 0x0001;
-            ssd1306_DrawPixel(j + y, i + x, d);
+void ssd1306_DrawPic(const uint16_t* pic, uint8_t x, uint8_t y) {
+    for (int j = 0; j < PIC_COL_LEN; j++) {
+        for (int i = 0; i < PIC_ROW_LEN; i++) {
+            uint8_t d = pic[j] >> (15 - i) & 0x0001;
+            ssd1306_DrawPixel(i + x, j + y, d);
         }
     }
 }
