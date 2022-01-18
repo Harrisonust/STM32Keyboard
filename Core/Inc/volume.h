@@ -11,12 +11,14 @@
 
 #define ENCODER_STEP 4
 
-typedef enum{
-    VOLUMENOACTION,
-    VOLUMEUP,
-    VOLUMEDOWN
-}Volume_State;
+typedef enum {
+    VOLUME_NO_ACTION,
+    VOLUME_UP,
+    VOLUME_DOWN
+} Volume_State;
 
-Volume_State updateVolume();
+Volume_State update_volume();
+
+void volume_handler();
 
 #endif /* INC_VOLUME_H_ */

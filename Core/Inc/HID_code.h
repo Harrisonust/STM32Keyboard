@@ -165,20 +165,20 @@
 #define KEY_F23 0x72  // Keyboard F23
 #define KEY_F24 0x73  // Keyboard F24
 
-#define KEY_OPEN 0x74        // Keyboard Execute
-#define KEY_HELP 0x75        // Keyboard Help
-#define KEY_PROPS 0x76       // Keyboard Menu
-#define KEY_FRONT 0x77       // Keyboard Select
-#define KEY_STOP 0x78        // Keyboard Stop
-#define KEY_AGAIN 0x79       // Keyboard Again
-#define KEY_UNDO 0x7a        // Keyboard Undo
-#define KEY_CUT 0x7b         // Keyboard Cut
-#define KEY_COPY 0x7c        // Keyboard Copy
-#define KEY_PASTE 0x7d       // Keyboard Paste
-#define KEY_FIND 0x7e        // Keyboard Find
-#define KEY_MUTE 0x7f        // Keyboard Mute
-#define KEY_VOLUMEUP 0x80    // Keyboard Volume Up
-#define KEY_VOLUMEDOWN 0x81  // Keyboard Volume Down
+#define KEY_OPEN 0x74         // Keyboard Execute
+#define KEY_HELP 0x75         // Keyboard Help
+#define KEY_PROPS 0x76        // Keyboard Menu
+#define KEY_FRONT 0x77        // Keyboard Select
+#define KEY_STOP 0x78         // Keyboard Stop
+#define KEY_AGAIN 0x79        // Keyboard Again
+#define KEY_UNDO 0x7a         // Keyboard Undo
+#define KEY_CUT 0x7b          // Keyboard Cut
+#define KEY_COPY 0x7c         // Keyboard Copy
+#define KEY_PASTE 0x7d        // Keyboard Paste
+#define KEY_FIND 0x7e         // Keyboard Find
+#define KEY_MUTE 0x7f         // Keyboard Mute
+#define KEY_VOLUME_UP 0x80    // Keyboard Volume Up
+#define KEY_VOLUME_DOWN 0x81  // Keyboard Volume Down
 // 0x82  Keyboard Locking Caps Lock
 // 0x83  Keyboard Locking Num Lock
 // 0x84  Keyboard Locking Scroll Lock
@@ -276,8 +276,8 @@
 #define KEY_MEDIA_PREVIOUSSONG 0xea
 #define KEY_MEDIA_NEXTSONG 0xeb
 #define KEY_MEDIA_EJECTCD 0xec
-#define KEY_MEDIA_VOLUMEUP 0xed
-#define KEY_MEDIA_VOLUMEDOWN 0xee
+#define KEY_MEDIA_VOLUME_UP 0xed
+#define KEY_MEDIA_VOLUME_DOWN 0xee
 #define KEY_MEDIA_MUTE 0xef
 #define KEY_MEDIA_WWW 0xf0
 #define KEY_MEDIA_BACK 0xf1

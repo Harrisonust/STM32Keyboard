@@ -8,7 +8,9 @@ uint32_t battery_level;
 void battery_handler() {
     battery_level = HAL_ADC_GetValue(&hadc1);
     battery_level = ((battery_level - MIN_BATT) * 100) / (MAX_BATT - MIN_BATT);
+}
 
+void battery_display_update(void) {
     if (battery_level >= 87.5) {
         ssd1306_DrawPic(BATTERY_100_ICON, 0, 0);
     } else if (battery_level >= 67.5) {

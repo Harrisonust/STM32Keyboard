@@ -10550,8 +10550,8 @@ KEY_MEDIA_SCROLLUP	Core/Inc/KeyID.h	/^#define KEY_MEDIA_SCROLLUP /;"	d
 KEY_MEDIA_SLEEP	Core/Inc/KeyID.h	/^#define KEY_MEDIA_SLEEP /;"	d
 KEY_MEDIA_STOP	Core/Inc/KeyID.h	/^#define KEY_MEDIA_STOP /;"	d
 KEY_MEDIA_STOPCD	Core/Inc/KeyID.h	/^#define KEY_MEDIA_STOPCD /;"	d
-KEY_MEDIA_VOLUMEDOWN	Core/Inc/KeyID.h	/^#define KEY_MEDIA_VOLUMEDOWN /;"	d
-KEY_MEDIA_VOLUMEUP	Core/Inc/KeyID.h	/^#define KEY_MEDIA_VOLUMEUP /;"	d
+KEY_MEDIA_VOLUME_DOWN	Core/Inc/KeyID.h	/^#define KEY_MEDIA_VOLUME_DOWN /;"	d
+KEY_MEDIA_VOLUME_UP	Core/Inc/KeyID.h	/^#define KEY_MEDIA_VOLUME_UP /;"	d
 KEY_MEDIA_WWW	Core/Inc/KeyID.h	/^#define KEY_MEDIA_WWW /;"	d
 KEY_MINUS	Core/Inc/KeyID.h	/^#define KEY_MINUS /;"	d
 KEY_MOD_LALT	Core/Inc/KeyID.h	/^#define KEY_MOD_LALT /;"	d
@@ -10598,8 +10598,8 @@ KEY_U	Core/Inc/KeyID.h	/^#define KEY_U /;"	d
 KEY_UNDO	Core/Inc/KeyID.h	/^#define KEY_UNDO /;"	d
 KEY_UP	Core/Inc/KeyID.h	/^#define KEY_UP /;"	d
 KEY_V	Core/Inc/KeyID.h	/^#define KEY_V /;"	d
-KEY_VOLUMEDOWN	Core/Inc/KeyID.h	/^#define KEY_VOLUMEDOWN /;"	d
-KEY_VOLUMEUP	Core/Inc/KeyID.h	/^#define KEY_VOLUMEUP /;"	d
+KEY_VOLUME_DOWN	Core/Inc/KeyID.h	/^#define KEY_VOLUME_DOWN /;"	d
+KEY_VOLUME_UP	Core/Inc/KeyID.h	/^#define KEY_VOLUME_UP /;"	d
 KEY_W	Core/Inc/KeyID.h	/^#define KEY_W /;"	d
 KEY_X	Core/Inc/KeyID.h	/^#define KEY_X /;"	d
 KEY_Y	Core/Inc/KeyID.h	/^#define KEY_Y /;"	d
@@ -10617,7 +10617,7 @@ Kd	Drivers/CMSIS/Include/arm_math.h	/^    q31_t Kd;            \/**< The derivat
 KeyModifier	Core/Inc/keyInterface.h	/^} KeyModifier;$/;"	t	typeref:struct:__anon5220ae160308
 KeyTaskHandle	Core/Src/main.c	/^osThreadId KeyTaskHandle;$/;"	v	typeref:typename:osThreadId
 KeyboardLayout	Core/Inc/keyInterface.h	/^} KeyboardLayout;$/;"	t	typeref:enum:__anon5220ae160103
-KeyboardModeHandler	Core/Src/keyInterface.c	/^void KeyboardModeHandler() {$/;"	f	typeref:typename:void
+keyboard_mode_handler	Core/Src/keyInterface.c	/^void keyboard_mode_handler() {$/;"	f	typeref:typename:void
 Ki	Drivers/CMSIS/Include/arm_math.h	/^    float32_t Ki;          \/**< The integral gain. *\/$/;"	m	struct:__anon11af2db30f08	typeref:typename:float32_t
 Ki	Drivers/CMSIS/Include/arm_math.h	/^    q15_t Ki;           \/**< The integral gain. *\/$/;"	m	struct:__anon11af2db30d08	typeref:typename:q15_t
 Ki	Drivers/CMSIS/Include/arm_math.h	/^    q31_t Ki;            \/**< The integral gain. *\/$/;"	m	struct:__anon11af2db30e08	typeref:typename:q31_t
@@ -11440,7 +11440,7 @@ OS_MAC	Core/Inc/keyboard_system.h	/^    OS_MAC,$/;"	e	enum:__anon31a235310103
 OS_TYPE	Core/Inc/keyboard_system.h	/^} OS_TYPE;$/;"	t	typeref:enum:__anon31a235310103
 OS_UNKNOWN	Core/Inc/keyboard_system.h	/^    OS_UNKNOWN,$/;"	e	enum:__anon31a235310103
 OS_WINDOWS	Core/Inc/keyboard_system.h	/^    OS_WINDOWS,$/;"	e	enum:__anon31a235310103
-OS_handler	Core/Src/keyboard_system.c	/^void OS_handler(void) {$/;"	f	typeref:typename:void
+OS_switch	Core/Src/keyboard_system.c	/^void OS_switch(void) {$/;"	f	typeref:typename:void
 OS_type	Core/Src/keyboard_system.c	/^OS_TYPE OS_type = OS_LINUX;$/;"	v	typeref:typename:OS_TYPE
 OTG_FS_WKUP_IRQHandler	Drivers/CMSIS/Device/ST/STM32F1xx/Include/stm32f103xe.h	/^#define OTG_FS_WKUP_IRQHandler /;"	d
 OTG_FS_WKUP_IRQn	Drivers/CMSIS/Device/ST/STM32F1xx/Include/stm32f103xe.h	/^#define OTG_FS_WKUP_IRQn /;"	d
@@ -17258,9 +17258,9 @@ VOLTAGE_RANGE_1	Drivers/STM32F1xx_HAL_Driver/Inc/Legacy/stm32_hal_legacy.h	/^#de
 VOLTAGE_RANGE_2	Drivers/STM32F1xx_HAL_Driver/Inc/Legacy/stm32_hal_legacy.h	/^#define VOLTAGE_RANGE_2 /;"	d
 VOLTAGE_RANGE_3	Drivers/STM32F1xx_HAL_Driver/Inc/Legacy/stm32_hal_legacy.h	/^#define VOLTAGE_RANGE_3 /;"	d
 VOLTAGE_RANGE_4	Drivers/STM32F1xx_HAL_Driver/Inc/Legacy/stm32_hal_legacy.h	/^#define VOLTAGE_RANGE_4 /;"	d
-VOLUMEDOWN	Core/Inc/volume.h	/^    VOLUMEDOWN$/;"	e	enum:__anon5b57f6b40103
-VOLUMENOACTION	Core/Inc/volume.h	/^    VOLUMENOACTION,$/;"	e	enum:__anon5b57f6b40103
-VOLUMEUP	Core/Inc/volume.h	/^    VOLUMEUP,$/;"	e	enum:__anon5b57f6b40103
+VOLUME_DOWN	Core/Inc/volume.h	/^    VOLUME_DOWN$/;"	e	enum:__anon5b57f6b40103
+VOLUME_NO_ACTION	Core/Inc/volume.h	/^    VOLUME_NO_ACTION,$/;"	e	enum:__anon5b57f6b40103
+VOLUME_UP	Core/Inc/volume.h	/^    VOLUME_UP,$/;"	e	enum:__anon5b57f6b40103
 VOL_CH1_GPIO_Port	Core/Inc/main.h	/^#define VOL_CH1_GPIO_Port /;"	d
 VOL_CH1_Pin	Core/Inc/main.h	/^#define VOL_CH1_Pin /;"	d
 VOL_CH2_GPIO_Port	Core/Inc/main.h	/^#define VOL_CH2_GPIO_Port /;"	d
@@ -17271,7 +17271,7 @@ VTOR	Drivers/CMSIS/Include/core_cm4.h	/^  __IOM uint32_t VTOR;                  
 VTOR	Drivers/CMSIS/Include/core_cm7.h	/^  __IOM uint32_t VTOR;                   \/*!< Offset: 0x008 (R\/W)  Vector Table Offset Registe/;"	m	struct:__anon06ece2f90a08	typeref:typename:__IOM uint32_t
 VTOR	Drivers/CMSIS/Include/core_sc000.h	/^  __IOM uint32_t VTOR;                   \/*!< Offset: 0x008 (R\/W)  Vector Table Offset Registe/;"	m	struct:__anon2d8340580a08	typeref:typename:__IOM uint32_t
 VTOR	Drivers/CMSIS/Include/core_sc300.h	/^  __IOM uint32_t VTOR;                   \/*!< Offset: 0x008 (R\/W)  Vector Table Offset Registe/;"	m	struct:__anon2db989db0a08	typeref:typename:__IOM uint32_t
-VolumeHandler	Core/Src/keyInterface.c	/^void VolumeHandler() {$/;"	f	typeref:typename:void
+volume_handler	Core/Src/keyInterface.c	/^void volume_handler() {$/;"	f	typeref:typename:void
 Volume_State	Core/Inc/volume.h	/^}Volume_State;$/;"	t	typeref:enum:__anon5b57f6b40103
 WRITE_REG	Drivers/CMSIS/Device/ST/STM32F1xx/Include/stm32f1xx.h	/^#define WRITE_REG(/;"	d
 WRP0	Drivers/CMSIS/Device/ST/STM32F1xx/Include/stm32f103xe.h	/^  __IO uint16_t WRP0;$/;"	m	struct:__anon5e89c3de1008	typeref:typename:__IO uint16_t
@@ -20476,7 +20476,7 @@ brightness	Core/Src/RGB.c	/^uint32_t brightness = 150;$/;"	v	typeref:typename:ui
 buffer	Middlewares/Third_Party/FreeRTOS/Source/CMSIS_RTOS/cmsis_os.h	/^  uint32_t               *buffer;      \/\/\/< stack buffer for static allocation; NULL for dyna/;"	m	struct:os_thread_def	typeref:typename:uint32_t *
 buffer	Middlewares/Third_Party/FreeRTOS/Source/CMSIS_RTOS/cmsis_os.h	/^  uint8_t                 *buffer;      \/\/\/< buffer for static allocation; NULL for dynamic a/;"	m	struct:os_messageQ_def	typeref:typename:uint8_t *
 buttonDebug	Core/Src/keyInterface.c	/^void buttonDebug(Button* b, ButtonEvent e) {$/;"	f	typeref:typename:void
-buttonSendKey	Core/Src/keyInterface.c	/^void buttonSendKey(Button* b, ButtonEvent e) {$/;"	f	typeref:typename:void
+buttonsend_key	Core/Src/keyInterface.c	/^void buttonsend_key(Button* b, ButtonEvent e) {$/;"	f	typeref:typename:void
 button_clicked_listener	Core/Inc/matrix_button.h	/^    ButtonListener button_clicked_listener;$/;"	m	struct:BUTTON_DEF	typeref:typename:ButtonListener
 button_holding_listener	Core/Inc/matrix_button.h	/^    ButtonListener button_holding_listener;$/;"	m	struct:BUTTON_DEF	typeref:typename:ButtonListener
 button_init	Core/Src/matrix_button.c	/^void button_init(Button *button, GPIO_TypeDef *Out_GPIOx, uint16_t Out_GPIO_Pin,$/;"	f	typeref:typename:void
@@ -20764,7 +20764,7 @@ item_sz	Middlewares/Third_Party/FreeRTOS/Source/CMSIS_RTOS/cmsis_os.h	/^  uint32
 item_sz	Middlewares/Third_Party/FreeRTOS/Source/CMSIS_RTOS/cmsis_os.h	/^  uint32_t                 item_sz;    \/\/\/< size of an item$/;"	m	struct:os_pool_def	typeref:typename:uint32_t
 item_sz	Middlewares/Third_Party/FreeRTOS/Source/CMSIS_RTOS/cmsis_os.h	/^  uint32_t                item_sz;    \/\/\/< size of an item$/;"	m	struct:os_messageQ_def	typeref:typename:uint32_t
 keyInterfaceInit	Core/Src/keyInterface.c	/^void keyInterfaceInit(void) {$/;"	f	typeref:typename:void
-keyThread	Core/Src/keyInterface.c	/^void keyThread(void) {$/;"	f	typeref:typename:void
+key_thread	Core/Src/keyInterface.c	/^void key_thread(void) {$/;"	f	typeref:typename:void
 keybind	Core/Inc/oled/macro_page.h	/^	char keybind;$/;"	m	struct:__anon36519b9d0208	typeref:typename:char
 keybind	Core/Src/oled/marco_page.c	/^char keybind = ' ';$/;"	v	typeref:typename:char
 keyboardEnablePin	Core/Inc/keyInterface.h	/^    uint16_t keyboardEnablePin;$/;"	m	struct:__anon5220ae160408	typeref:typename:uint16_t
@@ -21566,9 +21566,9 @@ semBINARY_SEMAPHORE_QUEUE_LENGTH	Middlewares/Third_Party/FreeRTOS/Source/include
 semGIVE_BLOCK_TIME	Middlewares/Third_Party/FreeRTOS/Source/include/semphr.h	/^#define semGIVE_BLOCK_TIME	/;"	d
 semSEMAPHORE_QUEUE_ITEM_LENGTH	Middlewares/Third_Party/FreeRTOS/Source/include/semphr.h	/^#define semSEMAPHORE_QUEUE_ITEM_LENGTH	/;"	d
 send	Core/Src/fingerprint.c	/^void send() {$/;"	f	typeref:typename:void
-sendKey	Core/Src/keyInterface.c	/^void sendKey(const uint8_t ch, const KeyModifier mod) {$/;"	f	typeref:typename:void
-sendPassword	Core/Src/keyInterface.c	/^void sendPassword() {$/;"	f	typeref:typename:void
-sendPasswordFlag	Core/Src/main.c	/^uint8_t sendPasswordFlag = 0;$/;"	v	typeref:typename:uint8_t
+send_key	Core/Src/keyInterface.c	/^void send_key(const uint8_t ch, const KeyModifier mod) {$/;"	f	typeref:typename:void
+send_password	Core/Src/keyInterface.c	/^void send_password() {$/;"	f	typeref:typename:void
+send_password_flag	Core/Src/main.c	/^uint8_t send_password_flag = 0;$/;"	v	typeref:typename:uint8_t
 set	Core/Inc/main.h	/^#define set(/;"	d
 setup_packet	Core/Src/fingerprint.c	/^void setup_packet(uint8_t *data, uint8_t size) {$/;"	f	typeref:typename:void
 setup_received	Core/Src/fingerprint.c	/^void setup_received(uint8_t *data) {$/;"	f	typeref:typename:void
@@ -21828,7 +21828,7 @@ ulTaskNotifyTake	Middlewares/Third_Party/FreeRTOS/Source/tasks.c	/^	uint32_t ulT
 ulTaskSwitchedInTime	Middlewares/Third_Party/FreeRTOS/Source/tasks.c	/^	PRIVILEGED_DATA static uint32_t ulTaskSwitchedInTime = 0UL;	\/*< Holds the value of a timer\/co/;"	v	typeref:typename:PRIVILEGED_DATA uint32_t	file:
 ulTimerCountsForOneTick	Middlewares/Third_Party/FreeRTOS/Source/portable/GCC/ARM_CM3/port.c	/^	static uint32_t ulTimerCountsForOneTick = 0;$/;"	v	typeref:typename:uint32_t	file:
 ulTotalRunTime	Middlewares/Third_Party/FreeRTOS/Source/tasks.c	/^	PRIVILEGED_DATA static uint32_t ulTotalRunTime = 0UL;		\/*< Holds the total amount of execution/;"	v	typeref:typename:PRIVILEGED_DATA uint32_t	file:
-updateVolume	Core/Src/volume.c	/^Volume_State updateVolume(){$/;"	f	typeref:typename:Volume_State
+update_volume	Core/Src/volume.c	/^Volume_State update_volume(){$/;"	f	typeref:typename:Volume_State
 update_page	Core/Inc/oled/page_template.h	/^	void (*update_page)();$/;"	m	struct:__anonba8fa0670108	typeref:typename:void (*)()
 urb_state	Drivers/STM32F1xx_HAL_Driver/Inc/stm32f1xx_ll_usb.h	/^  USB_OTG_URBStateTypeDef  urb_state;  \/*!< URB state.$/;"	m	struct:__anon89d4bce00608	typeref:typename:USB_OTG_URBStateTypeDef
 usStackDepth	Middlewares/Third_Party/FreeRTOS/Source/include/task.h	/^	uint16_t usStackDepth;$/;"	m	struct:xTASK_PARAMETERS	typeref:typename:uint16_t

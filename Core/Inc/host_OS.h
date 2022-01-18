@@ -10,11 +10,9 @@ typedef enum {
     OS_NUM
 } OS_TYPE;
 
-void OS_handler_init();
+void OS_display_init();
 
-void OS_handler(void);
-
-void switch_OS(Button* b, ButtonEvent e);
+void OS_switch(Button* b, ButtonEvent e);
 
 void OS_display_update(void);
 #endif

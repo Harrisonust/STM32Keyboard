@@ -1,11 +1,10 @@
 #include "host_OS.h"
 
-#include "cmsis_os.h"
 #include "main.h"
 #include "ssd1306.h"
 OS_TYPE OS_type = OS_LINUX;
 
-void OS_handler_init() {
+void OS_display_init() {
     switch (OS_type) {
     case OS_MAC:
         ssd1306_DrawPic(APPLE_ICON, 30, 1);
@@ -17,11 +16,12 @@ void OS_handler_init() {
         ssd1306_DrawPic(WIN_ICON, 30, 1);
         break;
     default:
+        ssd1306_DrawPic(PACMAN_ICON0, 30, 1);
         break;
     }
 }
 
-void switch_OS(Button* b, ButtonEvent e) {
+void OS_switch(Button* b, ButtonEvent e) {
     OS_type++;
     OS_type %= OS_NUM;
 }

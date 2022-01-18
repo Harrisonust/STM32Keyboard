@@ -62,14 +62,13 @@ typedef enum {
     KEYBOARD_OPERATION_MODE_CONFIG
 } KEYBOARD_OPERATION_MODE;
 
-void keyThread(void);
+void key_thread(void);
 
-void sendKey(const uint8_t ch, const KeyModifier mod);
+void send_key(const uint8_t ch, const KeyModifier mod);
 
-void sendPassword();
+void send_password();
 
-void VolumeHandler();
+void keyboard_mode_handler();
 
-void KeyboardModeHandler();
-
+void keyboard_mode_display_update();
 #endif

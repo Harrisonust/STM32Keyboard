@@ -536,7 +536,7 @@ void StartUSBTask(void const *argument) {
     /* Infinite loop */
     HAL_GPIO_WritePin(USB_EN_GPIO_Port, USB_EN_Pin, 0);
 
-    keyThread();
+    key_thread();
     /* USER CODE END 5 */
 }
 
@@ -550,7 +550,7 @@ uint8_t sleep_mode = 0;
 extern KEYBOARD_OPERATION_MODE keyboard_operation_mode;
 extern KEYBOARD_CONNECTION_MODE keyboard_connection_mode;
 uint32_t oled_tick = 0;
-uint8_t sendPasswordFlag = 0;
+uint8_t send_password_flag = 0;
 
 void HAL_GPIO_EXTI_Callback(uint16_t GPIO_Pin) {
     if (GPIO_Pin == ROW0_Pin || GPIO_Pin == ROW1_Pin || GPIO_Pin == ROW2_Pin ||
@@ -565,7 +565,7 @@ void HAL_GPIO_EXTI_Callback(uint16_t GPIO_Pin) {
             uint8_t result = check_fingerprint();
             if (result == 0) {
                 led_mode(0);
-                sendPasswordFlag = 1;
+                send_password_flag = 1;
                 led_mode(1);
             }
         }
@@ -579,9 +579,9 @@ void StartDebugTask02(void const *argument) {
     display_manager_init();
     for (;;) {
         // ssd1306_WriteChar('A', Font_16x26, 0x01);
-        // if (sendPasswordFlag) {
-        //     sendPassword();
-        //     sendPasswordFlag = 0;
+        // if (send_password_flag) {
+        //     send_password();
+        //     send_password_flag = 0;
         // }
         // if (HAL_GetTick() - last_keyinterrupt_tick > SLEEPMODE_TIMEOUT) {
         //     sleep_mode = 1;

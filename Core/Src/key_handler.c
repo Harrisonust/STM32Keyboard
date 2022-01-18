@@ -7,9 +7,7 @@
 #include "usbd_hid.h"
 #include "usb_device.h"
 
-#include "RGB.h"
-#include "macro_page.h"
-#include "oled_manager.h"
+#include "ssd1306.h"
 #include "volume.h"
 #include "matrix_button.h"
 #include "HID_code.h"
@@ -37,8 +35,10 @@ void keyboardStructInit(void) {
     htim2.Instance->CNT = 0xffff / 2;
 }
 
-// add device as a parameter. e.g. cable, bluetooth
-void sendKey(const uint8_t ch, const KeyModifier mod) {
+/**
+ * TODO: add device as a parameter. e.g. cable, bluetooth
+ */
+void send_key(const uint8_t ch, const KeyModifier mod) {
     // if (keyboard_connection_mode == KEYBOARD_CONNECTION_MODE_BLUETOOTH) {
     //     uint8_t data[1] = {'a'};
     //     HAL_UART_Transmit(&huart4, data, 1, 2000);
@@ -56,16 +56,16 @@ void sendKey(const uint8_t ch, const KeyModifier mod) {
     osDelay(20);
 }
 
-void sendPassword() {
+void send_password() {
     // KeyModifier m = {0};
     // char pw[] = "helloElec3300";
     // for (uint8_t i = 0; i < strlen(pw); i++) {
-    //     sendKey(getKeyIDByChar(pw[i]), m);
+    //     send_key(getKeyIDByChar(pw[i]), m);
     //     osDelay(20);
     // }
 }
 
-void buttonSendKey(Button* b, ButtonEvent e);
+void buttonsend_key(Button* b, ButtonEvent e);
 void buttonFreeKey(Button* b, ButtonEvent e);
 void buttonDebug(Button* b, ButtonEvent e);
 
@@ -237,21 +237,21 @@ void buttons_init(Button* btns, const int len) {
     btns[79].keycode = KEY_END;
 
     for (int i = 0; i < len; i++) {
-        btns[i].button_clicked_listener = buttonSendKey;
-        btns[i].button_holding_listener = buttonSendKey;
+        btns[i].button_clicked_listener = buttonsend_key;
+        btns[i].button_holding_listener = buttonsend_key;
         btns[i].button_released_listener = buttonFreeKey;
     }
-    btns[73].button_clicked_listener = switch_OS;
+    btns[73].button_clicked_listener = OS_switch;
     btns[73].button_released_listener = NULL;
     btns[73].button_holding_listener = NULL;
 }
 
 void buttonDebug(Button* b, ButtonEvent e) {
     HAL_GPIO_TogglePin(LED2_GPIO_Port, LED2_Pin);
-    sendKey(b->keycode, keyModifier);
+    send_key(b->keycode, keyModifier);
 }
 
-void buttonSendKey(Button* b, ButtonEvent e) {
+void buttonsend_key(Button* b, ButtonEvent e) {
     switch (b->keycode) {
     case KEY_LEFTCTRL:
         keyModifier.LEFT_CTRL = 1;
@@ -282,7 +282,7 @@ void buttonSendKey(Button* b, ButtonEvent e) {
     default:
         break;
     }
-    sendKey(b->keycode, keyModifier);
+    send_key(b->keycode, keyModifier);
 }
 
 void buttonFreeKey(Button* b, ButtonEvent e) {
@@ -316,24 +316,7 @@ void buttonFreeKey(Button* b, ButtonEvent e) {
     }
 }
 
-void VolumeHandler() {
-    Volume_State vol_state = updateVolume();
-    KeyModifier m = {0};
-    if (vol_state == VOLUMEDOWN) {
-        if (OS_type == OS_MAC)
-            sendKey(0x80, m);
-        if (OS_type == OS_LINUX)
-            sendKey(KEY_F12, m);  //volume up
-    } else if (vol_state == VOLUMEUP) {
-        if (OS_type == OS_MAC)
-            sendKey(0x81, m);
-        if (OS_type == OS_LINUX)
-            sendKey(KEY_F11, m);  //volume down
-    } else if (vol_state == VOLUMENOACTION) {
-    }
-}
-
-void KeyboardModeHandler() {
+void keyboard_mode_handler() {
     // if (readKey(0, 0)) {
     //     keyboard_operation_mode++;
     //     keyboard_operation_mode %= 2;
@@ -341,24 +324,27 @@ void KeyboardModeHandler() {
     // if (readKey(0, 1)) {
     //     Node* n = get_macro('x');
     //     for (Node* ptr = n; ptr != NULL; ptr = ptr->next) {
-    //         sendKey(KEY_t>data), m);
+    //         send_key(KEY_t>data), m);
     //         osDelay(20);
     //     }
     // }
+}
+
+void keyboard_mode_display_update() {
     if (keyboard_connection_mode == KEYBOARD_CONNECTION_MODE_CABLE)
         ssd1306_DrawPic(CABLE_ICON, 60, 1);
     else if (keyboard_connection_mode == KEYBOARD_CONNECTION_MODE_BLUETOOTH)
         ssd1306_DrawPic(BLE_ICON, 60, 1);
 }
 
-void keyThread(void) {
+void key_thread(void) {
     keyboardStructInit();
     buttons_init(buttons, NUM_OF_KEYS);
     for (;;) {
         if (keyboard_operation_mode == KEYBOARD_OPERATION_MODE_CONFIG) {
         } else if (keyboard_operation_mode == KEYBOARD_OPERATION_MODE_NORMAL) {
             buttons_update(buttons, NUM_OF_KEYS);
-            VolumeHandler();
+            volume_handler();
         }
         osDelay(1);
     }
