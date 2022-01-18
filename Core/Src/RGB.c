@@ -10,6 +10,11 @@
 #include "key_handler.h"
 #include "led_page.h"
 #include "stdio.h"
+
+/** 
+ * TODO: alot of shit to clean
+ */
+
 uint8_t datasentflag = 0;
 WS2812 ws2812;
 RGB defaultColorList[] = {WS2812_WHITE, WS2812_BLUE, WS2812_RED, WS2812_GREEN, WS2812_YELLOW, WS2812_CYAN, WS2812_PURPLE, WS2812_ORANGE, WS2812_PINK, WS2812_BROWN};
@@ -159,8 +164,14 @@ void WS2812_LED_Task(const void* par) {
     WS2812_init(&ws2812, &ws2812_initStruct);
     uint32_t color_index = 0;
     int32_t led_index = 0;
+    uint32_t last_tick = 0;
 
     for (;;) {
+        if (HAL_GetTick() - last_tick > 5000) {
+            HAL_GPIO_TogglePin(LED1_GPIO_Port, LED1_Pin);
+            last_tick = HAL_GetTick();
+        }
+
         if (sleep_mode) {
             rgb_mode = WS2812DISABLE;
         }

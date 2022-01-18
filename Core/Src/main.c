@@ -606,8 +606,7 @@ void StartDebugTask02(void const *argument) {
         //     b.button_released_listener(&b, BUTTON_RELEASED);
         // ssd1306_WriteString("Hello", Font_6x8, 0x01);
         display_manager_update();
-        HAL_GPIO_TogglePin(LED1_GPIO_Port, LED1_Pin);
-        osDelay(1000);
+        osDelay(100);
     }
     /* USER CODE END StartDebugTask02 */
 }
