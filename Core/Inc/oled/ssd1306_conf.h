@@ -51,10 +51,10 @@
 // Some OLEDs don't display anything in first two columns.
 // In this case change the following macro to 130.
 // The default value is 128.
-// #define SSD1306_WIDTH           130
+#define SSD1306_WIDTH           128
 
 // The height can be changed as well if necessary.
 // It can be 32, 64 or 128. The default value is 64.
-// #define SSD1306_HEIGHT          64
+#define SSD1306_HEIGHT          32
 
 #endif /* __SSD1306_CONF_H__ */
