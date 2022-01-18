@@ -10,6 +10,8 @@
 /* Private includes ----------------------------------------------------------*/
 /* USER CODE BEGIN Includes */
 #include "RGB.h"
+#include "battery.h"
+#include "display_manager.h"
 #include "fingerprint.h"
 #include "host_OS.h"
 #include "key_handler.h"
@@ -573,8 +575,8 @@ void HAL_GPIO_EXTI_Callback(uint16_t GPIO_Pin) {
 void StartDebugTask02(void const *argument) {
     /* USER CODE BEGIN StartDebugTask02 */
     /* Infinite loop */
-    static uint16_t cnt = 0;
     ssd1306_Init();
+    display_manager_init();
     for (;;) {
         // ssd1306_WriteChar('A', Font_16x26, 0x01);
         // if (sendPasswordFlag) {
@@ -603,27 +605,7 @@ void StartDebugTask02(void const *argument) {
         // else
         //     b.button_released_listener(&b, BUTTON_RELEASED);
         // ssd1306_WriteString("Hello", Font_6x8, 0x01);
-        if (cnt % 9 == 0)
-            ssd1306_DrawPic(BATTERY_EMPTY_ICON, 1, 1);
-        else if (cnt % 9 == 1)
-            ssd1306_DrawPic(BATTERY_25_ICON, 1, 1);
-        else if (cnt % 9 == 2)
-            ssd1306_DrawPic(BATTERY_50_ICON, 1, 1);
-        else if (cnt % 9 == 3)
-            ssd1306_DrawPic(BATTERY_75_ICON, 1, 1);
-        else if (cnt % 9 == 4)
-            ssd1306_DrawPic(BATTERY_100_ICON, 1, 1);
-        else if (cnt % 9 == 5)
-            ssd1306_DrawPic(APPLE_ICON, 1, 1);
-        else if (cnt % 9 == 6)
-            ssd1306_DrawPic(PACMAN_ICON0, 1, 1);
-        else if (cnt % 9 == 7)
-            ssd1306_DrawPic(PACMAN_ICON1, 1, 1);
-        else if (cnt % 9 == 8)
-            ssd1306_DrawPic(PACMAN_ICON2, 1, 1);
-
-        ssd1306_UpdateScreen();
-        cnt++;
+        display_manager_update();
         HAL_GPIO_TogglePin(LED1_GPIO_Port, LED1_Pin);
         osDelay(1000);
     }

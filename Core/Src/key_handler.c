@@ -242,6 +242,8 @@ void buttons_init(Button* btns, const int len) {
         btns[i].button_released_listener = buttonFreeKey;
     }
     btns[73].button_clicked_listener = switch_OS;
+    btns[73].button_released_listener = NULL;
+    btns[73].button_holding_listener = NULL;
 }
 
 void buttonDebug(Button* b, ButtonEvent e) {
@@ -253,38 +255,31 @@ void buttonSendKey(Button* b, ButtonEvent e) {
     switch (b->keycode) {
     case KEY_LEFTCTRL:
         keyModifier.LEFT_CTRL = 1;
-        // HAL_GPIO_WritePin(LED2_GPIO_Port, LED2_Pin, GPIO_PIN_SET);
         break;
     case KEY_LEFTSHIFT:
         keyModifier.LEFT_SHIFT = 1;
-        // HAL_GPIO_WritePin(LED2_GPIO_Port, LED2_Pin, GPIO_PIN_SET);
         break;
     case KEY_LEFTALT:
         keyModifier.LEFT_ALT = 1;
-        // HAL_GPIO_WritePin(LED2_GPIO_Port, LED2_Pin, GPIO_PIN_SET);
         break;
     case KEY_LEFTMETA:
         keyModifier.LEFT_META = 1;
-        // HAL_GPIO_WritePin(LED2_GPIO_Port, LED2_Pin, GPIO_PIN_SET);
         break;
     case KEY_RIGHTCTRL:
         keyModifier.RIGHT_CTRL = 1;
-        // HAL_GPIO_WritePin(LED2_GPIO_Port, LED2_Pin, GPIO_PIN_SET);
         break;
     case KEY_RIGHTSHIFT:
         keyModifier.RIGHT_SHIFT = 1;
-        // HAL_GPIO_WritePin(LED2_GPIO_Port, LED2_Pin, GPIO_PIN_SET);
         break;
     case KEY_RIGHTALT:
         keyModifier.RIGHT_ALT = 1;
-        // HAL_GPIO_WritePin(LED2_GPIO_Port, LED2_Pin, GPIO_PIN_SET);
         break;
     case KEY_RIGHTMETA:
         keyModifier.RIGHT_META = 1;
-        // HAL_GPIO_WritePin(LED2_GPIO_Port, LED2_Pin, GPIO_PIN_SET);
         break;
+    case KEY_FN:
+        return;
     default:
-        // HAL_GPIO_WritePin(LED3_GPIO_Port, LED3_Pin, GPIO_PIN_SET);
         break;
     }
     sendKey(b->keycode, keyModifier);
@@ -294,38 +289,29 @@ void buttonFreeKey(Button* b, ButtonEvent e) {
     switch (b->keycode) {
     case KEY_LEFTCTRL:
         keyModifier.LEFT_CTRL = 0;
-        HAL_GPIO_WritePin(LED2_GPIO_Port, LED2_Pin, GPIO_PIN_RESET);
         break;
     case KEY_LEFTSHIFT:
         keyModifier.LEFT_SHIFT = 0;
-        HAL_GPIO_WritePin(LED2_GPIO_Port, LED2_Pin, GPIO_PIN_RESET);
         break;
     case KEY_LEFTALT:
         keyModifier.LEFT_ALT = 0;
-        HAL_GPIO_WritePin(LED2_GPIO_Port, LED2_Pin, GPIO_PIN_RESET);
         break;
     case KEY_LEFTMETA:
         keyModifier.LEFT_META = 0;
-        HAL_GPIO_WritePin(LED2_GPIO_Port, LED2_Pin, GPIO_PIN_RESET);
         break;
     case KEY_RIGHTCTRL:
         keyModifier.RIGHT_CTRL = 0;
-        HAL_GPIO_WritePin(LED2_GPIO_Port, LED2_Pin, GPIO_PIN_RESET);
         break;
     case KEY_RIGHTSHIFT:
         keyModifier.RIGHT_SHIFT = 0;
-        HAL_GPIO_WritePin(LED2_GPIO_Port, LED2_Pin, GPIO_PIN_RESET);
         break;
     case KEY_RIGHTALT:
         keyModifier.RIGHT_ALT = 0;
-        HAL_GPIO_WritePin(LED2_GPIO_Port, LED2_Pin, GPIO_PIN_RESET);
         break;
     case KEY_RIGHTMETA:
         keyModifier.RIGHT_META = 0;
-        HAL_GPIO_WritePin(LED2_GPIO_Port, LED2_Pin, GPIO_PIN_RESET);
         break;
     default:
-        HAL_GPIO_WritePin(LED3_GPIO_Port, LED3_Pin, GPIO_PIN_RESET);
         break;
     }
 }
@@ -359,19 +345,20 @@ void KeyboardModeHandler() {
     //         osDelay(20);
     //     }
     // }
+    if (keyboard_connection_mode == KEYBOARD_CONNECTION_MODE_CABLE)
+        ssd1306_DrawPic(CABLE_ICON, 60, 1);
+    else if (keyboard_connection_mode == KEYBOARD_CONNECTION_MODE_BLUETOOTH)
+        ssd1306_DrawPic(BLE_ICON, 60, 1);
 }
 
 void keyThread(void) {
     keyboardStructInit();
     buttons_init(buttons, NUM_OF_KEYS);
     for (;;) {
-        KeyboardModeHandler();
-
         if (keyboard_operation_mode == KEYBOARD_OPERATION_MODE_CONFIG) {
         } else if (keyboard_operation_mode == KEYBOARD_OPERATION_MODE_NORMAL) {
             buttons_update(buttons, NUM_OF_KEYS);
             VolumeHandler();
-            OS_handler();
         }
         osDelay(1);
     }
