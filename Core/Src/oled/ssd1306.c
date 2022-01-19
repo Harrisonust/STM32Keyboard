@@ -428,6 +428,15 @@ void ssd1306_DrawPic(const uint16_t* pic, uint8_t x, uint8_t y) {
     }
 }
 
+void ssd1306_DrawInvertedPic(const uint16_t* pic, uint8_t x, uint8_t y) {
+    for (int j = 0; j < PIC_COL_LEN; j++) {
+        for (int i = 0; i < PIC_ROW_LEN; i++) {
+            uint8_t d = pic[j] >> (15 - i) & 0x0001;
+            ssd1306_DrawPixel(i + x, j + y, d ? 0 : 1);
+        }
+    }
+}
+
 void ssd1306_SetContrast(const uint8_t value) {
     const uint8_t kSetContrastControlRegister = 0x81;
     ssd1306_WriteCommand(kSetContrastControlRegister);

@@ -51,7 +51,7 @@ void WS2812_LED_Set(WS2812* ws, const uint32_t index, const uint8_t R, const uin
 }
 
 void WS2812_LED_SetRGB(WS2812* ws, const uint32_t LED_index, const RGB rgb) {
-    WS2812_LED_Set(ws, LED_index, rgb.R, rgb.G, rgb.B);
+    WS2812_LED_Set(ws, LED_index, rgb.R, rgb.G, rgb.B);  // TODO clean this function
 }
 
 void WS2812_LED_ClearRGB(WS2812* ws, const uint32_t LED_index) {
@@ -89,7 +89,7 @@ void WS2812_sendData(WS2812* ws) {
 
 static uint32_t color_index = 0;
 static int32_t led_index = 0;
-void WS2812_LoopTask(WS2812* ws) {
+void WS2812_Loop_Pattern(WS2812* ws) {
     static uint32_t counter = 0;
     led_index = counter++;
     if (led_index == ws2812.LED_num) {
@@ -102,7 +102,7 @@ void WS2812_LoopTask(WS2812* ws) {
     WS2812_LED_SetRGB(&ws2812, led_index, defaultColorList[color_index]);
 }
 
-void WS2812_BreathTask(WS2812* ws) {
+void WS2812_Breath_Pattern(WS2812* ws) {
     static int8_t step = 1;
     if (step == 1) {
         WS2812_LED_SetRGB(&ws2812, led_index, defaultColorList[color_index]);
@@ -120,13 +120,13 @@ void WS2812_BreathTask(WS2812* ws) {
     led_index += step;
 }
 
-void WS2812_StaticTask(WS2812* ws) {
+void WS2812_Static_Pattern(WS2812* ws) {
     for (int i = 0; i < MAX_LED; i++)
         WS2812_LED_SetRGB(&ws2812, i, defaultColorList[color_index]);
 }
 
 uint8_t speed;
-void WS2812_StaticBreathTask(WS2812* ws) {
+void WS2812_Monotonic_Breate_Pattern(WS2812* ws) {
     speed = 15;
     const int16_t lower_limit = -3, upper_limit = 13;
     static int8_t step = 1;
@@ -151,7 +151,22 @@ void WS2812_StaticBreathTask(WS2812* ws) {
 //     WS2812_LED_SetRGB(&ws2812, 0, (RGB)WS2812_GREEN);
 // }
 
-void WS2812_Disable(WS2812* ws) {
+void WS2812_Layered_Pattern(WS2812* ws) {
+    for (int i = 14 * 0; i < 14 * 1; i++)
+        WS2812_LED_SetRGB(&ws2812, i, (RGB){.R = 10, .G = 255, .B = 255});
+    for (int i = 14 * 1; i < 14 * 2; i++)
+        WS2812_LED_SetRGB(&ws2812, i, (RGB){.R = 50, .G = 255, .B = 245});
+    for (int i = 14 * 2; i < 14 * 3; i++)
+        WS2812_LED_SetRGB(&ws2812, i, (RGB){.R = 90, .G = 255, .B = 235});
+    for (int i = 14 * 3; i < 14 * 4; i++)
+        WS2812_LED_SetRGB(&ws2812, i, (RGB){.R = 130, .G = 255, .B = 225});
+    for (int i = 14 * 4; i < 14 * 5; i++)
+        WS2812_LED_SetRGB(&ws2812, i, (RGB){.R = 170, .G = 255, .B = 215});
+    for (int i = 14 * 5; i < 14 * 6 - 4; i++)
+        WS2812_LED_SetRGB(&ws2812, i, (RGB){.R = 210, .G = 255, .B = 210});
+}
+
+void WS2812_TurnOff_Pattern(WS2812* ws) {
     for (int i = 0; i < MAX_LED; i++) {
         WS2812_LED_ClearRGB(ws, i);
     }
@@ -179,20 +194,23 @@ void WS2812_LED_Task(void const* par) {
         WS2812_LED_SetBrightness(&ws2812, brightness);
         switch (rgb_mode) {
         case LOOPMODE:
-            WS2812_LoopTask(&ws2812);
+            WS2812_Loop_Pattern(&ws2812);
             break;
         case BREATHMODE:
-            WS2812_BreathTask(&ws2812);
+            WS2812_Breath_Pattern(&ws2812);
             break;
         case STATICMODE:
-            WS2812_StaticTask(&ws2812);
+            WS2812_Static_Pattern(&ws2812);
+            break;
+        case LAYEREDMODE:
+            WS2812_Layered_Pattern(&ws2812);
             break;
         case STATICBREATHMODE:
-            WS2812_StaticBreathTask(&ws2812);
+            WS2812_Monotonic_Breate_Pattern(&ws2812);
             break;
         case WS2812DISABLE:
         default:
-            WS2812_Disable(&ws2812);
+            WS2812_TurnOff_Pattern(&ws2812);
             break;
         }
         WS2812_sendData(&ws2812);

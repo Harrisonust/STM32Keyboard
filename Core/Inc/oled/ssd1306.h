@@ -143,6 +143,7 @@ void ssd1306_DrawCircle(uint8_t par_x, uint8_t par_y, uint8_t par_r, SSD1306_COL
 void ssd1306_Polyline(const SSD1306_VERTEX* par_vertex, uint16_t par_size, SSD1306_COLOR color);
 void ssd1306_DrawRectangle(uint8_t x1, uint8_t y1, uint8_t x2, uint8_t y2, SSD1306_COLOR color);
 void ssd1306_DrawPic(const uint16_t* pic, uint8_t x, uint8_t y);
+void ssd1306_DrawInvertedPic(const uint16_t* pic, uint8_t x, uint8_t y);
 /**
  * @brief Sets the contrast of the display.
  * @param[in] value contrast to set.

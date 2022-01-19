@@ -69,6 +69,7 @@ void send_password() {
 void buttonsend_key(Button* b, ButtonEvent e);
 void buttonFreeKey(Button* b, ButtonEvent e);
 void buttonDebug(Button* b, ButtonEvent e);
+void switch_selected_target(Button* b, ButtonEvent e);
 
 void buttons_init(Button* btns, const int len) {
     button_init(&btns[0], Pin(COL0), Pin(ROW0), KEY_ESC);
@@ -164,7 +165,20 @@ void buttons_init(Button* btns, const int len) {
     }
     btns[73].button_clicked_listener = switch_RGB_backlight;
     btns[73].button_released_listener = NULL;
-    btns[73].button_holding_listener = NULL;
+    btns[73].button_holding_listener = switch_selected_target;
+}
+
+void switch_selected_target(Button* b, ButtonEvent e) {
+    static uint8_t cnt = 0;
+    if (cnt % 2 == 0) {
+        buttons[73].button_clicked_listener = switch_RGB_backlight;
+        // ssd1306_DrawInvertedPic()
+    }
+    if (cnt % 2 == 1) {
+        buttons[73].button_clicked_listener = OS_switch;
+        // ssd1306_DrawInvertedPic();
+    }
+    cnt++;
 }
 
 void buttonDebug(Button* b, ButtonEvent e) {

@@ -42,6 +42,7 @@ typedef enum {
     BREATHMODE,
     LOOPMODE,
     STATICBREATHMODE,
+    LAYEREDMODE,
     NUM_OF_RGB_MODE
 } WS2812Mode;
 
@@ -96,9 +97,9 @@ void WS2812_LED_SetRGB(WS2812* ws, const uint32_t LED_index, const RGB rgb);
 void WS2812_LED_ClearRGB(WS2812* ws, const uint32_t LED_index);
 
 // three different patterns of led which is called inside WS2812_LED_Task
-void WS2812_LoopTask(WS2812* ws);
-void WS2812_BreathTask(WS2812* ws);
-void WS2812_StaticTask(WS2812* ws);
+void WS2812_Loop_Pattern(WS2812* ws);
+void WS2812_Breath_Pattern(WS2812* ws);
+void WS2812_Static_Pattern(WS2812* ws);
 void WS2812_sendData(WS2812* ws);
 
 // an infinite loop
