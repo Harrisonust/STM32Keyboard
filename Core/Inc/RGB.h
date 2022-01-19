@@ -10,9 +10,10 @@
 #include <stdlib.h>
 
 #include "main.h"
+#include "matrix_button.h"
 
 #define RESET_TIMEOUT 50
-#define MAX_LED 83
+#define MAX_LED 80
 
 typedef struct {
     uint32_t LED_num;
@@ -40,6 +41,7 @@ typedef enum {
     STATICMODE,
     BREATHMODE,
     LOOPMODE,
+    STATICBREATHMODE,
     NUM_OF_RGB_MODE
 } WS2812Mode;
 
@@ -102,4 +104,5 @@ void WS2812_sendData(WS2812* ws);
 // an infinite loop
 void WS2812_LED_Task(const void* par);
 
+void switch_RGB_backlight(Button* b, ButtonEvent e);
 #endif /* INC_WS2812_H_ */

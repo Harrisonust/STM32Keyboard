@@ -542,7 +542,7 @@ void StartUSBTask(void const *argument) {
 
 /* USER CODE BEGIN Header_StartDebugTask02 */
 uint32_t last_keyinterrupt_tick = 0;
-extern WS2812Mode last_rgb_mode;
+// extern WS2812Mode last_rgb_mode;
 extern WS2812Mode rgb_mode;
 uint32_t SLEEPMODE_TIMEOUT = 10000;
 uint8_t ssd_do_once_flag = 1;

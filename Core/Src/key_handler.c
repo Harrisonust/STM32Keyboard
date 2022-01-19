@@ -13,6 +13,7 @@
 #include "HID_code.h"
 #include "host_OS.h"
 #include "display_icon.h"
+#include "RGB.h"
 
 // clang-format on
 
@@ -161,7 +162,7 @@ void buttons_init(Button* btns, const int len) {
         btns[i].button_holding_listener = buttonsend_key;
         btns[i].button_released_listener = buttonFreeKey;
     }
-    btns[73].button_clicked_listener = OS_switch;
+    btns[73].button_clicked_listener = switch_RGB_backlight;
     btns[73].button_released_listener = NULL;
     btns[73].button_holding_listener = NULL;
 }
