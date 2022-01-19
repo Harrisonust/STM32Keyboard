@@ -20,8 +20,8 @@ void encoder_init() {
 int32_t vol_counter = 0;
 int32_t prev_vol_counter = 0;
 void HAL_TIM_IC_CaptureCallback(TIM_HandleTypeDef *htim) {
-    prev_vol_counter = vol_counter;
     vol_counter = __HAL_TIM_GET_COUNTER(htim) / ENCODER_STEP;
+
 }
 
 /**
@@ -53,4 +53,5 @@ void volume_handler() {
             send_key(KEY_F11, m);  //volume down
     } else if (vol_state == VOLUME_NO_ACTION) {
     }
+    prev_vol_counter = vol_counter;
 }
