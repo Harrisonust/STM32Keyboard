@@ -1,5 +1,6 @@
 #include "battery.h"
 
+#include "display_icon.h"
 #include "main.h"
 #include "ssd1306.h"
 

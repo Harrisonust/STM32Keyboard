@@ -11,6 +11,12 @@
 #include "host_OS.h"
 #include "key_handler.h"
 
+extern TIM_HandleTypeDef htim2;
+
+void encoder_init() {
+    htim2.Instance->CNT = 0xffff / 2;
+}
+
 int32_t vol_counter = 0;
 int32_t prev_vol_counter = 0;
 void HAL_TIM_IC_CaptureCallback(TIM_HandleTypeDef *htim) {

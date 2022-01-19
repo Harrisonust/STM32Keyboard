@@ -17,8 +17,10 @@ typedef enum {
     VOLUME_DOWN
 } Volume_State;
 
-Volume_State update_volume();
+void encoder_init(void);
 
-void volume_handler();
+Volume_State update_volume(void);
+
+void volume_handler(void);
 
 #endif /* INC_VOLUME_H_ */

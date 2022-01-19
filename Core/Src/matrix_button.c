@@ -6,7 +6,7 @@
  * @param      button  The button
  */
 void button_init(Button *button, GPIO_TypeDef *Out_GPIOx, uint16_t Out_GPIO_Pin,
-                 GPIO_TypeDef *In_GPIOx, uint16_t In_GPIO_Pin) {
+                 GPIO_TypeDef *In_GPIOx, uint16_t In_GPIO_Pin, uint8_t kcode) {
     button->Button_Output_Port = Out_GPIOx;
     button->Button_Output_Pin = Out_GPIO_Pin;
     button->Button_Input_Port = In_GPIOx;
@@ -15,6 +15,8 @@ void button_init(Button *button, GPIO_TypeDef *Out_GPIOx, uint16_t Out_GPIO_Pin,
     button->button_released_listener = NULL;
     button->button_clicked_listener = NULL;
     button->button_holding_listener = NULL;
+
+    button->keycode = kcode;
 
     // button->debounce_threshold = 10;
 }

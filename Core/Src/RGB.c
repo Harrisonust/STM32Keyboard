@@ -167,9 +167,11 @@ void WS2812_LED_Task(const void* par) {
     uint32_t last_tick = 0;
 
     for (;;) {
-        if (HAL_GetTick() - last_tick > 5000) {
-            HAL_GPIO_TogglePin(LED1_GPIO_Port, LED1_Pin);
+        if (HAL_GetTick() - last_tick > 3010) {
+            HAL_GPIO_WritePin(LED1_GPIO_Port, LED1_Pin, 1);
             last_tick = HAL_GetTick();
+        } else if (HAL_GetTick() - last_tick < 3000) {
+            HAL_GPIO_WritePin(LED1_GPIO_Port, LED1_Pin, 0);
         }
 
         if (sleep_mode) {

@@ -4,6 +4,7 @@
  *  Created on: Nov 18, 2021
  *      Author: Steven
  */
+// TODO clean up and migrate to new model
 
 #include "fingerprint.h"
 

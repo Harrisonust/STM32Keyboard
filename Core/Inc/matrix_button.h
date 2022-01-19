@@ -46,12 +46,15 @@ typedef struct BUTTON_DEF {
 } Button;
 
 /**
- * @brief      Initialize the button on a GPIO pin
+ * @brief      Initialize the button
  *
  * @param      button  The button
+ * @param	   Out_GPIO 
+ * @param	   In_GPIO 
+ * @param	   kcode keycode for the button 
  */
 void button_init(Button *button, GPIO_TypeDef *Out_GPIOx, uint16_t Out_GPIO_Pin,
-                 GPIO_TypeDef *In_GPIOx, uint16_t In_GPIO_Pin);
+                 GPIO_TypeDef *In_GPIOx, uint16_t In_GPIO_Pin, uint8_t kcode);
 
 /**
  * @brief      Returns whether the given button is pressed
@@ -71,6 +74,9 @@ uint8_t button_read(Button *button);
  */
 void button_update(Button *button);
 
+/** 
+ * @brief	Iterate through buttons and call button_update() 
+ */
 void buttons_update(Button *button, uint16_t len);
 
 #endif /* INC_MATRIX_BUTTON_H_ */
