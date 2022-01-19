@@ -12,7 +12,7 @@
 #include "main.h"
 
 #define RESET_TIMEOUT 50
-#define MAX_LED 16
+#define MAX_LED 83
 
 typedef struct {
     uint32_t LED_num;

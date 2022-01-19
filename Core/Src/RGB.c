@@ -153,27 +153,19 @@ void WS2812_Disable(WS2812* ws) {
     }
 }
 
-uint32_t brightness = 150;
+uint32_t brightness = 30;
 uint8_t do_once_flag = 1;
 WS2812Mode rgb_mode = LOOPMODE;
 WS2812Mode last_rgb_mode = LOOPMODE;
 extern uint8_t sleep_mode;
 
-void WS2812_LED_Task(const void* par) {
+void WS2812_LED_Task(void const* par) {
     WS2812_InitStruct ws2812_initStruct = {.LED_num = MAX_LED, .tim = &htim1, .channel = TIM_CHANNEL_1};
     WS2812_init(&ws2812, &ws2812_initStruct);
     uint32_t color_index = 0;
     int32_t led_index = 0;
-    uint32_t last_tick = 0;
 
     for (;;) {
-        if (HAL_GetTick() - last_tick > 3010) {
-            HAL_GPIO_WritePin(LED1_GPIO_Port, LED1_Pin, 1);
-            last_tick = HAL_GetTick();
-        } else if (HAL_GetTick() - last_tick < 3000) {
-            HAL_GPIO_WritePin(LED1_GPIO_Port, LED1_Pin, 0);
-        }
-
         if (sleep_mode) {
             rgb_mode = WS2812DISABLE;
         }
@@ -211,18 +203,9 @@ void WS2812_LED_Task(const void* par) {
             led_index += step;
             break;
         case STATICMODE:;
-            uint32_t data[MAX_LED] = {0};
-            if (do_once_flag) {
-                // Flash_Read_Data (LED_START_ADDR, &data, MAX_LED);
-                do_once_flag = 0;
-                for (int i = 0; i < MAX_LED; i++) {
-                    if (data[i] == 0xFFFFFFFF)
-                        continue;
-                    for (int j = 0; j < SELECTION; j++)
-                        ws2812.LED_Data[i][j] = (uint8_t)(data[i] >> (8 * j));
-                }
-            }
-            break;
+            // for (int i = 0; i < MAX_LED; i++)
+            //     WS2812_LED_SetRGB(&ws2812, i, defaultColorList[0]);
+            // break;
         case WS2812DISABLE:
             WS2812_Disable(&ws2812);
             break;
