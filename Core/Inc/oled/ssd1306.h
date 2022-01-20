@@ -172,7 +172,6 @@ SSD1306_Error_t ssd1306_FillBuffer(uint8_t* buf, uint32_t len);
 #define PIC_ROW_LEN 16
 #define PIC_COL_LEN 16
 
-
 _END_STD_C
 
 #endif  // __SSD1306_H__

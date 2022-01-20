@@ -7,6 +7,7 @@
 #include "RGB.h"
 
 #include "cmsis_os.h"
+#include "display_icon.h"
 #include "key_handler.h"
 #include "led_page.h"
 #include "ssd1306.h"
@@ -218,4 +219,10 @@ void WS2812_LED_Task(void const* par) {
         osDelay(200 * (1 - speed / 100.0));
     }
     WS2812_Deinit(&ws2812);
+}
+
+extern Display_selected_page s_page;
+void RGB_display_update(void) {
+    ssd1306_DrawPic(RGB_ICON, 24 * 4, 1);
+    ssd1306_DrawRectangle(24 * 4, 0, 24 * 4 + 16, 16, s_page == DISPLAY_RGB_PAGE);
 }

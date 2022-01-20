@@ -70,6 +70,8 @@ void buttonsend_key(Button* b, ButtonEvent e);
 void buttonFreeKey(Button* b, ButtonEvent e);
 void buttonDebug(Button* b, ButtonEvent e);
 void switch_selected_target(Button* b, ButtonEvent e);
+void lock_release(Button* b, ButtonEvent e);
+void keyboard_mode_handler(Button* b, ButtonEvent e);
 
 void buttons_init(Button* btns, const int len) {
     button_init(&btns[0], Pin(COL0), Pin(ROW0), KEY_ESC);
@@ -163,22 +165,32 @@ void buttons_init(Button* btns, const int len) {
         btns[i].button_holding_listener = buttonsend_key;
         btns[i].button_released_listener = buttonFreeKey;
     }
-    btns[73].button_clicked_listener = switch_RGB_backlight;
-    btns[73].button_released_listener = NULL;
+    btns[73].button_clicked_listener = OS_switch;
+    btns[73].button_released_listener = lock_release;
     btns[73].button_holding_listener = switch_selected_target;
 }
 
+static uint8_t lock = 1;
+void lock_release(Button* b, ButtonEvent e) {
+    lock = 1;
+}
+
+Display_selected_page s_page = 0;
 void switch_selected_target(Button* b, ButtonEvent e) {
     static uint8_t cnt = 0;
-    if (cnt % 2 == 0) {
-        buttons[73].button_clicked_listener = switch_RGB_backlight;
-        // ssd1306_DrawInvertedPic()
+    if (lock) {  // todo click listener will be invoked once before long press listener
+        if (cnt % DISPLAY_NUM_PAGE == DISPLAY_RGB_PAGE)
+            buttons[73].button_clicked_listener = switch_RGB_backlight;
+        if (cnt % DISPLAY_NUM_PAGE == DISPLAY_OS_PAGE)
+            buttons[73].button_clicked_listener = OS_switch;
+        if (cnt % DISPLAY_NUM_PAGE == DISPLAY_CONNECTION_PAGE)
+            buttons[73].button_clicked_listener = keyboard_mode_handler;
+        if (cnt % DISPLAY_NUM_PAGE == DISPLAY_OPERATION_PAGE)
+            buttons[73].button_clicked_listener = keyboard_mode_handler;
+        s_page = cnt % DISPLAY_NUM_PAGE;
+        cnt++;
     }
-    if (cnt % 2 == 1) {
-        buttons[73].button_clicked_listener = OS_switch;
-        // ssd1306_DrawInvertedPic();
-    }
-    cnt++;
+    lock = 0;
 }
 
 void buttonDebug(Button* b, ButtonEvent e) {
@@ -251,22 +263,27 @@ void buttonFreeKey(Button* b, ButtonEvent e) {
     }
 }
 
-void keyboard_mode_handler() {
+void keyboard_mode_handler(Button* b, ButtonEvent e) {
     // if (readKey(0, 0)) {
     //     keyboard_operation_mode++;
     //     keyboard_operation_mode %= 2;
     // }
+    HAL_GPIO_TogglePin(LED3_GPIO_Port, LED3_Pin);
 }
 
 void keyboard_mode_display_update() {
     if (keyboard_connection_mode == KEYBOARD_CONNECTION_MODE_CABLE)
-        ssd1306_DrawPic(CABLE_ICON, 60, 1);
+        ssd1306_DrawPic(CABLE_ICON, 24 * 2, 1);
     else if (keyboard_connection_mode == KEYBOARD_CONNECTION_MODE_BLUETOOTH)
-        ssd1306_DrawPic(BLE_ICON, 60, 1);
-    if (keyboard_operation_mode == KEYBOARD_OPERATION_MODE_CONFIG)
-        ssd1306_DrawPic(SETTING_ICON, 90, 1);
-    else if (keyboard_operation_mode == KEYBOARD_OPERATION_MODE_NORMAL)
-        ssd1306_DrawPic(NORMAL_ICON, 90, 1);
+        ssd1306_DrawPic(BLE_ICON, 24 * 2, 1);
+    if (keyboard_operation_mode == KEYBOARD_OPERATION_MODE_CONFIG) {
+        ssd1306_DrawPic(SETTING_ICON, 24 * 3, 1);
+    } else if (keyboard_operation_mode == KEYBOARD_OPERATION_MODE_NORMAL) {
+        ssd1306_DrawPic(NORMAL_ICON, 24 * 3, 1);
+    }
+
+    ssd1306_DrawRectangle(24 * 2, 0, 24 * 2 + 16, 16, s_page == DISPLAY_CONNECTION_PAGE);
+    ssd1306_DrawRectangle(24 * 3, 0, 24 * 3 + 16, 16, s_page == DISPLAY_OPERATION_PAGE);
 }
 
 void key_thread(void) {

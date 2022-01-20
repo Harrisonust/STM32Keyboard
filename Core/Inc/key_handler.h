@@ -2,8 +2,7 @@
 #define KEY_HANDLER_H
 
 #include "main.h"
-//
-// #include "matrix_button.h"
+#include "matrix_button.h"
 
 #define KEYBOARD_LAYOUT_84
 
@@ -47,8 +46,6 @@ typedef struct {
 } KeyModifier;
 
 typedef struct {
-    GPIO_TypeDef *keyboardEnablePort;
-    uint16_t keyboardEnablePin;
     keyboardHID hid;
 } keyboardStruct;
 
@@ -62,13 +59,19 @@ typedef enum {
     KEYBOARD_OPERATION_MODE_CONFIG
 } KEYBOARD_OPERATION_MODE;
 
+typedef enum {
+    DISPLAY_OS_PAGE,
+    DISPLAY_CONNECTION_PAGE,
+    DISPLAY_OPERATION_PAGE,
+    DISPLAY_RGB_PAGE,
+    DISPLAY_NUM_PAGE
+} Display_selected_page;
+
 void key_thread(void);
 
 void send_key(const uint8_t ch, const KeyModifier mod);
 
 void send_password();
-
-void keyboard_mode_handler();
 
 void keyboard_mode_display_update();
 #endif

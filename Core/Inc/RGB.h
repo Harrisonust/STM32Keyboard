@@ -106,4 +106,7 @@ void WS2812_sendData(WS2812* ws);
 void WS2812_LED_Task(const void* par);
 
 void switch_RGB_backlight(Button* b, ButtonEvent e);
+
+void RGB_display_update(void);
+
 #endif /* INC_WS2812_H_ */

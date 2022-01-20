@@ -542,34 +542,30 @@ void StartUSBTask(void const *argument) {
 
 /* USER CODE BEGIN Header_StartDebugTask02 */
 uint32_t last_keyinterrupt_tick = 0;
-// extern WS2812Mode last_rgb_mode;
-extern WS2812Mode rgb_mode;
 uint32_t SLEEPMODE_TIMEOUT = 10000;
 uint8_t ssd_do_once_flag = 1;
 uint8_t sleep_mode = 0;
 extern KEYBOARD_OPERATION_MODE keyboard_operation_mode;
-extern KEYBOARD_CONNECTION_MODE keyboard_connection_mode;
 uint32_t oled_tick = 0;
 uint8_t send_password_flag = 0;
 
 void HAL_GPIO_EXTI_Callback(uint16_t GPIO_Pin) {
-    if (GPIO_Pin == ROW0_Pin || GPIO_Pin == ROW1_Pin || GPIO_Pin == ROW2_Pin ||
-        GPIO_Pin == ROW3_Pin) {
-        last_keyinterrupt_tick = HAL_GetTick();
-        // rgb_mode = last_rgb_mode;
-        sleep_mode = 0;
-        ssd_do_once_flag = 1;
-    }
-    if (GPIO_Pin == FINGERPRINT_INT_Pin) {
-        if (keyboard_operation_mode == KEYBOARD_OPERATION_MODE_NORMAL) {
-            uint8_t result = check_fingerprint();
-            if (result == 0) {
-                led_mode(0);
-                send_password_flag = 1;
-                led_mode(1);
-            }
-        }
-    }
+    // if (GPIO_Pin == ROW0_Pin || GPIO_Pin == ROW1_Pin || GPIO_Pin == ROW2_Pin ||
+    //     GPIO_Pin == ROW3_Pin) {
+    //     last_keyinterrupt_tick = HAL_GetTick();
+    //     sleep_mode = 0;
+    //     ssd_do_once_flag = 1;
+    // }
+    // if (GPIO_Pin == FINGERPRINT_INT_Pin) {
+    //     if (keyboard_operation_mode == KEYBOARD_OPERATION_MODE_NORMAL) {
+    //         uint8_t result = check_fingerprint();
+    //         if (result == 0) {
+    //             led_mode(0);
+    //             send_password_flag = 1;
+    //             led_mode(1);
+    //         }
+    //     }
+    // }
 }
 /* USER CODE END Header_StartDebugTask02 */
 void StartDebugTask02(void const *argument) {

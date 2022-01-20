@@ -277,4 +277,23 @@ static const uint16_t NORMAL_ICON[] = {
     0x0000,
     0x0000};
 
+static const uint16_t RGB_ICON[] = {
+    0x03c0, 
+    0x0ff0, 
+    0x1ff8, 
+    0x1ff8, 
+    0x3ffc, 
+    0x3ffc, 
+    0x3ffc, 
+    0x1ff8, 
+    0x1ff8, 
+    0x0ff0, 
+    0x07e0, 
+    0x03c0, 
+    0x0240, 
+    0x03c0, 
+    0x0240, 
+    0x0180
+};
+
 #endif
