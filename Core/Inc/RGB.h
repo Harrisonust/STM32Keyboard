@@ -43,6 +43,7 @@ typedef enum {
     LOOPMODE,
     STATICBREATHMODE,
     LAYEREDMODE,
+    THEMATRIXMODE,
     NUM_OF_RGB_MODE
 } WS2812Mode;
 

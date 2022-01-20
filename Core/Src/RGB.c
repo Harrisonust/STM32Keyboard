@@ -52,6 +52,8 @@ void WS2812_LED_Set(WS2812* ws, const uint32_t index, const uint8_t R, const uin
 }
 
 void WS2812_LED_SetRGB(WS2812* ws, const uint32_t LED_index, const RGB rgb) {
+    if (LED_index < 0 || LED_index >= MAX_LED)
+        return;
     WS2812_LED_Set(ws, LED_index, rgb.R, rgb.G, rgb.B);  // TODO clean this function
 }
 
@@ -145,12 +147,45 @@ void WS2812_Monotonic_Breate_Pattern(WS2812* ws) {
         WS2812_LED_SetRGB(&ws2812, i, defaultColorList[color_index]);
 }
 
-// uint8_t speed;
-// void WS2812_TheMatrixTask(WS2812* ws) {
-//     speed = 15;
+void WS2812_The_Matrix_Pattern(WS2812* ws) {
+    speed = 50;
+    WS2812_LED_SetBrightness(&ws2812, 20);
+    const uint8_t step = 10;
+    static uint8_t i[4] = {0, 5, 2, 8};
+    const uint8_t heads[4] = {79, 75, 72, 70};
+    for (int index = 0; index < 4; index++) {
+        if (i[index] < step) {
+            int32_t head = heads[index] - 14 * i[index];
+            int32_t tail = heads[index] - 14 * (i[index] - 2);
+            if (head >= 14 && head < 81)
+                WS2812_LED_SetRGB(&ws2812, head, (RGB)WS2812_GREEN);
+            if (tail >= 14 && tail < 81)
+                WS2812_LED_SetRGB(&ws2812, tail, (RGB)WS2812_NONE);
+            i[index]++;
+        } else
+            i[index] = 0;
+    }
+}
 
-//     WS2812_LED_SetRGB(&ws2812, 0, (RGB)WS2812_GREEN);
-// }
+void WS2812_The_Matrix_Hor_Pattern(WS2812* ws) {
+    speed = 50;
+    WS2812_LED_SetBrightness(&ws2812, 20);
+    const uint8_t step = 20;
+    static uint8_t i[4] = {0, 11, 5, 15};
+    const uint8_t heads[4] = {14 * 2 - 1, 14 * 3 - 1, 14 * 4 - 1, 14 * 6 - 1};
+    for (int index = 0; index < 4; index++) {
+        if (i[index] < step) {
+            int32_t head = heads[index] - i[index];
+            int32_t tail = heads[index] - (i[index] - 2);
+            if (head >= heads[index] - 14 && head <= heads[index])
+                WS2812_LED_SetRGB(&ws2812, head, (RGB)WS2812_GREEN);
+            if (tail >= heads[index] - 14 && tail <= heads[index])
+                WS2812_LED_SetRGB(&ws2812, tail, (RGB)WS2812_NONE);
+            i[index]++;
+        } else
+            i[index] = 0;
+    }
+}
 
 void WS2812_Layered_Pattern(WS2812* ws) {
     for (int i = 14 * 0; i < 14 * 1; i++)
@@ -167,6 +202,11 @@ void WS2812_Layered_Pattern(WS2812* ws) {
         WS2812_LED_SetRGB(&ws2812, i, (RGB){.R = 210, .G = 255, .B = 210});
 }
 
+void WS2812_Template_Pattern(WS2812* ws) {
+    WS2812_LED_SetBrightness(&ws2812, 20);
+    WS2812_LED_SetRGB(&ws2812, 0, (RGB){.R = 10, .G = 255, .B = 255});
+}
+
 void WS2812_TurnOff_Pattern(WS2812* ws) {
     for (int i = 0; i < MAX_LED; i++) {
         WS2812_LED_ClearRGB(ws, i);
@@ -180,7 +220,7 @@ void switch_RGB_backlight(Button* b, ButtonEvent e) {
 
 uint32_t brightness = 1;  // range from 0(nolight) to 99(full)
 uint8_t speed = 1;        // range from 0(slowest) to 99(fastest)
-WS2812Mode rgb_mode = STATICMODE;
+WS2812Mode rgb_mode = THEMATRIXMODE;
 // WS2812Mode last_rgb_mode = LOOPMODE; // TODO: keep the same mode after reboot
 // extern uint8_t sleep_mode; // TODO: implement sleep mode
 
@@ -208,6 +248,9 @@ void WS2812_LED_Task(void const* par) {
             break;
         case STATICBREATHMODE:
             WS2812_Monotonic_Breate_Pattern(&ws2812);
+            break;
+        case THEMATRIXMODE:
+            WS2812_The_Matrix_Hor_Pattern(&ws2812);
             break;
         case WS2812DISABLE:
         default:
