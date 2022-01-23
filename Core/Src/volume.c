@@ -21,7 +21,6 @@ int32_t vol_counter = 0;
 int32_t prev_vol_counter = 0;
 void HAL_TIM_IC_CaptureCallback(TIM_HandleTypeDef *htim) {
     vol_counter = __HAL_TIM_GET_COUNTER(htim) / ENCODER_STEP;
-
 }
 
 /**
@@ -43,14 +42,14 @@ void volume_handler() {
     KeyModifier m = {0};
     if (vol_state == VOLUME_DOWN) {
         if (OS_type == OS_MAC)
-            send_key(0x80, m);
+            send_hid_report(0x80, m);
         if (OS_type == OS_LINUX)
-            send_key(KEY_F12, m);  //volume up
+            send_hid_report(KEY_F12, m);  //volume up
     } else if (vol_state == VOLUME_UP) {
         if (OS_type == OS_MAC)
-            send_key(0x81, m);
+            send_hid_report(0x81, m);
         if (OS_type == OS_LINUX)
-            send_key(KEY_F11, m);  //volume down
+            send_hid_report(KEY_F11, m);  //volume down
     } else if (vol_state == VOLUME_NO_ACTION) {
     }
     prev_vol_counter = vol_counter;

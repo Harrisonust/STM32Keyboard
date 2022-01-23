@@ -39,7 +39,7 @@ void keyboardStructInit(void) {
 /**
  * TODO: add device as a parameter. e.g. cable, bluetooth
  */
-void send_key(const uint8_t ch, const KeyModifier mod) {
+void send_hid_report(const uint8_t ch, const KeyModifier mod) {
     // if (keyboard_connection_mode == KEYBOARD_CONNECTION_MODE_BLUETOOTH) {
     //     uint8_t data[1] = {'a'};
     //     HAL_UART_Transmit(&huart4, data, 1, 2000);
@@ -57,18 +57,31 @@ void send_key(const uint8_t ch, const KeyModifier mod) {
     osDelay(20);
 }
 
+void send_long_hid_report(const uint8_t ch, const KeyModifier mod) {
+    // if (keyboard_connection_mode == KEYBOARD_CONNECTION_MODE_BLUETOOTH) {
+    //     uint8_t data[1] = {'a'};
+    //     HAL_UART_Transmit(&huart4, data, 1, 2000);
+    // }
+
+    keyboardStct.hid.MODIFIER = (mod.LEFT_CTRL << 0) | (mod.LEFT_SHIFT << 1) | (mod.LEFT_ALT << 2) | (mod.LEFT_META << 3) | (mod.RIGHT_CTRL << 4) | (mod.RIGHT_SHIFT << 5) | (mod.RIGHT_ALT << 6) | (mod.RIGHT_META << 7);
+    keyboardStct.hid.KEYCODE1 = ch;
+
+    USBD_HID_SendReport(&hUsbDeviceFS, (uint8_t*)&keyboardStct.hid, sizeof(keyboardStct.hid));
+    osDelay(20);
+}
+
 void send_password() {
     // KeyModifier m = {0};
     // char pw[] = "helloElec3300";
     // for (uint8_t i = 0; i < strlen(pw); i++) {
-    //     send_key(getKeyIDByChar(pw[i]), m);
+    //     send_hid_report(getKeyIDByChar(pw[i]), m);
     //     osDelay(20);
     // }
 }
 
-void buttonsend_key(Button* b, ButtonEvent e);
-void buttonFreeKey(Button* b, ButtonEvent e);
-void buttonDebug(Button* b, ButtonEvent e);
+void button_sendkey(Button* b, ButtonEvent e);
+void button_freekey(Button* b, ButtonEvent e);
+void button_debug(Button* b, ButtonEvent e);
 void switch_selected_target(Button* b, ButtonEvent e);
 void lock_release(Button* b, ButtonEvent e);
 void keyboard_mode_handler(Button* b, ButtonEvent e);
@@ -161,9 +174,9 @@ void buttons_init(Button* btns, const int len) {
     button_init(&btns[79], Pin(COL11), Pin(ROW5), KEY_END);
 
     for (int i = 0; i < len; i++) {
-        btns[i].button_clicked_listener = buttonsend_key;
-        btns[i].button_holding_listener = buttonsend_key;
-        btns[i].button_released_listener = buttonFreeKey;
+        btns[i].button_clicked_listener = button_sendkey;
+        btns[i].button_holding_listener = button_sendkey;
+        btns[i].button_released_listener = button_freekey;
     }
     btns[73].button_clicked_listener = OS_switch;
     btns[73].button_released_listener = lock_release;
@@ -193,12 +206,11 @@ void switch_selected_target(Button* b, ButtonEvent e) {
     lock = 0;
 }
 
-void buttonDebug(Button* b, ButtonEvent e) {
+void button_debug(Button* b, ButtonEvent e) {
     HAL_GPIO_TogglePin(LED2_GPIO_Port, LED2_Pin);
-    send_key(b->keycode, keyModifier);
 }
 
-void buttonsend_key(Button* b, ButtonEvent e) {
+void button_sendkey(Button* b, ButtonEvent e) {
     switch (b->keycode) {
     case KEY_LEFTCTRL:
         keyModifier.LEFT_CTRL = 1;
@@ -229,10 +241,14 @@ void buttonsend_key(Button* b, ButtonEvent e) {
     default:
         break;
     }
-    send_key(b->keycode, keyModifier);
+
+    if (e == BUTTON_CLICKED)
+        send_hid_report(b->keycode, keyModifier);
+    if (e == BUTTON_HOLDING)
+        send_long_hid_report(b->keycode, keyModifier);
 }
 
-void buttonFreeKey(Button* b, ButtonEvent e) {
+void button_freekey(Button* b, ButtonEvent e) {
     switch (b->keycode) {
     case KEY_LEFTCTRL:
         keyModifier.LEFT_CTRL = 0;
@@ -261,6 +277,7 @@ void buttonFreeKey(Button* b, ButtonEvent e) {
     default:
         break;
     }
+    send_hid_report(KEY_NONE, (KeyModifier){0});  // clear hid report
 }
 
 void keyboard_mode_handler(Button* b, ButtonEvent e) {
