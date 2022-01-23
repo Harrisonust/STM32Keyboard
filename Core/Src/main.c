@@ -48,6 +48,7 @@ UART_HandleTypeDef huart1;
 osThreadId KeyTaskHandle;
 osThreadId OLEDTaskHandle;
 osThreadId RGBTaskHandle;
+osThreadId debugTaskHandle;
 /* USER CODE BEGIN PV */
 extern WS2812 ws2812;
 /* USER CODE END PV */
@@ -65,6 +66,7 @@ static void MX_USART1_UART_Init(void);
 void StartUSBTask(void const *argument);
 void StartOLEDTask(void const *argument);
 void WS2812_LED_Task(void const *argument);
+void StartDebugTask(void const *argument);
 
 /* USER CODE BEGIN PFP */
 /* USER CODE END PFP */
@@ -124,7 +126,7 @@ int main(void) {
 
     /* Create the thread(s) */
     /* definition and creation of KeyTask */
-    osThreadDef(KeyTask, StartUSBTask, osPriorityNormal, 0, 128);
+    osThreadDef(KeyTask, StartUSBTask, osPriorityRealtime, 0, 128);
     KeyTaskHandle = osThreadCreate(osThread(KeyTask), NULL);
 
     /* definition and creation of OLEDTask */
@@ -134,6 +136,10 @@ int main(void) {
     /* definition and creation of RGBTask */
     osThreadDef(RGBTask, WS2812_LED_Task, osPriorityIdle, 0, 128);
     RGBTaskHandle = osThreadCreate(osThread(RGBTask), NULL);
+
+    /* definition and creation of debugTask */
+    osThreadDef(debugTask, StartDebugTask, osPriorityIdle, 0, 128);
+    debugTaskHandle = osThreadCreate(osThread(debugTask), NULL);
 
     /* USER CODE BEGIN RTOS_THREADS */
     /* USER CODE END RTOS_THREADS */
@@ -661,6 +667,25 @@ void WS2812_LED_Task(void const *argument) {
     }
     WS2812_Deinit(&ws2812);
     /* USER CODE END WS2812_LED_Task */
+}
+
+/* USER CODE BEGIN Header_StartDebugTask */
+/**
+* @brief Function implementing the debugTask thread.
+* @param argument: Not used
+* @retval None
+*/
+/* USER CODE END Header_StartDebugTask */
+void StartDebugTask(void const *argument) {
+    /* USER CODE BEGIN StartDebugTask */
+    /* Infinite loop */
+    for (;;) {
+        HAL_GPIO_WritePin(LED3_GPIO_Port, LED3_Pin, 0);
+        osDelay(1000);
+        HAL_GPIO_WritePin(LED3_GPIO_Port, LED3_Pin, 1);
+        osDelay(10);
+    }
+    /* USER CODE END StartDebugTask */
 }
 
 /**
