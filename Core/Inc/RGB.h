@@ -101,6 +101,13 @@ void WS2812_LED_ClearRGB(WS2812* ws, const uint32_t LED_index);
 void WS2812_Loop_Pattern(WS2812* ws);
 void WS2812_Breath_Pattern(WS2812* ws);
 void WS2812_Static_Pattern(WS2812* ws);
+void WS2812_Layered_Pattern(WS2812* ws);
+void WS2812_Monotonic_Breate_Pattern(WS2812* ws);
+void WS2812_The_Matrix_Hor_Pattern(WS2812* ws);
+void WS2812_TurnOff_Pattern(WS2812* ws);
+
+int16_t constrain(const int16_t val, const int16_t lower, const int16_t upper);
+
 void WS2812_sendData(WS2812* ws);
 
 // an infinite loop

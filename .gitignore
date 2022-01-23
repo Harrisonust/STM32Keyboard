@@ -6,6 +6,8 @@ build/
 .vscode/browse.vc.db
 .vscode/browse.vc.db-shm
 .vscode/browse.vc.db-wal
+.vscode-ctags
+.mxproject
 
 # User-specific files
 *.suo

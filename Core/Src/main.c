@@ -46,7 +46,7 @@ UART_HandleTypeDef huart4;
 UART_HandleTypeDef huart1;
 
 osThreadId KeyTaskHandle;
-osThreadId debugTask02Handle;
+osThreadId OLEDTaskHandle;
 osThreadId RGBTaskHandle;
 /* USER CODE BEGIN PV */
 extern WS2812 ws2812;
@@ -63,8 +63,8 @@ static void MX_UART4_Init(void);
 static void MX_TIM2_Init(void);
 static void MX_USART1_UART_Init(void);
 void StartUSBTask(void const *argument);
-void StartDebugTask02(void const *argument);
-void StartRGBTask(void const *argument);
+void StartOLEDTask(void const *argument);
+void WS2812_LED_Task(void const *argument);
 
 /* USER CODE BEGIN PFP */
 /* USER CODE END PFP */
@@ -124,12 +124,12 @@ int main(void) {
 
     /* Create the thread(s) */
     /* definition and creation of KeyTask */
-    osThreadDef(KeyTask, StartUSBTask, osPriorityNormal, 0, 256);
+    osThreadDef(KeyTask, StartUSBTask, osPriorityNormal, 0, 128);
     KeyTaskHandle = osThreadCreate(osThread(KeyTask), NULL);
 
-    /* definition and creation of debugTask02 */
-    osThreadDef(debugTask02, StartDebugTask02, osPriorityIdle, 0, 128);
-    debugTask02Handle = osThreadCreate(osThread(debugTask02), NULL);
+    /* definition and creation of OLEDTask */
+    osThreadDef(OLEDTask, StartOLEDTask, osPriorityIdle, 0, 128);
+    OLEDTaskHandle = osThreadCreate(osThread(OLEDTask), NULL);
 
     /* definition and creation of RGBTask */
     osThreadDef(RGBTask, WS2812_LED_Task, osPriorityIdle, 0, 128);
@@ -540,7 +540,7 @@ void StartUSBTask(void const *argument) {
     /* USER CODE END 5 */
 }
 
-/* USER CODE BEGIN Header_StartDebugTask02 */
+/* USER CODE BEGIN Header_StartOLEDTask */
 uint32_t last_keyinterrupt_tick = 0;
 uint32_t SLEEPMODE_TIMEOUT = 10000;
 uint8_t ssd_do_once_flag = 1;
@@ -567,10 +567,14 @@ void HAL_GPIO_EXTI_Callback(uint16_t GPIO_Pin) {
     //     }
     // }
 }
-/* USER CODE END Header_StartDebugTask02 */
-void StartDebugTask02(void const *argument) {
-    /* USER CODE BEGIN StartDebugTask02 */
-    /* Infinite loop */
+/**
+* @brief Function implementing the OLEDTask thread.
+* @param argument: Not used
+* @retval None
+*/
+/* USER CODE END Header_StartOLEDTask */
+void StartOLEDTask(void const *argument) {
+    /* USER CODE BEGIN StartOLEDTask */
     ssd1306_Init();
     display_manager_init();
     for (;;) {
@@ -604,17 +608,59 @@ void StartDebugTask02(void const *argument) {
         display_manager_update();
         osDelay(100);
     }
-    /* USER CODE END StartDebugTask02 */
+    /* USER CODE END StartOLEDTask */
 }
 
-/* USER CODE BEGIN Header_StartRGBTask */
-/* USER CODE END Header_StartRGBTask */
-void StartRGBTask(void const *argument) {
-    /* USER CODE BEGIN StartRGBTask */
-    /* Infinite loop */
-    // WS2812_LED_Task(NULL);
+/* USER CODE BEGIN Header_WS2812_LED_Task */
+/**
+* @brief Function implementing the RGBTask thread.
+* @param argument: Not used
+* @retval None
+*/
+extern uint32_t brightness;  // range from 0(nolight) to 99(full)
+extern uint8_t speed;        // range from 0(slowest) to 99(fastest)
+extern WS2812Mode rgb_mode;
+/* USER CODE END Header_WS2812_LED_Task */
+void WS2812_LED_Task(void const *argument) {
+    /* USER CODE BEGIN WS2812_LED_Task */
+    WS2812_InitStruct ws2812_initStruct = {.LED_num = MAX_LED, .tim = &htim1, .channel = TIM_CHANNEL_1};
+    WS2812_init(&ws2812, &ws2812_initStruct);
 
-    /* USER CODE END StartRGBTask */
+    for (;;) {
+        // if (sleep_mode) {
+        //     rgb_mode = WS2812DISABLE;
+        // }
+        WS2812_LED_SetBrightness(&ws2812, brightness);
+        switch (rgb_mode) {
+        case LOOPMODE:
+            WS2812_Loop_Pattern(&ws2812);
+            break;
+        case BREATHMODE:
+            WS2812_Breath_Pattern(&ws2812);
+            break;
+        case STATICMODE:
+            WS2812_Static_Pattern(&ws2812);
+            break;
+        case LAYEREDMODE:
+            WS2812_Layered_Pattern(&ws2812);
+            break;
+        case STATICBREATHMODE:
+            WS2812_Monotonic_Breate_Pattern(&ws2812);
+            break;
+        case THEMATRIXMODE:
+            WS2812_The_Matrix_Hor_Pattern(&ws2812);
+            break;
+        case WS2812DISABLE:
+        default:
+            WS2812_TurnOff_Pattern(&ws2812);
+            break;
+        }
+        WS2812_sendData(&ws2812);
+        speed = constrain(speed, 0, 99);
+        osDelay(200 * (1 - speed / 100.0));
+    }
+    WS2812_Deinit(&ws2812);
+    /* USER CODE END WS2812_LED_Task */
 }
 
 /**

@@ -224,45 +224,45 @@ WS2812Mode rgb_mode = THEMATRIXMODE;
 // WS2812Mode last_rgb_mode = LOOPMODE; // TODO: keep the same mode after reboot
 // extern uint8_t sleep_mode; // TODO: implement sleep mode
 
-void WS2812_LED_Task(void const* par) {
-    WS2812_InitStruct ws2812_initStruct = {.LED_num = MAX_LED, .tim = &htim1, .channel = TIM_CHANNEL_1};
-    WS2812_init(&ws2812, &ws2812_initStruct);
+// void WS2812_LED_Task(void const* par) {
+//     WS2812_InitStruct ws2812_initStruct = {.LED_num = MAX_LED, .tim = &htim1, .channel = TIM_CHANNEL_1};
+//     WS2812_init(&ws2812, &ws2812_initStruct);
 
-    for (;;) {
-        // if (sleep_mode) {
-        //     rgb_mode = WS2812DISABLE;
-        // }
-        WS2812_LED_SetBrightness(&ws2812, brightness);
-        switch (rgb_mode) {
-        case LOOPMODE:
-            WS2812_Loop_Pattern(&ws2812);
-            break;
-        case BREATHMODE:
-            WS2812_Breath_Pattern(&ws2812);
-            break;
-        case STATICMODE:
-            WS2812_Static_Pattern(&ws2812);
-            break;
-        case LAYEREDMODE:
-            WS2812_Layered_Pattern(&ws2812);
-            break;
-        case STATICBREATHMODE:
-            WS2812_Monotonic_Breate_Pattern(&ws2812);
-            break;
-        case THEMATRIXMODE:
-            WS2812_The_Matrix_Hor_Pattern(&ws2812);
-            break;
-        case WS2812DISABLE:
-        default:
-            WS2812_TurnOff_Pattern(&ws2812);
-            break;
-        }
-        WS2812_sendData(&ws2812);
-        speed = constrain(speed, 0, 99);
-        osDelay(200 * (1 - speed / 100.0));
-    }
-    WS2812_Deinit(&ws2812);
-}
+//     for (;;) {
+//         // if (sleep_mode) {
+//         //     rgb_mode = WS2812DISABLE;
+//         // }
+//         WS2812_LED_SetBrightness(&ws2812, brightness);
+//         switch (rgb_mode) {
+//         case LOOPMODE:
+//             WS2812_Loop_Pattern(&ws2812);
+//             break;
+//         case BREATHMODE:
+//             WS2812_Breath_Pattern(&ws2812);
+//             break;
+//         case STATICMODE:
+//             WS2812_Static_Pattern(&ws2812);
+//             break;
+//         case LAYEREDMODE:
+//             WS2812_Layered_Pattern(&ws2812);
+//             break;
+//         case STATICBREATHMODE:
+//             WS2812_Monotonic_Breate_Pattern(&ws2812);
+//             break;
+//         case THEMATRIXMODE:
+//             WS2812_The_Matrix_Hor_Pattern(&ws2812);
+//             break;
+//         case WS2812DISABLE:
+//         default:
+//             WS2812_TurnOff_Pattern(&ws2812);
+//             break;
+//         }
+//         WS2812_sendData(&ws2812);
+//         speed = constrain(speed, 0, 99);
+//         osDelay(200 * (1 - speed / 100.0));
+//     }
+//     WS2812_Deinit(&ws2812);
+// }
 
 extern Display_selected_page s_page;
 void RGB_display_update(void) {
