@@ -168,12 +168,12 @@ void WS2812_The_Matrix_Pattern(WS2812* ws) {
 }
 
 void WS2812_The_Matrix_Hor_Pattern(WS2812* ws) {
-    speed = 50;
+    speed = 40;
     WS2812_LED_SetBrightness(&ws2812, 20);
     const uint8_t step = 20;
-    static uint8_t i[4] = {0, 11, 5, 15};
-    const uint8_t heads[4] = {14 * 2 - 1, 14 * 3 - 1, 14 * 4 - 1, 14 * 6 - 1};
-    for (int index = 0; index < 4; index++) {
+    static uint8_t i[6] = {0, 11, 5, 15, 19, 8};
+    const uint8_t heads[6] = {14 * 1 - 1, 14 * 2 - 1, 14 * 3 - 1, 14 * 4 - 1, 14 * 5 - 1, 14 * 6 - 1};
+    for (int index = 0; index < 6; index++) {
         if (i[index] < step) {
             int32_t head = heads[index] - i[index];
             int32_t tail = heads[index] - (i[index] - 2);
