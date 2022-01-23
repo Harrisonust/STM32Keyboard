@@ -41,6 +41,8 @@ uint8_t button_read(Button *button) {
  * @brief      Update state (w/ debouncing) of this button and trigger any registered listeners
  *
  * @param      button The button to update
+ * 
+ * TODO        detect if long press, if not, then detect if click
  */
 void button_update(Button *button) {
     uint8_t state = button_read(button);

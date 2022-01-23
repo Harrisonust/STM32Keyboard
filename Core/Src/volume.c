@@ -8,6 +8,7 @@
 #include "volume.h"
 
 #include "HID_code.h"
+#include "hid_queue.h"
 #include "host_OS.h"
 #include "key_handler.h"
 
@@ -37,19 +38,19 @@ Volume_State update_volume() {
 }
 
 extern OS_TYPE OS_type;
+extern HID_Queue hid_queue;
 void volume_handler() {
     Volume_State vol_state = update_volume();
-    KeyModifier m = {0};
     if (vol_state == VOLUME_DOWN) {
         if (OS_type == OS_MAC)
-            send_hid_report(0x80, m);
+            push(&hid_queue, 0x80);
         if (OS_type == OS_LINUX)
-            send_hid_report(KEY_F12, m);  //volume up
+            push(&hid_queue, KEY_F12);  //volume up
     } else if (vol_state == VOLUME_UP) {
         if (OS_type == OS_MAC)
-            send_hid_report(0x81, m);
+            push(&hid_queue, 0x81);
         if (OS_type == OS_LINUX)
-            send_hid_report(KEY_F11, m);  //volume down
+            push(&hid_queue, KEY_F11);  //volume down
     } else if (vol_state == VOLUME_NO_ACTION) {
     }
     prev_vol_counter = vol_counter;

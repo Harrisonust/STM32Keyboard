@@ -14,6 +14,7 @@
 #include "host_OS.h"
 #include "display_icon.h"
 #include "RGB.h"
+#include "hid_queue.h"
 
 // clang-format on
 
@@ -25,6 +26,7 @@ KEYBOARD_OPERATION_MODE keyboard_operation_mode = KEYBOARD_OPERATION_MODE_NORMAL
 Button buttons[NUM_OF_KEYS];
 keyboardStruct keyboardStct;
 KeyModifier keyModifier;
+HID_Queue hid_queue;
 extern OS_TYPE OS_type;
 
 void keyboardStructInit(void) {
@@ -39,35 +41,32 @@ void keyboardStructInit(void) {
 /**
  * TODO: add device as a parameter. e.g. cable, bluetooth
  */
-void send_hid_report(const uint8_t ch, const KeyModifier mod) {
+void send_hid_report(const KeyModifier mod) {
     // if (keyboard_connection_mode == KEYBOARD_CONNECTION_MODE_BLUETOOTH) {
     //     uint8_t data[1] = {'a'};
     //     HAL_UART_Transmit(&huart4, data, 1, 2000);
     // }
 
     keyboardStct.hid.MODIFIER = (mod.LEFT_CTRL << 0) | (mod.LEFT_SHIFT << 1) | (mod.LEFT_ALT << 2) | (mod.LEFT_META << 3) | (mod.RIGHT_CTRL << 4) | (mod.RIGHT_SHIFT << 5) | (mod.RIGHT_ALT << 6) | (mod.RIGHT_META << 7);
-    keyboardStct.hid.KEYCODE1 = ch;
+    keyboardStct.hid.KEYCODE1 = pop(&hid_queue);
+    keyboardStct.hid.KEYCODE2 = pop(&hid_queue);
+    keyboardStct.hid.KEYCODE3 = pop(&hid_queue);
+    keyboardStct.hid.KEYCODE4 = pop(&hid_queue);
+    keyboardStct.hid.KEYCODE5 = pop(&hid_queue);
+    keyboardStct.hid.KEYCODE6 = pop(&hid_queue);
 
     USBD_HID_SendReport(&hUsbDeviceFS, (uint8_t*)&keyboardStct.hid, sizeof(keyboardStct.hid));
-    osDelay(20);
+    osDelay(8);  // need to fine tune???
 
     keyboardStct.hid.MODIFIER = 0x00;
     keyboardStct.hid.KEYCODE1 = 0x00;
+    keyboardStct.hid.KEYCODE2 = 0x00;
+    keyboardStct.hid.KEYCODE3 = 0x00;
+    keyboardStct.hid.KEYCODE4 = 0x00;
+    keyboardStct.hid.KEYCODE5 = 0x00;
+    keyboardStct.hid.KEYCODE6 = 0x00;
     USBD_HID_SendReport(&hUsbDeviceFS, (uint8_t*)&keyboardStct.hid, sizeof(keyboardStct.hid));
-    osDelay(20);
-}
-
-void send_long_hid_report(const uint8_t ch, const KeyModifier mod) {
-    // if (keyboard_connection_mode == KEYBOARD_CONNECTION_MODE_BLUETOOTH) {
-    //     uint8_t data[1] = {'a'};
-    //     HAL_UART_Transmit(&huart4, data, 1, 2000);
-    // }
-
-    keyboardStct.hid.MODIFIER = (mod.LEFT_CTRL << 0) | (mod.LEFT_SHIFT << 1) | (mod.LEFT_ALT << 2) | (mod.LEFT_META << 3) | (mod.RIGHT_CTRL << 4) | (mod.RIGHT_SHIFT << 5) | (mod.RIGHT_ALT << 6) | (mod.RIGHT_META << 7);
-    keyboardStct.hid.KEYCODE1 = ch;
-
-    USBD_HID_SendReport(&hUsbDeviceFS, (uint8_t*)&keyboardStct.hid, sizeof(keyboardStct.hid));
-    osDelay(20);
+    osDelay(8);  // need to fine tune???
 }
 
 void send_password() {
@@ -178,6 +177,7 @@ void buttons_init(Button* btns, const int len) {
         btns[i].button_holding_listener = button_sendkey;
         btns[i].button_released_listener = button_freekey;
     }
+
     btns[73].button_clicked_listener = OS_switch;
     btns[73].button_released_listener = lock_release;
     btns[73].button_holding_listener = switch_selected_target;
@@ -191,7 +191,7 @@ void lock_release(Button* b, ButtonEvent e) {
 Display_selected_page s_page = 0;
 void switch_selected_target(Button* b, ButtonEvent e) {
     static uint8_t cnt = 0;
-    if (lock) {  // todo click listener will be invoked once before long press listener
+    if (lock) {
         if (cnt % DISPLAY_NUM_PAGE == DISPLAY_RGB_PAGE)
             buttons[73].button_clicked_listener = switch_RGB_backlight;
         if (cnt % DISPLAY_NUM_PAGE == DISPLAY_OS_PAGE)
@@ -242,10 +242,7 @@ void button_sendkey(Button* b, ButtonEvent e) {
         break;
     }
 
-    if (e == BUTTON_CLICKED)
-        send_hid_report(b->keycode, keyModifier);
-    if (e == BUTTON_HOLDING)
-        send_long_hid_report(b->keycode, keyModifier);
+    push(&hid_queue, b->keycode);
 }
 
 void button_freekey(Button* b, ButtonEvent e) {
@@ -277,7 +274,6 @@ void button_freekey(Button* b, ButtonEvent e) {
     default:
         break;
     }
-    send_hid_report(KEY_NONE, (KeyModifier){0});  // clear hid report
 }
 
 void keyboard_mode_handler(Button* b, ButtonEvent e) {
@@ -311,6 +307,8 @@ void key_thread(void) {
         if (keyboard_operation_mode == KEYBOARD_OPERATION_MODE_CONFIG) {
         } else if (keyboard_operation_mode == KEYBOARD_OPERATION_MODE_NORMAL) {
             buttons_update(buttons, NUM_OF_KEYS);
+            send_hid_report(keyModifier);  // send hid report all at once
+            clear(&hid_queue);
             volume_handler();
         }
         osDelay(1);

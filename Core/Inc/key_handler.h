@@ -69,9 +69,7 @@ typedef enum {
 
 void key_thread(void);
 
-void send_hid_report(const uint8_t ch, const KeyModifier mod);
-
-void send_long_hid_report(const uint8_t ch, const KeyModifier mod);
+void send_hid_report(const KeyModifier mod);
 
 void send_password();
 
