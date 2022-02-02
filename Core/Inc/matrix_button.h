@@ -12,7 +12,7 @@
 //
 #include "key_handler.h"
 
-#define HOLDING_COUNT_THRESHOLD 5  // need to fine tune?
+#define HOLDING_COUNT_THRESHOLD 1  // need to fine tune?
 typedef enum {
     BUTTON_CLICKED,
     BUTTON_RELEASED,

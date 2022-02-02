@@ -96,10 +96,10 @@ void lock_release(Button* b, ButtonEvent e);
 void keyboard_mode_handler(Button* b, ButtonEvent e);
 
 void buttons_init(Button* btns, const int len) {
-    button_init(&btns[0], Pin(COL0), Pin(ROW0), KEY_LEFTSHIFT);
-    button_init(&btns[1], Pin(COL1), Pin(ROW0), KEY_B);
-    button_init(&btns[2], Pin(COL2), Pin(ROW0), KEY_C);
-    button_init(&btns[3], Pin(COL3), Pin(ROW0), KEY_D);
+    button_init(&btns[0], Pin(COL0), Pin(ROW0), KEY_ESC);
+    button_init(&btns[1], Pin(COL1), Pin(ROW0), KEY_F1);
+    button_init(&btns[2], Pin(COL2), Pin(ROW0), KEY_F2);
+    button_init(&btns[3], Pin(COL3), Pin(ROW0), KEY_F3);
     button_init(&btns[4], Pin(COL4), Pin(ROW0), KEY_F4);
     button_init(&btns[5], Pin(COL5), Pin(ROW0), KEY_F5);
     button_init(&btns[6], Pin(COL6), Pin(ROW0), KEY_F6);
@@ -111,10 +111,10 @@ void buttons_init(Button* btns, const int len) {
     button_init(&btns[12], Pin(COL12), Pin(ROW0), KEY_F12);
     button_init(&btns[13], Pin(COL13), Pin(ROW0), KEY_DELETE);
 
-    button_init(&btns[14], Pin(COL0), Pin(ROW1), KEY_E);
-    button_init(&btns[15], Pin(COL1), Pin(ROW1), KEY_F);
-    button_init(&btns[16], Pin(COL2), Pin(ROW1), KEY_G);
-    button_init(&btns[17], Pin(COL3), Pin(ROW1), KEY_H);
+    button_init(&btns[14], Pin(COL0), Pin(ROW1), KEY_GRAVE);
+    button_init(&btns[15], Pin(COL1), Pin(ROW1), KEY_1);
+    button_init(&btns[16], Pin(COL2), Pin(ROW1), KEY_2);
+    button_init(&btns[17], Pin(COL3), Pin(ROW1), KEY_3);
     button_init(&btns[18], Pin(COL4), Pin(ROW1), KEY_4);
     button_init(&btns[19], Pin(COL5), Pin(ROW1), KEY_5);
     button_init(&btns[20], Pin(COL6), Pin(ROW1), KEY_6);
@@ -126,7 +126,7 @@ void buttons_init(Button* btns, const int len) {
     button_init(&btns[26], Pin(COL12), Pin(ROW1), KEY_EQUAL);
     button_init(&btns[27], Pin(COL13), Pin(ROW1), KEY_BACKSPACE);
 
-    button_init(&btns[28], Pin(COL0), Pin(ROW2), KEY_I);
+    button_init(&btns[28], Pin(COL0), Pin(ROW2), KEY_TAB);
     button_init(&btns[29], Pin(COL1), Pin(ROW2), KEY_Q);
     button_init(&btns[30], Pin(COL2), Pin(ROW2), KEY_W);
     button_init(&btns[31], Pin(COL3), Pin(ROW2), KEY_E);
@@ -141,7 +141,7 @@ void buttons_init(Button* btns, const int len) {
     button_init(&btns[40], Pin(COL12), Pin(ROW2), KEY_RIGHTBRACE);
     button_init(&btns[41], Pin(COL13), Pin(ROW2), KEY_BACKSLASH);
 
-    button_init(&btns[42], Pin(COL0), Pin(ROW3), KEY_J);
+    button_init(&btns[42], Pin(COL0), Pin(ROW3), KEY_CAPSLOCK);
     button_init(&btns[43], Pin(COL1), Pin(ROW3), KEY_A);
     button_init(&btns[44], Pin(COL2), Pin(ROW3), KEY_S);
     button_init(&btns[45], Pin(COL3), Pin(ROW3), KEY_D);
@@ -183,7 +183,7 @@ void buttons_init(Button* btns, const int len) {
     button_init(&btns[79], Pin(COL11), Pin(ROW5), KEY_END);
 
     for (int i = 0; i < len; i++) {
-        btns[i].button_clicked_listener = button_sendkey;
+        btns[i].button_clicked_listener = NULL;
         btns[i].button_holding_listener = button_sendkey;
         btns[i].button_released_listener = button_freekey;
     }
