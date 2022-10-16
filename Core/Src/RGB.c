@@ -220,7 +220,7 @@ void switch_RGB_backlight(Button* b, ButtonEvent e) {
 
 uint32_t brightness = 1;  // range from 0(nolight) to 99(full)
 uint8_t speed = 1;        // range from 0(slowest) to 99(fastest)
-WS2812Mode rgb_mode = THEMATRIXMODE;
+WS2812Mode rgb_mode = STATICMODE;
 // WS2812Mode last_rgb_mode = LOOPMODE; // TODO: keep the same mode after reboot
 // extern uint8_t sleep_mode; // TODO: implement sleep mode
 

@@ -94,6 +94,7 @@ void button_debug(Button* b, ButtonEvent e);
 void switch_selected_target(Button* b, ButtonEvent e);
 void lock_release(Button* b, ButtonEvent e);
 void keyboard_mode_handler(Button* b, ButtonEvent e);
+void switch_debug(Button* b, ButtonEvent e);
 
 void buttons_init(Button* btns, const int len) {
     button_init(&btns[0], Pin(COL0), Pin(ROW0), KEY_ESC);

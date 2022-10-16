@@ -493,6 +493,12 @@ static void MX_GPIO_Init(void) {
     GPIO_InitStruct.Speed = GPIO_SPEED_FREQ_LOW;
     HAL_GPIO_Init(GPIOD, &GPIO_InitStruct);
 
+    /*Configure GPIO pin : ENC_SW_Pin */
+    GPIO_InitStruct.Pin = ENC_SW_Pin;
+    GPIO_InitStruct.Mode = GPIO_MODE_INPUT;
+    GPIO_InitStruct.Pull = GPIO_PULLUP;
+    HAL_GPIO_Init(ENC_SW_GPIO_Port, &GPIO_InitStruct);
+
     /*Configure GPIO pin : COL0_Pin */
     GPIO_InitStruct.Pin = COL0_Pin;
     GPIO_InitStruct.Mode = GPIO_MODE_OUTPUT_PP;
@@ -680,10 +686,15 @@ void StartDebugTask(void const *argument) {
     /* USER CODE BEGIN StartDebugTask */
     /* Infinite loop */
     for (;;) {
-        HAL_GPIO_WritePin(LED3_GPIO_Port, LED3_Pin, 0);
-        osDelay(1000);
-        HAL_GPIO_WritePin(LED3_GPIO_Port, LED3_Pin, 1);
-        osDelay(10);
+        HAL_GPIO_WritePin(LED2_GPIO_Port, LED2_Pin, 0);
+        osDelay(100);
+        HAL_GPIO_WritePin(LED2_GPIO_Port, LED2_Pin, 1);
+        osDelay(100);
+
+        if(HAL_GPIO_ReadPin(ENC_SW_GPIO_Port, ENC_SW_Pin))
+            HAL_GPIO_WritePin(LED1_GPIO_Port, LED1_Pin, 0);
+        else
+            HAL_GPIO_WritePin(LED1_GPIO_Port, LED1_Pin, 1);
     }
     /* USER CODE END StartDebugTask */
 }

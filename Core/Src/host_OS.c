@@ -10,6 +10,17 @@ OS_TYPE OS_type = OS_LINUX;
 void OS_switch(Button* b, ButtonEvent e) {
     OS_type++;
     OS_type %= OS_NUM;
+    if(e == BUTTON_CLICKED)
+        HAL_GPIO_WritePin(LED1_GPIO_Port, LED1_Pin, 1);
+    else
+        HAL_GPIO_WritePin(LED1_GPIO_Port, LED1_Pin, 0);
+}
+
+void switch_debug(Button* b, ButtonEvent e) {
+    if(e == BUTTON_CLICKED)
+        HAL_GPIO_WritePin(LED1_GPIO_Port, LED1_Pin, 1);
+    else
+        HAL_GPIO_WritePin(LED1_GPIO_Port, LED1_Pin, 0);
 }
 
 extern Display_selected_page s_page;
